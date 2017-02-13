@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Persistencia
 {
-    public class Class1
+    public class Conexion
     {
     }
 }
