@@ -10,8 +10,6 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 
 using System.Net.Mail;
-using Constants_namespace;
-using User_EN_Class;
 
 namespace Persistencia
 {
@@ -23,6 +21,7 @@ namespace Persistencia
          * Se encarga de introducir un usuario en la base de datos 
          * 
          */
+         /*
         public void InsertarUser(User_EN u)
         {
 
@@ -47,6 +46,8 @@ namespace Persistencia
         /**
          * Se encarga de mostrar el usuario que se quiere mostrar a través de su ID
          */ 
+
+            /*
         public ArrayList MostrarUser(User_EN u)
         {
             SqlConnection c = new SqlConnection(Constants.nombreConexion);
@@ -79,6 +80,7 @@ namespace Persistencia
         /**
          * Se encarga de borrar el usuario, si existe en la base de datos, a través de su ID
          **/
+         /*
         public void BorrarUser(User_EN u)
         {
 
@@ -102,6 +104,7 @@ namespace Persistencia
          * Recibe un nombre de usuario o un correo electrónico y devuelve los datos del usuario al que pertenecen.
          * En caso de que no exista tal usuario/correo, devuelve NULL
          */
+         /*
         public User_EN BuscarUser(string busqueda)
         {
             User_EN usuario = null;
@@ -136,6 +139,7 @@ namespace Persistencia
         /**
          * Se encarga de listar todos los amigos que tiene un usuario
          **/ 
+         /*
         public ArrayList ListarAmigos()
         {
             SqlConnection c = new SqlConnection(Constants.nombreConexion);
@@ -156,6 +160,7 @@ namespace Persistencia
         /**
          * Se encarga de mostrarnos todos los datos del usuario y contraseña que le pasamos
          **/ 
+         /*
         public User_EN LeerUser(User_EN u)
         {
 
@@ -197,6 +202,7 @@ namespace Persistencia
         /**
          * Se encarga de una vez recibido el email y darle al link, poner al que le perteneza ese usuario el verified a 1
          **/ 
+         /*
         public void confirmacionUser(User_EN u)
         {
             SqlConnection nueva_conexion = new SqlConnection(Constants.nombreConexion);
@@ -218,6 +224,7 @@ namespace Persistencia
          * Se encarga de actualizar el usuario si sufre alguna modificacion en alguno de sus campos
          **/ 
 
+            /*
         public void actualizarUser(User_EN u)
         {
             string genero = "NULL";
@@ -241,7 +248,7 @@ namespace Persistencia
             }
             catch (Exception ex) { ex.Message.ToString(); }
             finally { nueva_conexion.Close(); }
-        }
+        }*/
 
 
     }

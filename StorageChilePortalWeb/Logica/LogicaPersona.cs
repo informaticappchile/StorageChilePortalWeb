@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Persistencia;
 using System.Data;
-using Entidades;
 
 namespace Logica
 {
-    class Persona
+    public class LogicaPersona
     {
-        public static DataTable obtenerNombres()
+        public static DataTable ObtenerNombres()
         {
-
-            return Persistencia.
+            return Persistencia.PersistenciaPersona.ObtenerNombres();
         }
     }
 }

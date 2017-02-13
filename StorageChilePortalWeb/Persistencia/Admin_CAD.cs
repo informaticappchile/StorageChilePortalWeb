@@ -14,15 +14,16 @@ namespace Persistencia
 {
     public class Admin_CAD
     {
-
+        /*
         ArrayList lista = new ArrayList();
 
         public ArrayList MostrarUsers()
         {
-            SqlConnection c = new SqlConnection(Constants.nombreConexion);
+            //SqlConnection c = new SqlConnection(Constants.nombreConexion);
             c.Open();
             SqlCommand com = new SqlCommand("Select * from Users", c);
             SqlDataReader dr = com.ExecuteReader();
+
 
             while (dr.Read())
             {
@@ -44,6 +45,6 @@ namespace Persistencia
             c.Close();
 
             return lista;
-        }
+        }*/
     }
 }

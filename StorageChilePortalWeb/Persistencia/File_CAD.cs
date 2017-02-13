@@ -19,7 +19,7 @@ namespace Persistencia
         /**
          * Se encarga de mostrar los datos de un archivo al que le pasamos el id de ese archivo
          **/ 
-        public ArrayList MostrarFile(File_EN f)
+        /*public ArrayList MostrarFile(File_EN f)
         {   
             SqlConnection c = new SqlConnection(Constants.nombreConexion);
             c.Open();
@@ -48,7 +48,7 @@ namespace Persistencia
         /**
          * Se encarga de buscar en la base de datos,a través del id del archivo,si se encuentra o no en la base de datos
          **/ 
-        public bool BuscarFile(File_EN f)
+       /* public bool BuscarFile(File_EN f)
         {
             bool encontrado = false;
 
@@ -81,7 +81,7 @@ namespace Persistencia
         /**
          * Se encarga de subir el archivo y meterlo en la base de datos
          **/ 
-        public int SubirFile(File_EN f)
+        /*public int SubirFile(File_EN f)
         {
             SqlConnection nueva_conexion = new SqlConnection(Constants.nombreConexion);
             int id=0;
@@ -117,7 +117,7 @@ namespace Persistencia
         /**
          * Se encarga de mostrar todos los archivos de un usuario en el que tenga el profile_visibility a 1
          **/
-        public ArrayList MostrarTodosArchivos(File_EN f)
+        /*public ArrayList MostrarTodosArchivos(File_EN f)
         {
             
             SqlConnection c = new SqlConnection(Constants.nombreConexion);
@@ -174,7 +174,7 @@ namespace Persistencia
         /**
          * Se encarga de mostrar los datos de un archivo a traves del id del owner
          **/ 
-        public ArrayList MostrarDatosArchivo(File_EN f)
+       /* public ArrayList MostrarDatosArchivo(File_EN f)
         {     
             SqlConnection c = new SqlConnection(Constants.nombreConexion);
             try
@@ -204,7 +204,7 @@ namespace Persistencia
         /**
          * Se encarga de mostrar todos los archivos de un usuario
          **/ 
-        public ArrayList MostrarFilesUsuarioNombre(int propietario)
+       /* public ArrayList MostrarFilesUsuarioNombre(int propietario)
         {
             SqlConnection c = new SqlConnection(Constants.nombreConexion);
             try
@@ -236,7 +236,7 @@ namespace Persistencia
         /**
          * Se encarga de borrar el archivo de la base de datos
          **/ 
-        public void BorrarFile(File_EN f)
+        /*public void BorrarFile(File_EN f)
         {
             SqlConnection nueva_conexion = new SqlConnection(Constants.nombreConexion);
 
@@ -258,7 +258,7 @@ namespace Persistencia
          * Se encarga de mostrar las versiones que tiene un archivo
          **/ 
 
-        public int newVersion(File_EN fe)
+        /*public int newVersion(File_EN fe)
         {
             int Version=1;
             int ID_Principal;
@@ -295,7 +295,7 @@ namespace Persistencia
         /**
          * Se encarga de mostrar los likes que tiene asociada cada archivo
          **/ 
-        public ArrayList showLikes(File_EN f)
+        /*public ArrayList showLikes(File_EN f)
         {
             SqlConnection c = new SqlConnection(Constants.nombreConexion);
             try
@@ -320,7 +320,7 @@ namespace Persistencia
             finally { c.Close(); }
 
             return lista;
-        }
+        }*/
 
     }
 }

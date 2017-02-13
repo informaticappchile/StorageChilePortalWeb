@@ -10,7 +10,6 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 
 using System.Net.Mail;
-using File_CAD_Class;
 
 
 namespace File_EN_Class
@@ -76,7 +75,7 @@ namespace File_EN_Class
         {
             get { return version; }
             set { version = value; }
-        }
+        }/*
         //Declaramos la funcion mostrar archivo donde llama al cad correspondiente
         public ArrayList MostrarArchivo()
         {
@@ -150,5 +149,6 @@ namespace File_EN_Class
             fecha_modificacion = new DateTime();
         }
 
+    }*/
     }
 }
