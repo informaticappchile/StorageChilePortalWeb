@@ -13,7 +13,7 @@ using System.Net.Mail;
 using Constants_namespace;
 using User_EN_Class;
 
-namespace User_CAD_Class
+namespace Persistencia
 {
     public class User_CAD
     {

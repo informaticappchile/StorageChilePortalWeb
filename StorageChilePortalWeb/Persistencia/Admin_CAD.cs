@@ -9,11 +9,8 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 
-using Constants_namespace;
-using Admin_EN_Class;
-using User_EN_Class;
 
-namespace Admin_CAD_Class
+namespace Persistencia
 {
     public class Admin_CAD
     {

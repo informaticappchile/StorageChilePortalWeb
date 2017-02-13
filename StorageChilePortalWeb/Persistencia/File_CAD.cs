@@ -9,10 +9,8 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 
-using Constants_namespace;
-using File_EN_Class;
 
-namespace File_CAD_Class
+namespace Persistencia
 {
     public class File_CAD
     {

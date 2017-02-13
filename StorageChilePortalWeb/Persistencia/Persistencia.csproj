@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,9 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin_CAD.cs" />
+    <Compile Include="alassadska.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="Comennt_CAD.cs" />
     <Compile Include="File_CAD.cs" />
+    <Compile Include="PersistenciaPersona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User_CAD.cs" />
   </ItemGroup>
