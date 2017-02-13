@@ -5,21 +5,24 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
+using MySql.Data.MySqlClient;
 
 namespace Persistencia
 {
     public class Conexion
     {
-        SqlConnection conexion;
+        MySqlConnection conexion;
         DataTable DT;
-        SqlDataReader DR;
-        SqlCommand ds;
+        MySqlDataReader DR;
+        MySqlCommand ds;
         //Instancia la conexion a la base de datos SQL-Server
         public Conexion()
         {
-            conexion = new SqlConnection();
+            conexion = new MySqlConnection();
+            conexion.ConnectionString = "Server=sql54.main-hosting.eu;Database=u966772442_test; Uid=u966772442_info;Pwd=InfoChile2625;";
+            conexion.Open();
             //Registra la cadena de conexión SQL-Server
-            ds = new SqlCommand();
+            ds = new MySqlCommand();
             ds.Connection = conexion;
         }
 
