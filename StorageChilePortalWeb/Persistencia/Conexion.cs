@@ -19,8 +19,8 @@ namespace Persistencia
         public Conexion()
         {
             conexion = new MySqlConnection();
-            conexion.ConnectionString = "Server=sql54.main-hosting.eu;Database=u966772442_test; Uid=u966772442_info;Pwd=InfoChile2625;";
-            conexion.Open();
+            //conexion.ConnectionString = "Server=sql10.freemysqlhosting.net;Database=sql10158821; Uid=sql10158821;Pwd=iZ2FPqvKdH;";
+            //conexion.Open();
             //Registra la cadena de conexión SQL-Server
             ds = new MySqlCommand();
             ds.Connection = conexion;
