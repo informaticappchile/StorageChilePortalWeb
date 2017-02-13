@@ -5,7 +5,7 @@ using System.Text;
 using System.Data;
 namespace Persistencia
 {
-    class PersistenciaPersona
+    public class PersistenciaPersona
     {
         public static DataTable ObtenerNombres()
         {

@@ -9,7 +9,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 
-using Comennt_CAD_Class;
+
 
 namespace Comennt_EN_Class
 {
@@ -40,22 +40,22 @@ namespace Comennt_EN_Class
         }
         public void InsertarComentario()
         {
-            Comennt_CAD insertComennt = new Comennt_CAD();
-            insertComennt.InsertComennt(this);
+            //Comennt_CAD insertComennt = new Comennt_CAD();
+            //insertComennt.InsertComennt(this);
         }
 
         public void BorrarComentario()
         {
-            Comennt_CAD deleteComennt = new Comennt_CAD();
-            deleteComennt.DeleteComennt(this);
+           // Comennt_CAD deleteComennt = new Comennt_CAD();
+            //deleteComennt.DeleteComennt(this);
         }
 
         public void MostrarComentarios()
         {
             ArrayList a = new ArrayList();
 
-            Comennt_CAD showComennt = new Comennt_CAD();
-            showComennt.ShowComennts(this);
+            //Comennt_CAD showComennt = new Comennt_CAD();
+           // showComennt.ShowComennts(this);
         }
     }
 }

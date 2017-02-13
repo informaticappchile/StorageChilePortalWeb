@@ -11,7 +11,6 @@ using System.Data.SqlTypes;
 
 using System.Net.Mail;
 
-using User_CAD_Class;
 
 namespace User_EN_Class
 {
@@ -117,6 +116,7 @@ namespace User_EN_Class
         }
 
         //Declaramos la funcion insertar usuario donde llama al cad correspondiente
+        /*
         public void InsertarUsuario()
         {
             User_CAD userCad = new User_CAD();
@@ -206,6 +206,6 @@ namespace User_EN_Class
             localidad = "";
             visibilidad_perfil = false;
             verified = false;
-        }
+        }*/
     }
 }

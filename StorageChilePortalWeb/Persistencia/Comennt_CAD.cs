@@ -17,7 +17,7 @@ namespace Persistencia
         private const string s = "data source=.\\SQLEXPRESS;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\\BBDD.mdf;User Instance=true";
         ArrayList lista = new ArrayList();
 
-        public void InsertComennt(Comentario_EN c)
+       /* public void InsertComennt(Comentario_EN c)
         {
             SqlConnection nueva_conexion = new SqlConnection(Constants.nombreConexion);
 
@@ -67,7 +67,7 @@ namespace Persistencia
             c.Close();
 
             return lista;
-        }
+        }*/
 
     }
 }
