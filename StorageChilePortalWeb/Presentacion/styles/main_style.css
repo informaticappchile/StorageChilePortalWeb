@@ -8,7 +8,7 @@ body {
 	margin: 5em auto;
 }
 
-.mdl-list__item { padding: 0 0 .5em 1em; }
+.mdl-list__item { padding: 0 0 .5em 1em;}
 
 .demo-card-wide > .mdl-card__title {
 	color: #fff;
@@ -17,6 +17,7 @@ body {
 
 .demo-card-wide > .mdl-card__menu {
 	color: #fff;
+    background: #ff0000;
 }
 
 .boton-examinar {
@@ -29,7 +30,7 @@ body {
 	font-family:Roboto;
 }
 
-.botton-subir {	margin-top: 1em; }
+.botton-subir {	margin-top: 1em;}
 
 .demo-card-wide.mdl-card {
     width: 90%;
@@ -42,7 +43,7 @@ body {
     background: #7A7677;
 }
 
-.demo-card-wide > .mdl-card__menu { color: #fff; }
+.demo-card-wide > .mdl-card__menu { color: #fff;}
 
 .boton-examinar { margin-left: 40px; }
 
@@ -52,9 +53,9 @@ body {
     font-family:Roboto;
 }
 
-.botton-subir { margin-top: 10px; }
+.botton-subir { margin-top: 10px;}
 
-.mdl-layout__header { background: #ffffff; }
+.mdl-layout__header { background: #ffffff;}
 
 .demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type { padding-right: 0;}
 
@@ -65,6 +66,8 @@ body {
 }
 
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link { display: inline-block;}
+
+.mdl-layout__drawer-button {color:#ff0000;}
 
 .mdl-navigation__link i { padding-right: .5em; }
 
@@ -87,7 +90,7 @@ body {
     height: 30.0em;
     width: 80.5em;
 }
-.listado-archivos { width: 100%; }
+.listado-archivos { width: 100%;}
 
 .id-oculto { display: none; }
 
