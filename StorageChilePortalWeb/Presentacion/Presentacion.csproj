@@ -115,18 +115,90 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ArchivosUsuario.aspx" />
+    <Content Include="BusquedaArchivos.aspx" />
+    <Content Include="BusquedaUsuario.aspx" />
+    <Content Include="Control_Usuarios\ConfirmacionRegistro.aspx" />
+    <Content Include="Control_Usuarios\Editar-Perfil.aspx" />
+    <Content Include="Control_Usuarios\Login.aspx" />
+    <Content Include="Control_Usuarios\Register.aspx" />
+    <Content Include="Inicio.aspx" />
+    <Content Include="styles\cloud_background.png" />
+    <Content Include="styles\icono-mb.png" />
+    <Content Include="styles\icono-mb.svg" />
+    <Content Include="styles\main_style.css" />
+    <Content Include="Subir-archivo.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArchivosUsuario.aspx.cs">
+      <DependentUpon>ArchivosUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ArchivosUsuario.aspx.designer.cs">
+      <DependentUpon>ArchivosUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BusquedaArchivos.aspx.cs">
+      <DependentUpon>BusquedaArchivos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusquedaArchivos.aspx.designer.cs">
+      <DependentUpon>BusquedaArchivos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BusquedaUsuario.aspx.cs">
+      <DependentUpon>BusquedaUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusquedaUsuario.aspx.designer.cs">
+      <DependentUpon>BusquedaUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Control_Usuarios\ConfirmacionRegistro.aspx.cs">
+      <DependentUpon>ConfirmacionRegistro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Control_Usuarios\Editar-Perfil.aspx.cs">
+      <DependentUpon>Editar-Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Control_Usuarios\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Control_Usuarios\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inicio.aspx.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inicio.aspx.designer.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Principal.Master.cs">
+      <DependentUpon>Principal.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Principal.Master.designer.cs">
+      <DependentUpon>Principal.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Subir-archivo.aspx.cs">
+      <DependentUpon>Subir-archivo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Subir-archivo.aspx.designer.cs">
+      <DependentUpon>Subir-archivo.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Principal.Master" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
