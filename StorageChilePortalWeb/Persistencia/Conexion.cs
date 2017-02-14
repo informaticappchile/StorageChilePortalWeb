@@ -18,8 +18,8 @@ namespace Persistencia
         //Instancia la conexion a la base de datos SQL-Server
         public Conexion()
         {
-            conexion = new MySqlConnection();
-            //conexion.ConnectionString = "Server=sql10.freemysqlhosting.net;Database=sql10158821; Uid=sql10158821;Pwd=iZ2FPqvKdH;";
+            conexion = new MySqlConnection(); 
+            conexion.ConnectionString = "server=sql10.freemysqlhosting.net;user id=sql10158821;database=sql10158821;port=3306;password=iZ2FPqvKdH";
             //conexion.Open();
             //Registra la cadena de conexión SQL-Server
             ds = new MySqlCommand();
