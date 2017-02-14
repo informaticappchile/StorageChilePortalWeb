@@ -12,7 +12,7 @@ body {
 
 .demo-card-wide > .mdl-card__title {
 	color: #fff;
-	background: #26A69A;
+    background: #7A7677;
 }
 
 .demo-card-wide > .mdl-card__menu {
@@ -39,7 +39,7 @@ body {
 
 .demo-card-wide > .mdl-card__title {
     color: #fff;
-    background: #26A69A;
+    background: #7A7677;
 }
 
 .demo-card-wide > .mdl-card__menu { color: #fff; }
@@ -54,9 +54,9 @@ body {
 
 .botton-subir { margin-top: 10px; }
 
-.mdl-layout__header { background: #26A69A; }
+.mdl-layout__header { background: #ffffff; }
 
-.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type { padding-right: 0; }
+.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type { padding-right: 0;}
 
 .etiqueta-editar-perfil {
     margin-right: 1em;
@@ -64,7 +64,7 @@ body {
     text-align: right;
 }
 
-.mdl-layout__drawer .mdl-navigation .mdl-navigation__link { display: inline-block; }
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link { display: inline-block;}
 
 .mdl-navigation__link i { padding-right: .5em; }
 
@@ -77,6 +77,16 @@ body {
     margin-right: .5em;
 }
 
+.logo-web {
+    height: 3.0em;
+    width: 11.5em;
+    margin-right: .5em;
+}
+
+.slide-web {
+    height: 30.0em;
+    width: 80.5em;
+}
 .listado-archivos { width: 100%; }
 
 .id-oculto { display: none; }

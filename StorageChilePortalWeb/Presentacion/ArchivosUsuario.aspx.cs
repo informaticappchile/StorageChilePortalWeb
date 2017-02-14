@@ -24,12 +24,12 @@ namespace Prensentacion
                 User_EN en = (User_EN)Session["user_session_data"]; 
                 if (en != null)
                 {
-                    en.LeerUsuario();  //lee todos los datos del usuario de la base de datos, ya que la pagina solo proporciona login y password
+                    //en.LeerUsuario();  //lee todos los datos del usuario de la base de datos, ya que la pagina solo proporciona login y password
              
                     File_EN fi = new File_EN();
                     fi.Propietario = en.ID;//Para identificar al usuario
                     //EL griedView, mostrara un tabla con todos los datos que nos devuelva MostrarFilesUsuarioNombreEn
-                    GridViewMostrarArchivos.DataSource = fi.MostrarFilesUsuarioNombreEn();
+                    //GridViewMostrarArchivos.DataSource = fi.MostrarFilesUsuarioNombreEn();
                     GridViewMostrarArchivos.DataBind();
                     
                 }
@@ -84,7 +84,7 @@ namespace Prensentacion
             if (file.Exists)
             {
                 file.Delete(); //Borramos el archivo de la carpeta de nuestro proyecto
-                f_bbdd.BorrarArchivo(); //Borramos el archivo de la base de datos
+                //f_bbdd.BorrarArchivo(); //Borramos el archivo de la base de datos
                 Response.Redirect(Request.Url.AbsoluteUri); //Recarga página para refrescar los datos
             }
         }

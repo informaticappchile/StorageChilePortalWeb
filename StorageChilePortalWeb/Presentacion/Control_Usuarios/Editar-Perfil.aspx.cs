@@ -18,11 +18,11 @@ namespace Prensentacion
          */
         protected void InitInputClasses()
         {
-            Editar_Perfil_Contraseña.Attributes["type"] = "password"; //Engañar al servidor para que pueda recibir valores
+            /*Editar_Perfil_Contraseña.Attributes["type"] = "password"; //Engañar al servidor para que pueda recibir valores
             Editar_Perfil_Visibilidad_Switch.InputAttributes.Add("class", "mdl-switch__input");
             Editar_Perfil_Hombre.InputAttributes.Add("class", "mdl-radio__button");
             Editar_Perfil_Mujer.InputAttributes.Add("class", "mdl-radio__button");
-            Editar_Perfil_NoMostrar.InputAttributes.Add("class", "mdl-radio__button");
+            Editar_Perfil_NoMostrar.InputAttributes.Add("class", "mdl-radio__button");*/
         }
 
         /*
@@ -30,7 +30,7 @@ namespace Prensentacion
          */
         protected void CargarDatos(User_EN en)
         {
-            Editar_Perfil_Usuario.Text = en.NombreUsu;
+            /*Editar_Perfil_Usuario.Text = en.NombreUsu;
             Editar_Perfil_Nombre.Text = en.Nombre;
             Editar_Perfil_Email.Text = en.Correo;
             Editar_Perfil_Contraseña.Text = en.Contraseña;
@@ -45,7 +45,7 @@ namespace Prensentacion
                 Editar_Perfil_Visibilidad_Switch.Checked = true;
                 Editar_Perfil_Visibilidad_Label.Text = "Público";
             }
-            Editar_Perfil_ID.Text = en.ID.ToString();
+            Editar_Perfil_ID.Text = en.ID.ToString();*/
         }
 
         /*
@@ -54,7 +54,7 @@ namespace Prensentacion
          */
         protected void Editar_Perfil_Editar_Click(object sender, EventArgs e)
         {
-            Editar_Perfil_Contraseña.Text = ""; //Vaciamos la contraseña para que no la puedan copiar
+            /*Editar_Perfil_Contraseña.Text = ""; //Vaciamos la contraseña para que no la puedan copiar
 
             Editar_Perfil_Usuario.ReadOnly =
             Editar_Perfil_Nombre.ReadOnly =
@@ -69,7 +69,7 @@ namespace Prensentacion
             Editar_Perfil_Visibilidad_Switch.Enabled = true;
 
             Editar_Perfil_Editar.Visible = false;
-            Editar_Perfil_Guardar.Visible = true;
+            Editar_Perfil_Guardar.Visible = true;*/
         }
 
         /*
@@ -78,7 +78,7 @@ namespace Prensentacion
          */
         protected void Editar_Perfil_Guardar_Click(object sender, EventArgs e)
         {
-            if(Editar_Perfil_Visibilidad_Switch.Checked)
+            /*if(Editar_Perfil_Visibilidad_Switch.Checked)
             {
                 Response.Write("ON");
             } else
@@ -102,7 +102,7 @@ namespace Prensentacion
             else
                 en.Genero = null;
 
-            en.actualizarUsuario();
+            en.actualizarUsuario();*/
  
         }
 

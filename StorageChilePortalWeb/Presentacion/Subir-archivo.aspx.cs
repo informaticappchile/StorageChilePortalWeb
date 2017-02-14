@@ -18,7 +18,7 @@ namespace Prensentacion
             User_EN en = (User_EN)Session["user_session_data"];
             if (en != null)
             {
-                en.LeerUsuario();  //lee todos los datos del usuario de la base de datos, ya que la pagina solo proporciona login y password
+                //en.LeerUsuario();  //lee todos los datos del usuario de la base de datos, ya que la pagina solo proporciona login y password
                 MostrarDirectorio(en); //Muestra todo el directorio
             }
             else
@@ -57,10 +57,10 @@ namespace Prensentacion
                             
                             File_EN arx = new File_EN();
                             
-                            user.LeerUsuario(); //Leemos los datos del usuario
+                            //user.LeerUsuario(); //Leemos los datos del usuario
                             arx.Nombre = FileUpload1.FileName;
                             arx.Propietario = user.ID; //El propietario del archivo sera igual al id del usuario
-                            int id=arx.SubirArchivo();
+                            //int id=arx.SubirArchivo();
                             string pathString = path + "/" + user.ID + "/"; //Se guardara dentro de una carpeta con el id del usuario
                             Directory.CreateDirectory(pathString);
                             FileUpload1.PostedFile.SaveAs(pathString + arx.Nombre); //Guardamos el archivo en la ruta correspondiente

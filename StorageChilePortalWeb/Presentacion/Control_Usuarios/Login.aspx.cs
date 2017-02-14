@@ -15,7 +15,7 @@ namespace Prensentacion
          */ 
         protected void Button_Login_Click(object sender, EventArgs e)
         {
-            UserNotVerifiedError_Login.Visible = 
+            /*UserNotVerifiedError_Login.Visible = 
             WrongPasswordError_Login.Visible =
             UserNotExistsError_Login.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
             User_EN busqueda = new User_EN();
@@ -33,7 +33,7 @@ namespace Prensentacion
                 }
                 else WrongPasswordError_Login.Visible = true;
             }
-            else UserNotExistsError_Login.Visible = true;
+            else UserNotExistsError_Login.Visible = true;*/
         }
     }
 }

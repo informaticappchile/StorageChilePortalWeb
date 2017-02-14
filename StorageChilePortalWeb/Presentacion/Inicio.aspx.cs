@@ -21,8 +21,8 @@ namespace Prensentacion
          */
         protected void Page_Load(object sender, EventArgs e)
         {
-                File_EN fi = new File_EN();
-                GridViewMostrarTodo.DataSource = fi.MostrarAllFiles();
+                //File_EN fi = new File_EN();
+                //GridViewMostrarTodo.DataSource = fi.MostrarAllFiles();
                 GridViewMostrarTodo.DataBind();
         }
     }

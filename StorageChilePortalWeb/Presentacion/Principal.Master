@@ -6,11 +6,11 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Manteca-Box Development</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-    <link rel="stylesheet" href="styles/main_style.css" type="text/css">
+    <title>Storage Chile</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css"/>
+    <link rel="stylesheet" href="styles/main_style.css" type="text/css"/>
     <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -26,7 +26,8 @@
                         <!-- Title -->
                         <asp:HyperLink ID="Link_Inicio" runat="server" NavigateUrl="~/Inicio.aspx" CssClass="mdl-navigation__link">
                             <asp:Image ID="Logo" runat="server" ImageUrl="~/styles/icono-mb.png"  CssClass="icono-web"/>
-                            <span class="mdl-layout-title titulo">MantecaBox</span>
+                            <asp:Image ID="LogoPrincipal" runat="server" ImageUrl="~/styles/logo.png" CssClass="logo-web"/>
+                            <!--<span class="mdl-layout-title titulo">StorageChile</span> -->
                         </asp:HyperLink>
                         <div class="mdl-layout-spacer"></div>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
@@ -34,7 +35,7 @@
                                 <i class="material-icons">search</i>
                             </asp:Label>
                             <div class="mdl-textfield__expandable-holder">
-                                <asp:TextBox ID="Busqueda" runat="server" TextMode="Search" CssClass="mdl-textfield__input" OnTextChanged="Busqueda_TextChanged"></asp:TextBox>
+                                <asp:TextBox ID="Busqueda" runat="server" TextMode="Search" CssClass="mdl-textfield__input" OnTextChanged="Busqueda_TextChanged" ForeColor="#7A7677"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -43,8 +44,8 @@
                         <div class="mdl-layout-spacer"></div>
                         <!-- Navigation -->
                         <nav class="mdl-navigation">
-                            <asp:HyperLink ID="Link_Login" runat="server" NavigateUrl="~/Control_Usuarios/Login.aspx" CssClass="mdl-navigation__link">Iniciar Sesión</asp:HyperLink>
-                            <asp:HyperLink ID="Link_Register" runat="server" NavigateUrl="~/Control_Usuarios/Register.aspx" CssClass="mdl-navigation__link">Registrarse</asp:HyperLink>
+                            <asp:HyperLink ID="Link_Login" runat="server" NavigateUrl="~/Control_Usuarios/Login.aspx" ForeColor="#7A7677" CssClass="mdl-navigation__link">Iniciar Sesión</asp:HyperLink>
+                            <asp:HyperLink ID="Link_Register" runat="server" NavigateUrl="~/Control_Usuarios/Register.aspx" ForeColor="#7A7677" CssClass="mdl-navigation__link">Registrarse</asp:HyperLink>
                         </nav>
                     </div>
                 </header>

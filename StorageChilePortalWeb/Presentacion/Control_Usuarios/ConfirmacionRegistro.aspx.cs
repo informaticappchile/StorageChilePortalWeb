@@ -20,7 +20,7 @@ namespace Prensentacion
                     User_EN en = new User_EN();//Creamos un nuevo usuario
                     string email = Request.QueryString["email"].ToString();//Gracias a la url, podemos ver el usuario que ha recargado la pagina
                     en.Correo = email;//Ahora que ese usuario sea el del email
-                    en.confirmacionUsuario();//Confirmacion 
+                    //en.confirmacionUsuario();//Confirmacion 
 
                 }
             }

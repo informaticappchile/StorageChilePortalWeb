@@ -17,7 +17,7 @@ namespace Prensentacion
             if (Request.QueryString.HasKeys() && Request.QueryString.Keys[0] == "query")
             {
                 File_EN fi = new File_EN();
-                GridViewBusqueda.DataSource = fi.BuscarFiles(Request.QueryString["query"].ToString());
+                //GridViewBusqueda.DataSource = fi.BuscarFiles(Request.QueryString["query"].ToString());
                 GridViewBusqueda.DataBind();
             }
             else Response.Redirect("~/Inicio.aspx");

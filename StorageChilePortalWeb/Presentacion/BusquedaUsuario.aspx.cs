@@ -20,7 +20,7 @@ namespace Prensentacion
 
         protected void Button_Buscra_Click(object sender, EventArgs e)
         {
-            User_EN usuarioABuscar = new User_EN();
+            /*User_EN usuarioABuscar = new User_EN();
             User_EN usuario = usuarioABuscar.BuscarUsuario(usuario_buscar.Text);
             if (usuario != null)
             {
@@ -29,7 +29,7 @@ namespace Prensentacion
                 //EL griedView, mostrara un tabla con todos los datos que nos devuelva MostrarFilesUsuarioNombreEn
                 GridViewMostrarArchivosUsuario.DataSource = fi.MostrarFilesUsuarioNombreEn();
                 GridViewMostrarArchivosUsuario.DataBind();
-            }
+            }*/
         }
     }
 }
