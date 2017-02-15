@@ -6,11 +6,14 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
     <title>Storage Chile</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css"/>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css"/>
-    <link rel="stylesheet" href="styles/main_style.css" type="text/css"/>
+    <link rel="stylesheet" href="CSS/W3.css"/>
+    <link rel="stylesheet" href="CSS/main_style.css" type="text/css"/>
     <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>

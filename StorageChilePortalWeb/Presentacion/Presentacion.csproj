@@ -122,14 +122,17 @@
     <Content Include="Control_Usuarios\Editar-Perfil.aspx" />
     <Content Include="Control_Usuarios\Login.aspx" />
     <Content Include="Control_Usuarios\Register.aspx" />
+    <Content Include="CSS\w3.css" />
     <Content Include="Inicio.aspx" />
     <Content Include="Slides\Slide1.png" />
+    <Content Include="Slides\Slide2.jpg" />
+    <Content Include="Slides\Slide3.jpg" />
     <Content Include="styles\cloud_background.png" />
     <Content Include="styles\icono-mb1.png" />
     <Content Include="styles\icono-mb.svg" />
     <Content Include="styles\icono-mb.png" />
     <Content Include="styles\logo.png" />
-    <Content Include="styles\main_style.css" />
+    <Content Include="CSS\main_style.css" />
     <Content Include="Subir-archivo.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
