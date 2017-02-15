@@ -39,7 +39,7 @@
             function ScaleSlider() {
                 var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
                 if (refSize) {
-                    refSize = Math.min(refSize, 1000);
+                    refSize = Math.min(refSize, 1400);
                     jssor_1_slider.$ScaleWidth(refSize);
                 }
                 else {
@@ -119,6 +119,12 @@
                 <img data-u="image" src="Slides/Slide2.jpg" />
             </div>
             <a data-u="any" href="http://www.jssor.com" style="display:none">Simple Fade Slideshow</a>
+            <div>
+                <img data-u="image" src="Slides/Slide3.jpg"/>
+            </div>
+            <div>
+                <img data-u="image" src="Slides/Slide2.jpg"/>
+            </div>
             <div>
                 <img data-u="image" src="Slides/Slide3.jpg"/>
             </div>
