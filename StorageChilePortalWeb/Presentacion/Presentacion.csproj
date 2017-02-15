@@ -127,11 +127,14 @@
     <Content Include="Slides\Slide1.png" />
     <Content Include="Slides\Slide2.jpg" />
     <Content Include="Slides\Slide3.jpg" />
-    <Content Include="styles\cloud_background.png" />
-    <Content Include="styles\icono-mb1.png" />
-    <Content Include="styles\icono-mb.svg" />
-    <Content Include="styles\icono-mb.png" />
-    <Content Include="styles\logo.png" />
+    <Content Include="img\a12.png" />
+    <Content Include="img\b05.png" />
+    <Content Include="CSS\cloud_background.png" />
+    <Content Include="img\icono-mb1.png" />
+    <Content Include="img\icono-mb.svg" />
+    <Content Include="img\icono-mb.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="img\logo.png" />
     <Content Include="CSS\main_style.css" />
     <Content Include="Subir-archivo.aspx" />
     <Content Include="Web.config" />
@@ -225,6 +228,9 @@
       <Project>{1c964c63-5707-44b2-ac91-a4e6d9ba0820}</Project>
       <Name>Logica</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="js\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

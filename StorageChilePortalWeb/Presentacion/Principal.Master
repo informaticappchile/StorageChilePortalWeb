@@ -28,8 +28,8 @@
                     <div class="mdl-layout__header-row">
                         <!-- Title -->
                         <asp:HyperLink ID="Link_Inicio" runat="server" NavigateUrl="~/Inicio.aspx" CssClass="mdl-navigation__link">
-                            <asp:Image ID="Logo" runat="server" ImageUrl="~/styles/icono-mb.png"  CssClass="icono-web"/>
-                            <asp:Image ID="LogoPrincipal" runat="server" ImageUrl="~/styles/logo.png" CssClass="logo-web"/>
+                            <asp:Image ID="Logo" runat="server" ImageUrl="~/img/icono-mb.png"  CssClass="icono-web"/>
+                            <asp:Image ID="LogoPrincipal" runat="server" ImageUrl="~/img/logo.png" CssClass="logo-web"/>
                             <!--<span class="mdl-layout-title titulo">StorageChile</span> -->
                         </asp:HyperLink>
                         <div class="mdl-layout-spacer"></div>
