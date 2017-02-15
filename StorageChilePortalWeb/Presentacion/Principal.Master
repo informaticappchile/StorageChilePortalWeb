@@ -44,6 +44,12 @@
                     </div>
                     <!-- Bottom row, not visible on scroll -->
                     <div id="Barra_Secundaria" class="mdl-layout__header-row" runat="server" visible="true">
+                        <div>
+                            <nav class="mdl-navigation">
+                            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/InfoEmpresa.aspx" ForeColor="#7A7677" CssClass="mdl-navigation__link">Quiénes Somos</asp:HyperLink>
+                            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Control_Usuarios/Register.aspx" ForeColor="#7A7677" CssClass="mdl-navigation__link">Contactos</asp:HyperLink>
+                        </nav>
+                        </div>
                         <div class="mdl-layout-spacer"></div>
                         <!-- Navigation -->
                         <nav class="mdl-navigation">

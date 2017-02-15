@@ -43,6 +43,10 @@ body {
     background: #ed0909;
 }
 
+.mdl-card__title-text {
+    font-weight:bold;
+}
+
 .demo-card-wide > .mdl-card__menu { color: #fff;}
 
 .boton-examinar { margin-left: 40px; }
