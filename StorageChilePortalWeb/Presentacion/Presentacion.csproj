@@ -122,8 +122,14 @@
     <Content Include="Control_Usuarios\Editar-Perfil.aspx" />
     <Content Include="Control_Usuarios\Login.aspx" />
     <Content Include="Control_Usuarios\Register.aspx" />
+    <Content Include="CSS\bttn.min.css" />
+    <Content Include="CSS\unite.css" />
     <Content Include="CSS\w3.css" />
     <Content Include="img\AcercaStorage.png" />
+    <Content Include="Contactos.aspx" />
+    <Content Include="img\contactos.png" />
+    <Content Include="img\soportetecnico.png" />
+    <Content Include="Contactanos.aspx" />
     <Content Include="InfoEmpresa.aspx" />
     <Content Include="Inicio.aspx" />
     <Content Include="Slides\Slide1.png" />
@@ -178,6 +184,20 @@
     <Compile Include="Control_Usuarios\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contactos.aspx.cs">
+      <DependentUpon>Contactos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contactos.aspx.designer.cs">
+      <DependentUpon>Contactos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Contactanos.aspx.cs">
+      <DependentUpon>Contactanos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contactanos.aspx.designer.cs">
+      <DependentUpon>Contactanos.aspx</DependentUpon>
     </Compile>
     <Compile Include="InfoEmpresa.aspx.cs">
       <DependentUpon>InfoEmpresa.aspx</DependentUpon>

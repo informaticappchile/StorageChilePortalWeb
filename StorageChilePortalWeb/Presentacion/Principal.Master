@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css"/>
     <link rel="stylesheet" href="CSS/W3.css"/>
     <link rel="stylesheet" href="CSS/main_style.css" type="text/css"/>
+    <link rel="stylesheet" href="CSS/unite.css"/>
     <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -47,7 +48,7 @@
                         <div>
                             <nav class="mdl-navigation">
                             <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/InfoEmpresa.aspx" ForeColor="#7A7677" CssClass="mdl-navigation__link">Quiénes Somos</asp:HyperLink>
-                            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Control_Usuarios/Register.aspx" ForeColor="#7A7677" CssClass="mdl-navigation__link">Contactos</asp:HyperLink>
+                            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Contactos.aspx" ForeColor="#7A7677" CssClass="mdl-navigation__link">Contactos</asp:HyperLink>
                         </nav>
                         </div>
                         <div class="mdl-layout-spacer"></div>
