@@ -55,7 +55,7 @@
                             <img data-u="image" src="img/soportetecnico.png" />
                             <br />
                             <br />
-                            <button runat="server" class="bttn-unite bttn-md bttn-danger">Ir a Soporte</button>
+                            <button runat="server" class="bttn-unite bttn-md bttn-danger" onServerClick="clickSoporte">Ir a Soporte</button>
                             <br />
                             <div class="box"></div>
                         </div>

@@ -15,7 +15,7 @@
             }
          </style>
         <div>
-            <img data-u="image" src="img/AcercaStorage.png"/>
+            <img data-u="image" src="img/Contactanos.png"/>
         </div>
     </div>
 </asp:Content>

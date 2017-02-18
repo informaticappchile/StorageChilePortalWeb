@@ -128,11 +128,14 @@
     <Content Include="img\AcercaStorage.png" />
     <Content Include="Contactos.aspx" />
     <Content Include="img\alfa.png" />
+    <Content Include="img\Contactanos.png" />
     <Content Include="img\contactos.png" />
+    <Content Include="img\soporte1.jpg" />
     <Content Include="img\soportetecnico.png" />
     <Content Include="Contactanos.aspx" />
     <Content Include="InfoEmpresa.aspx" />
     <Content Include="Inicio.aspx" />
+    <Content Include="Soporte.aspx" />
     <Content Include="Slides\Slide1.png" />
     <Content Include="Slides\Slide2.jpg" />
     <Content Include="Slides\Slide3.jpg" />
@@ -226,6 +229,10 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Soporte.aspx.cs">
+      <DependentUpon>Soporte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Subir-archivo.aspx.cs">
       <DependentUpon>Subir-archivo.aspx</DependentUpon>

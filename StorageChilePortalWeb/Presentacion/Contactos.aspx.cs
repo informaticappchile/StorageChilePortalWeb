@@ -27,5 +27,9 @@ namespace Prensentacion
         {
             Response.Redirect("Contactanos.aspx");
         }
+        protected void clickSoporte(object sender, EventArgs e)
+        {
+            Response.Redirect("Soporte.aspx");
+        }
     }
 }
