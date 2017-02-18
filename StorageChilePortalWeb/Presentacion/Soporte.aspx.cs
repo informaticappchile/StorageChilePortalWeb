@@ -3,7 +3,7 @@ using User_EN_Class;
 using System.Net.Mail;
 using System.Net;
 using System.Web.Services;
-
+using System.Text;
 
 namespace Prensentacion
 {
@@ -13,10 +13,20 @@ namespace Prensentacion
         {
             Session["user_session_data"] = null; //Cuando vas a registrarte, si se habia iniciado sesion, ahora se cierra
             /*if(Session["user_session_data"] == null){//Valida que existe usuario logueado.
-                Response.Write("Debe iniciar sesión");
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Debe iniciar sesión");
+                //Cerramos el Script
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                 Response.Redirect("Control_Usuarios/Login.aspx");
             }*/
-             
+
+
         }
 
         protected static string ReCaptcha_Key = "<6LfZ-RUUAAAAAGrnxFF7Z4LCovzUAdbNyLMeboFz>";
