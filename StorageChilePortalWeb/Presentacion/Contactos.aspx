@@ -42,6 +42,10 @@
                 text-align: center;
                 max-width:100%;
             }
+            ImageButton
+            {
+                border:hidden;
+            }
          </style>
         
             <table>
@@ -51,7 +55,7 @@
                             <img data-u="image" src="img/soportetecnico.png" />
                             <br />
                             <br />
-                            <button class="bttn-unite bttn-md bttn-danger">Ir a Soporte</button>
+                            <button runat="server" class="bttn-unite bttn-md bttn-danger">Ir a Soporte</button>
                             <br />
                             <div class="box"></div>
                         </div>
@@ -61,7 +65,7 @@
                             <img data-u="image" src="img/contactos.png" />
                             <br />
                             <br />
-                            <asp:Button runat="server" Text="Contactanos" CssClass="bttn-unite bttn-md bttn-danger" OnClick="clickContacto"></asp:Button>
+                            <button runat="server" class="bttn-unite bttn-md bttn-danger" onServerClick="clickContacto">Contáctanos</button>
                             <br />
                             <div class="box"></div>
                         </div>

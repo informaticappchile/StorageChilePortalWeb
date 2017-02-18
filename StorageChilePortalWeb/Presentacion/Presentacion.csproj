@@ -127,6 +127,7 @@
     <Content Include="CSS\w3.css" />
     <Content Include="img\AcercaStorage.png" />
     <Content Include="Contactos.aspx" />
+    <Content Include="img\alfa.png" />
     <Content Include="img\contactos.png" />
     <Content Include="img\soportetecnico.png" />
     <Content Include="Contactanos.aspx" />
