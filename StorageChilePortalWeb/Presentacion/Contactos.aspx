@@ -43,23 +43,31 @@
                 max-width:100%;
             }
          </style>
-        <div class="contenedor">
-            <div class="panelIzq">
-                <img data-u="image" src="img/soportetecnico.png"/>
-                <br />
-                <br />
-                <button class="bttn-unite bttn-md bttn-danger">Ir a Soporte</button>
-                <br />
-                <div class="box"></div>
-            </div>
-            <div class="panelDer">
-                <img data-u="image" src="img/contactos.png"/>
-                <br />
-                <br />
-                <asp:Button runat="server" Text="Contactanos" CssClass="bttn-unite bttn-md bttn-danger" OnClick="clickContacto"></asp:Button>
-                <br />
-                <div class="box"></div>
-            </div>
-        </div>
+        
+            <table>
+                <tr>
+                    <td >
+                        <div class="panelIzq">
+                            <img data-u="image" src="img/soportetecnico.png" />
+                            <br />
+                            <br />
+                            <button class="bttn-unite bttn-md bttn-danger">Ir a Soporte</button>
+                            <br />
+                            <div class="box"></div>
+                        </div>
+                    </td>
+                    <td >
+                        <div class="panelDer">
+                            <img data-u="image" src="img/contactos.png" />
+                            <br />
+                            <br />
+                            <asp:Button runat="server" Text="Contactanos" CssClass="bttn-unite bttn-md bttn-danger" OnClick="clickContacto"></asp:Button>
+                            <br />
+                            <div class="box"></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+          
     </div>
 </asp:Content>
