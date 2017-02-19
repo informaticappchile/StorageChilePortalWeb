@@ -36,7 +36,7 @@ namespace Presentacion
             Editar_Perfil_Email.Text = en.Correo;
             Editar_Perfil_Contraseña.Text = en.Contraseña;
             
-            if (en.Visibilidad_perfil == true)
+            if (en.IdPerfil == 1)
             {
                 Editar_Perfil_Visibilidad_Switch.Checked = true;
                 Editar_Perfil_Visibilidad_Label.Text = "Público";
@@ -88,7 +88,7 @@ namespace Presentacion
             en.Nombre = Editar_Perfil_Nombre.Text;
             en.Correo = Editar_Perfil_Email.Text;
             en.Contraseña = Editar_Perfil_Contraseña.Text;
-            en.Visibilidad_perfil = Editar_Perfil_Visibilidad_Switch.Checked;
+            //en.IdPerfil = Editar_Perfil_Visibilidad_Switch.Checked;
             
 
             //en.actualizarUsuario();
