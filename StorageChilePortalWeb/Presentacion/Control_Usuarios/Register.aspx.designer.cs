@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Manteca_Box_develop {
+namespace Presentacion {
     
     
     public partial class Registro {

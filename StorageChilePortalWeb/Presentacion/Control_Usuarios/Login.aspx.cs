@@ -1,10 +1,12 @@
 ﻿using System;
 using Entidades;
 using Logica;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Presentacion
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Login : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
