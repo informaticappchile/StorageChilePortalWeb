@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
-using User_EN_Class;
+using Entidades;
 
-namespace Prensentacion
+namespace Presentacion
 {
     public partial class WebForm2 : System.Web.UI.Page
     {

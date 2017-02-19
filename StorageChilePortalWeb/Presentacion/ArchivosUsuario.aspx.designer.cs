@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Prensentacion {
+namespace Presentacion {
     
     
     public partial class WebForm1 {

@@ -12,7 +12,7 @@ using System.Data.SqlTypes;
 using System.Net.Mail;
 
 
-namespace File_EN_Class
+namespace Entidades
 {
     public class File_EN
     {

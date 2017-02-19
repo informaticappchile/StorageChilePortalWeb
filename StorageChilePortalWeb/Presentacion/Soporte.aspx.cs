@@ -1,11 +1,11 @@
 ﻿using System;
-using User_EN_Class;
+using Entidades;
 using System.Net.Mail;
 using System.Net;
 using System.Web.Services;
 using System.Text;
 
-namespace Prensentacion
+namespace Presentacion
 {
     public partial class Soporte : System.Web.UI.Page
     {

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using User_EN_Class;
+using Entidades;
 
-namespace Prensentacion
+namespace Presentacion
 {
-    public partial class Site1 : System.Web.UI.MasterPage
+    public partial class Site1 : MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

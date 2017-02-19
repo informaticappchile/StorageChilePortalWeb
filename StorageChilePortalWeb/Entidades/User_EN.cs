@@ -8,11 +8,10 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
-
 using System.Net.Mail;
 
 
-namespace User_EN_Class
+namespace Entidades
 {
     public class User_EN
     {
@@ -65,36 +64,6 @@ namespace User_EN_Class
             set { contraseña = value; }
         }
 
-        //Declaramos la edad del user en private
-        private short edad;
-
-        //Declaramos la edad del user en public para poder utilizarlo
-        public short Edad
-        {
-            get { return edad; }
-            set { edad = value; }
-        }
-
-        //Declaramos el genero del user en private
-        private bool? genero;
-
-        //Declaramos el genero del user en public para poder utilizarlo
-        public bool? Genero
-        {
-            get { return genero; }
-            set { genero = value; }
-        }
-
-        //Declaramos la localidad del user en private
-        private string localidad;
-
-        //Declaramos la localidad del user en public para poder utilizarlo
-        public string Localidad
-        {
-            get { return localidad; }
-            set { localidad = value; }
-        }
-
         //Declaramos la visibilidad del perfil del user en private
         private bool visibilidad_perfil;
 
@@ -115,84 +84,6 @@ namespace User_EN_Class
             set { verified = value; }
         }
 
-        //Declaramos la funcion insertar usuario donde llama al cad correspondiente
-        /*
-        public void InsertarUsuario()
-        {
-            User_CAD userCad = new User_CAD();
-            userCad.InsertarUser(this);
-        }
-
-        //Declaramos la funcion mostrar usuario donde llama al cad correspondiente
-        public ArrayList MostrarUsuario()
-        {
-            ArrayList a = new ArrayList();
-            User_CAD c = new User_CAD();
-            a = c.MostrarUser(this);
-
-            return a;
-        }
-
-        //Declaramos la funcion borrar usuario donde llama al cad correspondiente
-        public void BorrarUsuario()
-        {
-            User_CAD userDelete = new User_CAD();
-            userDelete.BorrarUser(this);
-        }
-
-        //Declaramos la funcion buscar usuario donde llama al cad correspondiente
-        public User_EN BuscarUsuario(string clave)
-        {
-            User_CAD busqueda = new User_CAD();
-            User_EN usuarioBuscado = busqueda.BuscarUser(clave);
-            return usuarioBuscado;
-        }
-
-        //Declaramos la funcion listar amigos donde llama al cad correspondiente
-        public ArrayList ListarAmigos()
-        {
-            ArrayList a = new ArrayList();
-            User_CAD c = new User_CAD();
-            a = c.ListarAmigos();
-
-            return a;
-        }
-        //Declaramos la funcion leer usuario donde llama al cad correspondiente
-        public void LeerUsuario()
-        {
-            User_CAD cad = new User_CAD();
-            User_EN en = new User_EN();
-            en = cad.LeerUser(this);
-            if (en != null)
-            {
-                id = en.id;
-                nombre = en.nombre;
-                nombreUsu = en.nombreUsu;
-                correo = en.correo;
-                edad = en.edad;
-                genero = en.genero;
-                localidad = en.localidad;
-                visibilidad_perfil = en.visibilidad_perfil;
-                verified = en.verified;
-            }
-        }
-
-        //Declaramos la funcion confirmar usuario donde llama al cad correspondiente
-        public bool confirmacionUsuario()
-        {
-            User_CAD confirmUser = new User_CAD();
-            confirmUser.confirmacionUser(this);
-            return true;
-        }
-
-        //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
-        public void actualizarUsuario()
-        {
-            User_CAD actUser = new User_CAD();
-            actUser.actualizarUser(this);
-        }
-
-        
         //Declaramos el constructor de la clase User_EN
         public User_EN()
         {
@@ -201,11 +92,8 @@ namespace User_EN_Class
             nombreUsu = "";
             correo = "";
             contraseña = "";
-            edad = 0;
-            genero = null;
-            localidad = "";
             visibilidad_perfil = false;
             verified = false;
-        }*/
+        }
     }
 }

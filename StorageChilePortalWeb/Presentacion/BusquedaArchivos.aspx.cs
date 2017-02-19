@@ -5,10 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
-using File_EN_Class;
-using User_EN_Class;
+using Entidades;
 
-namespace Prensentacion
+namespace Presentacion
 {
     public partial class Formulario_web11 : System.Web.UI.Page
     {

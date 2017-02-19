@@ -5,10 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using File_EN_Class;
-using User_EN_Class;
+using Entidades;
 
-namespace Prensentacion
+namespace Presentacion
 {
     public partial class SubirArchivo : System.Web.UI.Page
     {

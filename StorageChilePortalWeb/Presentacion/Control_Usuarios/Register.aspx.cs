@@ -1,9 +1,9 @@
 ﻿using System;
-using User_EN_Class;
+using Entidades;
 using System.Net.Mail;
 
 
-namespace Prensentacion
+namespace Presentacion
 {
     public partial class Registro : System.Web.UI.Page
     {

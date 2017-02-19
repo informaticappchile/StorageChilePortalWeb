@@ -4,12 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using User_EN_Class;
-using File_EN_Class;
+using Entidades;
 using System.Data.SqlClient;
 using System.Web.ClientServices;
 
-namespace Prensentacion
+namespace Presentacion
 {
     public partial class WebForm3 : System.Web.UI.Page
     {
