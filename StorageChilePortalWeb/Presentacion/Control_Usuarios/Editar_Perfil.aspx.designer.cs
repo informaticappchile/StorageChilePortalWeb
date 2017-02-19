@@ -10,7 +10,7 @@
 namespace Presentacion {
     
     
-    public partial class Formulario_web1 {
+    public partial class Editar_Perfil {
         
         /// <summary>
         /// Control Editar_Perfil_Usuario_Span.
@@ -137,132 +137,6 @@ namespace Presentacion {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegExLongitudContraseña;
-        
-        /// <summary>
-        /// Control Editar_Perfil_Edad_Span.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Editar_Perfil_Edad_Span;
-        
-        /// <summary>
-        /// Control Editar_Perfil_Edad.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Editar_Perfil_Edad;
-        
-        /// <summary>
-        /// Control RangoEdadValidator.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangoEdadValidator;
-        
-        /// <summary>
-        /// Control Editar_Perfil_Hombre_Label.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Editar_Perfil_Hombre_Label;
-        
-        /// <summary>
-        /// Control Editar_Perfil_Hombre.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton Editar_Perfil_Hombre;
-        
-        /// <summary>
-        /// Control Editar_Perfil_Mujer_Label.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Editar_Perfil_Mujer_Label;
-        
-        /// <summary>
-        /// Control Editar_Perfil_Mujer.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton Editar_Perfil_Mujer;
-        
-        /// <summary>
-        /// Control Editar_Perfil_NoMostrar_Label.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Editar_Perfil_NoMostrar_Label;
-        
-        /// <summary>
-        /// Control Editar_Perfil_NoMostrar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton Editar_Perfil_NoMostrar;
-        
-        /// <summary>
-        /// Control Editar_Perfil_Localidad_Span.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Editar_Perfil_Localidad_Span;
-        
-        /// <summary>
-        /// Control Editar_Perfil_Localidad.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Editar_Perfil_Localidad;
-        
-        /// <summary>
-        /// Control Editar_Perfil_Visibilidad.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Editar_Perfil_Visibilidad;
-        
-        /// <summary>
-        /// Control Editar_Perfil_Visibilidad_Switch.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox Editar_Perfil_Visibilidad_Switch;
-        
-        /// <summary>
-        /// Control Editar_Perfil_Visibilidad_Label.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Editar_Perfil_Visibilidad_Label;
         
         /// <summary>
         /// Control Editar_Perfil_Editar.

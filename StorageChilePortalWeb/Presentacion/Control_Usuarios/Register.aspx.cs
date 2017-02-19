@@ -2,7 +2,8 @@
 using Entidades;
 using Logica;
 using System.Net.Mail;
-
+using System.Web.Services;
+using System.Net;
 
 namespace Presentacion
 {
@@ -32,11 +33,11 @@ namespace Presentacion
 
                 string userActiviation = Request.Url.GetLeftPart(UriPartial.Authority) + "/Control_Usuarios/ConfirmacionRegistro.aspx?email=" + correo_register.Text;//La direccion url que debe ser recargada para la activacion de la cuenta
 
-                message.Body = "Hi " + user_name_register.Text + "<br> click here to confirm your account</br> <a href = " + userActiviation + "> click Here </a>";//Donde debe hacer click el nuevo usuario para activarla
+                message.Body = "Hi " + user_name_register.Text + "<br> aqui para confirmar tu cuenta</br> <a href = " + userActiviation + "> click Here </a>";//Donde debe hacer click el nuevo usuario para activarla
                 message.IsBodyHtml = true;//El mensaje esta en html
                 //smtpClient.UseDefaultCredentials = true;
 
-                smtpClient.Credentials = new System.Net.NetworkCredential("informaticapp.chile@gmail.com", "3#rtG&00$1MnPdj!");//Los credenciales del cliente
+                smtpClient.Credentials = new System.Net.NetworkCredential("informaticapp.chile@gmail.com", "InfoChile2625");//Los credenciales del cliente
                 smtpClient.EnableSsl = true;//necesario para el envio
                 smtpClient.Send(message);//Lo enviamos
                 //Response.Write("Correcto email");
@@ -68,14 +69,24 @@ namespace Presentacion
                     en.NombreUsu = user_name_register.Text;//Con su nombre de usuario
                     en.Correo = correo_register.Text;//Con su correo
                     en.Contraseña = password_register1.Text;//Con su contrasenya
-                    //Hacer Arreglos Storage
-                    lu.InsertarUsuario();//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
+                    lu.InsertarUsuario(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
                     EnviarCorreoConfirmacion();//Esto enviara un correo de confirmaacion al usuario
                 }
                 else EmailExistsError_Register.Visible = true;
             }
             else UsernameExistsError_Register.Visible = true;
 
+        }
+
+        
+        protected static string ReCaptcha_Key = "<6LfZ-RUUAAAAAGrnxFF7Z4LCovzUAdbNyLMeboFz>";
+        protected static string ReCaptcha_Secret = "<6LfZ-RUUAAAAAPQDIsUqplPc3FGA0Bik4IyQ_dZh>";
+
+        [WebMethod]
+        public static string VerifyCaptcha(string response)
+        {
+            string url = "https://www.google.com/recaptcha/api/siteverify?secret=" + ReCaptcha_Secret + "&response=" + response;
+            return (new WebClient()).DownloadString(url);
         }
     }
 }

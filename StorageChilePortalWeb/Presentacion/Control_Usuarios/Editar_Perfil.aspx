@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Editar-Perfil.aspx.cs" Inherits="Presentacion.Formulario_web1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Principal.Master" CodeBehind="Editar_Perfil.aspx.cs" Inherits="Presentacion.Editar_Perfil" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -51,52 +51,7 @@
                         </span>
                     </span>
                 </li>
-                <li class="mdl-list__item">
-                    <span class="mdl-list__item-primary-content">
-                        <label class="etiqueta-editar-perfil">Edad:</label>
-                        <span id="Editar_Perfil_Edad_Span" class="mdl-textfield mdl-js-textfield" runat="server">
-                            <asp:TextBox ID="Editar_Perfil_Edad" runat="server" ReadOnly="True" TextMode="Number" CssClass="mdl-textfield__input"></asp:TextBox>
-                            <label class="mdl-textfield__label" for="ContentPlaceHolder1_Editar_Perfil_Edad"></label>
-                            <asp:RangeValidator ID="RangoEdadValidator" runat="server" ErrorMessage="Edad incorrecta" MinimumValue="0" MaximumValue="100" Type="Integer" ControlToValidate="Editar_Perfil_Edad" CssClass="mdl-textfield__error"></asp:RangeValidator>
-                        </span>
-                    </span>
-                </li>
-                <li class="mdl-list__item">
-                    <span class="mdl-list__item-primary-content" id="Editar_Perfil_Genero">
-                        <label class="etiqueta-editar-perfil">Género:</label>
-                        <label id="Editar_Perfil_Hombre_Label" class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="ContentPlaceHolder1_Editar_Perfil_Hombre" runat="server">
-                            <asp:RadioButton ID="Editar_Perfil_Hombre" Enabled="False" runat="server" GroupName="genero" />
-                            <span class="mdl-radio__label">Hombre</span>
-                        </label>
-                        <label id="Editar_Perfil_Mujer_Label" class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="ContentPlaceHolder1_Editar_Perfil_Mujer" runat="server">
-                            <asp:RadioButton ID="Editar_Perfil_Mujer" Enabled="False" runat="server" GroupName="genero" />
-                            <span class="mdl-radio__label">Mujer</span>
-                        </label>
-                        <label id="Editar_Perfil_NoMostrar_Label" class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="ContentPlaceHolder1_Editar_Perfil_NoMostrar" runat="server">
-                            <asp:RadioButton ID="Editar_Perfil_NoMostrar" Enabled="False" runat="server" GroupName="genero" />
-                            <span class="mdl-radio__label">No mostrar</span>
-                        </label>
-                    </span>
-                </li>
-                <li class="mdl-list__item">
-                    <span class="mdl-list__item-primary-content">
-                        <label class="etiqueta-editar-perfil">Localidad:</label>
-                        <span id="Editar_Perfil_Localidad_Span" class="mdl-textfield mdl-js-textfield" runat="server">
-                            <asp:TextBox ID="Editar_Perfil_Localidad" runat="server" ReadOnly="True" CssClass="mdl-textfield__input"></asp:TextBox>
-                            <label class="mdl-textfield__label" for="ContentPlaceHolder1_Editar_Pefil_Localidad"></label>
-                        </span>
-                    </span>
-                </li>
-                <li class="mdl-list__item">
-                    <span class="mdl-list__item-primary-content">
-                        <label class="etiqueta-editar-perfil">Visibilidad de perfil:</label>
-                        <asp:Label ID="Editar_Perfil_Visibilidad" AssociatedControlID="Editar_Perfil_Visibilidad_Switch" runat="server" CssClass="mdl-switch mdl-js-switch mdl-js-ripple-effect">
-                            <asp:CheckBox ID="Editar_Perfil_Visibilidad_Switch" ClientIDMode="Static" Enabled="false" runat="server" OnClick="onClickEvent_VisibilitySwitch()"/>
-                            <asp:Label ID="Editar_Perfil_Visibilidad_Label" ClientIDMode="Static" runat="server" Text="Privado" CssClass="mdl-switch__label"></asp:Label>
-                        </asp:Label>
-                    </span>
-                </li>
-            </ul>
+                </ul>
         </div>
         <div class="mdl-card__actions mdl-card--border">
             <asp:LinkButton ID="Editar_Perfil_Editar" runat="server" visible="true" OnClick="Editar_Perfil_Editar_Click" CssClass="mdl-button mdl-js-button mdl-button--primary">
@@ -110,14 +65,4 @@
             <asp:TextBox ID="Editar_Perfil_ID" runat="server" visible="false"></asp:TextBox>
         </div>
     </div>
-
-    <!-- Pequeño script para cambiar el texto de la etiqueta de la visibilidad del perfil ya que desde ASP es imposible -->
-    <script>
-        function onClickEvent_VisibilitySwitch() {
-            var switch_status = document.getElementById("Editar_Perfil_Visibilidad_Switch");
-            var switch_label = document.getElementById("Editar_Perfil_Visibilidad_Label");
-            if (switch_status.checked) switch_label.innerHTML = "Público";
-            else switch_label.innerHTML = "Privado";
-        }
-    </script>
 </asp:Content>

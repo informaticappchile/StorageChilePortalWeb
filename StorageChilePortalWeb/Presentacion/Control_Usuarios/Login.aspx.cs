@@ -1,6 +1,8 @@
 ﻿using System;
 using Entidades;
 using Logica;
+using System.Web.Services;
+using System.Net;
 
 namespace Presentacion
 {
@@ -36,6 +38,18 @@ namespace Presentacion
                 else WrongPasswordError_Login.Visible = true;
             }
             else UserNotExistsError_Login.Visible = true;
+        }
+
+
+
+        protected static string ReCaptcha_Key = "<6LfZ-RUUAAAAAGrnxFF7Z4LCovzUAdbNyLMeboFz>";
+        protected static string ReCaptcha_Secret = "<6LfZ-RUUAAAAAPQDIsUqplPc3FGA0Bik4IyQ_dZh>";
+
+        [WebMethod]
+        public static string VerifyCaptcha(string response)
+        {
+            string url = "https://www.google.com/recaptcha/api/siteverify?secret=" + ReCaptcha_Secret + "&response=" + response;
+            return (new WebClient()).DownloadString(url);
         }
     }
 }

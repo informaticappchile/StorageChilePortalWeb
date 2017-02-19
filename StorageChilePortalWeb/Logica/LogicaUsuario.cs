@@ -12,9 +12,8 @@ namespace Logica
     {
         //Declaramos la funcion insertar usuario donde llama al cad correspondiente
         
-        public void InsertarUsuario()
+        public void InsertarUsuario(User_EN u)
         {
-            User_EN u = new User_EN();
             User_CAD userCad = new User_CAD();
             userCad.InsertarUser(u);
         }
@@ -74,18 +73,16 @@ namespace Logica
         }
 
         //Declaramos la funcion confirmar usuario donde llama al cad correspondiente
-        public bool confirmacionUsuario()
+        public bool confirmacionUsuario(User_EN u)
         {
-            User_EN u = new User_EN();
             User_CAD confirmUser = new User_CAD();
             confirmUser.confirmacionUser(u);
             return true;
         }
 
         //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
-        public void actualizarUsuario()
+        public void actualizarUsuario(User_EN u)
         {
-            User_EN u = new User_EN();
             User_CAD actUser = new User_CAD();
             actUser.actualizarUser(u);
         }

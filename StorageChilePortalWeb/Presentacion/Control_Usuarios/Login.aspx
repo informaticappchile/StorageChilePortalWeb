@@ -34,6 +34,42 @@
                     </span>
                 </li>
             </ul>
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+            <script type="text/javascript" src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+            async defer></script>
+            <script type="text/javascript">
+                var onloadCallback = function () {
+                    grecaptcha.render('dvCaptcha', {
+                        'sitekey': '6LfZ-RUUAAAAAGrnxFF7Z4LCovzUAdbNyLMeboFz',
+                        'callback': function (response) {
+                            $.ajax({
+                                type: "POST",
+                                url: "Login.aspx/VerifyCaptcha",
+                                data: "{response: '" + response + "'}",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (r) {
+                                    var captchaResponse = jQuery.parseJSON(r.d);
+                                    if (captchaResponse.success) {
+                                        $("[id*=txtCaptcha]").val(captchaResponse.success);
+                                        $("[id*=rfvCaptcha]").hide();
+                                    } else {
+                                        $("[id*=txtCaptcha]").val("");
+                                        $("[id*=rfvCaptcha]").show();
+                                        var error = captchaResponse["error-codes"][0];
+                                        $("[id*=rfvCaptcha]").html("RECaptcha error. " + error);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                };
+            </script>
+            <div id="dvCaptcha">
+            </div>
+            <asp:TextBox ID="txtCaptcha" runat="server" Style="display: none" />
+            <asp:RequiredFieldValidator ID = "rfvCaptcha" ErrorMessage="Ingrese el Captcha." ControlToValidate="txtCaptcha"
+                runat="server" ForeColor = "Red" Display = "Dynamic" />
         </div>
         <div class="mdl-card__actions mdl-card--border">
             <asp:Button ID="Button_Login" runat="server" Text="Iniciar Sesión" OnClick="Button_Login_Click" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />

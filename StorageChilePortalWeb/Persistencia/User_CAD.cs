@@ -28,9 +28,9 @@ namespace Persistencia
             try
             {
                 nueva_conexion.Abrir_Conexion();
-                string insert = "insert into users(email,nombre,username,password,age,gender,locality,profile_visibility,verified) VALUES ('"
+                string insert = "insert into users(Email,NombreCompleto,UserName,Password,IdPerfil,Verificado) VALUES ('"
                     + u.Correo + "','" + u.Nombre + "','" + u.NombreUsu + "','" + u.Contraseña + "'," + 
-                    0 + "," + 0 + ")";
+                    2 + "," + 0 + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
                 nueva_conexion.EjecutarQuery();
@@ -47,20 +47,20 @@ namespace Persistencia
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.Abrir_Conexion();
-            nueva_conexion.SetQuery("Select * from Users where ID=" + u.ID);
+            nueva_conexion.SetQuery("Select * from Usuario where IdUsuario=" + u.ID);
             DataTable dt = nueva_conexion.QuerySeleccion();
 
 
             if (dt != null)
             {
                 User_EN usuario = new User_EN();
-                usuario.ID = Convert.ToInt16(dt.Rows[0]["ID"].ToString());
-                usuario.Correo = dt.Rows[0]["email"].ToString();
-                usuario.Nombre = dt.Rows[0]["nombre"].ToString();
-                usuario.NombreUsu = dt.Rows[0]["username"].ToString();
-                usuario.Contraseña = dt.Rows[0]["password"].ToString();
-                usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["ID"].ToString());
-                usuario.Verified = Convert.ToBoolean(dt.Rows[0]["verified"]);
+                usuario.ID = Convert.ToInt16(dt.Rows[0]["IdUsuario"]);
+                usuario.Correo = dt.Rows[0]["Email"].ToString();
+                usuario.Nombre = dt.Rows[0]["NombreCompleto"].ToString();
+                usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();
+                usuario.Contraseña = dt.Rows[0]["Password"].ToString();
+                usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["IdPerfil"].ToString());
+                usuario.Verified = Convert.ToBoolean(dt.Rows[0]["Verificado"]);
                 lista.Add(usuario);
             }
 
@@ -78,7 +78,7 @@ namespace Persistencia
             try
             {
                 string delete = "";
-                delete = "Delete from Users where Users.ID = '" + u.ID;
+                delete = "Delete from Usuario where Usuario.IdUsuario = " + u.ID;
                 nueva_conexion.SetQuery(delete);
 
 
@@ -148,20 +148,20 @@ namespace Persistencia
             try
             {
                 string select = "";
-                select = "Select * from Users where username ='" + u.NombreUsu + "' and password = '" + u.Contraseña + "'";
+                select = "Select * from Usuario where UserName ='" + u.NombreUsu + "' and Password = '" + u.Contraseña + "'";
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
 
                 if (dt != null)
                 {
 
-                    usuario.ID = Convert.ToInt16(dt.Rows[0]["ID"]);
-                    usuario.Correo = dt.Rows[0]["email"].ToString();
-                    usuario.Nombre = dt.Rows[0]["nombre"].ToString();
-                    usuario.NombreUsu = dt.Rows[0]["username"].ToString();
-                    usuario.Contraseña = dt.Rows[0]["password"].ToString();
-                    usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["ID"].ToString());
-                    usuario.Verified = Convert.ToBoolean(dt.Rows[0]["verified"]);
+                    usuario.ID = Convert.ToInt16(dt.Rows[0]["IdUsuario"]);
+                    usuario.Correo = dt.Rows[0]["Email"].ToString();
+                    usuario.Nombre = dt.Rows[0]["NombreCompleto"].ToString();
+                    usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();
+                    usuario.Contraseña = dt.Rows[0]["Password"].ToString();
+                    usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["IdPerfil"].ToString());
+                    usuario.Verified = Convert.ToBoolean(dt.Rows[0]["Verificado"]);
                 }
 
                 
@@ -182,7 +182,7 @@ namespace Persistencia
             try
             {
                 string update = "";
-                update = "Update Users set verified = '1' where Users.email = '" + u.Correo + "'";
+                update = "Update Usuario set Verificado = '1' where Usuario.Email = '" + u.Correo + "'";
                 nueva_conexion.SetQuery(update);
 
 
@@ -204,9 +204,8 @@ namespace Persistencia
                 string update = "";
                 
 
-                update = "Update Users set email = '" + u.Correo + "',nombre  = '" + u.Nombre + 
-                    "',username = '" + u.NombreUsu + "',password = '" + u.Contraseña + "',profile_visibility = '" 
-                    + u.IdPerfil + "' where Users.ID ="+u.ID;
+                update = "Update Usuario set Email = '" + u.Correo + "',NombreCompleto  = '" + u.Nombre + 
+                    "',UserName = '" + u.NombreUsu + "',Password = '" + u.Contraseña + "' where Usuario.IdUsuario ="+u.ID;
                 nueva_conexion.SetQuery(update);
 
 

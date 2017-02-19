@@ -69,7 +69,7 @@
                         <asp:HyperLink ID="Link_MyFiles" runat="server" NavigateUrl="~/ArchivosUsuario.aspx" CssClass="mdl-navigation__link">
                             <i class="material-icons">folder</i> Mis archivos
                         </asp:HyperLink>
-                        <asp:HyperLink ID="Link_Editar_Perfil" runat="server" NavigateUrl="~/Control_Usuarios/Editar-Perfil.aspx" CssClass="mdl-navigation__link">
+                        <asp:HyperLink ID="Link_Editar_Perfil" runat="server" NavigateUrl="~/Control_Usuarios/Editar_Perfil.aspx" CssClass="mdl-navigation__link">
                             <i class="material-icons">settings</i> Editar Perfil
                         </asp:HyperLink>
                         <asp:HyperLink ID="Link_Arcivos_Usuario" runat="server" NavigateUrl="~/BusquedaUsuario.aspx" CssClass="mdl-navigation__link">

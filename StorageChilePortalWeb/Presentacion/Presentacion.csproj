@@ -91,7 +91,7 @@
     <Content Include="BusquedaArchivos.aspx" />
     <Content Include="BusquedaUsuario.aspx" />
     <Content Include="Control_Usuarios\ConfirmacionRegistro.aspx" />
-    <Content Include="Control_Usuarios\Editar-Perfil.aspx" />
+    <Content Include="Control_Usuarios\Editar_Perfil.aspx" />
     <Content Include="Control_Usuarios\Login.aspx" />
     <Content Include="Control_Usuarios\Register.aspx" />
     <Content Include="CSS\bttn.min.css" />
@@ -152,12 +152,12 @@
     <Compile Include="Control_Usuarios\ConfirmacionRegistro.aspx.designer.cs">
       <DependentUpon>ConfirmacionRegistro.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Control_Usuarios\Editar-Perfil.aspx.cs">
-      <DependentUpon>Editar-Perfil.aspx</DependentUpon>
+    <Compile Include="Control_Usuarios\Editar_Perfil.aspx.cs">
+      <DependentUpon>Editar_Perfil.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Control_Usuarios\Editar-Perfil.aspx.designer.cs">
-      <DependentUpon>Editar-Perfil.aspx</DependentUpon>
+    <Compile Include="Control_Usuarios\Editar_Perfil.aspx.designer.cs">
+      <DependentUpon>Editar_Perfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Control_Usuarios\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

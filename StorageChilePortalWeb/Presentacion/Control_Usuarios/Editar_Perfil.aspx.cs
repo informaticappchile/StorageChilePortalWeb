@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
 using Logica;
+using System.Text;
 
 namespace Presentacion
 {
-    public partial class Formulario_web1 : System.Web.UI.Page
+    public partial class Editar_Perfil : System.Web.UI.Page
     {
         /**
          * Es necesario que los elementos CheckBox y RadioButton inicialicen sus tipos de clases
@@ -20,10 +20,6 @@ namespace Presentacion
         protected void InitInputClasses()
         {
             Editar_Perfil_Contraseña.Attributes["type"] = "password"; //Engañar al servidor para que pueda recibir valores
-            Editar_Perfil_Visibilidad_Switch.InputAttributes.Add("class", "mdl-switch__input");
-            Editar_Perfil_Hombre.InputAttributes.Add("class", "mdl-radio__button");
-            Editar_Perfil_Mujer.InputAttributes.Add("class", "mdl-radio__button");
-            Editar_Perfil_NoMostrar.InputAttributes.Add("class", "mdl-radio__button");
         }
 
         /*
@@ -35,12 +31,6 @@ namespace Presentacion
             Editar_Perfil_Nombre.Text = en.Nombre;
             Editar_Perfil_Email.Text = en.Correo;
             Editar_Perfil_Contraseña.Text = en.Contraseña;
-            
-            if (en.IdPerfil == 1)
-            {
-                Editar_Perfil_Visibilidad_Switch.Checked = true;
-                Editar_Perfil_Visibilidad_Label.Text = "Público";
-            }
             Editar_Perfil_ID.Text = en.ID.ToString();
         }
 
@@ -52,17 +42,9 @@ namespace Presentacion
         {
             Editar_Perfil_Contraseña.Text = ""; //Vaciamos la contraseña para que no la puedan copiar
 
-            Editar_Perfil_Usuario.ReadOnly =
             Editar_Perfil_Nombre.ReadOnly =
             Editar_Perfil_Email.ReadOnly =
             Editar_Perfil_Contraseña.ReadOnly =
-            Editar_Perfil_Edad.ReadOnly =
-            Editar_Perfil_Localidad.ReadOnly = false;
-
-            Editar_Perfil_Hombre.Enabled =
-            Editar_Perfil_Mujer.Enabled =
-            Editar_Perfil_NoMostrar.Enabled =
-            Editar_Perfil_Visibilidad_Switch.Enabled = true;
 
             Editar_Perfil_Editar.Visible = false;
             Editar_Perfil_Guardar.Visible = true;
@@ -74,14 +56,7 @@ namespace Presentacion
          */
         protected void Editar_Perfil_Guardar_Click(object sender, EventArgs e)
         {
-            if(Editar_Perfil_Visibilidad_Switch.Checked)
-            {
-                Response.Write("ON");
-            } else
-            {
-                Response.Write("OFF");
-            }
-
+            LogicaUsuario lu = new LogicaUsuario();
             User_EN en = new User_EN();
             en.ID = Convert.ToInt16(Editar_Perfil_ID.Text);
             en.NombreUsu = Editar_Perfil_Usuario.Text;
@@ -89,10 +64,35 @@ namespace Presentacion
             en.Correo = Editar_Perfil_Email.Text;
             en.Contraseña = Editar_Perfil_Contraseña.Text;
             //en.IdPerfil = Editar_Perfil_Visibilidad_Switch.Checked;
-            
 
-            //en.actualizarUsuario();
- 
+            lu.actualizarUsuario(en);
+            if (ValidarCambios(en))
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Se actualizaron los datos correctamente");
+                //Cerramos el Script
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
+            else
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "A ocurrido un error al actualizar los datos. Reintente más tarde "+
+                    "o pongase en contacto con el servicio de soporte.");
+                //Cerramos el Script
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -103,7 +103,7 @@ namespace Presentacion
             {
                 if (!Page.IsPostBack)
                 {
-                    CargarDatos(en); 
+                    CargarDatos(en);
                 }
 
             }
@@ -111,6 +111,16 @@ namespace Presentacion
             {
                 Response.Redirect("Login.aspx"); //Si no se ha iniciado sesion, no podras ver tu pefil y se redireccionara a la pagina de iniciar sesion
             }
+        }
+
+        protected bool ValidarCambios(User_EN u)
+        {
+            LogicaUsuario lu = new LogicaUsuario();
+            User_EN en = lu.BuscarUsuario(u.NombreUsu);
+            if (en.Nombre == u.Nombre){return true;}
+            if (en.Correo == u.Correo) { return true;}
+            if (en.Contraseña == u.Contraseña) { return true;}
+            return false;
         }
     }
 }
