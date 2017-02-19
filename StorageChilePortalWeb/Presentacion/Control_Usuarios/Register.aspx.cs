@@ -1,5 +1,6 @@
 ﻿using System;
 using Entidades;
+using Logica;
 using System.Net.Mail;
 
 
@@ -24,14 +25,14 @@ namespace Presentacion
             try
             {
                 MailAddress fromAddress = new MailAddress("informaticapp.chile@gmail.com");//Gmail, creado para el envio de correos
-                //MailAddress toAddress = new MailAddress(correo_register.Text);//El destinatario
+                MailAddress toAddress = new MailAddress(correo_register.Text);//El destinatario
                 message.From = fromAddress;
-                //message.To.Add(toAddress);
+                message.To.Add(toAddress);
                 message.Subject = "Activacion de la cuenta";//El asunto del email
 
-                //string userActiviation = Request.Url.GetLeftPart(UriPartial.Authority) + "/Control_Usuarios/ConfirmacionRegistro.aspx?email=" + correo_register.Text;//La direccion url que debe ser recargada para la activacion de la cuenta
+                string userActiviation = Request.Url.GetLeftPart(UriPartial.Authority) + "/Control_Usuarios/ConfirmacionRegistro.aspx?email=" + correo_register.Text;//La direccion url que debe ser recargada para la activacion de la cuenta
 
-               // message.Body = "Hi " + user_name_register.Text + "<br> click here to confirm your account</br> <a href = " + userActiviation + "> click Here </a>";//Donde debe hacer click el nuevo usuario para activarla
+                message.Body = "Hi " + user_name_register.Text + "<br> click here to confirm your account</br> <a href = " + userActiviation + "> click Here </a>";//Donde debe hacer click el nuevo usuario para activarla
                 message.IsBodyHtml = true;//El mensaje esta en html
                 //smtpClient.UseDefaultCredentials = true;
 
@@ -55,23 +56,25 @@ namespace Presentacion
          */
         protected void Button_Register_Click(object sender, EventArgs e)
         {
-            /*EmailExistsError_Register.Visible = 
+            EmailExistsError_Register.Visible = 
             UsernameExistsError_Register.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
             User_EN busqueda = new User_EN();
-            if (busqueda.BuscarUsuario(user_name_register.Text) == null) //Comprobamos que ese nombre de usuario ya este
+            LogicaUsuario lu = new LogicaUsuario();
+            if (lu.BuscarUsuario(user_name_register.Text) == null) //Comprobamos que ese nombre de usuario ya este
             {
-                if (busqueda.BuscarUsuario(correo_register.Text) == null) //Comprobamos que ese correo ya este
+                if (lu.BuscarUsuario(correo_register.Text) == null) //Comprobamos que ese correo ya este
                 {
                     User_EN en = new User_EN();//Si lo cumple todo, creamos un nuevo usuario
                     en.NombreUsu = user_name_register.Text;//Con su nombre de usuario
                     en.Correo = correo_register.Text;//Con su correo
                     en.Contraseña = password_register1.Text;//Con su contrasenya
-                    en.InsertarUsuario();//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
+                    //Hacer Arreglos Storage
+                    lu.InsertarUsuario();//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
                     EnviarCorreoConfirmacion();//Esto enviara un correo de confirmaacion al usuario
                 }
                 else EmailExistsError_Register.Visible = true;
             }
-            else UsernameExistsError_Register.Visible = true;*/
+            else UsernameExistsError_Register.Visible = true;
 
         }
     }

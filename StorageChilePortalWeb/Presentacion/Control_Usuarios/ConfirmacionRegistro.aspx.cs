@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using Entidades;
+using Logica;
 
 namespace Presentacion
 {

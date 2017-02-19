@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
+using Logica;
 
 namespace Presentacion
 {
@@ -18,11 +19,11 @@ namespace Presentacion
          */
         protected void InitInputClasses()
         {
-            /*Editar_Perfil_Contraseña.Attributes["type"] = "password"; //Engañar al servidor para que pueda recibir valores
+            Editar_Perfil_Contraseña.Attributes["type"] = "password"; //Engañar al servidor para que pueda recibir valores
             Editar_Perfil_Visibilidad_Switch.InputAttributes.Add("class", "mdl-switch__input");
             Editar_Perfil_Hombre.InputAttributes.Add("class", "mdl-radio__button");
             Editar_Perfil_Mujer.InputAttributes.Add("class", "mdl-radio__button");
-            Editar_Perfil_NoMostrar.InputAttributes.Add("class", "mdl-radio__button");*/
+            Editar_Perfil_NoMostrar.InputAttributes.Add("class", "mdl-radio__button");
         }
 
         /*
@@ -30,22 +31,17 @@ namespace Presentacion
          */
         protected void CargarDatos(User_EN en)
         {
-            /*Editar_Perfil_Usuario.Text = en.NombreUsu;
+            Editar_Perfil_Usuario.Text = en.NombreUsu;
             Editar_Perfil_Nombre.Text = en.Nombre;
             Editar_Perfil_Email.Text = en.Correo;
             Editar_Perfil_Contraseña.Text = en.Contraseña;
-            Editar_Perfil_Localidad.Text = en.Localidad;
-            if(en.Edad > 0) Editar_Perfil_Edad.Text = en.Edad.ToString();
-            if (en.Genero == null) Editar_Perfil_NoMostrar.Checked = true;
-            else if (en.Genero.Value == true) Editar_Perfil_Hombre.Checked = true;
-            else Editar_Perfil_Mujer.Checked = true;
             
             if (en.Visibilidad_perfil == true)
             {
                 Editar_Perfil_Visibilidad_Switch.Checked = true;
                 Editar_Perfil_Visibilidad_Label.Text = "Público";
             }
-            Editar_Perfil_ID.Text = en.ID.ToString();*/
+            Editar_Perfil_ID.Text = en.ID.ToString();
         }
 
         /*
@@ -54,7 +50,7 @@ namespace Presentacion
          */
         protected void Editar_Perfil_Editar_Click(object sender, EventArgs e)
         {
-            /*Editar_Perfil_Contraseña.Text = ""; //Vaciamos la contraseña para que no la puedan copiar
+            Editar_Perfil_Contraseña.Text = ""; //Vaciamos la contraseña para que no la puedan copiar
 
             Editar_Perfil_Usuario.ReadOnly =
             Editar_Perfil_Nombre.ReadOnly =
@@ -69,7 +65,7 @@ namespace Presentacion
             Editar_Perfil_Visibilidad_Switch.Enabled = true;
 
             Editar_Perfil_Editar.Visible = false;
-            Editar_Perfil_Guardar.Visible = true;*/
+            Editar_Perfil_Guardar.Visible = true;
         }
 
         /*
@@ -78,7 +74,7 @@ namespace Presentacion
          */
         protected void Editar_Perfil_Guardar_Click(object sender, EventArgs e)
         {
-            /*if(Editar_Perfil_Visibilidad_Switch.Checked)
+            if(Editar_Perfil_Visibilidad_Switch.Checked)
             {
                 Response.Write("ON");
             } else
@@ -92,17 +88,10 @@ namespace Presentacion
             en.Nombre = Editar_Perfil_Nombre.Text;
             en.Correo = Editar_Perfil_Email.Text;
             en.Contraseña = Editar_Perfil_Contraseña.Text;
-            en.Edad = Convert.ToInt16(Editar_Perfil_Edad.Text);
-            en.Localidad = Editar_Perfil_Localidad.Text;
             en.Visibilidad_perfil = Editar_Perfil_Visibilidad_Switch.Checked;
-            if (Editar_Perfil_Hombre.Checked)
-                en.Genero = true;
-            else if (Editar_Perfil_Mujer.Checked)
-                en.Genero = false;
-            else
-                en.Genero = null;
+            
 
-            en.actualizarUsuario();*/
+            //en.actualizarUsuario();
  
         }
 

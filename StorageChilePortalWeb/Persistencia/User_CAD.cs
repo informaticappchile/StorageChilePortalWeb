@@ -59,7 +59,7 @@ namespace Persistencia
                 usuario.Nombre = dt.Rows[0]["nombre"].ToString();
                 usuario.NombreUsu = dt.Rows[0]["username"].ToString();
                 usuario.Contraseña = dt.Rows[0]["password"].ToString();
-                usuario.Visibilidad_perfil = Convert.ToBoolean(dt.Rows[0]["profile_visibility"]);
+                usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["ID"].ToString());
                 usuario.Verified = Convert.ToBoolean(dt.Rows[0]["verified"]);
                 lista.Add(usuario);
             }
@@ -98,19 +98,19 @@ namespace Persistencia
             Conexion nueva_conexion = new Conexion();
             try
             {
-                string select = "Select * from Users where username ='" + busqueda + "' or email = '" + busqueda + "'";
+                string select = "Select * from Usuario where UserName ='" + busqueda + "' or Email = '" + busqueda + "'";
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
                 if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
                 {
                     usuario = new User_EN();
-                    usuario.ID = Convert.ToInt16(dt.Rows[0]["ID"]);
-                    usuario.Correo = dt.Rows[0]["email"].ToString();
-                    usuario.Nombre = dt.Rows[0]["nombre"].ToString();
-                    usuario.NombreUsu = dt.Rows[0]["username"].ToString();
-                    usuario.Contraseña = dt.Rows[0]["password"].ToString();
-                    usuario.Visibilidad_perfil = Convert.ToBoolean(dt.Rows[0]["profile_visibility"]);
-                    usuario.Verified = Convert.ToBoolean(dt.Rows[0]["verified"]);
+                    usuario.ID = Convert.ToInt16(dt.Rows[0]["IdUsuario"]);
+                    usuario.Correo = dt.Rows[0]["Email"].ToString();
+                    usuario.Nombre = dt.Rows[0]["NombreCompleto"].ToString();
+                    usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();
+                    usuario.Contraseña = dt.Rows[0]["Password"].ToString();
+                    usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["IdPerfil"].ToString());
+                    usuario.Verified = Convert.ToBoolean(dt.Rows[0]["Verificado"]);
                 }
             }
             catch (Exception ex) { ex.Message.ToString(); }
@@ -160,7 +160,7 @@ namespace Persistencia
                     usuario.Nombre = dt.Rows[0]["nombre"].ToString();
                     usuario.NombreUsu = dt.Rows[0]["username"].ToString();
                     usuario.Contraseña = dt.Rows[0]["password"].ToString();
-                    usuario.Visibilidad_perfil = Convert.ToBoolean(dt.Rows[0]["profile_visibility"]);
+                    usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["ID"].ToString());
                     usuario.Verified = Convert.ToBoolean(dt.Rows[0]["verified"]);
                 }
 
@@ -206,7 +206,7 @@ namespace Persistencia
 
                 update = "Update Users set email = '" + u.Correo + "',nombre  = '" + u.Nombre + 
                     "',username = '" + u.NombreUsu + "',password = '" + u.Contraseña + "',profile_visibility = '" 
-                    + u.Visibilidad_perfil + "' where Users.ID ="+u.ID;
+                    + u.IdPerfil + "' where Users.ID ="+u.ID;
                 nueva_conexion.SetQuery(update);
 
 

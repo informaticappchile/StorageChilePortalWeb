@@ -65,13 +65,13 @@ namespace Entidades
         }
 
         //Declaramos la visibilidad del perfil del user en private
-        private bool visibilidad_perfil;
+        private int idPerfil;
 
         //Declaramos la visibilidad de perfil del user en public para poder utilizarlo
-        public bool Visibilidad_perfil
+        public int IdPerfil
         {
-            get { return visibilidad_perfil; }
-            set { visibilidad_perfil = value; }
+            get { return idPerfil; }
+            set { idPerfil = value; }
         }
 
         //Declaramos el verificado del user en private
@@ -92,7 +92,7 @@ namespace Entidades
             nombreUsu = "";
             correo = "";
             contraseña = "";
-            visibilidad_perfil = false;
+            idPerfil = 0;
             verified = false;
         }
     }

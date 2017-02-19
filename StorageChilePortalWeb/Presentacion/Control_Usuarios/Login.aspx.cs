@@ -1,12 +1,10 @@
 ﻿using System;
 using Entidades;
 using Logica;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Presentacion
 {
-    public partial class Login : Page
+    public partial class Login : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,8 +19,9 @@ namespace Presentacion
             UserNotVerifiedError_Login.Visible = 
             WrongPasswordError_Login.Visible =
             UserNotExistsError_Login.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
+            User_EN busqueda = new User_EN();
             LogicaUsuario lu = new LogicaUsuario();
-            User_EN usuario = lu.BuscarUsuario(username_login_input.Text); //Buscamos el usuario que introducimos para iniciar sesion
+            User_EN usuario = lu.BuscarUsuario(username_login_input.Text);//Buscamos el usuario que introducimos para iniciar sesion
             if (usuario != null)
             {
                 if (usuario.Contraseña == password_login_input.Text)

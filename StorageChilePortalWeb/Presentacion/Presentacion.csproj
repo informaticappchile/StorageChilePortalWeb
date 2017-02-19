@@ -149,17 +149,22 @@
       <DependentUpon>ConfirmacionRegistro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Control_Usuarios\ConfirmacionRegistro.aspx.designer.cs">
+      <DependentUpon>ConfirmacionRegistro.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Control_Usuarios\Editar-Perfil.aspx.cs">
       <DependentUpon>Editar-Perfil.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Control_Usuarios\Editar-Perfil.aspx.designer.cs">
+      <DependentUpon>Editar-Perfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Control_Usuarios\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Control_Usuarios\Register.aspx.cs">
-      <DependentUpon>Register.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="Control_Usuarios\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contactos.aspx.cs">
       <DependentUpon>Contactos.aspx</DependentUpon>
@@ -174,6 +179,13 @@
     </Compile>
     <Compile Include="Contactanos.aspx.designer.cs">
       <DependentUpon>Contactanos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Control_Usuarios\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Control_Usuarios\Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
     <Compile Include="InfoEmpresa.aspx.cs">
       <DependentUpon>InfoEmpresa.aspx</DependentUpon>
