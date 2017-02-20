@@ -35,6 +35,14 @@ namespace Entidades
             set { correo = value; }
         }
 
+        private string rut;
+
+        public string Rut
+        {
+            get { return rut; }
+            set { rut = value; }
+        }
+
         //Declaramos el nombre del user en private
         private string nombre;
 

@@ -32,6 +32,7 @@ namespace Presentacion
             Editar_Perfil_Email.Text = en.Correo;
             Editar_Perfil_Contraseña.Text = en.Contraseña;
             Editar_Perfil_ID.Text = en.ID.ToString();
+            
         }
 
         /*
@@ -41,6 +42,8 @@ namespace Presentacion
         protected void Editar_Perfil_Editar_Click(object sender, EventArgs e)
         {
             Editar_Perfil_Contraseña.Text = ""; //Vaciamos la contraseña para que no la puedan copiar
+
+
 
             Editar_Perfil_Nombre.ReadOnly =
             Editar_Perfil_Email.ReadOnly =
@@ -63,7 +66,7 @@ namespace Presentacion
             en.Nombre = Editar_Perfil_Nombre.Text;
             en.Correo = Editar_Perfil_Email.Text;
             en.Contraseña = Editar_Perfil_Contraseña.Text;
-            //en.IdPerfil = Editar_Perfil_Visibilidad_Switch.Checked;
+            
 
             lu.actualizarUsuario(en);
             if (ValidarCambios(en))
@@ -78,6 +81,7 @@ namespace Presentacion
                 sbMensaje.Append("</script>");
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+
             }
             else
             {

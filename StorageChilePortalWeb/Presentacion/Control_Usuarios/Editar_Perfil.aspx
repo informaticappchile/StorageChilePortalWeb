@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h1 class="mdl-card__title-text">PERFIL</h1>
+            <h1 class="mdl-card__title-text">Actualiza tus datos</h1>
         </div>
         <div class="mdl-card__supporting-text">
             <ul class="demo-list-control mdl-list">

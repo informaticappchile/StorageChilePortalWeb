@@ -27,8 +27,8 @@ namespace Persistencia
 
             try
             {
-                nueva_conexion.Abrir_Conexion();
-                string insert = "insert into users(Email,NombreCompleto,UserName,Password,IdPerfil,Verificado) VALUES ('"
+                
+                string insert = "insert into Usuario(Email,NombreCompleto,UserName,Password,IdPerfil,Verificado) VALUES ('"
                     + u.Correo + "','" + u.Nombre + "','" + u.NombreUsu + "','" + u.Contraseña + "'," + 
                     2 + "," + 0 + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS

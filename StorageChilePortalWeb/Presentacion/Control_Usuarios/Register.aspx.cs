@@ -61,9 +61,9 @@ namespace Presentacion
             UsernameExistsError_Register.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
             User_EN busqueda = new User_EN();
             LogicaUsuario lu = new LogicaUsuario();
-            if (lu.BuscarUsuario(user_name_register.Text) == null) //Comprobamos que ese nombre de usuario ya este
+            if (lu.BuscarUsuario(user_name_register.Text).NombreUsu != user_name_register.Text ) //Comprobamos que ese nombre de usuario ya este
             {
-                if (lu.BuscarUsuario(correo_register.Text) == null) //Comprobamos que ese correo ya este
+                if (lu.BuscarUsuario(correo_register.Text).Correo != correo_register.Text) //Comprobamos que ese correo ya este
                 {
                     User_EN en = new User_EN();//Si lo cumple todo, creamos un nuevo usuario
                     en.NombreUsu = user_name_register.Text;//Con su nombre de usuario
