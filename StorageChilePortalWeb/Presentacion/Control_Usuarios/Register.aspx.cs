@@ -4,6 +4,7 @@ using Logica;
 using System.Net.Mail;
 using System.Web.Services;
 using System.Net;
+using System.Text;
 
 namespace Presentacion
 {
@@ -71,6 +72,34 @@ namespace Presentacion
                     en.Contraseña = password_register1.Text;//Con su contrasenya
                     lu.InsertarUsuario(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
                     EnviarCorreoConfirmacion();//Esto enviara un correo de confirmaacion al usuario
+                    User_EN u = lu.BuscarUsuario(en.NombreUsu);
+                    if (validarRegistroUsuario(u))
+                    {
+                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                        StringBuilder sbMensaje = new StringBuilder();
+                        //Aperturamos la escritura de Javascript
+                        sbMensaje.Append("<script type='text/javascript'>");
+                        //Le indicamos al alert que mensaje va mostrar
+                        sbMensaje.AppendFormat("alert('{0}');", "Se a registrado al usuario: "+ en.NombreUsu);
+                        //Cerramos el Script
+                        sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
+                        sbMensaje.Append("</script>");
+                        //Registramos el Script escrito en el StringBuilder
+                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                    }
+                    else
+                    {
+                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                        StringBuilder sbMensaje = new StringBuilder();
+                        //Aperturamos la escritura de Javascript
+                        sbMensaje.Append("<script type='text/javascript'>");
+                        //Le indicamos al alert que mensaje va mostrar
+                        sbMensaje.AppendFormat("alert('{0}');", "Ha ocurrido un error al registrar el usuario, reintente mas tarde o comuníquese con el servicio de soporte.");
+                        //Cerramos el Script
+                        sbMensaje.Append("</script>");
+                        //Registramos el Script escrito en el StringBuilder
+                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                    }
                 }
                 else EmailExistsError_Register.Visible = true;
             }
@@ -78,7 +107,18 @@ namespace Presentacion
 
         }
 
-        
+        private bool validarRegistroUsuario(User_EN u)
+        {
+            if (u != null || u.NombreUsu != "")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         protected static string ReCaptcha_Key = "<6LfZ-RUUAAAAAGrnxFF7Z4LCovzUAdbNyLMeboFz>";
         protected static string ReCaptcha_Secret = "<6LfZ-RUUAAAAAPQDIsUqplPc3FGA0Bik4IyQ_dZh>";
 

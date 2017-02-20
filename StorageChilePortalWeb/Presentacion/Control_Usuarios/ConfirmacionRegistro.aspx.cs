@@ -19,14 +19,12 @@ namespace Presentacion
             {
                 if (Request.QueryString.Keys[0] == "email")//Si efecticamente la url es correcta
                 {
+                    LogicaUsuario lu = new LogicaUsuario();
+                    User_EN u = new User_EN();
                     User_EN en = new User_EN();//Creamos un nuevo usuario
                     string email = Request.QueryString["email"].ToString();//Gracias a la url, podemos ver el usuario que ha recargado la pagina
                     en.Correo = email;//Ahora que ese usuario sea el del email
-                    LogicaUsuario lu = new LogicaUsuario();
-                    lu.confirmacionUsuario(en);//Confirmacion 
-                    User_EN u = new User_EN();
                     u = lu.BuscarUsuario(en.Correo);
-
                     if (ValidarConfirmacionCorreo(u))
                     {
                         //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -34,37 +32,53 @@ namespace Presentacion
                         //Aperturamos la escritura de Javascript
                         sbMensaje.Append("<script type='text/javascript'>");
                         //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje.AppendFormat("alert('{0}');", "Se ha confirmado el correo correctamente, ahora actualice sus datos.");
+                        sbMensaje.AppendFormat("alert('{0}');", "Su correo ya esta confirmado.");
                         //Cerramos el Script
+                        sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
                         sbMensaje.Append("</script>");
                         //Registramos el Script escrito en el StringBuilder
                         ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-
-
-                        Session["user_session_data"] = u; //Creamos una sesion del usuario
-                        Response.Redirect("~/Control_Usuarios/Editar_Perfil.aspx");
+                        tbValidacion.Text = "1";
                     }
                     else
                     {
-                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                        StringBuilder sbMensaje = new StringBuilder();
-                        //Aperturamos la escritura de Javascript
-                        sbMensaje.Append("<script type='text/javascript'>");
-                        //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje.AppendFormat("alert('{0}');", "Hubo un error al confirmar su correo, inténtelo más tarde o consulte a soporte.");
-                        //Cerramos el Script
-                        sbMensaje.Append("</script>");
-                        //Registramos el Script escrito en el StringBuilder
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                        lu.confirmacionUsuario(en);//Confirmacion 
+                        u = lu.BuscarUsuario(en.Correo);
+                        if (ValidarConfirmacionCorreo(u))
+                        {
+                            //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                            StringBuilder sbMensaje = new StringBuilder();
+                            //Aperturamos la escritura de Javascript
+                            sbMensaje.Append("<script type='text/javascript'>");
+                            //Le indicamos al alert que mensaje va mostrar
+                            sbMensaje.AppendFormat("alert('{0}');", "Se ha confirmado el correo correctamente, ahora actualice sus datos en editar perfil.");
+                            //Cerramos el Script
+                            sbMensaje.Append("window.location.href = \"Editar_Perfil.aspx\";");
+                            sbMensaje.Append("</script>");
+                            //Registramos el Script escrito en el StringBuilder
+                            ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                            tbValidacion.Text = "1";
+                            Session["user_session_data"] = u; //Creamos una sesion del usuario
+                        }
+                        else
+                        {
+                            //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                            StringBuilder sbMensaje = new StringBuilder();
+                            //Aperturamos la escritura de Javascript
+                            sbMensaje.Append("<script type='text/javascript'>");
+                            //Le indicamos al alert que mensaje va mostrar
+                            sbMensaje.AppendFormat("alert('{0}');", "Hubo un error al confirmar su correo, inténtelo más tarde o consulte a soporte.");
+                            //Cerramos el Script
+                            sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
+                            sbMensaje.Append("</script>");
+                            //Registramos el Script escrito en el StringBuilder
+                            ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                            tbValidacion.Text = "";
+                        }
                     }
-
-                    
-
                 }
             }
         }
-
-
         private bool ValidarConfirmacionCorreo(User_EN u)
         {
             if (u.Verified)
