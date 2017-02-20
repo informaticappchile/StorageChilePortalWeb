@@ -72,8 +72,11 @@
                         <asp:HyperLink ID="Link_Editar_Perfil" runat="server" NavigateUrl="~/Control_Usuarios/Editar_Perfil.aspx" CssClass="mdl-navigation__link">
                             <i class="material-icons">settings</i> Editar Perfil
                         </asp:HyperLink>
-                        <asp:HyperLink ID="Link_Arcivos_Usuario" runat="server" NavigateUrl="~/BusquedaUsuario.aspx" CssClass="mdl-navigation__link">
+                        <asp:HyperLink ID="Link_Arcivos_Usuario" runat="server" NavigateUrl="~/BusquedaUsuario.aspx" CssClass="mdl-navigation__link" Visible="false">
                             <i class="material-icons">account_circle</i> Buscar Usuario
+                        </asp:HyperLink>
+                        <asp:HyperLink ID="Link_Administrar_Usuarios" runat="server" NavigateUrl="~/AdministarUsuario.aspx" CssClass="mdl-navigation__link" Visible="false">
+                            <i class="material-icons">supervisor_account</i> Administrar Usuarios
                         </asp:HyperLink>
                         <asp:HyperLink ID="Link_Cerrar_Sesion" runat="server" NavigateUrl="~/Control_Usuarios/Login.aspx" CssClass="mdl-navigation__link" Visible="false">
                             <i class="material-icons">power_settings_new</i> Salir

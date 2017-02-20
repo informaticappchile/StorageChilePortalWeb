@@ -148,6 +148,15 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.HyperLink Link_Arcivos_Usuario;
         
         /// <summary>
+        /// Control Link_Administrar_Usuarios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink Link_Administrar_Usuarios;
+        
+        /// <summary>
         /// Control Link_Cerrar_Sesion.
         /// </summary>
         /// <remarks>

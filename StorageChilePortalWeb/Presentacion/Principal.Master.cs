@@ -16,8 +16,20 @@ namespace Presentacion
             User_EN user = (User_EN)Session["user_session_data"];
             if (user != null)
             {
-                Link_Cerrar_Sesion.Visible = true;
-                Barra_Secundaria.Visible = false;
+                if (user.IdPerfil == 1)
+                {
+                    Link_Feed.Visible = false;
+                    Link_MyFiles.Visible = false;
+                    Link_Administrar_Usuarios.Visible = true;
+                    Link_Arcivos_Usuario.Visible = true;
+                    Link_Cerrar_Sesion.Visible = true;
+                    Barra_Secundaria.Visible = false;
+                }
+                else if (user.IdPerfil == 2)
+                {
+                    Link_Cerrar_Sesion.Visible = true;
+                    Barra_Secundaria.Visible = false;
+                }
             }
         }
 
