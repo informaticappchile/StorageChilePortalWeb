@@ -80,7 +80,7 @@ namespace Presentacion
                         //Aperturamos la escritura de Javascript
                         sbMensaje.Append("<script type='text/javascript'>");
                         //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje.AppendFormat("alert('{0}');", "Se a registrado al usuario: "+ en.NombreUsu);
+                        sbMensaje.AppendFormat("alert('{0}');", "Se ha registrado al usuario: "+ en.NombreUsu);
                         //Cerramos el Script
                         sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
                         sbMensaje.Append("</script>");
