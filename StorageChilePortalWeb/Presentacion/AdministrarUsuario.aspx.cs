@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Web.ClientServices;
 using System.IO;
 using System.Text;
+using Logica;
 
 namespace Presentacion
 {
@@ -20,9 +21,13 @@ namespace Presentacion
          */
         protected void Page_Load(object sender, EventArgs e)
         {
-                //File_EN fi = new File_EN();
-                //GridViewMostrarTodo.DataSource = fi.MostrarAllFiles();
-                GridViewMostrarTodo.DataBind();
+            //File_EN fi = new File_EN();
+            //GridViewMostrarTodo.DataSource = fi.MostrarAllFiles();
+            LogicaUsuario lu = new LogicaUsuario();
+            Responsive.DataSource = lu.MostrarUsuarios();
+            Responsive.DataBind();
+            
+
         }
     }
 }

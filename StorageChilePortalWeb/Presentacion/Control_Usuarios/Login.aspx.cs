@@ -28,7 +28,7 @@ namespace Presentacion
             {
                 if (usuario.Contraseña == password_login_input.Text)
                 {
-                   if (usuario.Verified)
+                   if (usuario.Verified == "Verificado")
                    {
                         Session["user_session_data"] = usuario; //Creamos una sesion del usuario
                         Response.Redirect("~/ArchivosUsuario.aspx"); //Vamos a la pagina de nuestros archivos

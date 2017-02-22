@@ -83,13 +83,43 @@ namespace Entidades
         }
 
         //Declaramos el verificado del user en private
-        private bool verified;
+        private string verified;
 
         //Declaramos el verificado del user en public para poder utilizarlo
-        public bool Verified
+        public string Verified
         {
             get { return verified; }
             set { verified = value; }
+        }
+
+        //Declaramos la fecha de registro del usuario
+        private DateTime fechaRegistro;
+
+        
+        public DateTime FechaRegistro
+        {
+            get { return fechaRegistro; }
+            set { fechaRegistro = value; }
+        }
+
+
+
+        //Declaramos la fecha del último ingreso del usuario
+
+        private DateTime ultimoIngreso;
+        public DateTime UltimoIngreso
+        {
+            get { return ultimoIngreso; }
+            set { ultimoIngreso = value; }
+        }
+
+        //Declaramos la cantidad de ingresos del usuario al sistema
+
+        private DateTime cantIngreso;
+        public DateTime CantIngreso
+        {
+            get { return cantIngreso; }
+            set { cantIngreso = value; }
         }
 
         //Declaramos el constructor de la clase User_EN
@@ -101,7 +131,8 @@ namespace Entidades
             correo = "";
             contraseña = "";
             idPerfil = 0;
-            verified = false;
+            verified = "";
         }
+
     }
 }

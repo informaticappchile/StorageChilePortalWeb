@@ -81,7 +81,7 @@ namespace Presentacion
         }
         private bool ValidarConfirmacionCorreo(User_EN u)
         {
-            if (u.Verified)
+            if (u.Verified=="Verificado")
             {
                 return true;
             }

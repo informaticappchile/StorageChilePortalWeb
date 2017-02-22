@@ -60,12 +60,60 @@ namespace Persistencia
                 usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();
                 usuario.Contraseña = dt.Rows[0]["Password"].ToString();
                 usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["IdPerfil"].ToString());
-                usuario.Verified = Convert.ToBoolean(dt.Rows[0]["Verificado"]);
+                if (Convert.ToBoolean(dt.Rows[0]["Verificado"]))
+                {
+                    usuario.Verified = "Verificado";
+                }
+                else
+                {
+                    usuario.Verified = "No Verificado";
+                }
                 lista.Add(usuario);
             }
 
             return lista;
         }
+
+        /**
+         * Se encarga de mostrar todos los usuarios del sistema.
+         */
+
+        public ArrayList MostrarUsuarios()
+        {
+            Conexion nueva_conexion = new Conexion();
+            nueva_conexion.SetQuery("Select u.UserName, u.NombreCompleto, u.Email, u.Verificado, u.FechaRegistro, u.FechaUltimoIngreso "+
+                                    "from Usuario u, Perfil p "+
+                                    "where u.IdPerfil = p.IdPerfil and p.NombrePerfil = 'Usuario' ");
+            DataTable dt = nueva_conexion.QuerySeleccion();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                User_EN usuario = new User_EN();
+                usuario.Correo = dt.Rows[i]["Email"].ToString();
+                usuario.Nombre = dt.Rows[i]["NombreCompleto"].ToString();
+                usuario.NombreUsu = dt.Rows[i]["UserName"].ToString();
+                if (Convert.ToBoolean(dt.Rows[i]["Verificado"]))
+                {
+                    usuario.Verified = "Verificado";
+                }
+                else
+                {
+                    usuario.Verified = "No Verificado";
+                }              
+                usuario.FechaRegistro = DateTime.Parse(dt.Rows[i]["FechaRegistro"].ToString());
+                usuario.UltimoIngreso = DateTime.Parse(dt.Rows[i]["FechaUltimoIngreso"].ToString());
+                lista.Add(usuario);
+
+            }
+
+            return lista;
+
+
+            return lista;
+        }
+
+
+
 
         /**
          * Se encarga de borrar el usuario, si existe en la base de datos, a través de su ID
@@ -110,7 +158,14 @@ namespace Persistencia
                     usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();
                     usuario.Contraseña = dt.Rows[0]["Password"].ToString();
                     usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["IdPerfil"].ToString());
-                    usuario.Verified = Convert.ToBoolean(dt.Rows[0]["Verificado"]);
+                    if (Convert.ToBoolean(dt.Rows[0]["Verificado"]))
+                    {
+                        usuario.Verified = "Verificado";
+                    }
+                    else
+                    {
+                        usuario.Verified = "No Verificado";
+                    }
                 }
             }
             catch (Exception ex) { ex.Message.ToString(); }
@@ -161,7 +216,14 @@ namespace Persistencia
                     usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();
                     usuario.Contraseña = dt.Rows[0]["Password"].ToString();
                     usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["IdPerfil"].ToString());
-                    usuario.Verified = Convert.ToBoolean(dt.Rows[0]["Verificado"]);
+                    if (Convert.ToBoolean(dt.Rows[0]["Verificado"]))
+                    {
+                        usuario.Verified = "Verificado";
+                    }
+                    else
+                    {
+                        usuario.Verified = "No Verificado";
+                    }
                 }
 
                 

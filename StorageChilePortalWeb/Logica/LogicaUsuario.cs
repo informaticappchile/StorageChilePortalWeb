@@ -86,6 +86,16 @@ namespace Logica
             User_CAD actUser = new User_CAD();
             actUser.actualizarUser(u);
         }
-                
+
+
+        public ArrayList MostrarUsuarios()
+        {
+            ArrayList a = new ArrayList();
+            User_CAD c = new User_CAD();
+            a = c.MostrarUsuarios();
+
+            return a;
+        }
+
     }
 }
