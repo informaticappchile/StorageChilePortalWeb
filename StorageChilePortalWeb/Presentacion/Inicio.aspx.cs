@@ -22,7 +22,7 @@ namespace Presentacion
         {
                 //File_EN fi = new File_EN();
                 //GridViewMostrarTodo.DataSource = fi.MostrarAllFiles();
-                GridViewMostrarTodo.DataBind();
+                //GridViewMostrarTodo.DataBind();
         }
     }
 }

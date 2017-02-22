@@ -13,7 +13,7 @@ using System.Text;
 namespace Presentacion
 {
  
-    public partial class Inicio : System.Web.UI.Page
+    public partial class AdministrarUsuario : System.Web.UI.Page
     {
         /*
          * AL cargar la pagina de inicio, se mostraran todos los archivos de la base de datos que sean publicos

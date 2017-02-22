@@ -106,7 +106,7 @@
     <Content Include="img\soportetecnico.png" />
     <Content Include="Contactanos.aspx" />
     <Content Include="InfoEmpresa.aspx" />
-    <Content Include="AdmistrarUsuario.aspx" />
+    <Content Include="AdministrarUsuario.aspx" />
     <Content Include="Inicio.aspx" />
     <Content Include="Soporte.aspx" />
     <Content Include="Slides\Slide1.png" />
@@ -195,12 +195,12 @@
     <Compile Include="InfoEmpresa.aspx.designer.cs">
       <DependentUpon>InfoEmpresa.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdmistrarUsuario.aspx.cs">
-      <DependentUpon>AdmistrarUsuario.aspx</DependentUpon>
+    <Compile Include="AdministrarUsuario.aspx.cs">
+      <DependentUpon>AdministrarUsuario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdmistrarUsuario.aspx.designer.cs">
-      <DependentUpon>AdmistrarUsuario.aspx</DependentUpon>
+    <Compile Include="AdministrarUsuario.aspx.designer.cs">
+      <DependentUpon>AdministrarUsuario.aspx</DependentUpon>
     </Compile>
     <Compile Include="Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
