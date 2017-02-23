@@ -25,11 +25,15 @@ namespace Presentacion
                     Link_Arcivos_Usuario.Visible = true;
                     Link_Cerrar_Sesion.Visible = true;
                     Barra_Secundaria.Visible = false;
+                    LbBienvenido.Text = "Bienvenido: " + user.NombreUsu;
+                    LbBienvenido.Visible = true;
                 }
                 else if (user.IdPerfil == 2)
                 {
                     Link_Cerrar_Sesion.Visible = true;
                     Barra_Secundaria.Visible = false;
+                    LbBienvenido.Text = "Bienvenido: " + user.NombreUsu;
+                    LbBienvenido.Visible = true;
                 }
             }
         }

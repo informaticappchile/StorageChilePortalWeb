@@ -33,6 +33,11 @@
                             <asp:Image ID="LogoPrincipal" runat="server" ImageUrl="~/img/logo.png" CssClass="logo-web"/>
                             <!--<span class="mdl-layout-title titulo">StorageChile</span> -->
                         </asp:HyperLink>
+                        <div class="padre">
+                            <div class="hijo">
+                                <asp:Label ID="LbBienvenido" class="mdl-layout-title titulo" Visible="false" runat="server" Text="Bienvenido: " ForeColor="#7A7677" Font-Bold="true" style="text-align:center;font-family:Verdana"></asp:Label>
+                            </div>
+                        </div>
                         <div class="mdl-layout-spacer"></div>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
                             <asp:Label AssociatedControlID="Busqueda" runat="server" CssClass="mdl-button mdl-js-button mdl-button--icon" BackColor="red">

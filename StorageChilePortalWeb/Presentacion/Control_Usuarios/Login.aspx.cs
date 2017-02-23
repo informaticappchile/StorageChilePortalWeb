@@ -31,7 +31,7 @@ namespace Presentacion
                    if (usuario.Verified == "Verificado")
                    {
                         Session["user_session_data"] = usuario; //Creamos una sesion del usuario
-                        Response.Redirect("~/ArchivosUsuario.aspx"); //Vamos a la pagina de nuestros archivos
+                        Response.Redirect("~/Inicio.aspx"); //Vamos a la pagina de nuestros archivos
                    }
                    else UserNotVerifiedError_Login.Visible = true;
                 }
