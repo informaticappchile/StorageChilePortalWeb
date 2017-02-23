@@ -55,7 +55,6 @@
                         <!-- Navigation -->
                         <nav class="mdl-navigation">
                             <asp:HyperLink ID="Link_Login" runat="server" NavigateUrl="~/Control_Usuarios/Login.aspx" ForeColor="#7A7677" CssClass="mdl-navigation__link">Iniciar Sesión</asp:HyperLink>
-                            <asp:HyperLink ID="Link_Register" runat="server" NavigateUrl="~/Control_Usuarios/Register.aspx" ForeColor="#7A7677" CssClass="mdl-navigation__link">Registrarse</asp:HyperLink>
                         </nav>
                     </div>
                 </header>
@@ -75,8 +74,14 @@
                         <asp:HyperLink ID="Link_Arcivos_Usuario" runat="server" NavigateUrl="~/BusquedaUsuario.aspx" CssClass="mdl-navigation__link" Visible="false">
                             <i class="material-icons">account_circle</i> Buscar Usuario
                         </asp:HyperLink>
+                        <asp:HyperLink ID="Link_Registrar_Usuario" runat="server" NavigateUrl="~/Control_Usuarios/Register.aspx" CssClass="mdl-navigation__link" Visible="false">
+                            <i class="material-icons">add_circle</i> Registrar Usuario
+                        </asp:HyperLink>
                         <asp:HyperLink ID="Link_Administrar_Usuarios" runat="server" NavigateUrl="~/AdministrarUsuario.aspx" CssClass="mdl-navigation__link" Visible="false">
                             <i class="material-icons">supervisor_account</i> Administrar Usuarios
+                        </asp:HyperLink>
+                        <asp:HyperLink ID="Link_Contactos" runat="server" NavigateUrl="~/Contactos.aspx" CssClass="mdl-navigation__link" Visible="true">
+                            <i class="material-icons">contacts</i>Contactos
                         </asp:HyperLink>
                         <asp:HyperLink ID="Link_Cerrar_Sesion" runat="server" NavigateUrl="~/Control_Usuarios/Login.aspx" CssClass="mdl-navigation__link" Visible="false">
                             <i class="material-icons">power_settings_new</i> Salir

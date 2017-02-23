@@ -104,8 +104,8 @@ namespace Presentacion
             InitInputClasses();
             LogicaUsuario lu = new LogicaUsuario();
             User_EN ad = (User_EN)Session["user_session_data"];
-            /*if (ad != null)
-            {*/
+            if (ad != null && ad.IdPerfil == 1)
+            {
                 if (!Page.IsPostBack)
                 {
                     if (Request["ID"] != null)
@@ -113,14 +113,25 @@ namespace Presentacion
                         this.user = Request["ID"].ToString();
                         this.en = lu.BuscarUsuarioAdmin(user);
                         CargarDatos(this.en);
-                }
+                    }
                 }
 
-            /*}
+            }
           else
            {
-               Response.Redirect("~/Control_Usuarios/Login.aspx"); //Si no se ha iniciado sesion, no podras ver tu pefil y se redireccionara a la pagina de iniciar sesion
-           }*/
+                //Valida que existe usuario logueado.
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Debe iniciar sesión o usted no tiene privilegios para acceder aqui");
+                //Cerramos el Script
+                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Control_Usuarios/Login.aspx\";");
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
         }
 
         protected bool ValidarCambios(User_EN u)

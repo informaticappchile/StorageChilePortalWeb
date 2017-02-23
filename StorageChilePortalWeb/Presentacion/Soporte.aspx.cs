@@ -11,8 +11,7 @@ namespace Presentacion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["user_session_data"] = null; //Cuando vas a registrarte, si se habia iniciado sesion, ahora se cierra
-            /*if(Session["user_session_data"] == null){//Valida que existe usuario logueado.
+            if(Session["user_session_data"] == null){//Valida que existe usuario logueado.
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                 StringBuilder sbMensaje = new StringBuilder();
                 //Aperturamos la escritura de Javascript
@@ -23,8 +22,8 @@ namespace Presentacion
                 sbMensaje.Append("</script>");
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                Response.Redirect("Control_Usuarios/Login.aspx");
-            }*/
+                Response.AddHeader("REFRESH", "2;URL=Control_Usuarios/Login.aspx");
+            }
 
 
         }

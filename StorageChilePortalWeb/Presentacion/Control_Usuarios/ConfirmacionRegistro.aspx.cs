@@ -15,6 +15,7 @@ namespace Presentacion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["user_session_data"] = null;
             if (Request.QueryString.Count > 0)
             {
                 if (Request.QueryString.Keys[0] == "email")//Si efecticamente la url es correcta

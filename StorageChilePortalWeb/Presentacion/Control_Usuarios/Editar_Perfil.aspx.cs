@@ -102,6 +102,20 @@ namespace Presentacion
         protected void Page_Load(object sender, EventArgs e)
         {
             InitInputClasses();
+            if (Session["user_session_data"] == null)
+            {//Valida que existe usuario logueado.
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Debe iniciar sesión");
+                //Cerramos el Script
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                Response.AddHeader("REFRESH", "2;URL=Control_Usuarios/Login.aspx");
+            }
             User_EN en = (User_EN)Session["user_session_data"];
             if (en != null)
             {
