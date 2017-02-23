@@ -97,6 +97,7 @@
     <Content Include="CSS\bttn.min.css" />
     <Content Include="CSS\unite.css" />
     <Content Include="CSS\w3.css" />
+    <Content Include="Administrador_Editar_Perfil.aspx" />
     <Content Include="img\AcercaStorage.png" />
     <Content Include="Contactos.aspx" />
     <Content Include="img\alfa.png" />
@@ -108,6 +109,10 @@
     <Content Include="InfoEmpresa.aspx" />
     <Content Include="AdministrarUsuario.aspx" />
     <Content Include="Inicio.aspx" />
+    <Content Include="js\basic.css" />
+    <Content Include="js\jquery-1.10.2.min.js" />
+    <Content Include="js\jquery.responsivetable.js" />
+    <Content Include="js\jquery.responsivetable.min.js" />
     <Content Include="Soporte.aspx" />
     <Content Include="Slides\Slide1.png" />
     <Content Include="Slides\Slide2.jpg" />
@@ -188,6 +193,13 @@
     <Compile Include="Control_Usuarios\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Administrador_Editar_Perfil.aspx.cs">
+      <DependentUpon>Administrador_Editar_Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administrador_Editar_Perfil.aspx.designer.cs">
+      <DependentUpon>Administrador_Editar_Perfil.aspx</DependentUpon>
+    </Compile>
     <Compile Include="InfoEmpresa.aspx.cs">
       <DependentUpon>InfoEmpresa.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -258,9 +270,7 @@
       <Name>Logica</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="js\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -30,15 +30,22 @@ namespace Logica
         }
 
         //Declaramos la funcion borrar usuario donde llama al cad correspondiente
-        public void BorrarUsuario()
-        {
-            User_EN u = new User_EN();
+        public bool BorrarUsuario(string userName)
+        { 
             User_CAD userDelete = new User_CAD();
-            userDelete.BorrarUser(u);
+            return userDelete.BorrarUser(userName);
         }
 
         //Declaramos la funcion buscar usuario donde llama al cad correspondiente
         public User_EN BuscarUsuario(string usuario)
+        {
+            User_CAD busqueda = new User_CAD();
+            User_EN usuarioBuscado = busqueda.BuscarUser(usuario);
+            return usuarioBuscado;
+        }
+
+        //Declaramos la funcion buscar usuario donde llama al cad correspondiente
+        public User_EN BuscarUsuarioAdmin(string usuario)
         {
             User_CAD busqueda = new User_CAD();
             User_EN usuarioBuscado = busqueda.BuscarUser(usuario);
@@ -85,6 +92,13 @@ namespace Logica
         {
             User_CAD actUser = new User_CAD();
             actUser.actualizarUser(u);
+        }
+
+        //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
+        public void actualizarUsuarioAdmin(User_EN u)
+        {
+            User_CAD actUser = new User_CAD();
+            actUser.actualizarUserAdmin(u);
         }
 
 

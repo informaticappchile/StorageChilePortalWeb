@@ -46,7 +46,6 @@ namespace Persistencia
         public ArrayList MostrarUser(User_EN u)
         {
             Conexion nueva_conexion = new Conexion();
-            nueva_conexion.Abrir_Conexion();
             nueva_conexion.SetQuery("Select * from Usuario where IdUsuario=" + u.ID);
             DataTable dt = nueva_conexion.QuerySeleccion();
 
@@ -107,9 +106,7 @@ namespace Persistencia
             }
 
             return lista;
-
-
-            return lista;
+            
         }
 
 
@@ -118,7 +115,7 @@ namespace Persistencia
         /**
          * Se encarga de borrar el usuario, si existe en la base de datos, a través de su ID
          **/
-        public void BorrarUser(User_EN u)
+        public bool BorrarUser(string userName)
         {
 
             Conexion nueva_conexion = new Conexion();
@@ -126,13 +123,14 @@ namespace Persistencia
             try
             {
                 string delete = "";
-                delete = "Delete from Usuario where Usuario.IdUsuario = " + u.ID;
+                delete = "Delete from Usuario where Usuario.UserName = '" + userName +"'";
                 nueva_conexion.SetQuery(delete);
 
 
                 nueva_conexion.EjecutarQuery();
+                return true;
             }
-            catch (Exception ex) { ex.Message.ToString(); }
+            catch (Exception ex) { ex.Message.ToString(); return false; }
             finally { nueva_conexion.Cerrar_Conexion(); }
         }
 
@@ -175,8 +173,47 @@ namespace Persistencia
         }
 
         /**
+         * Recibe un nombre de usuario o un correo electrónico y devuelve los datos del usuario al que pertenecen.
+         * En caso de que no exista tal usuario/correo, devuelve NULL
+         */
+        public User_EN BuscarUserAdmin(string busqueda)
+        {
+            User_EN usuario = null;
+            Conexion nueva_conexion = new Conexion();
+            try
+            {
+                string select = "Select * from Usuario where UserName ='" + busqueda + "'";
+                nueva_conexion.SetQuery(select);
+                DataTable dt = nueva_conexion.QuerySeleccion();
+                if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
+                {
+                    usuario = new User_EN();
+                    usuario.ID = Convert.ToInt16(dt.Rows[0]["IdUsuario"]);
+                    usuario.Correo = dt.Rows[0]["Email"].ToString();
+                    usuario.Nombre = dt.Rows[0]["NombreCompleto"].ToString();
+                    usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();
+                    usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["IdPerfil"].ToString());
+                    if (Convert.ToBoolean(dt.Rows[0]["Verificado"]))
+                    {
+                        usuario.Verified = "Verificado";
+                    }
+                    else
+                    {
+                        usuario.Verified = "No Verificado";
+                    }
+                    usuario.FechaRegistro = DateTime.Parse(dt.Rows[0]["FechaRegistro"].ToString());
+                    usuario.UltimoIngreso = DateTime.Parse(dt.Rows[0]["FechaUltimoIngreso"].ToString());
+                }
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+
+            return usuario;
+        }
+
+        /**
          * Se encarga de listar todos los amigos que tiene un usuario
-         **/ 
+         **/
         public ArrayList ListarAmigos()
         {
             Conexion nueva_conexion = new Conexion();
@@ -276,6 +313,35 @@ namespace Persistencia
             catch (Exception ex) { ex.Message.ToString(); }
             finally { nueva_conexion.Cerrar_Conexion(); }
         }
+        /**
+         * Se encarga de actualizar el usuario si sufre alguna modificacion en alguno de sus campos
+         **/
+
+        public void actualizarUserAdmin(User_EN u)
+        {
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+                string update = "";
+                bool verifid = false;
+
+                if (u.Verified == "Verificado")
+                {
+                    verifid = true;
+                }
+
+                update = "Update Usuario set Email = '" + u.Correo + "',NombreCompleto  = '" + u.Nombre +
+                    "',UserName = '" + u.NombreUsu + "' ,Verificado = " + verifid + " where Usuario.IdUsuario =" + u.ID;
+                nueva_conexion.SetQuery(update);
+
+
+                nueva_conexion.EjecutarQuery();
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+
 
 
     }

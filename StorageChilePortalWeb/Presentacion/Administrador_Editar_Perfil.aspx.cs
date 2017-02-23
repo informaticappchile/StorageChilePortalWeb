@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Presentacion
 {
-    public partial class Editar_Perfil : System.Web.UI.Page
+    public partial class Administrador_Editar_Perfil : System.Web.UI.Page
     {
         /**
          * Es necesario que los elementos CheckBox y RadioButton inicialicen sus tipos de clases
@@ -19,7 +19,7 @@ namespace Presentacion
          */
         protected void InitInputClasses()
         {
-            Editar_Perfil_Contraseña.Attributes["type"] = "password"; //Engañar al servidor para que pueda recibir valores
+            Editar_Perfil_Visibilidad_Switch.InputAttributes.Add("class", "mdl-switch__input");
         }
 
         /*
@@ -30,27 +30,20 @@ namespace Presentacion
             Editar_Perfil_Usuario.Text = en.NombreUsu;
             Editar_Perfil_Nombre.Text = en.Nombre;
             Editar_Perfil_Email.Text = en.Correo;
-            Editar_Perfil_Contraseña.Text = en.Contraseña;
             Editar_Perfil_ID.Text = en.ID.ToString();
-            
-        }
+            Editar_Perfil_Fecha_Resgistro.Text = en.FechaRegistro.ToString();
+            Editar_Perfil_Fecha_Ingreso.Text = en.UltimoIngreso.ToString();
+            if(en.Verified == "Verificado")
+            {
+                Editar_Perfil_Visibilidad_Switch.Checked = true;
+                Editar_Perfil_Visibilidad_Switch.Enabled = false;
+                Editar_Perfil_Visibilidad_Label.Text = "Verificado";
+            }
+            else
+            {
+                Editar_Perfil_Visibilidad_Switch.Checked = false;
+            }
 
-        /*
-         * Cuando se dé click al botón Editar Datos, todas las entradas pasarán a ser editables
-         * También el botón Editar Datos se esconderá para dar paso a Guardar Datos
-         */
-        protected void Editar_Perfil_Editar_Click(object sender, EventArgs e)
-        {
-            Editar_Perfil_Contraseña.Text = ""; //Vaciamos la contraseña para que no la puedan copiar
-
-
-
-            Editar_Perfil_Nombre.ReadOnly =
-            Editar_Perfil_Email.ReadOnly =
-            Editar_Perfil_Contraseña.ReadOnly =
-
-            Editar_Perfil_Editar.Visible = false;
-            Editar_Perfil_Guardar.Visible = true;
         }
 
         /*
@@ -60,15 +53,17 @@ namespace Presentacion
         protected void Editar_Perfil_Guardar_Click(object sender, EventArgs e)
         {
             LogicaUsuario lu = new LogicaUsuario();
-            User_EN en = new User_EN();
-            en.ID = Convert.ToInt16(Editar_Perfil_ID.Text);
-            en.NombreUsu = Editar_Perfil_Usuario.Text;
-            en.Nombre = Editar_Perfil_Nombre.Text;
-            en.Correo = Editar_Perfil_Email.Text;
-            en.Contraseña = Editar_Perfil_Contraseña.Text;
-            
+            this.user = Request["ID"].ToString();
+            this.en = lu.BuscarUsuarioAdmin(user);
+            this.en.NombreUsu = Editar_Perfil_Usuario.Text;
+            this.en.Nombre = Editar_Perfil_Nombre.Text;
+            this.en.Correo = Editar_Perfil_Email.Text;
+            if (Editar_Perfil_Visibilidad_Switch.Checked)
+            {
+                en.Verified = "Verificado";
+            }
 
-            lu.actualizarUsuario(en);
+            lu.actualizarUsuarioAdmin(en);
             if (ValidarCambios(en))
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -97,33 +92,45 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
+            Response.AddHeader("REFRESH", "2;URL=AdministrarUsuario.aspx");
+            //Response.Redirect("~/AdministarUsuario.aspx");
         }
 
+        private string user;
+        private User_EN en = new User_EN();
         protected void Page_Load(object sender, EventArgs e)
         {
+
             InitInputClasses();
-            User_EN en = (User_EN)Session["user_session_data"];
-            if (en != null)
-            {
+            LogicaUsuario lu = new LogicaUsuario();
+            User_EN ad = (User_EN)Session["user_session_data"];
+            /*if (ad != null)
+            {*/
                 if (!Page.IsPostBack)
                 {
-                    CargarDatos(en);
+                    if (Request["ID"] != null)
+                    {
+                        this.user = Request["ID"].ToString();
+                        this.en = lu.BuscarUsuarioAdmin(user);
+                        CargarDatos(this.en);
+                }
                 }
 
-            }
-            else
-            {
-                Response.Redirect("Login.aspx"); //Si no se ha iniciado sesion, no podras ver tu pefil y se redireccionara a la pagina de iniciar sesion
-            }
+            /*}
+          else
+           {
+               Response.Redirect("~/Control_Usuarios/Login.aspx"); //Si no se ha iniciado sesion, no podras ver tu pefil y se redireccionara a la pagina de iniciar sesion
+           }*/
         }
 
         protected bool ValidarCambios(User_EN u)
         {
             LogicaUsuario lu = new LogicaUsuario();
-            User_EN en = lu.BuscarUsuario(u.NombreUsu);
-            if (en.Nombre != u.Nombre){return false;}
-            if (en.Correo != u.Correo) { return false;}
-            if (en.Contraseña != u.Contraseña) { return false;}
+            User_EN en = lu.BuscarUsuarioAdmin(u.NombreUsu);
+            if (en.NombreUsu != u.NombreUsu) { return false; }
+            if (en.Nombre != u.Nombre){return false; }
+            if (en.Correo != u.Correo) { return false; }
+            if (en.Verified != u.Verified) { return false; }
             return true;
         }
     }

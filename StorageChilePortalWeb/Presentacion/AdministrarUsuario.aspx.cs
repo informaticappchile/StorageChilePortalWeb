@@ -23,11 +23,59 @@ namespace Presentacion
         {
             //File_EN fi = new File_EN();
             //GridViewMostrarTodo.DataSource = fi.MostrarAllFiles();
+            Llenar_GridView();
+            
+        }
+
+        /// <summary>
+        /// Metodo para eliminar un usuario
+        /// No elimina cuando estan vinculados a un servicio,
+        /// a un ticket o a una respuesta a un ticket.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Responsive_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            {
+                if (e.CommandName == "DEL")
+                {
+                    LogicaUsuario lu = new LogicaUsuario();
+                    if (lu.BorrarUsuario(e.CommandArgument.ToString()))
+                    {
+                        Llenar_GridView();
+                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                        StringBuilder sbMensaje = new StringBuilder();
+                        //Aperturamos la escritura de Javascript
+                        sbMensaje.Append("<script type='text/javascript'>");
+                        //Le indicamos al alert que mensaje va mostrar
+                        sbMensaje.AppendFormat("alert('{0}');", "El usuario ha sido eliminado correctamente");
+                        //Cerramos el Script
+                        sbMensaje.Append("</script>");
+                        //Registramos el Script escrito en el StringBuilder
+                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                    }
+                    else
+                    {
+                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                        StringBuilder sbMensaje = new StringBuilder();
+                        //Aperturamos la escritura de Javascript
+                        sbMensaje.Append("<script type='text/javascript'>");
+                        //Le indicamos al alert que mensaje va mostrar
+                        sbMensaje.AppendFormat("alert('{0}');", "No se ha podido eliminar al usuario, intente más tarde o consulte a soporte técnico");
+                        //Cerramos el Script
+                        sbMensaje.Append("</script>");
+                        //Registramos el Script escrito en el StringBuilder
+                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                    }
+                }
+            }
+        }
+
+        private void Llenar_GridView()
+        {
             LogicaUsuario lu = new LogicaUsuario();
             Responsive.DataSource = lu.MostrarUsuarios();
             Responsive.DataBind();
-            
-
         }
     }
 }
