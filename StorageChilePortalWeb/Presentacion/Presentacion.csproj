@@ -92,6 +92,7 @@
     <Content Include="BusquedaUsuario.aspx" />
     <Content Include="Control_Usuarios\ConfirmacionRegistro.aspx" />
     <Content Include="Control_Usuarios\Editar_Perfil.aspx" />
+    <Content Include="Control_Usuarios\Restablecer_Password.aspx" />
     <Content Include="Control_Usuarios\Login.aspx" />
     <Content Include="Control_Usuarios\Register.aspx" />
     <Content Include="CSS\bttn.min.css" />
@@ -164,6 +165,13 @@
     </Compile>
     <Compile Include="Control_Usuarios\Editar_Perfil.aspx.designer.cs">
       <DependentUpon>Editar_Perfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Control_Usuarios\Restablecer_Password.aspx.cs">
+      <DependentUpon>Restablecer_Password.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Control_Usuarios\Restablecer_Password.aspx.designer.cs">
+      <DependentUpon>Restablecer_Password.aspx</DependentUpon>
     </Compile>
     <Compile Include="Control_Usuarios\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

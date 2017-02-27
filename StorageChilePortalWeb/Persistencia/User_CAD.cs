@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Net.Mail;
 using Entidades;
+using MySql.Data.MySqlClient;
 
 namespace Persistencia
 {
@@ -164,6 +165,7 @@ namespace Persistencia
                     {
                         usuario.Verified = "No Verificado";
                     }
+                    usuario.Intentos = Convert.ToInt16(dt.Rows[0]["Intentos"]);
                 }
             }
             catch (Exception ex) { ex.Message.ToString(); }
@@ -342,7 +344,70 @@ namespace Persistencia
             finally { nueva_conexion.Cerrar_Conexion(); }
         }
 
+        /**
+         * Se encarga de actualizar el usuario si sufre algun intento fallido de iniciar sesion
+         **/
 
+        public void establecerIntentos(User_EN u)
+        {
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+                string update = "";
+
+
+                update = "Update Usuario set Intentos = " + u.Intentos + " where Usuario.IdUsuario =" + u.ID;
+                nueva_conexion.SetQuery(update);
+
+                nueva_conexion.EjecutarQuery();
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+        /**
+         * Se encarga de actualizar el usuario con el fin de bloquer a este.
+         **/
+
+        public void bloquearUsuario(User_EN u)
+        {
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+                string update = "";
+                string nombreParam = "@fechaBloqueo";
+
+                update = "Update Usuario set Verificado = " + false + ",FechaIntentoIngreso = "+ nombreParam +" where Usuario.IdUsuario =" + u.ID;
+                nueva_conexion.SetQuery(update);
+                nueva_conexion.addParameter(nombreParam, u.FechaBloqueo);
+
+                nueva_conexion.EjecutarQuery();
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+        /**
+         * Se encarga de actualizar el usuario con el fin de bloquer a este.
+         **/
+
+        public void RestablecerContraseña(User_EN u)
+        {
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+                string update = "";
+
+
+                update = "Update Usuario set Password = '" + u.Contraseña + "' where Usuario.IdUsuario =" + u.ID;
+                nueva_conexion.SetQuery(update);
+
+                nueva_conexion.EjecutarQuery();
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
 
     }
 }

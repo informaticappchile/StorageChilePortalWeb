@@ -101,6 +101,25 @@ namespace Logica
             actUser.actualizarUserAdmin(u);
         }
 
+        //Declaramos la funcion establecer intentos del usuario donde llama al cad correspondiente
+        public void establecerIntento(User_EN u)
+        {
+            User_CAD actUser = new User_CAD();
+            actUser.establecerIntentos(u);
+        }
+
+        //Declaramos la funcion bloquear usuario donde llama al cad correspondiente
+        public void bloquearUsuario(User_EN u)
+        {
+            User_CAD actUser = new User_CAD();
+            actUser.bloquearUsuario(u);
+        }
+        //Declaramos la funcion restablecer la contraseña del usuario donde llama al cad correspondiente
+        public void RestableserPassword(User_EN u)
+        {
+            User_CAD actUser = new User_CAD();
+            actUser.RestablecerContraseña(u);
+        }
 
         public ArrayList MostrarUsuarios()
         {

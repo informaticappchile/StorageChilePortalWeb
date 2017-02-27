@@ -10,61 +10,34 @@
 namespace Presentacion {
     
     
-    public partial class Login {
+    public partial class Restablecer_Password {
         
         /// <summary>
-        /// Control BlockUser_Login.
+        /// Control UserNotification_RP.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label BlockUser_Login;
+        protected global::System.Web.UI.WebControls.Label UserNotification_RP;
         
         /// <summary>
-        /// Control WrongPasswordError_Login.
+        /// Control WrongUserError_RP.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label WrongPasswordError_Login;
+        protected global::System.Web.UI.WebControls.Label WrongUserError_RP;
         
         /// <summary>
-        /// Control UserNotExistsError_Login.
+        /// Control username_rp_input.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label UserNotExistsError_Login;
-        
-        /// <summary>
-        /// Control UserNotVerifiedError_Login.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label UserNotVerifiedError_Login;
-        
-        /// <summary>
-        /// Control username_login_input.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox username_login_input;
-        
-        /// <summary>
-        /// Control RequiredFieldValidatorUserName.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorUserName;
+        protected global::System.Web.UI.WebControls.TextBox username_rp_input;
         
         /// <summary>
         /// Control RegExUsuario.
@@ -76,22 +49,22 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegExUsuario;
         
         /// <summary>
-        /// Control password_login_input.
+        /// Control correo_rp_input.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox password_login_input;
+        protected global::System.Web.UI.WebControls.TextBox correo_rp_input;
         
         /// <summary>
-        /// Control RequiredFieldValidatorPassword.
+        /// Control RegularExpressionValidatorEmail.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorPassword;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorEmail;
         
         /// <summary>
         /// Control txtCaptcha.
@@ -112,21 +85,12 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCaptcha;
         
         /// <summary>
-        /// Control Button_Login.
+        /// Control Button_RP.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_Login;
-        
-        /// <summary>
-        /// Control HyperLink1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.Button Button_RP;
     }
 }

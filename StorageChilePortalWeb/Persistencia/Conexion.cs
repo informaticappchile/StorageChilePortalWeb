@@ -53,8 +53,12 @@ namespace Persistencia
         public void addParameter(string nombre, object dato)
         {
             //Define un parametro asociada a la query
-            SqlParameter param = new SqlParameter(nombre, dato);
+            MySqlParameter param = new MySqlParameter(nombre, dato);
             ds.Parameters.Add(param);
+        }
+        public void addParameter(string nombre, DateTime dato)
+        {
+            ds.Parameters.Add(new MySqlParameter(nombre, MySqlDbType.DateTime)).Value = dato;
         }
         public void clearParameter()
         {

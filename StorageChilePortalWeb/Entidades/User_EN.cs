@@ -113,13 +113,32 @@ namespace Entidades
             set { ultimoIngreso = value; }
         }
 
+        //Declaramos la fecha de registro del usuario
+        private DateTime fechaBloquep;
+
+
+        public DateTime FechaBloqueo
+        {
+            get { return fechaRegistro; }
+            set { fechaRegistro = value; }
+        }
+
         //Declaramos la cantidad de ingresos del usuario al sistema
 
-        private DateTime cantIngreso;
-        public DateTime CantIngreso
+        private int cantIngreso;
+        public int CantIngreso
         {
             get { return cantIngreso; }
             set { cantIngreso = value; }
+        }
+
+        private int intentos;
+
+        //Declaramos la visibilidad de perfil del user en public para poder utilizarlo
+        public int Intentos
+        {
+            get { return intentos; }
+            set { intentos = value; }
         }
 
         //Declaramos el constructor de la clase User_EN
