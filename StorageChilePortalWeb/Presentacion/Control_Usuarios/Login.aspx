@@ -75,7 +75,7 @@
         </div>
         <div class="mdl-card__actions mdl-card--border">
             <asp:Button ID="Button_Login" runat="server" Text="Iniciar Sesión" OnClick="Button_Login_Click" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
-            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Control_Usuarios/Restablecer_Password.aspx" ForeColor="#0000bf" CssClass="mdl-navigation__link">¿Olvidó su contraseña?</asp:HyperLink>
+            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Control_Usuarios/Restablecer_Password.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">¿OLVIDÓ SU CONTRASEÑA?</asp:HyperLink>
         </div>
     </div>
 </asp:Content>

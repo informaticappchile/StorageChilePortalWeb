@@ -77,6 +77,8 @@ namespace Presentacion
                 sbMensaje.Append("<script type='text/javascript'>");
                 //Le indicamos al alert que mensaje va mostrar
                 sbMensaje.AppendFormat("alert('{0}');", "Se actualizaron los datos correctamente");
+                //Redirige a página de inicio.
+                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
                 //Cerramos el Script
                 sbMensaje.Append("</script>");
                 //Registramos el Script escrito en el StringBuilder
