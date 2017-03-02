@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
+using System.Net;
+using System.Data.SqlClient;
 
 namespace Presentacion
 {
@@ -46,36 +48,102 @@ namespace Presentacion
             {
                 
                 String path = Server.MapPath("Files/"); //Ruta donde subir el archivo (en la carpeta "Files" de nuestro proyecto)
-                if (FileUpload1.HasFile)
+
+                string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
+
+                string ftpUser = "cvaras";
+                string ftpPassWord = "cvaras1234";
+                Stream requestStream = null;
+                Stream fileStream = null;
+                FtpWebResponse uploadResponse = null;
+                string carpeta = "storage/";
+
+                if (FileUpload1.PostedFile != null)
                 {
-                    try
+                    HttpPostedFile uploadFile = FileUpload1.PostedFile;
+                    if (System.IO.Path.GetExtension(uploadFile.FileName).ToLower() == ".pdf")
                     {
-                        User_EN user = (User_EN)Session["user_session_data"];
-                        if (user != null)
+                        try
                         {
-                            
-                            File_EN arx = new File_EN();
-                            
-                            //user.LeerUsuario(); //Leemos los datos del usuario
-                            arx.Nombre = FileUpload1.FileName;
-                            arx.Propietario = user.ID; //El propietario del archivo sera igual al id del usuario
-                            //int id=arx.SubirArchivo();
-                            string pathString = path + "/" + user.ID + "/"; //Se guardara dentro de una carpeta con el id del usuario
-                            Directory.CreateDirectory(pathString);
-                            FileUpload1.PostedFile.SaveAs(pathString + arx.Nombre); //Guardamos el archivo en la ruta correspondiente
+                            User_EN user = (User_EN)Session["user_session_data"];
+                            if (user != null)
+                            {
+                                string strFileName = Path.GetFileName(uploadFile.FileName);
+                                string a = ("h:/root/home/infochile-001/www/informaticapp/Storage/uploadpdf/" + strFileName);
+                                int FileLength = FileUpload1.PostedFile.ContentLength;
+                                Uri uri = new Uri(FileSaveUri + carpeta + Path.GetFileName(FileUpload1.PostedFile.FileName));
+                                
+                                try
+                                {
+                                    FtpWebRequest uploadRequest = (FtpWebRequest)WebRequest.Create(uri);
+                                    uploadRequest.Method = WebRequestMethods.Ftp.UploadFile;
+                                    uploadRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+                                    requestStream = uploadRequest.GetRequestStream();
+                                    byte[] buffer = new byte[FileLength];
+                                    fileStream = FileUpload1.PostedFile.InputStream;
+                                    fileStream.Read(buffer, 0, FileLength);
+                                    requestStream.Write(buffer, 0, FileLength);
+                                    requestStream.Close();
+                                    uploadResponse = (FtpWebResponse)uploadRequest.GetResponse();
+                                    //uploadFile.SaveAs(MapPath(a));
+                                
+                                }
+                                catch (Exception ex)
+                                {
+                                    try
+                                    {
+                                        crearCarpeta(carpeta, FileSaveUri, ftpUser, ftpPassWord);
+                                        FtpWebRequest uploadRequest = (FtpWebRequest)WebRequest.Create(uri);
+                                        uploadRequest.Method = WebRequestMethods.Ftp.UploadFile;
+                                        uploadRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+                                        requestStream = uploadRequest.GetRequestStream();
+                                        byte[] buffer = new byte[FileLength];
+                                        fileStream = FileUpload1.PostedFile.InputStream;
+                                        fileStream.Read(buffer, 0, FileLength);
+                                        requestStream.Write(buffer, 0, FileLength);
+                                        requestStream.Close();
+                                        uploadResponse = (FtpWebResponse)uploadRequest.GetResponse();
+                                        //uploadFile.SaveAs(MapPath(a));
+                                    }
+                                    catch (Exception ex1)
+                                    {
+                                        Response.Write("Error de conexión con el servidor.");
+                                    }
+                                }
+                            }
+                            else
+                                Response.Write("Error. usuario no válido");
                         }
-                        else
-                            Response.Write("Error. usuario no válido");
+                        catch (Exception ex)
+                        {
+                            Response.Write("El archivo no se puede subir.");
+                        }
+                        
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Response.Write("El archivo no se puede subir.");
+
                     }
                 }
                 else
                 {
-                    Response.Write("Cannot accept files of this type.");
+
                 }
+            }
+            else
+            {
+
+            }
+        }
+
+        protected void crearCarpeta(string carpeta, string uri, string ftpUser, string ftpPassWord)
+        {
+            WebRequest request = WebRequest.Create(uri + carpeta);
+            request.Method = WebRequestMethods.Ftp.MakeDirectory;
+            request.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+            using (var resp = (FtpWebResponse)request.GetResponse())
+            {
+                Console.WriteLine(resp.StatusCode);
             }
         }
     }
