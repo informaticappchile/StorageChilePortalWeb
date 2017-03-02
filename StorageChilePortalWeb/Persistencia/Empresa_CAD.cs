@@ -29,8 +29,8 @@ namespace Persistencia
             try
             {
                 
-                string insert = "insert into Empresa(CorreoEmpresa,NombreEmpresa,RutEmpresa, ServicioAlmacen, ServicioBodega) VALUES ('"
-                    + e.Correo + "','" + e.NombreEmp + "','" + e.Rut + "')";
+                string insert = "insert into Empresa(CorreoEmpresa,NombreEmpresa,RutEmpresa, EstadoAlmacen, EstadoBodega) VALUES ('"
+                    + e.Correo + "','" + e.NombreEmp + "','" + e.Rut + "',"+ e.ServAlmacen+"," + e.ServBodega + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
                 nueva_conexion.EjecutarQuery();
@@ -80,6 +80,8 @@ namespace Persistencia
                 empresa.NombreEmp = dt.Rows[i]["NombreEmpresa"].ToString();
                 empresa.Rut = dt.Rows[i]["RutEmpresa"].ToString();
                 empresa.Correo = dt.Rows[i]["CorreoEmpresa"].ToString();
+                empresa.ServAlmacen = Convert.ToBoolean(dt.Rows[i]["EstadoAlmacen"].ToString());
+                empresa.ServBodega = Convert.ToBoolean(dt.Rows[i]["EstadoBodega"].ToString());
                 lista.Add(empresa);
 
             }
@@ -126,10 +128,12 @@ namespace Persistencia
                 if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
                 {
                     empresa = new Empresa_EN();
-                    empresa.ID = Convert.ToInt16(dt.Rows[0]["IdUsuario"]);
+                    empresa.ID = Convert.ToInt16(dt.Rows[0]["IdEmpresa"]);
                     empresa.Correo = dt.Rows[0]["CorreoEmpresa"].ToString();
                     empresa.NombreEmp = dt.Rows[0]["NombreEmpresa"].ToString();
                     empresa.Rut = dt.Rows[0]["RutEmpresa"].ToString();
+                    empresa.ServAlmacen = Convert.ToBoolean(dt.Rows[0]["EstadoAlmacen"].ToString());
+                    empresa.ServBodega = Convert.ToBoolean(dt.Rows[0]["EstadoBodega"].ToString());
                 }
             }
             catch (Exception ex) { ex.Message.ToString(); }

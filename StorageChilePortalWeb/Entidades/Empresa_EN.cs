@@ -63,20 +63,20 @@ namespace Entidades
         }
 
         //Declaramos el verificado del user en private
-        private string servAlmacen;
+        private bool servAlmacen;
 
         //Declaramos el verificado del user en public para poder utilizarlo
-        public string ServAlmacen
+        public bool ServAlmacen
         {
             get { return servAlmacen; }
             set { servAlmacen = value; }
         }
         
         //Declaramos el verificado del user en private
-        private string servBodega;
+        private bool servBodega;
 
         //Declaramos el verificado del user en public para poder utilizarlo
-        public string ServBodega
+        public bool ServBodega
         {
             get { return servBodega; }
             set { servBodega = value; }

@@ -10,8 +10,15 @@ namespace Presentacion
 {
     public partial class Register_Empresa : System.Web.UI.Page
     {
+
+        protected void InitInputClasses()
+        {
+            Registro_Empresa_ServicioBodega_Switch.InputAttributes.Add("class", "mdl-switch__input");
+            Registro_Empresa_ServicioAlmacen_Switch.InputAttributes.Add("class", "mdl-switch__input");
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
+            InitInputClasses();
             if (Session["user_session_data"] == null)
             {//Valida que existe usuario logueado.
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -63,10 +70,35 @@ namespace Presentacion
                     en.NombreEmp = nombre_empresa_register.Text;//Con su nombre de usuario
                     en.Correo = correo_empresa_register.Text;//Con su correo
                     en.Rut = rut_empresa_register.Text;//Con su contrasenya
+                    en.ServAlmacen = Registro_Empresa_ServicioAlmacen_Switch.Checked;
+                    en.ServBodega = Registro_Empresa_ServicioBodega_Switch.Checked;
                     le.InsertarEmpresa(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
                     Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
                     if (validarRegistroEmpresa(em))
                     {
+                        string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
+
+                        string ftpUser = "cvaras";
+                        string ftpPassWord = "cvaras1234";
+                        if (em.ServBodega) { 
+                            try
+                            {
+                                crearCarpeta(em.NombreEmp, FileSaveUri, ftpUser, ftpPassWord);
+                            }
+                            catch(Exception ex)
+                            {
+                                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                                StringBuilder sbMensaje1 = new StringBuilder();
+                                //Aperturamos la escritura de Javascript
+                                sbMensaje1.Append("<script type='text/javascript'>");
+                                //Le indicamos al alert que mensaje va mostrar
+                                sbMensaje1.AppendFormat("alert('{0}');", "Ha ocurrido un error al reservar su espacio,comuníquese con el servicio de soporte para poder habilitarlo.");
+                                //Cerramos el Script
+                                sbMensaje1.Append("</script>");
+                                //Registramos el Script escrito en el StringBuilder
+                                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje1.ToString());
+                            }
+                        }
                         //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                         StringBuilder sbMensaje = new StringBuilder();
                         //Aperturamos la escritura de Javascript
@@ -101,7 +133,11 @@ namespace Presentacion
 
         private bool validarRegistroEmpresa(Empresa_EN e)
         {
-            if (e != null || e.NombreEmp != "")
+            if (e == null)
+            {
+                return false;
+            }
+            else if (e.NombreEmp != "")
             {
                 return true;
             }
@@ -120,5 +156,17 @@ namespace Presentacion
             string url = "https://www.google.com/recaptcha/api/siteverify?secret=" + ReCaptcha_Secret + "&response=" + response;
             return (new WebClient()).DownloadString(url);
         }
+
+        protected void crearCarpeta(string carpeta, string uri, string ftpUser, string ftpPassWord)
+        {
+            WebRequest request = WebRequest.Create(uri + carpeta);
+            request.Method = WebRequestMethods.Ftp.MakeDirectory;
+            request.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+            using (var resp = (FtpWebResponse)request.GetResponse())
+            {
+                Console.WriteLine(resp.StatusCode);
+            }
+        }
+
     }
 }

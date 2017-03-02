@@ -72,7 +72,7 @@ namespace Presentacion
                 MailAddress toAddress = new MailAddress(u.Correo);//El destinatario
                 message.From = fromAddress;
                 message.To.Add(toAddress);
-                message.Subject = "Restableser Contraseña";//El asunto del email
+                message.Subject = "Restablecer Contraseña";//El asunto del email
 
                 string userActiviation = Request.Url.GetLeftPart(UriPartial.Authority) + "/Control_Usuarios/Login.aspx";//La direccion url que debe ser recargada para la activacion de la cuenta
 

@@ -13,10 +13,10 @@
             <ul class="demo-list-control mdl-list">
                 <li class="mdl-list__item">
                     <span class="mdl-list__item-primary-content">
-                        <i class="material-icons  mdl-list__item-avatar">person</i>
+                        <i class="material-icons  mdl-list__item-avatar">domain</i>
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <asp:TextBox ID="nombre_empresa_register" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
-                            <label class="mdl-textfield__label" for="nombre_empresa_register">Usuario</label>
+                            <label class="mdl-textfield__label" for="nombre_empresa_register">Nombre Empresa</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidatorUserName" runat="server" ControlToValidate="nombre_empresa_register" ErrorMessage="Introduce el nombre de usuario" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="RegExUsuario" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="nombre_empresa_register" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                         </span>
@@ -29,7 +29,7 @@
                             <asp:TextBox ID="rut_empresa_register" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
                             <label class="mdl-textfield__label" for="rut_empresa_register">Rut</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="rut_empresa_register" ErrorMessage="Introduce un rut por favor" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Formato de rut no valido. Ejemplo: 11222333-4" ControlToValidate="rut_empresa_register" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Formato de rut no valido. Ejemplo: 11222333-4" ControlToValidate="rut_empresa_register" ValidationExpression="\b\d{1,8}\-[K|k|0-9]" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                         </span>
                     </span>
                 </li>
