@@ -10,6 +10,8 @@ using System.Web.ClientServices;
 using System.IO;
 using System.Text;
 using System.Collections;
+using System.Net;
+using System.Data;
 
 namespace Presentacion
 {
@@ -17,18 +19,40 @@ namespace Presentacion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           // if (Request.QueryString.Count > 0)
-           // {
-           //     if (Request.QueryString.Keys[0] == "ID")
-                User_EN en = (User_EN)Session["user_session_data"]; 
+            string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
+            string ftpUser = "cvaras";
+            string ftpPassWord = "cvaras1234";
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
+            ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+            ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+            FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
+            StreamReader streamReader = new StreamReader(response.GetResponseStream());
+            DataTable dt = new DataTable("Archivos");
+            dt.Columns.Add(new DataColumn("Archivo", typeof(string)));
+            string line = streamReader.ReadLine();
+            while (!string.IsNullOrEmpty(line))
+            {
+                DataRow row = dt.NewRow();
+                row["Archivo"] = ObtenerNombre(line);
+                //Añadimos la fila a la tabla
+                dt.Rows.Add(row);
+                line = streamReader.ReadLine();
+            }
+            streamReader.Close();
+            // if (Request.QueryString.Count > 0)
+            // {
+            //     if (Request.QueryString.Keys[0] == "ID")
+            User_EN en = (User_EN)Session["user_session_data"]; 
                 if (en != null)
                 {
                     //en.LeerUsuario();  //lee todos los datos del usuario de la base de datos, ya que la pagina solo proporciona login y password
              
                     File_EN fi = new File_EN();
                     fi.Propietario = en.ID;//Para identificar al usuario
-                    //EL griedView, mostrara un tabla con todos los datos que nos devuelva MostrarFilesUsuarioNombreEn
-                    //GridViewMostrarArchivos.DataSource = fi.MostrarFilesUsuarioNombreEn();
+                                           //EL griedView, mostrara un tabla con todos los datos que nos devuelva MostrarFilesUsuarioNombreEn
+                                           //GridViewMostrarArchivos.DataSource = fi.MostrarFilesUsuarioNombreEn();
+                                           
+                    GridViewMostrarArchivos.DataSource = dt;
                     GridViewMostrarArchivos.DataBind();
                     
                 }
@@ -46,7 +70,7 @@ namespace Presentacion
                 HyperLink Texto_Descarga = (HyperLink)e.Row.FindControl("Descarga"); //Creamos el link para la descargar
                 HyperLink Texto_Borra = (HyperLink)e.Row.FindControl("Borra"); //Creamos el link para borrar el archivo
                 User_EN en = (User_EN)Session["user_session_data"];
-                string rutaArchivo = "Files/" + en.ID + "/" + HttpUtility.HtmlDecode(e.Row.Cells[2].Text); /*Guardamos la ruta del archivo
+                string rutaArchivo = "Files/" + en.ID + "/" + HttpUtility.HtmlDecode(e.Row.Cells[1].Text); /*Guardamos la ruta del archivo
                 utilizando HttpUtility.HtmlDecode  que sirve para decodificar carácteres especiales (&, ñ, etc.)*/
                 string idArchivo = e.Row.Cells[1].Text; //Guardamos el id del archivo
                 /*
@@ -54,13 +78,24 @@ namespace Presentacion
                  */
                 Image icono = (Image)e.Row.FindControl("icono_fichero");
                 string extensionArchivo = Path.GetExtension(rutaArchivo);
-                extensionArchivo = extensionArchivo.Substring(1, extensionArchivo.Length-1); //quitar punto (carácter 0 del string)
-                string rutaIcono = Server.MapPath("/styles/format-icons/" + extensionArchivo + ".svg");
-                icono.ImageUrl = File.Exists(rutaIcono) ? "~/styles/format-icons/" + extensionArchivo + ".svg" : "~/styles/format-icons/file.svg";
+                if (extensionArchivo.Length != 0)
+                {
+                    extensionArchivo = extensionArchivo.Substring(1, extensionArchivo.Length - 1); //quitar punto (carácter 0 del string)
+                    string rutaIcono = Server.MapPath("/styles/format-icons/" + extensionArchivo + ".svg");
+                    icono.ImageUrl = File.Exists(rutaIcono) ? "~/styles/format-icons/" + extensionArchivo + ".svg" : "~/styles/format-icons/file.svg";
+                }
+                else
+                {
+                    extensionArchivo = "folder"; 
+                    string rutaIcono = Server.MapPath("/styles/format-icons/" + extensionArchivo + ".svg");
+                    icono.ImageUrl = File.Exists(rutaIcono) ? "~/styles/format-icons/" + extensionArchivo + ".svg" : "~/styles/format-icons/file.svg";
+                }
+                
 
-                Texto_Descarga.NavigateUrl = Server.MapPath(rutaArchivo); //Copiamos la ruta del archivo a la URL para descargar
+                /*Texto_Descarga.NavigateUrl = Server.MapPath(rutaArchivo); //Copiamos la ruta del archivo a la URL para descargar
                 Texto_Borra.NavigateUrl = Server.MapPath(rutaArchivo); //Lo mismo para borrar
                 Texto_Borra.Text = idArchivo; //Guardamos el id asociado al archivo para cuando llamemos al manejador de la funcion podamos extraerlo del objeto emisor de la señal
+            */
             }
         }
         /*
@@ -107,5 +142,31 @@ namespace Presentacion
                 Response.End(); // Enviamos todo el encabezado ahora
             }
         }
+
+        protected string ObtenerNombre(string nombre)
+        {
+            string n = "";
+            char[] c = nombre.ToCharArray();
+            for(int i = c.Length-1; i >= 0; i--)
+            {
+                if (c[i] != ' ')
+                {
+                    n = n + c[i].ToString();
+                }else
+                {
+                    
+                    return Reverse(n);
+                }
+            }
+            return n;
+        }
+
+        protected string Reverse(string s)
+        {
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
     }
 }

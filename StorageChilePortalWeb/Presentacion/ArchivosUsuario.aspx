@@ -15,10 +15,7 @@
                     </ItemTemplate>
                 </asp:TemplateField>
 
-                <asp:BoundField DataField="ID" HeaderText="id" ItemStyle-CssClass="id-oculto" HeaderStyle-CssClass="id-oculto" />
-                <asp:BoundField DataField="Nombre" HeaderText="Nombre Archivo" />
-                <asp:BoundField DataField="Fecha_creacion" HeaderText="Fecha Creación" />
-                <asp:BoundField DataField="Propietario" HeaderText="Propietario" />
+                <asp:BoundField DataField="Archivo" HeaderText="Archivo"  />
 
                 <asp:TemplateField HeaderText="">
                     <ItemTemplate>
