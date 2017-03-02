@@ -24,7 +24,7 @@ namespace Presentacion
             {
                 try
                 {
-                    string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
+                    string FileSaveUri = @"ftp://ftp.Smarterasp.net/"+en.NombreEmp+"/";
                     string ftpUser = "cvaras";
                     string ftpPassWord = "cvaras1234";
                     FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);

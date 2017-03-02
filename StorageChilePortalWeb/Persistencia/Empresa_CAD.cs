@@ -29,7 +29,7 @@ namespace Persistencia
             try
             {
                 
-                string insert = "insert into Empresa(CorreoEmpresa,NombreEmpresa,RutEmpresa) VALUES ('"
+                string insert = "insert into Empresa(CorreoEmpresa,NombreEmpresa,RutEmpresa, ServicioAlmacen, ServicioBodega) VALUES ('"
                     + e.Correo + "','" + e.NombreEmp + "','" + e.Rut + "')";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);

@@ -64,8 +64,8 @@ namespace Presentacion
                     en.Correo = correo_empresa_register.Text;//Con su correo
                     en.Rut = rut_empresa_register.Text;//Con su contrasenya
                     le.InsertarEmpresa(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
-                    Empresa_EN e = le.BuscarEmpresa(en.NombreEmp);
-                    if (validarRegistroEmpresa(e))
+                    Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
+                    if (validarRegistroEmpresa(em))
                     {
                         //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                         StringBuilder sbMensaje = new StringBuilder();
