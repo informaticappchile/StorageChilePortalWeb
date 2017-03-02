@@ -79,6 +79,9 @@
                         <asp:HyperLink ID="Link_Arcivos_Usuario" runat="server" NavigateUrl="~/BusquedaUsuario.aspx" CssClass="mdl-navigation__link" Visible="false">
                             <i class="material-icons">account_circle</i> Buscar Usuario
                         </asp:HyperLink>
+                        <asp:HyperLink ID="Link_Registrar_Empresa" runat="server" NavigateUrl="~/Control_Usuarios/Register_Empresa.aspx" CssClass="mdl-navigation__link" Visible="false">
+                            <i class="material-icons">domain</i> Registrar Empresa
+                        </asp:HyperLink>
                         <asp:HyperLink ID="Link_Registrar_Usuario" runat="server" NavigateUrl="~/Control_Usuarios/Register.aspx" CssClass="mdl-navigation__link" Visible="false">
                             <i class="material-icons">add_circle</i> Registrar Usuario
                         </asp:HyperLink>

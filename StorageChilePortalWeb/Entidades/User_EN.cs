@@ -141,6 +141,15 @@ namespace Entidades
             set { intentos = value; }
         }
 
+        //Declaramos el nombre de la empresa del user en private
+        private string nombreEmp;
+        //Declaramos el nombre de la empresa del user en public para poder utilizarlo
+        public string NombreEmp
+        {
+            get { return nombreEmp; }
+            set { nombreEmp = value; }
+        }
+
         //Declaramos el constructor de la clase User_EN
         public User_EN()
         {

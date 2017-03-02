@@ -19,44 +19,66 @@ namespace Presentacion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
-            string ftpUser = "cvaras";
-            string ftpPassWord = "cvaras1234";
-            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
-            ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
-            ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
-            FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
-            StreamReader streamReader = new StreamReader(response.GetResponseStream());
-            DataTable dt = new DataTable("Archivos");
-            dt.Columns.Add(new DataColumn("Archivo", typeof(string)));
-            string line = streamReader.ReadLine();
-            while (!string.IsNullOrEmpty(line))
+            User_EN en = (User_EN)Session["user_session_data"];
+            if (en != null)
             {
-                DataRow row = dt.NewRow();
-                row["Archivo"] = ObtenerNombre(line);
-                //Añadimos la fila a la tabla
-                dt.Rows.Add(row);
-                line = streamReader.ReadLine();
-            }
-            streamReader.Close();
-            // if (Request.QueryString.Count > 0)
-            // {
-            //     if (Request.QueryString.Keys[0] == "ID")
-            User_EN en = (User_EN)Session["user_session_data"]; 
-                if (en != null)
+                try
                 {
+                    string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
+                    string ftpUser = "cvaras";
+                    string ftpPassWord = "cvaras1234";
+                    FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
+                    ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+                    ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+                    FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
+                    StreamReader streamReader = new StreamReader(response.GetResponseStream());
+                    DataTable dt = new DataTable("Archivos");
+                    dt.Columns.Add(new DataColumn("Archivo", typeof(string)));
+                    string line = streamReader.ReadLine();
+                    while (!string.IsNullOrEmpty(line))
+                    {
+                        DataRow row = dt.NewRow();
+                        row["Archivo"] = ObtenerNombre(line);
+                        //Añadimos la fila a la tabla
+                        dt.Rows.Add(row);
+                        line = streamReader.ReadLine();
+                    }
+                    streamReader.Close();
+                    // if (Request.QueryString.Count > 0)
+                    // {
+                    //     if (Request.QueryString.Keys[0] == "ID")
+
                     //en.LeerUsuario();  //lee todos los datos del usuario de la base de datos, ya que la pagina solo proporciona login y password
-             
+
                     File_EN fi = new File_EN();
                     fi.Propietario = en.ID;//Para identificar al usuario
                                            //EL griedView, mostrara un tabla con todos los datos que nos devuelva MostrarFilesUsuarioNombreEn
                                            //GridViewMostrarArchivos.DataSource = fi.MostrarFilesUsuarioNombreEn();
-                                           
+
                     GridViewMostrarArchivos.DataSource = dt;
                     GridViewMostrarArchivos.DataBind();
-                    
+
+
+                    //}
                 }
-            //}
+                catch (Exception ex)
+                {
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Error de conexión con el servidor, intente más tarde.");
+                    //Cerramos el Script
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                }
+            }
+            else
+            {
+                Response.Redirect("Control_Usuarios/Login.aspx");
+            }
         }
 
         /*

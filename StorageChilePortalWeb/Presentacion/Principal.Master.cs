@@ -20,6 +20,7 @@ namespace Presentacion
                 {
                     Link_Feed.Visible = false;
                     Link_MyFiles.Visible = false;
+                    Link_Registrar_Empresa.Visible = true;
                     Link_Registrar_Usuario.Visible = true;
                     Link_Administrar_Usuarios.Visible = true;
                     Link_Arcivos_Usuario.Visible = true;
