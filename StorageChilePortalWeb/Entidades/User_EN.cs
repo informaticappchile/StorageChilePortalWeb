@@ -114,13 +114,13 @@ namespace Entidades
         }
 
         //Declaramos la fecha de registro del usuario
-        private DateTime fechaBloquep;
+        private DateTime fechaBloqueo;
 
 
         public DateTime FechaBloqueo
         {
-            get { return fechaRegistro; }
-            set { fechaRegistro = value; }
+            get { return fechaBloqueo; }
+            set { fechaBloqueo = value; }
         }
 
         //Declaramos la cantidad de ingresos del usuario al sistema

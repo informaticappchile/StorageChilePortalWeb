@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Entidades;
 using System.Net;
 using System.Data.SqlClient;
+using Logica;
 
 namespace Presentacion
 {
@@ -46,7 +47,8 @@ namespace Presentacion
 
             if (IsPostBack)
             {
-                
+                User_EN en = (User_EN)Session["user_session_data"];
+                LogicaUsuario lu = new LogicaUsuario();
                 String path = Server.MapPath("Files/"); //Ruta donde subir el archivo (en la carpeta "Files" de nuestro proyecto)
 
                 string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
@@ -56,7 +58,8 @@ namespace Presentacion
                 Stream requestStream = null;
                 Stream fileStream = null;
                 FtpWebResponse uploadResponse = null;
-                string carpeta = "storage/";
+                string carpeta = contenedor_sa_inpu.Text + "/";
+                string empresa = lu.BuscarUsuario(en.NombreUsu).NombreEmp + "/";
 
                 if (FileUpload1.PostedFile != null)
                 {
@@ -69,9 +72,9 @@ namespace Presentacion
                             if (user != null)
                             {
                                 string strFileName = Path.GetFileName(uploadFile.FileName);
-                                string a = ("h:/root/home/infochile-001/www/informaticapp/Storage/uploadpdf/" + strFileName);
+                                string a = ("h:/root/home/infochile-001/www/Storage/uploadpdf/" + strFileName);
                                 int FileLength = FileUpload1.PostedFile.ContentLength;
-                                Uri uri = new Uri(FileSaveUri + carpeta + Path.GetFileName(FileUpload1.PostedFile.FileName));
+                                Uri uri = new Uri(FileSaveUri + empresa + carpeta + Path.GetFileName(FileUpload1.PostedFile.FileName));
                                 
                                 try
                                 {

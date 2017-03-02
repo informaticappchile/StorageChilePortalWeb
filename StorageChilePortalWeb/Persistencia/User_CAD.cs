@@ -145,7 +145,7 @@ namespace Persistencia
             Conexion nueva_conexion = new Conexion();
             try
             {
-                string select = "Select * from Usuario where UserName ='" + busqueda + "' or Email = '" + busqueda + "'";
+                string select = "Select * from Usuario, Empresa where UserName ='" + busqueda + "' or Email = '" + busqueda + "' and Empresa.IdEmpresa = Usuario.IdEmpresa";
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
                 if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
@@ -166,6 +166,7 @@ namespace Persistencia
                         usuario.Verified = "No Verificado";
                     }
                     usuario.Intentos = Convert.ToInt16(dt.Rows[0]["Intentos"]);
+                    usuario.NombreEmp = dt.Rows[0]["NombreEmpresa"].ToString();
                 }
             }
             catch (Exception ex) { ex.Message.ToString(); }
