@@ -19,66 +19,19 @@ namespace Presentacion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            User_EN en = (User_EN)Session["user_session_data"];
-            if (en != null)
+            if (!IsPostBack)
             {
-                try
+                User_EN en = (User_EN)Session["user_session_data"];
+                if (en != null)
                 {
-                    string FileSaveUri = @"ftp://ftp.Smarterasp.net/"+en.NombreEmp+"/";
-                    string ftpUser = "cvaras";
-                    string ftpPassWord = "cvaras1234";
-                    FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
-                    ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
-                    ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
-                    FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
-                    StreamReader streamReader = new StreamReader(response.GetResponseStream());
-                    DataTable dt = new DataTable("Archivos");
-                    dt.Columns.Add(new DataColumn("Archivo", typeof(string)));
-                    string line = streamReader.ReadLine();
-                    while (!string.IsNullOrEmpty(line))
-                    {
-                        DataRow row = dt.NewRow();
-                        row["Archivo"] = ObtenerNombre(line);
-                        //Añadimos la fila a la tabla
-                        dt.Rows.Add(row);
-                        line = streamReader.ReadLine();
-                    }
-                    streamReader.Close();
-                    // if (Request.QueryString.Count > 0)
-                    // {
-                    //     if (Request.QueryString.Keys[0] == "ID")
-
-                    //en.LeerUsuario();  //lee todos los datos del usuario de la base de datos, ya que la pagina solo proporciona login y password
-
-                    File_EN fi = new File_EN();
-                    fi.Propietario = en.ID;//Para identificar al usuario
-                                           //EL griedView, mostrara un tabla con todos los datos que nos devuelva MostrarFilesUsuarioNombreEn
-                                           //GridViewMostrarArchivos.DataSource = fi.MostrarFilesUsuarioNombreEn();
-
-                    GridViewMostrarArchivos.DataSource = dt;
-                    GridViewMostrarArchivos.DataBind();
-
-
-                    //}
+                    cargaCarpetas();
                 }
-                catch (Exception ex)
+                else
                 {
-                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                    StringBuilder sbMensaje = new StringBuilder();
-                    //Aperturamos la escritura de Javascript
-                    sbMensaje.Append("<script type='text/javascript'>");
-                    //Le indicamos al alert que mensaje va mostrar
-                    sbMensaje.AppendFormat("alert('{0}');", "Error de conexión con el servidor, intente más tarde.");
-                    //Cerramos el Script
-                    sbMensaje.Append("</script>");
-                    //Registramos el Script escrito en el StringBuilder
-                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                    Response.Redirect("Control_Usuarios/Login.aspx");
                 }
             }
-            else
-            {
-                Response.Redirect("Control_Usuarios/Login.aspx");
-            }
+            
         }
 
         /*
@@ -182,12 +135,134 @@ namespace Presentacion
             }
             return n;
         }
+        protected bool isPunto(string nombre)
+        {
+            char[] c = nombre.ToCharArray();
+            for (int i = c.Length - 1; i >= 0; i--)
+            {
+                if (c[i] == '.')
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         protected string Reverse(string s)
         {
             char[] charArray = s.ToCharArray();
             Array.Reverse(charArray);
             return new string(charArray);
+        }
+
+        protected void cargaCarpetas()
+        {
+            User_EN en = (User_EN)Session["user_session_data"];
+            try
+            {
+                string FileSaveUri = @"ftp://ftp.Smarterasp.net/" + en.NombreEmp + "/";
+                string ftpUser = "cvaras";
+                string ftpPassWord = "cvaras1234";
+                FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
+                ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+                FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
+                StreamReader streamReader = new StreamReader(response.GetResponseStream());
+                string line = streamReader.ReadLine();
+                while (!string.IsNullOrEmpty(line))
+                {
+                    Button button = new Button();
+                    button.Text = ObtenerNombre(line);
+                    button.CssClass = "button-folder";
+                    button.ForeColor = System.Drawing.Color.Red;
+                    if (!isPunto(button.Text))
+                    {
+                        button.Click += new EventHandler(button_Click);
+                        container.Controls.Add(button);
+                    }
+                    line = streamReader.ReadLine();
+                }
+                streamReader.Close();
+            }
+            catch (Exception ex)
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Error de conexión con el servidor, intente más tarde.");
+                //Cerramos el Script
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
+        }
+
+        protected void button_Click(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            Session["carpeta"] = button.Text;
+            container.Visible = false;
+            GridViewMostrarArchivos.Visible = true;
+            cargaArchivos();
+        }
+
+        protected void cargaArchivos()
+        {
+            User_EN en = (User_EN)Session["user_session_data"];
+            try
+            {
+                string FileSaveUri = @"ftp://ftp.Smarterasp.net/" + en.NombreEmp + "/" + Convert.ToString(Session["variable"]) + "/";
+                string ftpUser = "cvaras";
+                string ftpPassWord = "cvaras1234";
+                FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
+                ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectory;
+                FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
+                StreamReader streamReader = new StreamReader(response.GetResponseStream());
+                DataTable dt = new DataTable("Archivos");
+                dt.Columns.Add(new DataColumn("Archivo", typeof(string)));
+                string line = streamReader.ReadLine();
+                while (!string.IsNullOrEmpty(line))
+                {
+                    DataRow row = dt.NewRow();
+                    row["Archivo"] = line;
+                    //Añadimos la fila a la tabla
+                    dt.Rows.Add(row);
+                    line = streamReader.ReadLine();
+                }
+                streamReader.Close();
+                // if (Request.QueryString.Count > 0)
+                // {
+                //     if (Request.QueryString.Keys[0] == "ID")
+
+                //en.LeerUsuario();  //lee todos los datos del usuario de la base de datos, ya que la pagina solo proporciona login y password
+
+                File_EN fi = new File_EN();
+                fi.Propietario = en.ID;//Para identificar al usuario
+                                       //EL griedView, mostrara un tabla con todos los datos que nos devuelva MostrarFilesUsuarioNombreEn
+                                       //GridViewMostrarArchivos.DataSource = fi.MostrarFilesUsuarioNombreEn();
+
+                GridViewMostrarArchivos.DataSource = dt;
+                GridViewMostrarArchivos.DataBind();
+
+
+                //}
+            }
+            catch (Exception ex)
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Error de conexión con el servidor, intente más tarde.");
+                //Cerramos el Script
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
         }
 
     }

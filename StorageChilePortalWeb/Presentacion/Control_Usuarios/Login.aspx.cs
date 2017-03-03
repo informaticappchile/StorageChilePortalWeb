@@ -26,7 +26,7 @@ namespace Presentacion
             User_EN busqueda = new User_EN();
             LogicaUsuario lu = new LogicaUsuario();
             User_EN usuario = lu.BuscarUsuario(username_login_input.Text);//Buscamos el usuario que introducimos para iniciar sesion
-            if (usuario != null)
+            if (usuario != null && usuario.NombreUsu != "")
             {
                 if (usuario.Verified == "Verificado")
                 {
@@ -60,9 +60,7 @@ namespace Presentacion
                 }
                 else UserNotVerifiedError_Login.Visible = true;
             }
-            else UserNotExistsError_Login.Visible = true;
-
-            
+            else  UserNotExistsError_Login.Visible = true;
         }
 
         /*

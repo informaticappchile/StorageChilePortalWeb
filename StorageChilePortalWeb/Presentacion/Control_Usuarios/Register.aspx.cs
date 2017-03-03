@@ -5,6 +5,8 @@ using System.Net.Mail;
 using System.Web.Services;
 using System.Net;
 using System.Text;
+using System.Data;
+using System.Collections;
 
 namespace Presentacion
 {
@@ -41,6 +43,26 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
+            LogicaEmpresa le = new LogicaEmpresa();
+            ArrayList lista = le.MostrarEmpresas();
+            if (lista.Count == 0)
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene empresas disponibles en el sistema. Por favor registre una.");
+                //Cerramos el Script
+                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Control_Usuarios/Register_Empresa.aspx\";");
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
+            DropDownList1.DataSource = lista;
+            DropDownList1.DataTextField = "NombreEmp";
+            DropDownList1.DataValueField = "NombreEmp";
+            DropDownList1.DataBind();
         }
 
         /*

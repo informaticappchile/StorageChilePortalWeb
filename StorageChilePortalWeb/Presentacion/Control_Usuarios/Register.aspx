@@ -26,10 +26,9 @@
                     <span class="mdl-list__item-primary-content">
                         <i class="material-icons  mdl-list__item-avatar">domain</i>
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <asp:TextBox ID="empresa_register" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
-                            <label class="mdl-textfield__label" for="empresa_register">Empresa</label>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="empresa_register" ErrorMessage="Introduce el nombre de la empresa" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="empresa_register" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                                <asp:DropDownList id="DropDownList1" runat="server" CssClass="mdl-textfield__input">
+                                </asp:DropDownList>
+                            <label class="mdl-textfield__label" for="DropDownList1">Empresa</label>
                         </span>
                     </span>
                 </li>

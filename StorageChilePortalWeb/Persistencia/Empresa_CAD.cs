@@ -70,7 +70,7 @@ namespace Persistencia
         public ArrayList MostrarEmpresas()
         {
             Conexion nueva_conexion = new Conexion();
-            nueva_conexion.SetQuery("Select e.NombreEmpresa, e.RutEmpresa, e.CorreoEmpresa " +
+            nueva_conexion.SetQuery("Select *" +
                                     "from Empresa e");
             DataTable dt = nueva_conexion.QuerySeleccion();
 

@@ -7,7 +7,12 @@
         <div class="mdl-card__title">
             <h1 class="mdl-card__title-text">¡Mis archivos!</h1>
         </div>
-        <asp:GridView ID="GridViewMostrarArchivos" runat="server" AutoGenerateColumns="False" OnRowDataBound="GridViewMostrarArchivos_RowDataBound" CssClass="mdl-data-table mdl-js-data-table mdl-shadow--2dp listado-archivos">
+        <div id ="container" runat="server" visible ="true">
+
+        </div>
+
+        <asp:GridView ID="GridViewMostrarArchivos" runat="server" AutoGenerateColumns="False" OnRowDataBound="GridViewMostrarArchivos_RowDataBound" 
+            CssClass="mdl-data-table mdl-js-data-table mdl-shadow--2dp listado-archivos" Visible ="false">
             <Columns>
                 <asp:TemplateField >
                     <ItemTemplate>
