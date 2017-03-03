@@ -46,7 +46,7 @@ namespace Presentacion
             {
                 HyperLink Texto_Descarga = (HyperLink)e.Row.FindControl("Descarga"); //Creamos el link para la descargar
                 File_EN f = (File_EN) e.Row.DataItem;
-                string rutaArchivo = "Files/" + f.Propietario + "/" + HttpUtility.HtmlDecode(f.Nombre); //Guardamos la ruta del archivo
+                string rutaArchivo = "Files/" + f.Propietario + "/" + HttpUtility.HtmlDecode(f.NombreAsociado); //Guardamos la ruta del archivo
 
                 Image icono = (Image)e.Row.FindControl("icono_fichero");
                 string extensionArchivo = Path.GetExtension(rutaArchivo);

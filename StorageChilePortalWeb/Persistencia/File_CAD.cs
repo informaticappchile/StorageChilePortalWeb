@@ -24,8 +24,9 @@ namespace Persistencia
             Conexion con = new Conexion();
             try
             {
-                con.SetQuery("SELECT * from archivo a, personal p where archivo.IdPersonal = personal.idPersonal and personal.idEmpresa =" + emp.ID + 
-                    "OrderBy p.NombrePersonal");
+                con.SetQuery("SELECT * from archivo a, personal p, personalempresa pe where a.IdPersonal = p.idPersonal and pe.idEmpresa =" + emp.ID + 
+                    " and pe.idPersonal = p.idPersonal"+ 
+                    " Order by p.NombrePersonal");
                 DataTable dt = con.QuerySeleccion();
 
                 for (int i = 0; i < dt.Rows.Count; i++)

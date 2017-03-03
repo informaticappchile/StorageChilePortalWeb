@@ -40,8 +40,8 @@ namespace Entidades
         //Declaramos el nombre asociado del archivo en public para poder utilizarlo
         public string NombreAsociado
         {
-            get { return NombreAsociado; }
-            set { NombreAsociado = value; }
+            get { return nombreAsociado; }
+            set { nombreAsociado = value; }
         }
 
         //Declaramos el rut asociado del archivo en private
@@ -49,8 +49,8 @@ namespace Entidades
         //Declaramos el rut asociado del archivo en public para poder utilizarlo
         public string RutAsociado
         {
-            get { return RutAsociado; }
-            set { RutAsociado = value; }
+            get { return rutAsociado; }
+            set { rutAsociado = value; }
         }
 
         //Declaramos el rut asociado del archivo en private
