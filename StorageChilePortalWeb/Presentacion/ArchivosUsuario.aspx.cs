@@ -19,18 +19,17 @@ namespace Presentacion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            
+            User_EN en = (User_EN)Session["user_session_data"];
+            if (en != null)
             {
-                User_EN en = (User_EN)Session["user_session_data"];
-                if (en != null)
-                {
-                    cargaCarpetas();
-                }
-                else
-                {
-                    Response.Redirect("Control_Usuarios/Login.aspx");
-                }
+                cargaCarpetas();
             }
+            else
+            {
+                Response.Redirect("Control_Usuarios/Login.aspx");
+            }
+            
             
         }
 
@@ -169,9 +168,11 @@ namespace Presentacion
                 FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
                 StreamReader streamReader = new StreamReader(response.GetResponseStream());
                 string line = streamReader.ReadLine();
+                int contador = 0;
                 while (!string.IsNullOrEmpty(line))
                 {
                     Button button = new Button();
+                    button.ID = contador + ObtenerNombre(line);
                     button.Text = ObtenerNombre(line);
                     button.CssClass = "button-folder";
                     button.ForeColor = System.Drawing.Color.Red;
@@ -181,6 +182,7 @@ namespace Presentacion
                         container.Controls.Add(button);
                     }
                     line = streamReader.ReadLine();
+                    contador++;
                 }
                 streamReader.Close();
             }
@@ -213,7 +215,7 @@ namespace Presentacion
             User_EN en = (User_EN)Session["user_session_data"];
             try
             {
-                string FileSaveUri = @"ftp://ftp.Smarterasp.net/" + en.NombreEmp + "/" + Convert.ToString(Session["variable"]) + "/";
+                string FileSaveUri = @"ftp://ftp.Smarterasp.net/" + en.NombreEmp + "/" + Convert.ToString(Session["carpeta"]) + "/";
                 string ftpUser = "cvaras";
                 string ftpPassWord = "cvaras1234";
                 FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
