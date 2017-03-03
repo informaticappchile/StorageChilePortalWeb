@@ -44,45 +44,93 @@ namespace Presentacion
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                HyperLink Texto_Descarga = (HyperLink)e.Row.FindControl("Descarga"); //Creamos el link para la descargar
-                HyperLink Texto_Borra = (HyperLink)e.Row.FindControl("Borra"); //Creamos el link para borrar el archivo
-                User_EN en = (User_EN)Session["user_session_data"];
-                string rutaArchivo = "Files/" + en.ID + "/" + HttpUtility.HtmlDecode(e.Row.Cells[1].Text); /*Guardamos la ruta del archivo
-                utilizando HttpUtility.HtmlDecode  que sirve para decodificar carácteres especiales (&, ñ, etc.)*/
-                string idArchivo = e.Row.Cells[1].Text; //Guardamos el id del archivo
-                /*
-                 * Así buscamos y encontramos un icono de miniatura para el fichero en función de la extensión del archivo
-                 */
                 Image icono = (Image)e.Row.FindControl("icono_fichero");
-                string extensionArchivo = Path.GetExtension(rutaArchivo);
-                extensionArchivo = extensionArchivo.Substring(1, extensionArchivo.Length - 1); //quitar punto (carácter 0 del string)
-                string rutaIcono = Server.MapPath("/styles/format-icons/" + extensionArchivo + ".svg");
-                icono.ImageUrl = File.Exists(rutaIcono) ? "~/styles/format-icons/" + extensionArchivo + ".svg" : "~/styles/format-icons/file.svg";
+                icono.ImageUrl = "~/img/PDF-48.png";
                 
                 /*Texto_Descarga.NavigateUrl = Server.MapPath(rutaArchivo); //Copiamos la ruta del archivo a la URL para descargar
             */
             }
         }
-        
 
-        /*
-         * Esta funcion esta conectada al boton de descargar
-         */
-        protected void Descarga_Boton_Click(object sender, EventArgs e)
+        protected void Responsive_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            LinkButton lb = (LinkButton)sender;
-            HyperLink h = (HyperLink)lb.FindControl("Descarga");
-            string rutaDescarga = h.NavigateUrl;
-            FileInfo fi = new FileInfo(rutaDescarga);
-            if (fi.Exists)
+            if (e.CommandName == "DOWNLOAD")
             {
-                Response.Clear(); //Limpiamos la salida
-                Response.AddHeader("Content-Disposition", "attachment; filename=\"" + fi.Name + "/"); 
-                Response.AddHeader("Content-Length", fi.Length.ToString());
-                Response.ContentType = "application/octet-stream"; // Con esto le decimos al browser que la salida sera descargable
-                Response.Flush(); // volcamos el stream 
-                Response.TransmitFile(fi.FullName);
-                Response.End(); // Enviamos todo el encabezado ahora
+                User_EN en = (User_EN)Session["user_session_data"];
+                try
+                {
+                    string FileSaveUri = @"ftp://ftp.Smarterasp.net/" + en.NombreEmp + "/"+ Convert.ToString(Session["carpeta"])  + "/"+e.CommandArgument.ToString();
+                    string ftpUser = "cvaras";
+                    string ftpPassWord = "cvaras1234";
+                    string pathDownload = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                    /*FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
+                    ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+                    ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
+                    FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
+
+                    Stream responseStream = response.GetResponseStream();
+                    StreamReader reader = new StreamReader(responseStream);
+                    //Console.WriteLine(reader.ReadToEnd());
+
+                    
+
+                    //StreamWriter writer = new StreamWriter(pathDownload, false, Encoding.Default);
+
+                    //writer.Write(reader.ReadToEnd());*/
+
+                    FtpWebRequest reqFTP;
+
+                    string fileName = System.IO.Path.GetFileName(FileSaveUri);
+                    string descFilePathAndName =
+                        System.IO.Path.Combine(pathDownload, fileName);
+
+                    try
+                    {
+
+                        reqFTP = (FtpWebRequest)FtpWebRequest.Create(FileSaveUri);
+                        reqFTP.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+                        reqFTP.Method = WebRequestMethods.Ftp.DownloadFile;
+                        reqFTP.UseBinary = true;
+
+
+                        using (FileStream outputStream = new FileStream(descFilePathAndName, FileMode.OpenOrCreate))
+                        using (FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse())
+                        using (Stream ftpStream = response.GetResponseStream())
+                        {
+                            int bufferSize = 2048;
+                            int readCount;
+                            byte[] buffer = new byte[bufferSize];
+                            readCount = ftpStream.Read(buffer, 0, bufferSize);
+                            while (readCount > 0)
+                            {
+                                outputStream.Write(buffer, 0, readCount);
+                                readCount = ftpStream.Read(buffer, 0, bufferSize);
+                            }
+                        }
+                    }
+
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Download failed", ex.InnerException);
+                    }
+                    
+                    //writer.Close();
+                    //reader.Close();
+                    //response.Close();
+                }
+                catch (Exception ex)
+                {
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Error de conexión con el servidor, intente más tarde.");
+                    //Cerramos el Script
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                }
             }
         }
 
