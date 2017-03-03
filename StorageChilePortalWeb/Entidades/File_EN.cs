@@ -17,29 +17,40 @@ namespace Entidades
     public class File_EN
     {
         //Declaramos el id del archivo en private
-        private int id;
+        private int idArchivo;
         //Declaramos el id del archivo en public para poder utilizarlo
-        public int ID
+        public int IDArchivo
         {
-            get { return id; }
-            set { id = value; }
+            get { return idArchivo; }
+            set { idArchivo = value; }
         }
+        //Declaramos el id del archivo en private
+
         //Declaramos el nombre del archivo en private
-        private string nombre;
+        private string ruta;
         //Declaramos el nombre del archivo en public para poder utilizarlo
-        public string Nombre
+        public string Ruta
         {
-            get { return nombre; }
-            set { nombre = value; }
+            get { return ruta; }
+            set { ruta = value; }
         }
 
-        //Declaramos la descripcion del archivo en private
-        private string descripcion;
-        //Declaramos la descripcion del archivo en public para poder utilizarlo
-        public string Descripcion
+        //Declaramos el nombre asociado del archivo en private
+        private string nombreAsociado;
+        //Declaramos el nombre asociado del archivo en public para poder utilizarlo
+        public string NombreAsociado
         {
-            get { return descripcion; }
-            set { descripcion = value; }
+            get { return NombreAsociado; }
+            set { NombreAsociado = value; }
+        }
+
+        //Declaramos el rut asociado del archivo en private
+        private string rutAsociado;
+        //Declaramos el rut asociado del archivo en public para poder utilizarlo
+        public string RutAsociado
+        {
+            get { return RutAsociado; }
+            set { RutAsociado = value; }
         }
 
         //Declaramos la fecha de creacion del archivo en private

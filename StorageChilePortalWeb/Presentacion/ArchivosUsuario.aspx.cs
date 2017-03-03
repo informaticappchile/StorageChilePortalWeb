@@ -12,14 +12,17 @@ using System.Text;
 using System.Collections;
 using System.Net;
 using System.Data;
+using Logica;
 
 namespace Presentacion
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {
-            
+        { 
+            LogicaUsuario lu = new LogicaUsuario();
+            Session["user_session_data"] = lu.BuscarUsuario("cvaras");
+
             User_EN en = (User_EN)Session["user_session_data"];
             if (en != null)
             {
@@ -81,7 +84,7 @@ namespace Presentacion
             HyperLink h = (HyperLink)lb.FindControl("Borra"); //Conectamos el linkButton al link de borrar
             string rutaborra = h.NavigateUrl;
             File_EN f_bbdd = new File_EN();
-            f_bbdd.ID = Convert.ToInt32(h.Text);
+            f_bbdd.IDArchivo = Convert.ToInt32(h.Text);
             /*
              * Creamos una variable de tipo FileInfo con la ruta del archivo a borrar, 
              * que se utiliza para proporcionar métodos
@@ -175,7 +178,6 @@ namespace Presentacion
                     button.ID = contador + ObtenerNombre(line);
                     button.Text = ObtenerNombre(line);
                     button.CssClass = "button-folder";
-                    button.ForeColor = System.Drawing.Color.Red;
                     if (!isPunto(button.Text))
                     {
                         button.Click += new EventHandler(button_Click);

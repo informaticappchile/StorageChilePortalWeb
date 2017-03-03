@@ -106,8 +106,3 @@ body {
 
 .titulo { display: inline; }
 
-.button-folder
-{
-    background:url('ic_folder_black.png') no-repeat center center;
-    text-align:end;
-}

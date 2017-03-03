@@ -3,9 +3,21 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <style >
+        .button-folder {
+            padding: 10px , 0px , -20px , 0px;
+            border: 1px solid black;
+            background-image: url('/CSS/ic_folder_black_24dp_1x.png');
+            background-repeat: no-rpeeat;
+            background-position: center top;
+            background-attachment: fixed;
+            background-origin: content;
+    
+        }
+    </style>
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h1 class="mdl-card__title-text">¡Mis archivos!</h1>
+            <h1 class="mdl-card__title-text">Mis archivos</h1>
         </div>
         <div id ="container" runat="server" visible ="true">
 
