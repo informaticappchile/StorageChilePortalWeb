@@ -59,64 +59,16 @@ namespace Presentacion
                 User_EN en = (User_EN)Session["user_session_data"];
                 try
                 {
-                    string FileSaveUri = @"ftp://ftp.Smarterasp.net/" + en.NombreEmp + "/"+ Convert.ToString(Session["carpeta"])  + "/"+e.CommandArgument.ToString();
+                    string FileSaveUri = @"ftp://cvaras:cvaras1234@ftp.Smarterasp.net/" + en.NombreEmp + "/"+ Convert.ToString(Session["carpeta"])  + "/"+e.CommandArgument.ToString();
                     string ftpUser = "cvaras";
                     string ftpPassWord = "cvaras1234";
-                    string pathDownload = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-                    /*FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
-                    ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
-                    ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
-                    FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
-
-                    Stream responseStream = response.GetResponseStream();
-                    StreamReader reader = new StreamReader(responseStream);
-                    //Console.WriteLine(reader.ReadToEnd());
-
-                    
-
-                    //StreamWriter writer = new StreamWriter(pathDownload, false, Encoding.Default);
-
-                    //writer.Write(reader.ReadToEnd());*/
-
-                    FtpWebRequest reqFTP;
-
-                    string fileName = System.IO.Path.GetFileName(FileSaveUri);
-                    string descFilePathAndName =
-                        System.IO.Path.Combine(pathDownload, fileName);
-
-                    try
-                    {
-
-                        reqFTP = (FtpWebRequest)FtpWebRequest.Create(FileSaveUri);
-                        reqFTP.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
-                        reqFTP.Method = WebRequestMethods.Ftp.DownloadFile;
-                        reqFTP.UseBinary = true;
 
 
-                        using (FileStream outputStream = new FileStream(descFilePathAndName, FileMode.OpenOrCreate))
-                        using (FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse())
-                        using (Stream ftpStream = response.GetResponseStream())
-                        {
-                            int bufferSize = 2048;
-                            int readCount;
-                            byte[] buffer = new byte[bufferSize];
-                            readCount = ftpStream.Read(buffer, 0, bufferSize);
-                            while (readCount > 0)
-                            {
-                                outputStream.Write(buffer, 0, readCount);
-                                readCount = ftpStream.Read(buffer, 0, bufferSize);
-                            }
-                        }
-                    }
+                    Response.ContentType = "application/x-pdf";
+                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + e.CommandArgument.ToString());
+                    Response.TransmitFile(FileSaveUri);
+                    Response.End();
 
-                    catch (Exception ex)
-                    {
-                        throw new Exception("Download failed", ex.InnerException);
-                    }
-                    
-                    //writer.Close();
-                    //reader.Close();
-                    //response.Close();
                 }
                 catch (Exception ex)
                 {
