@@ -53,6 +53,24 @@ namespace Entidades
             set { RutAsociado = value; }
         }
 
+        //Declaramos el rut asociado del archivo en private
+        private string carpetaAsociado;
+        //Declaramos el rut asociado del archivo en public para poder utilizarlo
+        public string CarpetaAsociado
+        {
+            get { return carpetaAsociado; }
+            set { carpetaAsociado = value; }
+        }
+
+        //Declaramos el rut asociado del archivo en private
+        private string archivoAsociado;
+        //Declaramos el rut asociado del archivo en public para poder utilizarlo
+        public string ArchivoAsociado
+        {
+            get { return archivoAsociado; }
+            set { archivoAsociado = value; }
+        }
+
         //Declaramos la fecha de creacion del archivo en private
         private DateTime fecha_creacion;
         //Declaramos la fecha de creacion del archivo en public para poder utilizarlo
@@ -86,80 +104,6 @@ namespace Entidades
         {
             get { return version; }
             set { version = value; }
-        }/*
-        //Declaramos la funcion mostrar archivo donde llama al cad correspondiente
-        public ArrayList MostrarArchivo()
-        {
-            ArrayList a = new ArrayList();
-            File_CAD c = new File_CAD();
-            a = c.MostrarFile(this);
-
-            return a;
         }
-
-        public int SubirArchivo()
-        {
-            File_CAD upFile = new File_CAD();
-            return upFile.SubirFile(this);
-        }
-        //Declaramos la funcion borrar archivo donde llama al cad correspondiente
-        public void BorrarArchivo()
-        {
-            File_CAD deleteFile = new File_CAD();
-            deleteFile.BorrarFile(this);
-        }
-        //Declaramos la funcion mostrar todos los archivos donde llama al cad correspondiente
-        public ArrayList MostrarAllFiles()
-        {
-            File_CAD file = new File_CAD();
-            ArrayList a = new ArrayList();
-            a = file.MostrarTodosArchivos(this);
-            return a;
-        }
-
-        public ArrayList BuscarFiles(string busqueda)
-        {
-            Nombre = busqueda;
-            File_CAD cad = new File_CAD();
-            ArrayList a = new ArrayList();
-            a = cad.BuscarArchivos(this);
-            return a;
-        }
-
-        //Declaramos la funcion mostrar datos de un archivo donde llama al cad correspondiente
-        public ArrayList MostrarDatosUser()
-        {
-            File_CAD file = new File_CAD();
-            ArrayList a = new ArrayList();
-            a = file.MostrarDatosArchivo(this);
-            return a;
-        }
-        //Declaramos la funcion mostrar archivos con usuario donde llama al cad correspondiente
-        public ArrayList MostrarFilesUsuarioNombreEn()
-        {
-            File_CAD ListaArchivos = new File_CAD();
-            ArrayList a = new ArrayList();
-            a = ListaArchivos.MostrarFilesUsuarioNombre(this.Propietario);
-            return a;
-        }
-        //Declaramos la funcion mostrar likes de un archivo donde llama al cad correspondiente
-        public ArrayList MostrarLikes()
-        {
-            ArrayList a = new ArrayList();
-            File_CAD showFile = new File_CAD();
-            a=showFile.showLikes(this);
-            return a;
-        }
-        //Declaramos el constructor de la clase File_EN
-        public File_EN()
-        {   
-            id = 0;
-            nombre = "";
-            descripcion = "";
-            fecha_creacion = new DateTime();
-            fecha_modificacion = new DateTime();
-        }
-
-    }*/
     }
 }

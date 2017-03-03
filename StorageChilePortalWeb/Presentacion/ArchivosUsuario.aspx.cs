@@ -55,50 +55,16 @@ namespace Presentacion
                  */
                 Image icono = (Image)e.Row.FindControl("icono_fichero");
                 string extensionArchivo = Path.GetExtension(rutaArchivo);
-                if (extensionArchivo.Length != 0)
-                {
-                    extensionArchivo = extensionArchivo.Substring(1, extensionArchivo.Length - 1); //quitar punto (carácter 0 del string)
-                    string rutaIcono = Server.MapPath("/styles/format-icons/" + extensionArchivo + ".svg");
-                    icono.ImageUrl = File.Exists(rutaIcono) ? "~/styles/format-icons/" + extensionArchivo + ".svg" : "~/styles/format-icons/file.svg";
-                }
-                else
-                {
-                    extensionArchivo = "folder"; 
-                    string rutaIcono = Server.MapPath("/styles/format-icons/" + extensionArchivo + ".svg");
-                    icono.ImageUrl = File.Exists(rutaIcono) ? "~/styles/format-icons/" + extensionArchivo + ".svg" : "~/styles/format-icons/file.svg";
-                }
+                extensionArchivo = extensionArchivo.Substring(1, extensionArchivo.Length - 1); //quitar punto (carácter 0 del string)
+                string rutaIcono = Server.MapPath("/styles/format-icons/" + extensionArchivo + ".svg");
+                icono.ImageUrl = File.Exists(rutaIcono) ? "~/styles/format-icons/" + extensionArchivo + ".svg" : "~/styles/format-icons/file.svg";
                 
-
                 /*Texto_Descarga.NavigateUrl = Server.MapPath(rutaArchivo); //Copiamos la ruta del archivo a la URL para descargar
-                Texto_Borra.NavigateUrl = Server.MapPath(rutaArchivo); //Lo mismo para borrar
-                Texto_Borra.Text = idArchivo; //Guardamos el id asociado al archivo para cuando llamemos al manejador de la funcion podamos extraerlo del objeto emisor de la señal
             */
             }
         }
-        /*
-         * Esta funcion esta conectada al boton para borrar el archivo
-         */
-        protected void Borrar_Click(object sender, EventArgs e)
-        {
-            LinkButton lb = (LinkButton)sender; //Creamos un linkButton con el objeto emisor(sender)
-            HyperLink h = (HyperLink)lb.FindControl("Borra"); //Conectamos el linkButton al link de borrar
-            string rutaborra = h.NavigateUrl;
-            File_EN f_bbdd = new File_EN();
-            f_bbdd.IDArchivo = Convert.ToInt32(h.Text);
-            /*
-             * Creamos una variable de tipo FileInfo con la ruta del archivo a borrar, 
-             * que se utiliza para proporcionar métodos
-             * y propiedades para borrar entre otros
-             */
-            FileInfo file = new FileInfo(rutaborra); 
+        
 
-            if (file.Exists)
-            {
-                file.Delete(); //Borramos el archivo de la carpeta de nuestro proyecto
-                //f_bbdd.BorrarArchivo(); //Borramos el archivo de la base de datos
-                Response.Redirect(Request.Url.AbsoluteUri); //Recarga página para refrescar los datos
-            }
-        }
         /*
          * Esta funcion esta conectada al boton de descargar
          */
@@ -217,39 +183,13 @@ namespace Presentacion
             User_EN en = (User_EN)Session["user_session_data"];
             try
             {
-                string FileSaveUri = @"ftp://ftp.Smarterasp.net/" + en.NombreEmp + "/" + Convert.ToString(Session["carpeta"]) + "/";
-                string ftpUser = "cvaras";
-                string ftpPassWord = "cvaras1234";
-                FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
-                ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
-                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectory;
-                FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
-                StreamReader streamReader = new StreamReader(response.GetResponseStream());
-                DataTable dt = new DataTable("Archivos");
-                dt.Columns.Add(new DataColumn("Archivo", typeof(string)));
-                string line = streamReader.ReadLine();
-                while (!string.IsNullOrEmpty(line))
-                {
-                    DataRow row = dt.NewRow();
-                    row["Archivo"] = line;
-                    //Añadimos la fila a la tabla
-                    dt.Rows.Add(row);
-                    line = streamReader.ReadLine();
-                }
-                streamReader.Close();
-                // if (Request.QueryString.Count > 0)
-                // {
-                //     if (Request.QueryString.Keys[0] == "ID")
-
-                //en.LeerUsuario();  //lee todos los datos del usuario de la base de datos, ya que la pagina solo proporciona login y password
-
-                File_EN fi = new File_EN();
-                fi.Propietario = en.ID;//Para identificar al usuario
-                                       //EL griedView, mostrara un tabla con todos los datos que nos devuelva MostrarFilesUsuarioNombreEn
-                                       //GridViewMostrarArchivos.DataSource = fi.MostrarFilesUsuarioNombreEn();
-
+                LogicaFile la = new LogicaFile();
+                LogicaEmpresa le = new LogicaEmpresa();
+                Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
+                ArrayList dt = la.MostrarFIles(Convert.ToString(Session["carpeta"]),em);
                 GridViewMostrarArchivos.DataSource = dt;
                 GridViewMostrarArchivos.DataBind();
+
 
 
                 //}

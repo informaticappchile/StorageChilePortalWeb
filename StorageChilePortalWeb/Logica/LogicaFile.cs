@@ -11,10 +11,10 @@ namespace Logica
     public class LogicaFile
     {
         
-        public ArrayList MostrarFIles()
+        public ArrayList MostrarFIles(string carpeta, Empresa_EN emp)
         {
             File_CAD fc = new File_CAD ();
-            return fc.MostrarFiles();
+            return fc.MostrarFiles(carpeta,emp);
         }
 
     }
