@@ -97,5 +97,23 @@ namespace Persistencia
             Array.Reverse(charArray);
             return new string(charArray);
         }
+
+        public void InsertarArchivo(File_EN f)
+        {
+
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+
+                string insert = "insert into Archivo(Ruta,IdPersonal,IdUsuario) VALUES ('" + f.CarpetaAsociado + "/"+f.ArchivoAsociado + "'," +f.IDPersonal + "," +f.IDUsuario + ")";
+                //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
+                nueva_conexion.SetQuery(insert);
+                nueva_conexion.EjecutarQuery();
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+
     }
 }

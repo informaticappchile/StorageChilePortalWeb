@@ -63,8 +63,9 @@ namespace Presentacion
                     string ftpUser = "cvaras";
                     string ftpPassWord = "cvaras1234";
 
-
-                    Response.ContentType = "application/x-pdf";
+                    string extensionArchivo = Path.GetExtension(FileSaveUri);
+                    extensionArchivo = extensionArchivo.Substring(1, extensionArchivo.Length - 1);
+                    Response.ContentType = "application/x-"+extensionArchivo;
                     Response.AppendHeader("Content-Disposition", "attachment; filename=" + e.CommandArgument.ToString());
                     Response.TransmitFile(FileSaveUri);
                     Response.End();

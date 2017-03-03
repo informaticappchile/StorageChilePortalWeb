@@ -17,5 +17,11 @@ namespace Logica
             return fc.MostrarFiles(carpeta,emp);
         }
 
+        public void InsertarArchivo(File_EN f)
+        {
+            File_CAD filCad = new File_CAD();
+            filCad.InsertarArchivo(f);
+        }
+
     }
 }

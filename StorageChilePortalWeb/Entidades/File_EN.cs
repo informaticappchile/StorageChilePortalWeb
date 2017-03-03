@@ -24,6 +24,23 @@ namespace Entidades
             get { return idArchivo; }
             set { idArchivo = value; }
         }
+
+        //Declaramos el id del archivo en private
+        private int idPersonal;
+        //Declaramos el id del archivo en public para poder utilizarlo
+        public int IDPersonal
+        {
+            get { return idPersonal; }
+            set { idPersonal = value; }
+        }
+        //Declaramos el id del archivo en private
+        private int idUsuario;
+        //Declaramos el id del archivo en public para poder utilizarlo
+        public int IDUsuario
+        {
+            get { return idUsuario; }
+            set { idUsuario = value; }
+        }
         //Declaramos el id del archivo en private
 
         //Declaramos el nombre del archivo en private

@@ -58,6 +58,7 @@
     <Compile Include="File_CAD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Empresa_CAD.cs" />
+    <Compile Include="Personal_CAD.cs" />
     <Compile Include="User_CAD.cs" />
   </ItemGroup>
   <ItemGroup>

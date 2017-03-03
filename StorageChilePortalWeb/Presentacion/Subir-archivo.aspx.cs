@@ -66,6 +66,23 @@ namespace Presentacion
                     HttpPostedFile uploadFile = FileUpload1.PostedFile;
                     if (System.IO.Path.GetExtension(uploadFile.FileName).ToLower() == ".pdf")
                     {
+                        Personal_EN pe = new Personal_EN();
+                        File_EN fe = new File_EN();
+                        LogicaPersonal lp = new LogicaPersonal();
+                        LogicaFile lf = new LogicaFile();
+
+                        pe.Nombre = nombre_sa_input.Text;
+                        pe.Rut = rut_sa_input.Text;
+                        fe.CarpetaAsociado = contenedor_sa_inpu.Text;
+                        fe.ArchivoAsociado = uploadFile.FileName;
+                        lp.InsertarPersonal(pe);
+                        pe = lp.BuscarPersonal(rut_sa_input.Text);
+
+                        fe.IDPersonal = pe.ID;
+                        fe.IDUsuario = en.ID;
+
+                        lf.InsertarArchivo(fe);
+
                         try
                         {
                             User_EN user = (User_EN)Session["user_session_data"];
@@ -95,7 +112,7 @@ namespace Presentacion
                                 {
                                     try
                                     {
-                                        crearCarpeta(carpeta, FileSaveUri, ftpUser, ftpPassWord);
+                                        crearCarpeta(carpeta, FileSaveUri+en.NombreEmp+"/", ftpUser, ftpPassWord);
                                         FtpWebRequest uploadRequest = (FtpWebRequest)WebRequest.Create(uri);
                                         uploadRequest.Method = WebRequestMethods.Ftp.UploadFile;
                                         uploadRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);

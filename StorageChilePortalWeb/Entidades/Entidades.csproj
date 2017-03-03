@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Admin_EN.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Personal_EN.cs" />
     <Compile Include="Comennt_EN.cs" />
     <Compile Include="File_EN.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
