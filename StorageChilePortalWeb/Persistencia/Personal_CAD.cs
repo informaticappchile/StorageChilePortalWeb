@@ -49,7 +49,7 @@ namespace Persistencia
             try
             {
 
-                string insert = "insert into PersonalEmpresa(idPersonal,idEmpresa) VALUES (" + idEmpresa + "," + idPers + ")";
+                string insert = "insert into PersonalEmpresa(idPersonal,idEmpresa) VALUES (" + idPers + "," + idEmpresa + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
                 nueva_conexion.EjecutarQuery();
