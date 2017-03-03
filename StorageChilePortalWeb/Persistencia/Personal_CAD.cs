@@ -37,11 +37,31 @@ namespace Persistencia
             catch (Exception ex) { ex.Message.ToString(); }
             finally { nueva_conexion.Cerrar_Conexion(); }
         }
+        /**
+         * Se encarga de introducir un usuario en la base de datos 
+         * 
+         */
+        public void InsertarPersonalEmpresa(int idPers, int idEmpresa)
+        {
+
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+
+                string insert = "insert into PersonalEmpresa(idPersonal,idEmpresa) VALUES (" + idEmpresa + "," + idPers + ")";
+                //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
+                nueva_conexion.SetQuery(insert);
+                nueva_conexion.EjecutarQuery();
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
 
         /**
          * Se encarga de mostrar el usuario que se quiere mostrar a través de su ID
-         */ 
-         
+         */
+
         public ArrayList MostrarUser(User_EN u)
         {
             Conexion nueva_conexion = new Conexion();

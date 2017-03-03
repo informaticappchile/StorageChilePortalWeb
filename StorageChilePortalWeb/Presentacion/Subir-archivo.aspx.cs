@@ -77,12 +77,12 @@ namespace Presentacion
                         fe.ArchivoAsociado = uploadFile.FileName;
                         lp.InsertarPersonal(pe);
                         pe = lp.BuscarPersonal(rut_sa_input.Text);
-
+                        LogicaEmpresa le = new LogicaEmpresa();
                         fe.IDPersonal = pe.ID;
                         fe.IDUsuario = en.ID;
-
+                        lp.InsertarPersonalEmpresa(pe.ID, le.BuscarEmpresa(en.NombreEmp).ID);
                         lf.InsertarArchivo(fe);
-
+                        
                         try
                         {
                             User_EN user = (User_EN)Session["user_session_data"];

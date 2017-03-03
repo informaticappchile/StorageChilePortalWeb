@@ -17,6 +17,11 @@ namespace Logica
             Personal_CAD perCad = new Personal_CAD();
             perCad.InsertarPersonal(p);
         }
+        public void InsertarPersonalEmpresa(int idPer, int idEmp)
+        {
+            Personal_CAD perCad = new Personal_CAD();
+            perCad.InsertarPersonalEmpresa(idPer,idEmp);
+        }
 
         //Declaramos la funcion mostrar usuario donde llama al cad correspondiente
         public ArrayList MostrarUsuario()
