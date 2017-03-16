@@ -55,20 +55,31 @@ namespace Presentacion
 
         protected void Responsive_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+
             if (e.CommandName == "DOWNLOAD")
             {
                 User_EN en = (User_EN)Session["user_session_data"];
                 try
                 {
-                    string FileSaveUri = @"ftp://cvaras:cvaras1234@ftp.Smarterasp.net/" + en.NombreEmp + "/"+ Convert.ToString(Session["carpeta"])  + "/"+e.CommandArgument.ToString();
+                    string FileSaveUri = @"ftp://cvaras:cvaras1234@ftp.Smarterasp.net/" + en.NombreEmp + "/" + Convert.ToString(Session["carpeta"]) + "/" + e.CommandArgument.ToString();
                     string ftpUser = "cvaras";
                     string ftpPassWord = "cvaras1234";
 
+                    
                     string extensionArchivo = Path.GetExtension(FileSaveUri);
                     extensionArchivo = extensionArchivo.Substring(1, extensionArchivo.Length - 1);
-                    Response.ContentType = "application/x-"+extensionArchivo;
+
+
+                    Response.Clear();
+                    Response.ClearHeaders();
+                    Response.ClearContent();
+                    Response.ContentType = "application/x-" + extensionArchivo;
                     Response.AppendHeader("Content-Disposition", "attachment; filename=" + e.CommandArgument.ToString());
-                    Response.TransmitFile(FileSaveUri);
+                    //Response.AddHeader("Content-Length", e.CommandArgument.ToString().Length.ToString());
+                    //Response.Flush();
+                    //Response.TransmitFile(FileSaveUri);
+                    byte[] _downFile = DownloadFileFromFtp(e.CommandArgument.ToString());
+                    Response.OutputStream.Write(_downFile, 0, _downFile.Length);
                     Response.End();
 
                 }
@@ -85,7 +96,83 @@ namespace Presentacion
                     //Registramos el Script escrito en el StringBuilder
                     ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                 }
+
+
             }
+        }
+
+        /// <summary>
+        /// Download file with http response
+        /// </summary>
+        /// <param name="fileUrl"></param>
+        /// <param name="localPath"></param>
+        public byte[] DownloadFileFromFtp(string fileUrl)
+        {
+            LogicaUsuario lu = new LogicaUsuario();
+            User_EN userAutoLog = lu.BuscarUsuario("cvaras");
+
+            StringBuilder filesstring = new StringBuilder();
+            WebResponse webResponse = null;
+            try
+            {
+                string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
+                string uri = userAutoLog.NombreEmp + "/" + Convert.ToString(Session["carpeta"]) + "/" + fileUrl;
+
+                FtpWebRequest ftpRequest = ConnectToFtp(FileSaveUri + "/" + uri, WebRequestMethods.Ftp.DownloadFile);
+                ftpRequest.UseBinary = true;
+                webResponse = ftpRequest.GetResponse();
+
+                FtpWebResponse response = (FtpWebResponse)webResponse;
+
+                Stream dfileResponseStream = response.GetResponseStream();
+
+
+                int Length = 1024;
+
+                Byte[] buffer = new Byte[Length];
+                List<byte> filebytes = new List<byte>();
+                int bytesRead = dfileResponseStream.Read(buffer, 0, Length);
+                while (bytesRead > 0)
+                {
+                    for (int i = 0; i < bytesRead; i++)
+                        filebytes.Add(buffer[i]);
+
+                    bytesRead = dfileResponseStream.Read(buffer, 0, Length);
+                }
+                response.Close();
+                return filebytes.ToArray();
+            }
+            catch (Exception ex)
+            {
+                //do any thing with exception
+                return null;
+            }
+            finally
+            {
+                if (webResponse != null)
+                {
+                    webResponse.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Connect to ftp on specfic Url and related method
+        /// </summary>
+        /// <param name="SpecificPathOnFtpUrl"></param>
+        /// <param name="Method"></param>
+        /// <returns></returns>
+        public FtpWebRequest ConnectToFtp(string SpecificPathOnFtpUrl, string Method)
+        {
+            FtpWebRequest ftpRequest = (FtpWebRequest)FtpWebRequest.Create(new Uri(SpecificPathOnFtpUrl));
+            ftpRequest.UseBinary = true;
+            ftpRequest.Credentials = new NetworkCredential("cvaras","cvaras1234");
+            ftpRequest.Method = Method;
+
+            ftpRequest.Proxy = null;
+            ftpRequest.KeepAlive = false;
+            ftpRequest.UsePassive = false;
+            return ftpRequest;
         }
 
         protected string ObtenerNombre(string nombre)
