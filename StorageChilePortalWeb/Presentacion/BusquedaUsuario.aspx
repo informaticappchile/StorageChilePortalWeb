@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <span class="mdl-list__item-primary-content">
-        <i class="material-icons  mdl-list__item-avatar">person</i>
+        <i class="material-icons  mdl-list__item-avatar">search</i>
         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <asp:TextBox ID="usuario_buscar" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
             <label class="mdl-textfield__label" for="userpass-login-input">Usuario</label>

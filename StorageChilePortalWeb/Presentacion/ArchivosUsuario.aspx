@@ -42,11 +42,47 @@
             color : rgba(0, 0, 0, 0.26);
             background-color: transparent;
         }
+
+        .button-folder-filtrado {
+            color:black;
+            background: url('/CSS/Folder-97.png') no-repeat center center;
+            height:100px;
+            width:100px;
+            background-position:center;
+            margin-left: 50px;
+            padding-top:77px;
+        }
+
+        .button-folder-filtrado:not([disabled]):hover {
+            color:black;
+            background: url('/CSS/Open Folder-97.png') no-repeat center center;
+            height:100px;
+            width:100px;
+            background-position:center;
+            padding-top:77px;
+        }
+
+        .button-folder-filtrado[disabled] {
+            color : rgba(0, 0, 0, 0.26);
+            background-color: transparent;
+        }
     </style>
+
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h1 class="mdl-card__title-text">Mis archivos</h1>
+            <h1 class="mdl-card__title-text">Mi bodega</h1>
         </div>
+        <div style="width:100%;text-align:center;">
+            <span class="mdl-list__item-primary-content">
+                <i class="material-icons  mdl-list__item-avatar">search</i>
+                <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <asp:TextBox ID="buscar_Rut" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
+                    <label class="mdl-textfield__label" for="userpass-login-input">Rut</label>
+                </span>
+                <asp:Button ID="Button1" runat="server" Text="Buscar" OnClick="Button_Buscar_Click" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
+            </span>
+        </div>
+
         <div id ="container" runat="server" visible ="true">
 
         </div>
@@ -79,5 +115,8 @@
             </Columns>
             <RowStyle CssClass="mdl-data-table__cell--non-numeric" />
         </asp:GridView>
+        <div id="botonesPie" runat="server" class="mdl-card__actions mdl-card--border" visible="false">
+            <asp:Button ID="Button_Volver" runat="server" Text="Volver" OnClick="Button_Volver_Click" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"/>
+        </div>
     </div>
 </asp:Content>

@@ -98,7 +98,9 @@
     <Content Include="Control_Usuarios\Register.aspx" />
     <Content Include="CSS\bttn.min.css" />
     <Content Include="CSS\Folder-96.png" />
+    <Content Include="CSS\Folder-97.png" />
     <Content Include="CSS\Open Folder-96.png" />
+    <Content Include="CSS\Open Folder-97.png" />
     <Content Include="CSS\unite.css" />
     <Content Include="CSS\w3.css" />
     <Content Include="Administrador_Editar_Perfil.aspx" />

@@ -53,6 +53,32 @@ namespace Persistencia
 
         }
 
+        /**
+         * Se encarga de mostrar los datos de un archivo al que le pasamos el id de ese archivo
+         **/
+        public List<string> MostrarArchivosFiltrados(string rut, Empresa_EN emp)
+        {
+            List<string> carpetas = new List<string>();
+            Conexion con = new Conexion();
+            try
+            {
+                con.SetQuery("SELECT a.Ruta from archivo a, personal p, personalempresa pe where a.IdPersonal = p.idPersonal and pe.idEmpresa =" + emp.ID +
+                    " and pe.idPersonal = p.idPersonal and p.RutPersonal = '" + rut + "'");
+                DataTable dt = con.QuerySeleccion();
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    string folder = ObtenerCarpeta(dt.Rows[i]["Ruta"].ToString());
+                    carpetas.Add(folder);
+                }
+
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { con.Cerrar_Conexion(); }
+            return carpetas;
+
+        }
+
         protected string ObtenerCarpeta(string carpeta)
         {
             string n = "";

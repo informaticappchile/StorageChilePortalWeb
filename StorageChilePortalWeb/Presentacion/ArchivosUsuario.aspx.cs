@@ -18,15 +18,16 @@ namespace Presentacion
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
+        List<Button> botones = new List<Button>();
         protected void Page_Load(object sender, EventArgs e)
-        { 
+        {
             LogicaUsuario lu = new LogicaUsuario();
-            Session["user_session_data"] = lu.BuscarUsuario("cvaras");
-
+            User_EN userAutoLog = lu.BuscarUsuario("cvaras");
+            Session["user_session_data"] = userAutoLog;
             User_EN en = (User_EN)Session["user_session_data"];
             if (en != null)
             {
-                cargaCarpetas();
+                cargaCarpetas(true,null);
             }
             else
             {
@@ -124,7 +125,7 @@ namespace Presentacion
             return new string(charArray);
         }
 
-        protected void cargaCarpetas()
+        protected void cargaCarpetas(bool tipoCarga, List<string> carpetas)
         {
             User_EN en = (User_EN)Session["user_session_data"];
             try
@@ -138,18 +139,27 @@ namespace Presentacion
                 FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
                 StreamReader streamReader = new StreamReader(response.GetResponseStream());
                 string line = streamReader.ReadLine();
-                int contador = 0;
+                int contador = 1;
                 while (!string.IsNullOrEmpty(line))
                 {
                     Button button = new Button();
-                    button.ID = contador + ObtenerNombre(line);
+                    button.ID = ObtenerNombre(line);
                     button.Text = ObtenerNombre(line);
-                    button.CssClass = "button-folder";
+                    if (botones.Count >= contador && !tipoCarga)
+                    {
+                        cargaCarpetasFiltradas(carpetas);
+                        break;
+                    }
+                    else
+                    {
+                        button.CssClass = "button-folder";
+                    }
                     if (!isPunto(button.Text))
                     {
                         button.Click += new EventHandler(button_Click);
                         container.Controls.Add(button);
                     }
+                    botones.Add(button);
                     line = streamReader.ReadLine();
                     contador++;
                 }
@@ -170,13 +180,47 @@ namespace Presentacion
             }
         }
 
+        protected void cargaCarpetasFiltradas(List<string> carpetas)
+        {
+            foreach (Button button in botones)
+            {
+                if (buscarCarpeta(button.ID, carpetas))
+                {
+                    button.CssClass = "button-folder-filtrado";
+                }
+                else
+                {
+                    button.CssClass = "button-folder";
+                }
+            }
+        }
+
+        protected void limpiarCarpetasFiltradas()
+        {
+            foreach (Button button in botones)
+            {
+                button.CssClass = "button-folder";
+            }
+        }
+
         protected void button_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
             Session["carpeta"] = button.Text;
             container.Visible = false;
             GridViewMostrarArchivos.Visible = true;
+            botonesPie.Visible = true;
             cargaArchivos();
+        }
+
+
+
+        protected void Button_Volver_Click(object sender, EventArgs e)
+        {
+            container.Visible = true;
+            GridViewMostrarArchivos.Visible = false;
+            botonesPie.Visible = false;
+            //limpiarCarpetasFiltradas();
         }
 
         protected void cargaArchivos()
@@ -208,6 +252,25 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
+        }
+
+
+        protected void Button_Buscar_Click(object sender, EventArgs e)
+        {
+            limpiarCarpetasFiltradas();
+            User_EN en = (User_EN)Session["user_session_data"];
+            LogicaFile lf = new LogicaFile();
+            LogicaEmpresa le = new LogicaEmpresa();
+            List<string> carpetas = lf.MostrarArchivosFiltrados(buscar_Rut.Text, le.BuscarEmpresa(en.NombreEmp));
+            cargaCarpetas(false,carpetas);
+        }
+
+        protected bool buscarCarpeta(string carpeta, List<string> carpetas)
+        {
+            if (carpetas.Contains(carpeta)) {
+                return true;
+            }
+            return false;
         }
 
     }

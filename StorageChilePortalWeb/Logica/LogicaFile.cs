@@ -10,11 +10,11 @@ namespace Logica
 {
     public class LogicaFile
     {
-        
+
         public ArrayList MostrarFIles(string carpeta, Empresa_EN emp)
         {
-            File_CAD fc = new File_CAD ();
-            return fc.MostrarFiles(carpeta,emp);
+            File_CAD fc = new File_CAD();
+            return fc.MostrarFiles(carpeta, emp);
         }
 
         public void InsertarArchivo(File_EN f)
@@ -23,5 +23,10 @@ namespace Logica
             filCad.InsertarArchivo(f);
         }
 
+        public List<string> MostrarArchivosFiltrados(string rut, Empresa_EN emp)
+        {
+            File_CAD filCad = new File_CAD();
+            return filCad.MostrarArchivosFiltrados(rut, emp);
+        }
     }
 }

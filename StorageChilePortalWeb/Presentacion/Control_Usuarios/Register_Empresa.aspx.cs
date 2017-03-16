@@ -106,7 +106,6 @@ namespace Presentacion
                         //Le indicamos al alert que mensaje va mostrar
                         sbMensaje.AppendFormat("alert('{0}');", "Se ha registrado a la empresa: "+ en.NombreEmp);
                         //Cerramos el Script
-                        sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
                         sbMensaje.Append("</script>");
                         //Registramos el Script escrito en el StringBuilder
                         ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
