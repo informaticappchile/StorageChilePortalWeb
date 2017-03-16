@@ -26,6 +26,7 @@ namespace Persistencia
             {
                 con.SetQuery("SELECT * from archivo a, personal p, personalempresa pe where a.IdPersonal = p.idPersonal and pe.idEmpresa =" + emp.ID + 
                     " and pe.idPersonal = p.idPersonal"+ 
+                    " group by a.Ruta"+
                     " Order by p.NombrePersonal");
                 DataTable dt = con.QuerySeleccion();
 
