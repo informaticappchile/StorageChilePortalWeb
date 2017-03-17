@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Subir-archivo.aspx.cs" Inherits="Presentacion.SubirArchivo" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
 </asp:Content>
@@ -44,6 +46,7 @@
                 </li>
             </ul>
         </div>
+
         <div>
             <div class="text-escoge">
                 <label>Escoge el archivo a subir:</label>
@@ -57,5 +60,10 @@
                 </asp:LinkButton>
             </div>
         </div>
-    </div>
+
+        <div id="contProgress" runat="server" style="text-align:center;align-items:center">
+            <progress id="progress1" value="0" runat="server" onchange="progressBar1_OnChange"></progress>
+        </div>
+        </div>
 </asp:Content>
+

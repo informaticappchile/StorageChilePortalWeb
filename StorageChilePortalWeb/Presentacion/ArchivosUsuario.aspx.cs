@@ -64,9 +64,8 @@ namespace Presentacion
                     string FileSaveUri = @"ftp://cvaras:cvaras1234@ftp.Smarterasp.net/" + en.NombreEmp + "/" + Convert.ToString(Session["carpeta"]) + "/" + e.CommandArgument.ToString();
                     string ftpUser = "cvaras";
                     string ftpPassWord = "cvaras1234";
-
-                    
-                    string extensionArchivo = Path.GetExtension(FileSaveUri);
+                    Server.Transfer(FileSaveUri, true);
+                    /*string extensionArchivo = Path.GetExtension(FileSaveUri);
                     extensionArchivo = extensionArchivo.Substring(1, extensionArchivo.Length - 1);
 
 
@@ -80,7 +79,7 @@ namespace Presentacion
                     //Response.TransmitFile(FileSaveUri);
                     byte[] _downFile = DownloadFileFromFtp(e.CommandArgument.ToString());
                     Response.OutputStream.Write(_downFile, 0, _downFile.Length);
-                    Response.End();
+                    Response.End();*/
 
                 }
                 catch (Exception ex)

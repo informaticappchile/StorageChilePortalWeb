@@ -39,6 +39,13 @@ namespace Presentacion
 
         }
 
+
+        protected void progressBar1_OnChange(object sender, EventArgs e)
+        {
+
+        }
+
+
         /*
         * Este método esta conectado al boton de subir archivo
         */
@@ -89,7 +96,6 @@ namespace Presentacion
                             if (user != null)
                             {
                                 string strFileName = Path.GetFileName(uploadFile.FileName);
-                                string a = ("h:/root/home/infochile-001/www/Storage/uploadpdf/" + strFileName);
                                 int FileLength = FileUpload1.PostedFile.ContentLength;
                                 Uri uri = new Uri(FileSaveUri + empresa + carpeta + Path.GetFileName(FileUpload1.PostedFile.FileName));
                                 
@@ -99,12 +105,29 @@ namespace Presentacion
                                     uploadRequest.Method = WebRequestMethods.Ftp.UploadFile;
                                     uploadRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
                                     requestStream = uploadRequest.GetRequestStream();
-                                    byte[] buffer = new byte[FileLength];
                                     fileStream = FileUpload1.PostedFile.InputStream;
-                                    fileStream.Read(buffer, 0, FileLength);
-                                    requestStream.Write(buffer, 0, FileLength);
+                                    byte[] buffer = new byte[1024];
+
+                                    double total = (double)FileLength;
+                                    int byteRead = 0;
+                                    double read = 0;
+                                    do
+                                    {
+                                            byteRead = fileStream.Read(buffer, 0, 1024);
+                                            requestStream.Write(buffer, 0, byteRead);
+                                            read += (double)byteRead;
+                                            double percentage = read / total * 100;
+                                            progress1.Attributes["value"] = ""+((int)percentage);
+
+                                    } while (byteRead != 0) ;
+                                    fileStream.Close();
                                     requestStream.Close();
-                                    uploadResponse = (FtpWebResponse)uploadRequest.GetResponse();
+
+
+                                    //fileStream.Read(buffer, 0, FileLength);
+                                    //requestStream.Write(buffer, 0, FileLength);
+                                    //requestStream.Close();
+                                    //uploadResponse = (FtpWebResponse)uploadRequest.GetResponse();
                                     //uploadFile.SaveAs(MapPath(a));
                                 
                                 }
