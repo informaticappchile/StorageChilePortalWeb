@@ -40,8 +40,10 @@ namespace Presentacion
         }
 
 
-        protected void progressBar1_OnChange(object sender, EventArgs e)
+        protected void progress1_OnRateChange(object sender, EventArgs e)
         {
+            progress1.Visible = false;
+            progress1.Visible = true;
 
         }
 
@@ -107,17 +109,17 @@ namespace Presentacion
                                     requestStream = uploadRequest.GetRequestStream();
                                     fileStream = FileUpload1.PostedFile.InputStream;
                                     byte[] buffer = new byte[1024];
-
                                     double total = (double)FileLength;
                                     int byteRead = 0;
                                     double read = 0;
                                     do
                                     {
-                                            byteRead = fileStream.Read(buffer, 0, 1024);
+                                            byteRead = FileUpload1.PostedFile.InputStream.Read(buffer, 0, 1024);
                                             requestStream.Write(buffer, 0, byteRead);
                                             read += (double)byteRead;
                                             double percentage = read / total * 100;
-                                            progress1.Attributes["value"] = ""+((int)percentage);
+                                        //progress1.Attributes["value"] = ""+((int)percentage);
+                                        progress1.Style["width"] = String.Format("{0}%", (int)percentage);
 
                                     } while (byteRead != 0) ;
                                     fileStream.Close();

@@ -39,6 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.5.40412.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Desktop\AjaxControlToolkit.Binary.NET35\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net40\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
@@ -96,6 +100,7 @@
     <Content Include="Control_Usuarios\Restablecer_Password.aspx" />
     <Content Include="Control_Usuarios\Login.aspx" />
     <Content Include="Control_Usuarios\Register.aspx" />
+    <Content Include="CSS\progressbar.css" />
     <Content Include="CSS\bttn.min.css" />
     <Content Include="CSS\Folder-96.png" />
     <Content Include="CSS\Folder-97.png" />
@@ -109,6 +114,7 @@
     <Content Include="img\alfa.png" />
     <Content Include="img\Contactanos.png" />
     <Content Include="img\contactos.png" />
+    <Content Include="img\loading2.gif" />
     <Content Include="img\PDF-48.png" />
     <Content Include="img\soporte1.jpg" />
     <Content Include="img\soportetecnico.png" />
@@ -118,8 +124,12 @@
     <Content Include="Inicio.aspx" />
     <Content Include="js\basic.css" />
     <Content Include="js\jquery-1.10.2.min.js" />
+    <None Include="js\jquery-1.4.1-vsdoc.js" />
+    <Content Include="js\jquery-1.4.1.js" />
+    <Content Include="js\jquery-1.4.1.min.js" />
     <Content Include="js\jquery.responsivetable.js" />
     <Content Include="js\jquery.responsivetable.min.js" />
+    <Content Include="js\main.js" />
     <Content Include="Soporte.aspx" />
     <Content Include="Slides\Slide1.png" />
     <Content Include="Slides\Slide2.jpg" />

@@ -1,7 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Principal.Master.cs" Inherits="Presentacion.Site1" %>
 
 <!DOCTYPE html>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css"/>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css"/>
+    <link rel="stylesheet" href="CSS/progressbar.css"/>
     <link rel="stylesheet" href="CSS/W3.css"/>
     <link rel="stylesheet" href="CSS/main_style.css" type="text/css"/>
     <link rel="stylesheet" href="CSS/unite.css"/>
@@ -35,7 +36,7 @@
                         </asp:HyperLink>
                         <div class="padre">
                             <div class="hijo">
-                                <asp:Label ID="LbBienvenido" class="mdl-layout-title titulo" Visible="false" runat="server" Text="Bienvenido: " ForeColor="#7A7677" Font-Bold="true" style="text-align:center;font-family:Verdana"></asp:Label>
+                                <asp:Label ID="LbBienvenido" CssClass="mdl-layout-title titulo" Visible="false" runat="server" Text="Bienvenido: " ForeColor="#7A7677" Font-Bold="true" style="text-align:center;font-family:Verdana"></asp:Label>
                             </div>
                         </div>
                         <div class="mdl-layout-spacer"></div>

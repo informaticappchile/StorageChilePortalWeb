@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Subir-archivo.aspx.cs" Inherits="Presentacion.SubirArchivo" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
@@ -46,24 +48,82 @@
                 </li>
             </ul>
         </div>
+        <style type="text/css">
 
+    #Background
+    {
+        position: fixed; 
+        top: 0px; 
+        bottom: 0px; 
+        left: 0px; 
+        right: 0px; 
+        overflow: hidden; 
+        padding: 0; 
+        margin: 0; 
+        background-color: #F0F0F0; 
+        filter: alpha(opacity=80); 
+        opacity: 0.8; 
+        z-index: 100000;
+    }
+        
+    #ProgressS
+    {
+        position: fixed;
+        top: 40%; 
+        left: 40%; 
+        height:20%; 
+        width:20%; 
+        z-index: 100001;  
+        background-color: #FFFFFF; 
+        border:1px solid Gray; 
+        background-image: url('img/loading2.gif'); 
+        background-repeat: no-repeat; 
+        background-position:center;
+    }
+
+    </style>
         <div>
             <div class="text-escoge">
                 <label>Escoge el archivo a subir:</label>
             </div>
             <div class="mdl-card__actions mdl-card--border">
-                <asp:FileUpload ID="FileUpload1" runat="server" CssClass="mdl-button mdl-js-button mdl-button--primary"/>
+                <asp:ToolkitScriptManager ID="ScriptManager1" runat="server">
+        </asp:ToolkitScriptManager>
+                
+                <asp:AsyncFileUpload ID="FileUpload1" runat="server" ClientIDMode="AutoID" PersistFile="true" CssClass="mdl-button mdl-js-button mdl-button--primary"/>
                 <br />
-                <asp:LinkButton ID="Button1" runat="server" OnClick="Button_Upload_Click" CssClass="mdl-button mdl-js-button mdl-button--primary">
+         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="Button_Upload_Click" CssClass="mdl-button mdl-js-button mdl-button--primary">
                 <i class="material-icons">publish</i>
                 Subir
                 </asp:LinkButton>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+
+    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1"  DynamicLayout="true" >
+    <ProgressTemplate>
+        <div id="Background"></div>
+        <div id="ProgressS">
+            <h6> <p style="text-align:center"> <b>Procesando Datos, Espere por favor... <br /></b> </p> </h6>
+        </div>
+    </ProgressTemplate>
+    </asp:UpdateProgress>
+        
             </div>
         </div>
-
-        <div id="contProgress" runat="server" style="text-align:center;align-items:center">
-            <progress id="progress1" value="0" runat="server" onchange="progressBar1_OnChange"></progress>
-        </div>
+            <div id="contProgress" runat="server" style="text-align:center;align-items:center">
+            <div class="progress progress-striped">
+                      <div id="progress1" runat="server" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                        <span>40% Complete </span>
+                      </div>
+                       
+                    </div>
+            </div>
+        
+                
+        
+        
         </div>
 </asp:Content>
 
