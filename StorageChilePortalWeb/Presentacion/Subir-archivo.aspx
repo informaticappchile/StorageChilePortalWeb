@@ -3,10 +3,16 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 
+    
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="loading" align="center">
+        Cargando Contenido.<br />
+        <br />
+        <img src="img/loading2.gif" alt="" />
+    </div>
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
             <h1 class="mdl-card__title-text">Subir archivo</h1>
@@ -49,81 +55,67 @@
             </ul>
         </div>
         <style type="text/css">
-
-    #Background
-    {
-        position: fixed; 
-        top: 0px; 
-        bottom: 0px; 
-        left: 0px; 
-        right: 0px; 
-        overflow: hidden; 
-        padding: 0; 
-        margin: 0; 
-        background-color: #F0F0F0; 
-        filter: alpha(opacity=80); 
-        opacity: 0.8; 
-        z-index: 100000;
-    }
-        
-    #ProgressS
-    {
-        position: fixed;
-        top: 40%; 
-        left: 40%; 
-        height:20%; 
-        width:20%; 
-        z-index: 100001;  
-        background-color: #FFFFFF; 
-        border:1px solid Gray; 
-        background-image: url('img/loading2.gif'); 
-        background-repeat: no-repeat; 
-        background-position:center;
-    }
-
-    </style>
-        <div>
+            .modal
+            {
+                position: fixed;
+                top: 0;
+                left: 0;
+                background-color: black;
+                z-index: 99;
+                opacity: 0.8;
+                filter: alpha(opacity=80);
+                -moz-opacity: 0.8;
+                min-height: 100%;
+                width: 100%;
+            }
+            .loading {
+                font-family: Arial;
+                font-size: 10pt;
+                border: 5px solid #67CFF5;
+                width: 200px;
+                height: 100px;
+                display: none;
+                position: fixed;
+                background-color: White;
+                z-index: 999;
+            }
+        </style>
             <div class="text-escoge">
                 <label>Escoge el archivo a subir:</label>
             </div>
             <div class="mdl-card__actions mdl-card--border">
-                <asp:ToolkitScriptManager ID="ScriptManager1" runat="server">
-        </asp:ToolkitScriptManager>
                 
-                <asp:AsyncFileUpload ID="FileUpload1" runat="server" ClientIDMode="AutoID" PersistFile="true" CssClass="mdl-button mdl-js-button mdl-button--primary"/>
-                <br />
-         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
-                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="Button_Upload_Click" CssClass="mdl-button mdl-js-button mdl-button--primary">
-                <i class="material-icons">publish</i>
-                Subir
-                </asp:LinkButton>
-        </ContentTemplate>
-    </asp:UpdatePanel>
-
-    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1"  DynamicLayout="true" >
-    <ProgressTemplate>
-        <div id="Background"></div>
-        <div id="ProgressS">
-            <h6> <p style="text-align:center"> <b>Procesando Datos, Espere por favor... <br /></b> </p> </h6>
-        </div>
-    </ProgressTemplate>
-    </asp:UpdateProgress>
-        
+                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                <script type="text/javascript">
+                    function ShowProgress() {
+                        setTimeout(function () {
+                            var modal = $('<div />');
+                            modal.addClass("modal");
+                            $('body').append(modal);
+                            var loading = $(".loading");
+                            loading.show();
+                            var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+                            var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+                            loading.css({ top: top, left: left });
+                        }, 200);
+                    }
+                    function ShowLabel() {
+                        $('[id*=progressB]').text = '<%=progresoBar1%>'.toString();
+                    }
+                    $('form').live("submit", function () {
+                        ShowProgress();
+                    });
+                </script>
+                <asp:FileUpload ID="FileUpload1" runat="server" CssClass="mdl-button mdl-js-button mdl-button--primary"/>
+                    <br /><!--
+                    <asp:LinkButton ID="LinkButton1" runat="server" OnClick="Button_Upload_Click" CssClass="mdl-button mdl-js-button mdl-button--primary">
+                    <i class="material-icons">publish</i>
+                    Subir
+                    </asp:LinkButton>-->
+                    <asp:Button ID="btnSubmit" runat="server" Text="Subir" CssClass="mdl-button mdl-js-button mdl-button--primary"
+                        OnClick="Button_Upload_Click"/>
+                    <hr />
             </div>
-        </div>
-            <div id="contProgress" runat="server" style="text-align:center;align-items:center">
-            <div class="progress progress-striped">
-                      <div id="progress1" runat="server" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                        <span>40% Complete </span>
-                      </div>
-                       
-                    </div>
-            </div>
-        
-                
-        
-        
         </div>
 </asp:Content>
 

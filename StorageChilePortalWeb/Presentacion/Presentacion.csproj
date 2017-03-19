@@ -130,6 +130,8 @@
     <Content Include="js\jquery.responsivetable.js" />
     <Content Include="js\jquery.responsivetable.min.js" />
     <Content Include="js\main.js" />
+    <Content Include="js\ProgressBar.js" />
+    <Content Include="Service\DoStuffWebService.asmx" />
     <Content Include="Soporte.aspx" />
     <Content Include="Slides\Slide1.png" />
     <Content Include="Slides\Slide2.jpg" />
@@ -265,6 +267,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service\DoStuffWebService.asmx.cs">
+      <DependentUpon>DoStuffWebService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ProgressBar.cs" />
     <Compile Include="Soporte.aspx.cs">
       <DependentUpon>Soporte.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

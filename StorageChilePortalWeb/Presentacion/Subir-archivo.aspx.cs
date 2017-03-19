@@ -9,11 +9,13 @@ using Entidades;
 using System.Net;
 using System.Data.SqlClient;
 using Logica;
+using System.ComponentModel;
 
 namespace Presentacion
 {
     public partial class SubirArchivo : System.Web.UI.Page
     {
+        public int progresoBar1 = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             //InitInputClasses();
@@ -27,6 +29,13 @@ namespace Presentacion
             {
                 Response.Redirect("Control_Usuarios/Login.aspx");
             }
+            if (!IsPostBack)
+            {
+                string script = "$(document).ready(function () { $('[id*=LinkButton1]').click(); });";
+                ClientScript.RegisterStartupScript(this.GetType(), "load", script, true);
+                script = "$(document).ready(function () { $('[id*=btnSubmit]').click(); });";
+                ClientScript.RegisterStartupScript(this.GetType(), "load", script, true);
+            }
         }
 
         protected void MostrarDirectorio(User_EN en)
@@ -38,24 +47,13 @@ namespace Presentacion
         {
 
         }
-
-
-        protected void progress1_OnRateChange(object sender, EventArgs e)
-        {
-            progress1.Visible = false;
-            progress1.Visible = true;
-
-        }
-
+        
 
         /*
         * Este método esta conectado al boton de subir archivo
         */
         protected void Button_Upload_Click(object sender, EventArgs e)
         {
-
-            if (IsPostBack)
-            {
                 User_EN en = (User_EN)Session["user_session_data"];
                 LogicaUsuario lu = new LogicaUsuario();
                 String path = Server.MapPath("Files/"); //Ruta donde subir el archivo (en la carpeta "Files" de nuestro proyecto)
@@ -91,7 +89,6 @@ namespace Presentacion
                         fe.IDUsuario = en.ID;
                         lp.InsertarPersonalEmpresa(pe.ID, le.BuscarEmpresa(en.NombreEmp).ID);
                         lf.InsertarArchivo(fe);
-                        
                         try
                         {
                             User_EN user = (User_EN)Session["user_session_data"];
@@ -114,18 +111,14 @@ namespace Presentacion
                                     double read = 0;
                                     do
                                     {
-                                            byteRead = FileUpload1.PostedFile.InputStream.Read(buffer, 0, 1024);
-                                            requestStream.Write(buffer, 0, byteRead);
-                                            read += (double)byteRead;
-                                            double percentage = read / total * 100;
-                                        //progress1.Attributes["value"] = ""+((int)percentage);
-                                        progress1.Style["width"] = String.Format("{0}%", (int)percentage);
-
+                                        byteRead = FileUpload1.PostedFile.InputStream.Read(buffer, 0, 1024);
+                                        requestStream.Write(buffer, 0, byteRead);
+                                        read += (double)byteRead;
+                                        double percentage = read / total * 100;
+                                        progresoBar1 = (int)percentage;
                                     } while (byteRead != 0) ;
                                     fileStream.Close();
                                     requestStream.Close();
-
-
                                     //fileStream.Read(buffer, 0, FileLength);
                                     //requestStream.Write(buffer, 0, FileLength);
                                     //requestStream.Close();
@@ -174,11 +167,6 @@ namespace Presentacion
                 {
 
                 }
-            }
-            else
-            {
-
-            }
         }
 
         protected void crearCarpeta(string carpeta, string uri, string ftpUser, string ftpPassWord)
