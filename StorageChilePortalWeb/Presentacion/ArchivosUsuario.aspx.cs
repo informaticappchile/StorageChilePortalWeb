@@ -61,6 +61,8 @@ namespace Presentacion
                 User_EN en = (User_EN)Session["user_session_data"];
                 try
                 {
+                    DownloadFileFromFtp(e.CommandArgument.ToString());
+                    /*
                     string FileSaveUri = @"ftp://cvaras:cvaras1234@ftp.Smarterasp.net/" + en.NombreEmp + "/" + Convert.ToString(Session["carpeta"]) + "/" + e.CommandArgument.ToString();
                     string ftpUser = "cvaras";
                     string ftpPassWord = "cvaras1234";
@@ -107,6 +109,72 @@ namespace Presentacion
         /// <param name="localPath"></param>
         public byte[] DownloadFileFromFtp(string fileUrl)
         {
+
+            LogicaUsuario lu = new LogicaUsuario();
+            User_EN userAutoLog = lu.BuscarUsuario("cvaras");
+            string FileSaveUri = @"ftp://cvaras:cvaras1234@ftp.Smarterasp.net/" + userAutoLog.NombreEmp + "/" + Convert.ToString(Session["carpeta"]) + "/" + fileUrl;
+            // Assuming you have a method that does this.
+
+
+            Response.Buffer = false; //transmitfile self buffers
+            Response.Clear();
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.ContentType = "application/octet-stream";
+            Response.AddHeader("content-length", "14906");
+            Response.AddHeader("Content-Disposition", "attachment; filename="+fileUrl);
+            Response.TransmitFile(FileSaveUri); //transmitfile keeps entire file from loading into memory
+            Response.Flush();
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+            Response.End();
+            Byte[] buffer = new Byte[1024];
+            return buffer;
+
+
+            /*
+            string fileName = fileUrl;
+
+            //FTP Server URL.
+            string ftp = @"ftp://ftp.Smarterasp.net/";
+            
+
+            //FTP Folder name. Leave blank if you want to Download file from root folder.
+            string ftpFolder = userAutoLog.NombreEmp + "/" + Convert.ToString(Session["carpeta"]);
+
+            try
+            {
+                //Create FTP Request.
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftp + ftpFolder + fileName);
+                request.Method = WebRequestMethods.Ftp.DownloadFile;
+
+                //Enter FTP Server credentials.
+                request.Credentials = new NetworkCredential("cvaras", "cvaras1234");
+                request.UsePassive = true;
+                request.UseBinary = true;
+                request.EnableSsl = false;
+
+                //Fetch the Response and read it into a MemoryStream object.
+                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+                
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    //Download the File.
+                    response.GetResponseStream().CopyTo(stream);
+                    Response.AppendHeader("content-disposition", "attachment;filename=" + fileName);
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                    Response.BinaryWrite(stream.ToArray());
+                    Response.End();
+                }
+
+                return buffer;
+            }
+            catch (WebException ex)
+            {
+                throw new Exception((ex.Response as FtpWebResponse).StatusDescription);
+            }
+
+
+            /*
             LogicaUsuario lu = new LogicaUsuario();
             User_EN userAutoLog = lu.BuscarUsuario("cvaras");
 
@@ -152,7 +220,7 @@ namespace Presentacion
                 {
                     webResponse.Close();
                 }
-            }
+            }*/
         }
 
         /// <summary>
