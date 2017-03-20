@@ -62,26 +62,6 @@ namespace Presentacion
                 try
                 {
                     DownloadFileFromFtp(e.CommandArgument.ToString());
-                    /*
-                    string FileSaveUri = @"ftp://cvaras:cvaras1234@ftp.Smarterasp.net/" + en.NombreEmp + "/" + Convert.ToString(Session["carpeta"]) + "/" + e.CommandArgument.ToString();
-                    string ftpUser = "cvaras";
-                    string ftpPassWord = "cvaras1234";
-                    Server.Transfer(FileSaveUri, true);
-                    /*string extensionArchivo = Path.GetExtension(FileSaveUri);
-                    extensionArchivo = extensionArchivo.Substring(1, extensionArchivo.Length - 1);
-
-
-                    Response.Clear();
-                    Response.ClearHeaders();
-                    Response.ClearContent();
-                    Response.ContentType = "application/x-" + extensionArchivo;
-                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + e.CommandArgument.ToString());
-                    //Response.AddHeader("Content-Length", e.CommandArgument.ToString().Length.ToString());
-                    //Response.Flush();
-                    //Response.TransmitFile(FileSaveUri);
-                    byte[] _downFile = DownloadFileFromFtp(e.CommandArgument.ToString());
-                    Response.OutputStream.Write(_downFile, 0, _downFile.Length);
-                    Response.End();*/
 
                 }
                 catch (Exception ex)
@@ -112,71 +92,6 @@ namespace Presentacion
 
             LogicaUsuario lu = new LogicaUsuario();
             User_EN userAutoLog = lu.BuscarUsuario("cvaras");
-            string FileSaveUri = @"ftp://cvaras:cvaras1234@ftp.Smarterasp.net/" + userAutoLog.NombreEmp + "/" + Convert.ToString(Session["carpeta"]) + "/" + fileUrl;
-            // Assuming you have a method that does this.
-
-
-            Response.Buffer = false; //transmitfile self buffers
-            Response.Clear();
-            Response.ClearContent();
-            Response.ClearHeaders();
-            Response.ContentType = "application/octet-stream";
-            Response.AddHeader("content-length", "14906");
-            Response.AddHeader("Content-Disposition", "attachment; filename="+fileUrl);
-            Response.TransmitFile(FileSaveUri); //transmitfile keeps entire file from loading into memory
-            Response.Flush();
-            HttpContext.Current.ApplicationInstance.CompleteRequest();
-            Response.End();
-            Byte[] buffer = new Byte[1024];
-            return buffer;
-
-
-            /*
-            string fileName = fileUrl;
-
-            //FTP Server URL.
-            string ftp = @"ftp://ftp.Smarterasp.net/";
-            
-
-            //FTP Folder name. Leave blank if you want to Download file from root folder.
-            string ftpFolder = userAutoLog.NombreEmp + "/" + Convert.ToString(Session["carpeta"]);
-
-            try
-            {
-                //Create FTP Request.
-                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftp + ftpFolder + fileName);
-                request.Method = WebRequestMethods.Ftp.DownloadFile;
-
-                //Enter FTP Server credentials.
-                request.Credentials = new NetworkCredential("cvaras", "cvaras1234");
-                request.UsePassive = true;
-                request.UseBinary = true;
-                request.EnableSsl = false;
-
-                //Fetch the Response and read it into a MemoryStream object.
-                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
-                
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    //Download the File.
-                    response.GetResponseStream().CopyTo(stream);
-                    Response.AppendHeader("content-disposition", "attachment;filename=" + fileName);
-                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                    Response.BinaryWrite(stream.ToArray());
-                    Response.End();
-                }
-
-                return buffer;
-            }
-            catch (WebException ex)
-            {
-                throw new Exception((ex.Response as FtpWebResponse).StatusDescription);
-            }
-
-
-            /*
-            LogicaUsuario lu = new LogicaUsuario();
-            User_EN userAutoLog = lu.BuscarUsuario("cvaras");
 
             StringBuilder filesstring = new StringBuilder();
             WebResponse webResponse = null;
@@ -190,28 +105,59 @@ namespace Presentacion
                 webResponse = ftpRequest.GetResponse();
 
                 FtpWebResponse response = (FtpWebResponse)webResponse;
-
+                Response.ContentType = "application/pdf";
+                Response.AppendHeader("Content-Disposition", "attachment; filename="+ fileUrl);
                 Stream dfileResponseStream = response.GetResponseStream();
-
-
                 int Length = 1024;
 
-                Byte[] buffer = new Byte[Length];
+                byte[] buffer = new byte[Length];
                 List<byte> filebytes = new List<byte>();
                 int bytesRead = dfileResponseStream.Read(buffer, 0, Length);
                 while (bytesRead > 0)
                 {
-                    for (int i = 0; i < bytesRead; i++)
-                        filebytes.Add(buffer[i]);
+                    if (Response.IsClientConnected)
+                    {
+                        for (int i = 0; i < bytesRead; i++)
+                            filebytes.Add(buffer[i]);
 
-                    bytesRead = dfileResponseStream.Read(buffer, 0, Length);
+                        Response.OutputStream.Write(buffer, 0, bytesRead);
+                        bytesRead = dfileResponseStream.Read(buffer, 0, Length);
+                    }else
+                    {
+                        bytesRead = -1;
+                    }
                 }
+
                 response.Close();
+                if (bytesRead == -1)
+                {
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Error, se ha perdido la conexión con el servidor. Intente más tarde.");
+                    //Cerramos el Script
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                    return null;
+                }
                 return filebytes.ToArray();
+
             }
             catch (Exception ex)
             {
-                //do any thing with exception
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Error de conexión con el servidor, intente más tarde.");
+                //Cerramos el Script
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                 return null;
             }
             finally
@@ -220,7 +166,7 @@ namespace Presentacion
                 {
                     webResponse.Close();
                 }
-            }*/
+            }
         }
 
         /// <summary>
@@ -411,12 +357,19 @@ namespace Presentacion
 
         protected void Button_Buscar_Click(object sender, EventArgs e)
         {
-            limpiarCarpetasFiltradas();
-            User_EN en = (User_EN)Session["user_session_data"];
-            LogicaFile lf = new LogicaFile();
-            LogicaEmpresa le = new LogicaEmpresa();
-            List<string> carpetas = lf.MostrarArchivosFiltrados(buscar_Rut.Text, le.BuscarEmpresa(en.NombreEmp));
-            cargaCarpetas(false,carpetas);
+            if (GridViewMostrarArchivos.Visible)
+            {
+            }
+            else
+            {
+                limpiarCarpetasFiltradas();
+                User_EN en = (User_EN)Session["user_session_data"];
+                LogicaFile lf = new LogicaFile();
+                LogicaEmpresa le = new LogicaEmpresa();
+                string rutCompleto = buscar_Rut.Text + "-" + digitoVerificador(buscar_Rut.Text);
+                List<string> carpetas = lf.MostrarArchivosFiltrados(rutCompleto, le.BuscarEmpresa(en.NombreEmp));
+                cargaCarpetas(false, carpetas);
+            }
         }
 
         protected bool buscarCarpeta(string carpeta, List<string> carpetas)
@@ -425,6 +378,16 @@ namespace Presentacion
                 return true;
             }
             return false;
+        }
+
+        public string digitoVerificador(string rut)
+        {
+            int suma = 0;
+            for (int x = rut.Length - 1; x >= 0; x--)
+                suma += int.Parse(char.IsDigit(rut[x]) ? rut[x].ToString() : "0") * (((rut.Length - (x + 1)) % 6) + 2);
+            int numericDigito = (11 - suma % 11);
+            string digito = numericDigito == 11 ? "0" : numericDigito == 10 ? "K" : numericDigito.ToString();
+            return digito;
         }
 
     }

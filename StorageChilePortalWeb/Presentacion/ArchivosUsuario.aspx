@@ -78,6 +78,7 @@
                 <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <asp:TextBox ID="buscar_Rut" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
                     <label class="mdl-textfield__label" for="userpass-login-input">Rut</label>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Formato de rut no valido. Ejemplo: 11222333" ControlToValidate="buscar_Rut" ValidationExpression="\b\d{1,8}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                 </span>
                 <asp:Button ID="Button1" runat="server" Text="Buscar" OnClick="Button_Buscar_Click" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
             </span>
