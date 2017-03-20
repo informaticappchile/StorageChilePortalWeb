@@ -31,6 +31,7 @@ namespace Presentacion
                 }
                 else if (user.IdPerfil == 2)
                 {
+                    Link_Almacen.Visible = true;
                     Link_Cerrar_Sesion.Visible = true;
                     Barra_Secundaria.Visible = false;
                     LbBienvenido.Text = "Bienvenido: " + user.NombreUsu;

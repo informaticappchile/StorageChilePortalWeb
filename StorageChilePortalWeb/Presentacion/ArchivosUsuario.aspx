@@ -18,6 +18,7 @@
             $('.mdl-shadow--2dp').responsiveTable();
         }
     </script>
+
     <style >
         .button-folder {
             color:black;
@@ -76,8 +77,10 @@
             <span class="mdl-list__item-primary-content">
                 <i class="material-icons  mdl-list__item-avatar">search</i>
                 <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <asp:TextBox ID="txtFiltro" runat="server" CssClass="mdl-textfield__input" Visible="false"></asp:TextBox>
                     <asp:TextBox ID="buscar_Rut" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
                     <label class="mdl-textfield__label" for="userpass-login-input">Rut</label>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Formato de rut no valido. Ejemplo: 11222333" ControlToValidate="txtFiltro" ValidationExpression="\b\d{1,8}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Formato de rut no valido. Ejemplo: 11222333" ControlToValidate="buscar_Rut" ValidationExpression="\b\d{1,8}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                 </span>
                 <asp:Button ID="Button1" runat="server" Text="Buscar" OnClick="Button_Buscar_Click" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />

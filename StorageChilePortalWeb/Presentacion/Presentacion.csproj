@@ -91,7 +91,16 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Almacen\img\informeinventario.png" />
+    <Content Include="Almacen\img\Informeproveedor.png" />
+    <Content Include="Almacen\img\Movimiento.jpg" />
+    <Content Include="Almacen\img\Pagoproveedores.jpg" />
+    <Content Include="Almacen\img\registroinventario.png" />
+    <Content Include="Almacen\img\registroproveedores.png" />
+    <Content Include="Almacen\RegisterInventario.aspx" />
+    <Content Include="Almacen\RegisterProveedor.aspx" />
     <Content Include="ArchivosUsuario.aspx" />
+    <Content Include="Almacen\MenuAlmacen.aspx" />
     <Content Include="BusquedaArchivos.aspx" />
     <Content Include="BusquedaUsuario.aspx" />
     <Content Include="Control_Usuarios\ConfirmacionRegistro.aspx" />
@@ -149,12 +158,33 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Almacen\RegisterInventario.aspx.cs">
+      <DependentUpon>RegisterInventario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Almacen\RegisterInventario.aspx.designer.cs">
+      <DependentUpon>RegisterInventario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Almacen\RegisterProveedor.aspx.cs">
+      <DependentUpon>RegisterProveedor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Almacen\RegisterProveedor.aspx.designer.cs">
+      <DependentUpon>RegisterProveedor.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ArchivosUsuario.aspx.cs">
       <DependentUpon>ArchivosUsuario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ArchivosUsuario.aspx.designer.cs">
       <DependentUpon>ArchivosUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Almacen\MenuAlmacen.aspx.cs">
+      <DependentUpon>MenuAlmacen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Almacen\MenuAlmacen.aspx.designer.cs">
+      <DependentUpon>MenuAlmacen.aspx</DependentUpon>
     </Compile>
     <Compile Include="BusquedaArchivos.aspx.cs">
       <DependentUpon>BusquedaArchivos.aspx</DependentUpon>
@@ -308,7 +338,9 @@
       <Name>Logica</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Bodega\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -91,6 +91,9 @@
                         <asp:HyperLink ID="Link_Contactos" runat="server" NavigateUrl="~/Contactos.aspx" CssClass="mdl-navigation__link" Visible="true">
                             <i class="material-icons">contacts</i>Contactos
                         </asp:HyperLink>
+                        <asp:HyperLink ID="Link_Almacen" runat="server" NavigateUrl="~/Contactos.aspx" CssClass="mdl-navigation__link" Visible="false">
+                            <i class="material-icons">store</i>Almacén Virtual
+                        </asp:HyperLink>
                         <asp:HyperLink ID="Link_Cerrar_Sesion" runat="server" NavigateUrl="~/Control_Usuarios/Login.aspx" CssClass="mdl-navigation__link" Visible="false">
                             <i class="material-icons">power_settings_new</i> Salir
                         </asp:HyperLink>

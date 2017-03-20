@@ -307,6 +307,9 @@ namespace Presentacion
         {
             Button button = sender as Button;
             Session["carpeta"] = button.Text;
+            txtFiltro.Visible = true;
+            buscar_Rut.Visible = false;
+            Button1.Visible = false;
             container.Visible = false;
             GridViewMostrarArchivos.Visible = true;
             botonesPie.Visible = true;
@@ -317,6 +320,9 @@ namespace Presentacion
 
         protected void Button_Volver_Click(object sender, EventArgs e)
         {
+            txtFiltro.Visible = false;
+            buscar_Rut.Visible = true;
+            Button1.Visible = true;
             container.Visible = true;
             GridViewMostrarArchivos.Visible = false;
             botonesPie.Visible = false;
@@ -359,6 +365,7 @@ namespace Presentacion
         {
             if (GridViewMostrarArchivos.Visible)
             {
+
             }
             else
             {
