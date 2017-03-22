@@ -28,5 +28,11 @@ namespace Logica
             File_CAD filCad = new File_CAD();
             return filCad.MostrarArchivosFiltrados(rut, emp);
         }
+
+        public ArrayList MostrarArchivosFiltrados(string rut, string carpeta, Empresa_EN emp, bool tipoFiltrado)
+        {
+            File_CAD filCad = new File_CAD();
+            return filCad.MostrarArchivosFiltrados(rut, carpeta, emp, tipoFiltrado);
+        }
     }
 }

@@ -57,6 +57,50 @@ namespace Persistencia
         /**
          * Se encarga de mostrar los datos de un archivo al que le pasamos el id de ese archivo
          **/
+        public ArrayList MostrarArchivosFiltrados(string rut, string carpeta, Empresa_EN emp, bool tipoFiltrado)
+        {
+            List<string> carpetas = new List<string>();
+            Conexion con = new Conexion();
+            try
+            {
+                if (!tipoFiltrado)
+                {
+                    return MostrarFiles(carpeta, emp);
+                }
+                else
+                {
+                    con.SetQuery("SELECT * from archivo a, personal p, personalempresa pe where a.IdPersonal = p.idPersonal and pe.idEmpresa =" + emp.ID +
+                        " and pe.idPersonal = p.idPersonal and p.RutPersonal = '"+ rut + "'" +
+                        " group by a.Ruta");
+                }
+                DataTable dt = con.QuerySeleccion();
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    string folder = ObtenerCarpeta(dt.Rows[i]["Ruta"].ToString());
+                    if (folder == carpeta)
+                    {
+                        string file = ObtenerArchivo(dt.Rows[i]["Ruta"].ToString());
+                        File_EN archivo = new File_EN();
+                        archivo.IDArchivo = Convert.ToInt16(dt.Rows[i]["IdArchivo"].ToString());
+                        archivo.ArchivoAsociado = file;
+                        archivo.CarpetaAsociado = folder;
+                        archivo.NombreAsociado = dt.Rows[i]["NombrePersonal"].ToString();
+                        archivo.RutAsociado = dt.Rows[i]["RutPersonal"].ToString();
+                        lista.Add(archivo);
+                    }
+                }
+
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { con.Cerrar_Conexion(); }
+            return lista;
+
+        }
+
+        /**
+         * Se encarga de mostrar los datos de un archivo al que le pasamos el id de ese archivo
+         **/
         public List<string> MostrarArchivosFiltrados(string rut, Empresa_EN emp)
         {
             List<string> carpetas = new List<string>();

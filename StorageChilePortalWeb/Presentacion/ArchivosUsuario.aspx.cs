@@ -309,7 +309,7 @@ namespace Presentacion
             Session["carpeta"] = button.Text;
             txtFiltro.Visible = true;
             buscar_Rut.Visible = false;
-            Button1.Visible = false;
+            Button1.Visible = true;
             container.Visible = false;
             GridViewMostrarArchivos.Visible = true;
             botonesPie.Visible = true;
@@ -360,12 +360,47 @@ namespace Presentacion
             }
         }
 
+        protected void filtrarArchivo(bool verificado)
+        {
+            User_EN en = (User_EN)Session["user_session_data"];
+            try
+            {
+                string rutCompleto = txtFiltro.Text + "-" + digitoVerificador(txtFiltro.Text);
+                LogicaFile la = new LogicaFile();
+                LogicaEmpresa le = new LogicaEmpresa();
+                Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
+                ArrayList dt = la.MostrarArchivosFiltrados(rutCompleto, Convert.ToString(Session["carpeta"]), em, verificado);
+                GridViewMostrarArchivos.DataSource = dt;
+                GridViewMostrarArchivos.DataBind();
+            }
+            catch (Exception ex)
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Error de conexión con el servidor, intente más tarde.");
+                //Cerramos el Script
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
+        }
+
 
         protected void Button_Buscar_Click(object sender, EventArgs e)
         {
             if (GridViewMostrarArchivos.Visible)
             {
-
+                if (txtFiltro.Text == "")
+                {
+                    filtrarArchivo(false);
+                }
+                else
+                {
+                    filtrarArchivo(true);
+                }
             }
             else
             {
