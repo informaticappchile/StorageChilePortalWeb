@@ -366,10 +366,12 @@ namespace Presentacion
             try
             {
                 string rutCompleto = txtFiltro.Text + "-" + digitoVerificador(txtFiltro.Text);
+                LogicaPersonal lp = new LogicaPersonal();
+                Personal_EN p = lp.BuscarPersonal(rutCompleto);
                 LogicaFile la = new LogicaFile();
                 LogicaEmpresa le = new LogicaEmpresa();
                 Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
-                ArrayList dt = la.MostrarArchivosFiltrados(rutCompleto, Convert.ToString(Session["carpeta"]), em, verificado);
+                ArrayList dt = la.MostrarArchivosFiltrados(p, Convert.ToString(Session["carpeta"]), em, verificado);
                 GridViewMostrarArchivos.DataSource = dt;
                 GridViewMostrarArchivos.DataBind();
             }

@@ -49,10 +49,10 @@ namespace Logica
             return usuarioBuscado;
         }
 
-        public Personal_EN BuscarPersonal(string usuario)
+        public Personal_EN BuscarPersonal(string rut)
         {
             Personal_CAD busqueda = new Personal_CAD();
-            Personal_EN usuarioBuscado = busqueda.BuscarPersonal(usuario);
+            Personal_EN usuarioBuscado = busqueda.BuscarPersonal(rut);
             return usuarioBuscado;
         }
 

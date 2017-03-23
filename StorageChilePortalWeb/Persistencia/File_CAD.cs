@@ -57,7 +57,7 @@ namespace Persistencia
         /**
          * Se encarga de mostrar los datos de un archivo al que le pasamos el id de ese archivo
          **/
-        public ArrayList MostrarArchivosFiltrados(string rut, string carpeta, Empresa_EN emp, bool tipoFiltrado)
+        public ArrayList MostrarArchivosFiltrados(Personal_EN p, string carpeta, Empresa_EN emp, bool tipoFiltrado)
         {
             List<string> carpetas = new List<string>();
             Conexion con = new Conexion();
@@ -71,7 +71,7 @@ namespace Persistencia
                 {
                     con.SetQuery("SELECT * " +
                     "from archivo a, personal p, personalempresa pe "+
-                    "where a.IdPersonal = p.idPersonal and pe.idEmpresa =" + emp.ID +
+                    "where a.IdPersonal = p.idPersonal and pe.idEmpresa =" + emp.ID + " and p.RutPersonal = '" +p.Rut+"'"+
                     " and pe.idPersonal = p.idPersonal "+
                     " group by a.Ruta" +
                     " Order by p.NombrePersonal");
@@ -81,7 +81,7 @@ namespace Persistencia
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     string folder = ObtenerCarpeta(dt.Rows[i]["Ruta"].ToString());
-                    if (folder == carpeta && rut == dt.Rows[i]["RutPersonal"].ToString())
+                    if (folder == carpeta)
                     {
                         string file = ObtenerArchivo(dt.Rows[i]["Ruta"].ToString());
                         File_EN archivo = new File_EN();
