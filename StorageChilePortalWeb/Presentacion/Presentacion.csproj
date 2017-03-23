@@ -140,6 +140,7 @@
     <Content Include="js\jquery.responsivetable.min.js" />
     <Content Include="js\main.js" />
     <Content Include="js\ProgressBar.js" />
+    <Content Include="logEmpresas\ico-storage.png" />
     <Content Include="Service\DoStuffWebService.asmx" />
     <Content Include="Soporte.aspx" />
     <Content Include="Slides\Slide1.png" />

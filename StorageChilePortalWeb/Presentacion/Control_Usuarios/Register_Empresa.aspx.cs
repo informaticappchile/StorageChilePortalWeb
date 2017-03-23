@@ -5,6 +5,7 @@ using System.Net.Mail;
 using System.Web.Services;
 using System.Net;
 using System.Text;
+using System.IO;
 
 namespace Presentacion
 {
@@ -48,6 +49,7 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
+            Logo.ImageUrl = "~/logEmpresas/ico-storage.png";
         }
 
         
@@ -167,5 +169,17 @@ namespace Presentacion
             }
         }
 
+        protected void FileUpload1_Load(object sender, EventArgs e)
+        {
+            bool correcto = false;
+            if(true){
+                MemoryStream ms = new MemoryStream(FileUpload1.FileBytes);
+                //Logo = System.Drawing.Image.FromStream(ms);
+            }
+            else
+            {
+
+            }
+        }
     }
 }

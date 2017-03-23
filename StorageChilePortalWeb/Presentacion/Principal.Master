@@ -36,6 +36,7 @@
                         <div class="padre">
                             <div class="hijo">
                                 <asp:Label ID="LbBienvenido" CssClass="mdl-layout-title titulo" Visible="false" runat="server" Text="Bienvenido: " ForeColor="#7A7677" Font-Bold="true" style="text-align:center;font-family:Verdana"></asp:Label>
+                                <asp:Image ID="LogoEmpresa" runat="server" ImageUrl="~/img/icono-mb.png" Visible="false"  CssClass="icono-web"/>
                             </div>
                         </div>
                         <div class="mdl-layout-spacer"></div>

@@ -63,6 +63,13 @@
                         </asp:Label>
                     </span>
                 </li>
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <label class="etiqueta-editar-perfil">Logo Empresa:</label>
+                        <asp:FileUpload ID="FileUpload1" runat="server" CssClass="mdl-button mdl-js-button mdl-button--primary" OnLoad="FileUpload1_Load"/>
+                        <asp:Image ID="Logo" runat="server" ImageUrl="~/img/icono-mb.png"  CssClass="icono-web"/>
+                    </span>
+                </li>
             </ul>
             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
             <script type="text/javascript" src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"

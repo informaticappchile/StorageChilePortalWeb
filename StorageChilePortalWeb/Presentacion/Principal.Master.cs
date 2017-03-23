@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
+using System.IO;
 
 namespace Presentacion
 {
@@ -28,6 +29,8 @@ namespace Presentacion
                     Barra_Secundaria.Visible = false;
                     LbBienvenido.Text = "Bienvenido: " + user.NombreUsu;
                     LbBienvenido.Visible = true;
+                    LogoEmpresa.Visible = true;
+                    LogoEmpresa.ImageUrl = "~/logEmpresas/ico-storage.png";
                 }
                 else if (user.IdPerfil == 2)
                 {
@@ -36,6 +39,8 @@ namespace Presentacion
                     Barra_Secundaria.Visible = false;
                     LbBienvenido.Text = "Bienvenido: " + user.NombreUsu;
                     LbBienvenido.Visible = true;
+                    LogoEmpresa.Visible = true;
+
                 }
             }
         }
@@ -44,6 +49,20 @@ namespace Presentacion
         {
             TextBox a = (TextBox)sender;
             Response.Redirect("~/BusquedaArchivos.aspx?query=" + a.Text);
+        }
+
+        private System.Drawing.Image byte_a_Image(byte [] logo)
+        {
+            if (!(logo == null))
+            {
+                MemoryStream ms = new MemoryStream(logo);
+                System.Drawing.Image resultado = System.Drawing.Image.FromStream(ms);
+                return resultado;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
