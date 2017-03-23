@@ -69,16 +69,19 @@ namespace Persistencia
                 }
                 else
                 {
-                    con.SetQuery("SELECT * from archivo a, personal p, personalempresa pe where a.IdPersonal = p.idPersonal and pe.idEmpresa =" + emp.ID +
-                        " and pe.idPersonal = p.idPersonal and p.RutPersonal = '"+ rut + "'" +
-                        " group by a.Ruta");
+                    con.SetQuery("SELECT * " +
+                    "from archivo a, personal p, personalempresa pe "+
+                    "where a.IdPersonal = p.idPersonal and pe.idEmpresa =" + emp.ID +
+                    " and pe.idPersonal = p.idPersonal "+
+                    " group by a.Ruta" +
+                    " Order by p.NombrePersonal");
                 }
                 DataTable dt = con.QuerySeleccion();
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     string folder = ObtenerCarpeta(dt.Rows[i]["Ruta"].ToString());
-                    if (folder == carpeta)
+                    if (folder == carpeta && rut == dt.Rows[i]["RutPersonal"].ToString())
                     {
                         string file = ObtenerArchivo(dt.Rows[i]["Ruta"].ToString());
                         File_EN archivo = new File_EN();
