@@ -43,7 +43,8 @@ namespace Presentacion
                     LogoEmpresa.Visible = true;
                     LogicaEmpresa le = new LogicaEmpresa();
                     Empresa_EN em = le.BuscarEmpresa(user.NombreEmp);
-                    byte_a_Image(em.LogoEmpresa).Save(Server.MapPath("~/logEmpresas/") + "logoEmp.png", System.Drawing.Imaging.ImageFormat.Png);
+                    System.Drawing.Image img = byte_a_Image(em.LogoEmpresa);
+                    img.Save(Server.MapPath("~/logEmpresas/") + "logoEmp.png", System.Drawing.Imaging.ImageFormat.Png);
                     LogoEmpresa.ImageUrl = "~/logEmpresas/logoEmp.png";
                 }
             }
@@ -59,8 +60,9 @@ namespace Presentacion
         {
             if (!(logo == null) || logo.Length > 0)
             {
+                byte[] arr = File.ReadAllBytes(Server.MapPath("~/logEmpresas/") + "falabella.png");
                 MemoryStream ms = new MemoryStream(logo);
-                System.Drawing.Image resultado = System.Drawing.Image.FromStream(ms, false, true);
+                System.Drawing.Image resultado = System.Drawing.Image.FromStream(ms);
                 return resultado;
             }
             else

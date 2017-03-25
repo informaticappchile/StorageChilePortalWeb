@@ -28,11 +28,12 @@ namespace Persistencia
 
             try
             {
-                
+                string nombreParam = "@foto";
                 string insert = "insert into Empresa(CorreoEmpresa,NombreEmpresa,RutEmpresa, EstadoAlmacen, EstadoBodega, Foto) VALUES ('"
-                    + e.Correo + "','" + e.NombreEmp + "','" + e.Rut + "',"+ e.ServAlmacen+"," + e.ServBodega + ",'" + e.LogoEmpresa + "')";
+                    + e.Correo + "','" + e.NombreEmp + "','" + e.Rut + "',"+ e.ServAlmacen+"," + e.ServBodega + "," + nombreParam + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
+                nueva_conexion.addParameter(nombreParam, e.LogoEmpresa);
                 nueva_conexion.EjecutarQuery();
             }
             catch (Exception ex) { ex.Message.ToString(); }
