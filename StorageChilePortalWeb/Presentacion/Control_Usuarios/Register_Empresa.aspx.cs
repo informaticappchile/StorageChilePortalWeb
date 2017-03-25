@@ -95,13 +95,13 @@ namespace Presentacion
                             }
                         }
                     }
-                    if (Registro_Empresa_ServicioDigitalización_Switch.Checked)
+                    if (Registro_Empresa_ServicioDigitalizacion_Switch.Checked)
                     {
                         foreach (Servicio_EN s in ls)
                         {
                             if (s.Nombre == "Digitalización")
                             {
-                                s.Verified = Registro_Empresa_ServicioDigitalización_Switch.Checked;
+                                s.Verified = Registro_Empresa_ServicioDigitalizacion_Switch.Checked;
                             }
                         }
                     }
@@ -134,7 +134,7 @@ namespace Presentacion
                                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje1.ToString());
                             }
                         }
-                        if (Registro_Empresa_ServicioDigitalización_Switch.Checked && !Registro_Empresa_ServicioBodega_Switch.Checked)
+                        if (Registro_Empresa_ServicioDigitalizacion_Switch.Checked && !Registro_Empresa_ServicioBodega_Switch.Checked)
                         {
                             try
                             {

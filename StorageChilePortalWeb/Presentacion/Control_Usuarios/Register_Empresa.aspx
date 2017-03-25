@@ -67,7 +67,7 @@
                     <span class="mdl-list__item-primary-content">
                         <label class="etiqueta-editar-perfil">Servicio Digitalización:</label>
                         <asp:Label ID="Registro_Empresa_ServicioDigitalizacion" AssociatedControlID="Registro_Empresa_ServicioDigitalizacion_Switch" runat="server" CssClass="mdl-switch mdl-js-switch mdl-js-ripple-effect">
-                            <asp:CheckBox ID="Registro_Empresa_ServicioDigitalizacion_Switch" ClientIDMode="Static" Enabled="true" runat="server" OnClick="onClickEvent_ServicioDigitalización_Switch()"/>
+                            <asp:CheckBox ID="Registro_Empresa_ServicioDigitalizacion_Switch" ClientIDMode="Static" Enabled="true" runat="server" OnClick="onClickEvent_ServicioDigitalizacion_Switch()"/>
                             <asp:Label ID="Registro_Empresa_ServicioDigitalizacion_Label" ClientIDMode="Static" runat="server" Text="No Activado" CssClass="mdl-switch__label" ></asp:Label>
                         </asp:Label>
                     </span>
