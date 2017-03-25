@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entidades;
+using Logica;
 using System.IO;
 
 namespace Presentacion
@@ -40,7 +41,10 @@ namespace Presentacion
                     LbBienvenido.Text = "Bienvenido: " + user.NombreUsu;
                     LbBienvenido.Visible = true;
                     LogoEmpresa.Visible = true;
-
+                    LogicaEmpresa le = new LogicaEmpresa();
+                    Empresa_EN em = le.BuscarEmpresa(user.NombreEmp);
+                    byte_a_Image(em.LogoEmpresa).Save(Server.MapPath("~/logEmpresas/") + "logoEmp.png", System.Drawing.Imaging.ImageFormat.Png);
+                    LogoEmpresa.ImageUrl = "~/logEmpresas/logoEmp.png";
                 }
             }
         }
@@ -53,10 +57,10 @@ namespace Presentacion
 
         private System.Drawing.Image byte_a_Image(byte [] logo)
         {
-            if (!(logo == null))
+            if (!(logo == null) || logo.Length > 0)
             {
                 MemoryStream ms = new MemoryStream(logo);
-                System.Drawing.Image resultado = System.Drawing.Image.FromStream(ms);
+                System.Drawing.Image resultado = System.Drawing.Image.FromStream(ms, false, true);
                 return resultado;
             }
             else

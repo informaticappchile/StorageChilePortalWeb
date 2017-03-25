@@ -6,6 +6,7 @@ using System.Web.Services;
 using System.Net;
 using System.Text;
 using System.IO;
+using System.Web;
 
 namespace Presentacion
 {
@@ -49,7 +50,6 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
-            Logo.ImageUrl = "~/logEmpresas/ico-storage.png";
         }
 
         
@@ -74,6 +74,7 @@ namespace Presentacion
                     en.Rut = rut_empresa_register.Text;//Con su contrasenya
                     en.ServAlmacen = Registro_Empresa_ServicioAlmacen_Switch.Checked;
                     en.ServBodega = Registro_Empresa_ServicioBodega_Switch.Checked;
+                    en.LogoEmpresa = FileUpload1.FileBytes;
                     le.InsertarEmpresa(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
                     Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
                     if (validarRegistroEmpresa(em))
@@ -166,19 +167,6 @@ namespace Presentacion
             using (var resp = (FtpWebResponse)request.GetResponse())
             {
                 Console.WriteLine(resp.StatusCode);
-            }
-        }
-
-        protected void FileUpload1_Load(object sender, EventArgs e)
-        {
-            bool correcto = false;
-            if(true){
-                MemoryStream ms = new MemoryStream(FileUpload1.FileBytes);
-                //Logo = System.Drawing.Image.FromStream(ms);
-            }
-            else
-            {
-
             }
         }
     }

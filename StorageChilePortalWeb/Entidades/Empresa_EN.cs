@@ -82,6 +82,16 @@ namespace Entidades
             set { servBodega = value; }
         }
 
+        //Declaramos el verificado del user en private
+        private byte[] logoEmpresa;
+
+        //Declaramos el verificado del user en public para poder utilizarlo
+        public byte[] LogoEmpresa
+        {
+            get { return logoEmpresa; }
+            set { logoEmpresa = value; }
+        }
+
         //Declaramos el constructor de la clase User_EN
         public Empresa_EN()
         {

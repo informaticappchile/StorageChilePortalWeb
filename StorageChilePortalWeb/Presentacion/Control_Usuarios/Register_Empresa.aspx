@@ -6,7 +6,7 @@
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
             <h1 class="mdl-card__title-text">Registrar Nuevo Usuario</h1>
-        </div>
+        </div> 
         <div class="mdl-card__supporting-text">
             <asp:Label ID="UsernameExistsError_Register" runat="server" Text="Nombre de empresa ya registrado" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
             <asp:Label ID="EmailExistsError_Register" runat="server" Text="Correo electrónico ya registrado" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
@@ -64,10 +64,39 @@
                     </span>
                 </li>
                 <li class="mdl-list__item">
+                    <style type="text/css">
+                        .preview-web
+                        {
+                            filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
+                            max-height: 100px;
+                            max-width: 100px;
+                        }
+                    </style>
                     <span class="mdl-list__item-primary-content">
+                        <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
+                        <script type="text/javascript">  
+  
+                            function showimagepreview(input) {  
+  
+                                if (input.files && input.files[0]) {  
+                                    var reader = new FileReader();  
+                                    reader.onload = function (e) {
+                                        //$('#id*=img').attr('src', e.target.result);
+                                        document.getElementsByTagName("img")[3].setAttribute("src", e.target.result);
+                                    }
+                                    reader.readAsDataURL(input.files[0]);  
+                                }  
+                            }  
+  
+                        </script>
                         <label class="etiqueta-editar-perfil">Logo Empresa:</label>
-                        <asp:FileUpload ID="FileUpload1" runat="server" CssClass="mdl-button mdl-js-button mdl-button--primary" OnLoad="FileUpload1_Load"/>
-                        <asp:Image ID="Logo" runat="server" ImageUrl="~/img/icono-mb.png"  CssClass="icono-web"/>
+                        <asp:FileUpload ID="FileUpload1" runat="server" class="mdl-button mdl-js-button mdl-button--primary"
+                        onchange="showimagepreview(this)" /> 
+                        <asp:Image runat="server" ID="preview" CssClass="preview-web" ImageUrl="~/img/icono-mb.png"/>
+                        <br />
+                        <asp:RegularExpressionValidator ID="uplValidator" runat="server" ControlToValidate="FileUpload1"
+                        ErrorMessage="Solo se permite formato .png" 
+                        ValidationExpression="(.+\.([Pp][Nn][Gg]))"></asp:RegularExpressionValidator>
                     </span>
                 </li>
             </ul>

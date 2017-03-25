@@ -29,8 +29,8 @@ namespace Persistencia
             try
             {
                 
-                string insert = "insert into Empresa(CorreoEmpresa,NombreEmpresa,RutEmpresa, EstadoAlmacen, EstadoBodega) VALUES ('"
-                    + e.Correo + "','" + e.NombreEmp + "','" + e.Rut + "',"+ e.ServAlmacen+"," + e.ServBodega + ")";
+                string insert = "insert into Empresa(CorreoEmpresa,NombreEmpresa,RutEmpresa, EstadoAlmacen, EstadoBodega, Foto) VALUES ('"
+                    + e.Correo + "','" + e.NombreEmp + "','" + e.Rut + "',"+ e.ServAlmacen+"," + e.ServBodega + ",'" + e.LogoEmpresa + "')";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
                 nueva_conexion.EjecutarQuery();
@@ -134,6 +134,7 @@ namespace Persistencia
                     empresa.Rut = dt.Rows[0]["RutEmpresa"].ToString();
                     empresa.ServAlmacen = Convert.ToBoolean(dt.Rows[0]["EstadoAlmacen"].ToString());
                     empresa.ServBodega = Convert.ToBoolean(dt.Rows[0]["EstadoBodega"].ToString());
+                    empresa.LogoEmpresa = (byte[])dt.Rows[0]["Foto"];
                 }
             }
             catch (Exception ex) { ex.Message.ToString(); }
