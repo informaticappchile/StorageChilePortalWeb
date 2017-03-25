@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.IO;
 using System.Web;
+using System.Collections.Generic;
 
 namespace Presentacion
 {
@@ -69,12 +70,43 @@ namespace Presentacion
                 if (le.BuscarEmpresa(correo_empresa_register.Text).Correo != correo_empresa_register.Text) //Comprobamos que ese correo ya este
                 {
                     Empresa_EN en = new Empresa_EN();//Si lo cumple todo, creamos un nuevo usuario
+                    LogicaServicio lse = new LogicaServicio();
+                    List<Servicio_EN> ls = lse.MostrarServicios();
                     en.NombreEmp = nombre_empresa_register.Text;//Con su nombre de usuario
                     en.Correo = correo_empresa_register.Text;//Con su correo
                     en.Rut = rut_empresa_register.Text;//Con su contrasenya
-                    en.ServAlmacen = Registro_Empresa_ServicioAlmacen_Switch.Checked;
-                    en.ServBodega = Registro_Empresa_ServicioBodega_Switch.Checked;
+                    if (Registro_Empresa_ServicioAlmacen_Switch.Checked)
+                    {
+                        foreach (Servicio_EN s in ls)
+                        {
+                            if (s.Nombre == "Almacen")
+                            {
+                                s.Verified = Registro_Empresa_ServicioAlmacen_Switch.Checked;
+                            }
+                        }
+                    }
+                    if (Registro_Empresa_ServicioBodega_Switch.Checked)
+                    {
+                        foreach (Servicio_EN s in ls)
+                        {
+                            if (s.Nombre == "Bodega")
+                            {
+                                s.Verified = Registro_Empresa_ServicioBodega_Switch.Checked;
+                            }
+                        }
+                    }
+                    if (Registro_Empresa_ServicioDigitalización_Switch.Checked)
+                    {
+                        foreach (Servicio_EN s in ls)
+                        {
+                            if (s.Nombre == "Digitalización")
+                            {
+                                s.Verified = Registro_Empresa_ServicioDigitalización_Switch.Checked;
+                            }
+                        }
+                    }
                     en.LogoEmpresa = FileUpload1.FileBytes;
+                    lse.InsertarServicioEmpresa(en, ls);
                     le.InsertarEmpresa(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
                     Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
                     if (validarRegistroEmpresa(em))
@@ -83,12 +115,33 @@ namespace Presentacion
 
                         string ftpUser = "cvaras";
                         string ftpPassWord = "cvaras1234";
-                        if (em.ServBodega) { 
+                        if (Registro_Empresa_ServicioBodega_Switch.Checked) { 
                             try
                             {
                                 crearCarpeta(em.NombreEmp, FileSaveUri, ftpUser, ftpPassWord);
                             }
                             catch(Exception ex)
+                            {
+                                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                                StringBuilder sbMensaje1 = new StringBuilder();
+                                //Aperturamos la escritura de Javascript
+                                sbMensaje1.Append("<script type='text/javascript'>");
+                                //Le indicamos al alert que mensaje va mostrar
+                                sbMensaje1.AppendFormat("alert('{0}');", "Ha ocurrido un error al reservar su espacio,comuníquese con el servicio de soporte para poder habilitarlo.");
+                                //Cerramos el Script
+                                sbMensaje1.Append("</script>");
+                                //Registramos el Script escrito en el StringBuilder
+                                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje1.ToString());
+                            }
+                        }
+                        if (Registro_Empresa_ServicioDigitalización_Switch.Checked && !Registro_Empresa_ServicioBodega_Switch.Checked)
+                        {
+                            try
+                            {
+                                crearCarpeta(em.NombreEmp, FileSaveUri, ftpUser, ftpPassWord);
+                                crearCarpeta("Documentos", FileSaveUri+ em.NombreEmp +"/", ftpUser, ftpPassWord);
+                            }
+                            catch (Exception ex)
                             {
                                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                                 StringBuilder sbMensaje1 = new StringBuilder();

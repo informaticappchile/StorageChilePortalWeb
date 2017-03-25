@@ -13,7 +13,7 @@ using MySql.Data.MySqlClient;
 
 namespace Persistencia
 {
-    public class Empresa_CAD
+    public class Servicio_CAD
     {
         public ArrayList lista = new ArrayList();
 
@@ -21,21 +21,17 @@ namespace Persistencia
          * Se encarga de introducir un usuario en la base de datos 
          * 
          */
-        public void InsertarEmpresa(Empresa_EN e)
+        public void InsertarServicio(Servicio_EN s)
         {
 
             Conexion nueva_conexion = new Conexion();
 
             try
             {
-                string nombreParam1 = "@foto";
-                string nombreParam2 = "@fechaRegistro";
-                string insert = "insert into Empresa(CorreoEmpresa,NombreEmpresa,RutEmpresa, Foto, FechaRegistro) VALUES ('"
-                    + e.Correo + "','" + e.NombreEmp + "','" + e.Rut + "'," + nombreParam1 + "," + nombreParam2 + ")";
+                string insert = "insert into Servicio(NombreServicio) VALUES ('"
+                    + s.Nombre + "')";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
-                nueva_conexion.addParameter(nombreParam1, e.LogoEmpresa);
-                nueva_conexion.addParameter(nombreParam2, e.FechaRegistro);
                 nueva_conexion.EjecutarQuery();
             }
             catch (Exception ex) { ex.Message.ToString(); }
@@ -43,10 +39,39 @@ namespace Persistencia
         }
 
         /**
+         * Se encarga de introducir un usuario en la base de datos 
+         * 
+         */
+        public void InsertarServicioEmpresa(Empresa_EN e, List<Servicio_EN> ls)
+        {
+
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+
+                foreach (Servicio_EN s in ls)
+                {
+                    string nombreParam1 = "@fechaInicio";
+                    string nombreParam2 = "@fechaTermino";
+                    string insert = "insert into ServicioEmpresa(IdEmpresa,IdServicio,EstadoServicio, FechaInicio, FechaTermino) VALUES ('"
+                        + e.ID + "','" + s.ID + "','" + s.Verified + "'," + nombreParam1 + ","+ nombreParam2 + ")";
+                    //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
+                    nueva_conexion.SetQuery(insert);
+                    nueva_conexion.addParameter(nombreParam1, s.FechaInicio);
+                    nueva_conexion.addParameter(nombreParam2, s.FechaTermino);
+                    nueva_conexion.EjecutarQuery();
+                }
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+
+        /**
          * Se encarga de mostrar el usuario que se quiere mostrar a través de su ID
-         */ 
-         
-        public ArrayList MostrarEmpresa(Empresa_EN e)
+         */
+
+        public ArrayList MostrarServicioEmpresa(Empresa_EN e)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select * from Empresa where IdEmpresa=" + e.ID);
@@ -61,7 +86,6 @@ namespace Persistencia
                 empresa.NombreEmp = dt.Rows[0]["NombreEmpresa"].ToString();
                 empresa.Rut = dt.Rows[0]["RutEmpresa"].ToString();
                 empresa.LogoEmpresa = (byte[])dt.Rows[0]["Foto"];
-                empresa.FechaRegistro = DateTime.Parse(dt.Rows[0]["FechaRegistro"].ToString());
                 lista.Add(empresa);
             }
 
@@ -72,33 +96,58 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public ArrayList MostrarEmpresas()
+        public ArrayList MostrarServiciosEmpresas(Empresa_EN e)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    "from Empresa e");
+                                    "from Servicio s, ServicioEmpresa se"+
+                                    "where se.IdEmpresa =" + e.ID);
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                Empresa_EN empresa = new Empresa_EN();
-                empresa.NombreEmp = dt.Rows[i]["NombreEmpresa"].ToString();
-                empresa.Rut = dt.Rows[i]["RutEmpresa"].ToString();
-                empresa.Correo = dt.Rows[i]["CorreoEmpresa"].ToString();
-                empresa.LogoEmpresa = (byte[])dt.Rows[0]["Foto"];
-                empresa.FechaRegistro = DateTime.Parse(dt.Rows[0]["FechaRegistro"].ToString());
-                lista.Add(empresa);
+                Servicio_EN servicio = new Servicio_EN();
+                servicio.ID = Convert.ToInt16(dt.Rows[i]["IdServicio"]);
+                servicio.Nombre = dt.Rows[i]["NombreServicio"].ToString();
+                servicio.Verified = Convert.ToBoolean(dt.Rows[i]["EstadoServicio"]);
+                servicio.FechaInicio = DateTime.Parse(dt.Rows[i]["FechaInicio"].ToString());
+                servicio.FechaTermino = DateTime.Parse(dt.Rows[i]["FechaTermino"].ToString());
+                lista.Add(servicio);
 
             }
 
             return lista;
             
         }
-        
+
+        /**
+         * Se encarga de mostrar todos los usuarios del sistema.
+         */
+
+        public List<Servicio_EN> MostrarServicios()
+        {
+            List<Servicio_EN> ls = new List<Servicio_EN>();
+            Conexion nueva_conexion = new Conexion();
+            nueva_conexion.SetQuery("Select *" +
+                                    "from Servicio");
+            DataTable dt = nueva_conexion.QuerySeleccion();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Servicio_EN servicio = new Servicio_EN();
+                servicio.ID = Convert.ToInt16(dt.Rows[i]["IdServicio"]);
+                servicio.Nombre = dt.Rows[i]["NombreServicio"].ToString();
+                ls.Add(servicio);
+            }
+
+            return ls;
+
+        }
+
         /**
          * Se encarga de borrar el usuario, si existe en la base de datos, a través de su ID
          **/
-        public bool BorrarEmpresa(string nombreEmpresa)
+        public bool BorrarEmpresa(string nombreServicio)
         {
 
             Conexion nueva_conexion = new Conexion();
@@ -106,7 +155,7 @@ namespace Persistencia
             try
             {
                 string delete = "";
-                delete = "Delete from Empresa where Empresa.NombreEmpresa = '" + nombreEmpresa + "'";
+                delete = "Delete from Servicio where Servicio.NombreServicio = '" + nombreServicio + "'";
                 nueva_conexion.SetQuery(delete);
 
 
@@ -138,7 +187,6 @@ namespace Persistencia
                     empresa.NombreEmp = dt.Rows[0]["NombreEmpresa"].ToString();
                     empresa.Rut = dt.Rows[0]["RutEmpresa"].ToString();
                     empresa.LogoEmpresa = (byte[])dt.Rows[0]["Foto"];
-                    empresa.FechaRegistro = DateTime.Parse(dt.Rows[0]["FechaRegistro"].ToString());
                 }
             }
             catch (Exception ex) { ex.Message.ToString(); }

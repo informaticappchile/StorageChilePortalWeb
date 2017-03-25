@@ -91,6 +91,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdministrarEmpresa.aspx" />
     <Content Include="Almacen\img\informeinventario.png" />
     <Content Include="Almacen\img\Informeproveedor.png" />
     <Content Include="Almacen\img\Movimiento.jpg" />
@@ -160,6 +161,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministrarEmpresa.aspx.cs">
+      <DependentUpon>AdministrarEmpresa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdministrarEmpresa.aspx.designer.cs">
+      <DependentUpon>AdministrarEmpresa.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Almacen\RegisterInventario.aspx.cs">
       <DependentUpon>RegisterInventario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
