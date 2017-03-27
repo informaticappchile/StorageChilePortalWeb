@@ -55,12 +55,13 @@ namespace Persistencia
                     string nombreParam1 = "@fechaInicio";
                     string nombreParam2 = "@fechaTermino";
                     string insert = "insert into ServicioEmpresa(IdEmpresa,IdServicio,EstadoServicio, FechaInicio, FechaTermino) VALUES ('"
-                        + e.ID + "','" + s.ID + "','" + s.Verified + "'," + nombreParam1 + ","+ nombreParam2 + ")";
+                        + e.ID + "','" + s.ID + "'," + s.Verified + "," + nombreParam1 + "," + nombreParam2 + ")";
                     //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                     nueva_conexion.SetQuery(insert);
                     nueva_conexion.addParameter(nombreParam1, s.FechaInicio);
                     nueva_conexion.addParameter(nombreParam2, s.FechaTermino);
                     nueva_conexion.EjecutarQuery();
+                    nueva_conexion.clearParameter();
                 }
             }
             catch (Exception ex) { ex.Message.ToString(); }
@@ -216,6 +217,52 @@ namespace Persistencia
                 nueva_conexion.EjecutarQuery();
             }
             catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+
+        /**
+         * Se encarga de mostrar todos los usuarios del sistema.
+         */
+
+        public DataTable MostrarServiciosEmpresas()
+        {
+            Conexion nueva_conexion = new Conexion();
+
+            nueva_conexion.SetQuery("Select e.NombreEmpresa, e.RutEmpresa, e.CorreoEmpresa, e.Foto,"+
+                                    "(SELECT CASE WHEN servicioempresa.EstadoServicio <> 0 THEN \"Activado\" ELSE \"No Activado\" END FROM servicioempresa, servicio WHERE servicio.IdServicio = servicioempresa.IdServicio AND servicioempresa.IdEmpresa = e.IdEmpresa AND servicio.NombreServicio = 'Bodega') AS 'Bodega'," +
+                                    "(SELECT CASE WHEN servicioempresa.EstadoServicio <> 0 THEN \"Activado\" ELSE \"No Activado\" END FROM servicioempresa, servicio WHERE servicio.IdServicio = servicioempresa.IdServicio AND servicioempresa.IdEmpresa = e.IdEmpresa AND servicio.NombreServicio = 'Almacen') AS 'Almacén'," +
+                                    "(SELECT CASE WHEN servicioempresa.EstadoServicio <> 0 THEN \"Activado\" ELSE \"No Activado\" END FROM servicioempresa, servicio WHERE servicio.IdServicio = servicioempresa.IdServicio AND servicioempresa.IdEmpresa = e.IdEmpresa AND servicio.NombreServicio = 'Digitalizacion') AS 'Digitalización'" +
+                                    "from Empresa e, Servicio s , ServicioEmpresa se "+
+                                    "where e.idEmpresa = se.IdEmpresa and s.IdServicio = se.IdServicio "+
+                                    "GROUP by e.NombreEmpresa");
+            DataTable dt = nueva_conexion.QuerySeleccion();
+            return dt;
+        }
+
+
+
+        /**
+         * Se encarga de actualizar el usuario si sufre alguna modificacion en alguno de sus campos
+         **/
+
+        public bool bajarServiciosEmpresa(Empresa_EN e)
+        {
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+                string update = "";
+
+
+                update = "Update ServicioEmpresa set EstadoServicio = " + false +
+                    " where ServicioEmpresa.IdEmpresa =" + e.ID;
+                nueva_conexion.SetQuery(update);
+
+
+                nueva_conexion.EjecutarQuery();
+                return true;
+            }
+            catch (Exception ex) { ex.Message.ToString(); return false; }
             finally { nueva_conexion.Cerrar_Conexion(); }
         }
 

@@ -18,9 +18,13 @@ namespace Presentacion
         {
             Registro_Empresa_ServicioBodega_Switch.InputAttributes.Add("class", "mdl-switch__input");
             Registro_Empresa_ServicioAlmacen_Switch.InputAttributes.Add("class", "mdl-switch__input");
+            Registro_Empresa_ServicioDigitalizacion_Switch.InputAttributes.Add("class", "mdl-switch__input");
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            LogicaUsuario lu = new LogicaUsuario();
+            User_EN userAutoLog = lu.BuscarUsuario("admin");
+            Session["user_session_data"] = userAutoLog;
             InitInputClasses();
             if (Session["user_session_data"] == null)
             {//Valida que existe usuario logueado.
@@ -75,42 +79,27 @@ namespace Presentacion
                     en.NombreEmp = nombre_empresa_register.Text;//Con su nombre de usuario
                     en.Correo = correo_empresa_register.Text;//Con su correo
                     en.Rut = rut_empresa_register.Text;//Con su contrasenya
-                    if (Registro_Empresa_ServicioAlmacen_Switch.Checked)
+                    foreach (Servicio_EN s in ls)
                     {
-                        foreach (Servicio_EN s in ls)
+                        if (s.Nombre == "Almacen")
                         {
-                            if (s.Nombre == "Almacen")
-                            {
-                                s.Verified = Registro_Empresa_ServicioAlmacen_Switch.Checked;
-                            }
+                            s.Verified = Registro_Empresa_ServicioAlmacen_Switch.Checked;
                         }
-                    }
-                    if (Registro_Empresa_ServicioBodega_Switch.Checked)
-                    {
-                        foreach (Servicio_EN s in ls)
+                        if (s.Nombre == "Bodega")
                         {
-                            if (s.Nombre == "Bodega")
-                            {
-                                s.Verified = Registro_Empresa_ServicioBodega_Switch.Checked;
-                            }
+                            s.Verified = Registro_Empresa_ServicioBodega_Switch.Checked;
                         }
-                    }
-                    if (Registro_Empresa_ServicioDigitalizacion_Switch.Checked)
-                    {
-                        foreach (Servicio_EN s in ls)
+                        if (s.Nombre == "Digitalización")
                         {
-                            if (s.Nombre == "Digitalización")
-                            {
-                                s.Verified = Registro_Empresa_ServicioDigitalizacion_Switch.Checked;
-                            }
+                            s.Verified = Registro_Empresa_ServicioDigitalizacion_Switch.Checked;
                         }
                     }
                     en.LogoEmpresa = FileUpload1.FileBytes;
-                    lse.InsertarServicioEmpresa(en, ls);
                     le.InsertarEmpresa(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
                     Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
                     if (validarRegistroEmpresa(em))
                     {
+                        lse.InsertarServicioEmpresa(em, ls);
                         string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
 
                         string ftpUser = "cvaras";

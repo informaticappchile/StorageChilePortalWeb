@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This file has been commented to support Visual Studio Intellisense.
  * You should not use this file at runtime inside the browser--it is only
  * intended to be used only for design-time IntelliSense.  Please use the
@@ -47,20 +47,20 @@
 // Define a local copy of jQuery
 var jQuery = function( selector, context ) {
 		///	<summary>
-		///		1: $(expression, context): esta función acepta una cadena que contiene un selector CSS usado para buscar coincidencias de un conjunto de elementos.
-		///		2: $(html): crea elementos DOM sobre la marcha a partir de la cadena de HTML puro proporcionada.
-		///		3: $(elements): encapsula la funcionalidad de jQuery en torno a uno o varios elementos DOM.
-		///		4: $(callback): método abreviado de $(document).ready().
-		///		5: $() - A partir de jQuery 1.4, si no pasa argumentos al método jQuery(), se devuelve un conjunto jQuery vacío.
+		///		1: $(expression, context) - This function accepts a string containing a CSS selector which is then used to match a set of elements.
+		///		2: $(html) - Create DOM elements on-the-fly from the provided String of raw HTML.
+		///		3: $(elements) - Wrap jQuery functionality around a single or multiple DOM Element(s).
+		///		4: $(callback) - A shorthand for $(document).ready().
+		///		5: $() - As of jQuery 1.4, if you pass no arguments in to the jQuery() method, an empty jQuery set will be returned.
 		///	</summary>
 		///	<param name="selector" type="String">
 		///		1: expression - An expression to search with.
-		///		2: html: cadena de HTML que se crea sobre la marcha.
-		///		3: elements: elementos DOM que va a encapsular un objeto jQuery.
-		///		4: callback: función que se ejecuta cuando el DOM está listo.
+		///		2: html - A string of HTML to create on the fly.
+		///		3: elements - DOM element(s) to be encapsulated by a jQuery object.
+		///		4: callback - The function to execute when the DOM is ready.
 		///	</param>
 		///	<param name="context" type="jQuery">
-		///		1: contexto: elemento DOM, documento o jQuery que se usa como contexto.
+		///		1: context - A DOM Element, Document or jQuery to use as context.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -230,8 +230,8 @@ jQuery.fn = jQuery.prototype = {
 	// The number of elements contained in the matched element set
 	size: function() {
 		///	<summary>
-		///		Número de elementos que coinciden actualmente.
-		///		Parte del núcleo
+		///		The number of elements currently matched.
+		///		Part of Core
 		///	</summary>
 		///	<returns type="Number" />
 
@@ -240,7 +240,7 @@ jQuery.fn = jQuery.prototype = {
 
 	toArray: function() {
 		///	<summary>
-		///		Recuperar todos los elementos DOM contenidos en el conjunto jQuery, como una matriz.
+		///		Retrieve all the DOM elements contained in the jQuery set, as an array.
 		///	</summary>
 		///	<returns type="Array" />
 		return slice.call( this, 0 );
@@ -250,13 +250,13 @@ jQuery.fn = jQuery.prototype = {
 	// Get the whole matched element set as a clean array
 	get: function( num ) {
 		///	<summary>
-		///		El acceso a un único número de elemento coincidente sirve para tener acceso al
-		///		elemento n coincidente.
-		///		Parte del núcleo
+		///		Access a single matched element. num is used to access the
+		///		Nth element matched.
+		///		Part of Core
 		///	</summary>
 		///	<returns type="Element" />
 		///	<param name="num" type="Number">
-		///		Tener acceso al elemento en la posición n.
+		///		Access the element in the Nth position.
 		///	</param>
 
 		return num == null ?
@@ -272,13 +272,13 @@ jQuery.fn = jQuery.prototype = {
 	// (returning the new matched element set)
 	pushStack: function( elems, name, selector ) {
 		///	<summary>
-		///		Establecer el objeto jQuery en una matriz de elementos y, al mismo tiempo, mantener
-		///		la pila.
-		///		Parte del núcleo
+		///		Set the jQuery object to an array of elements, while maintaining
+		///		the stack.
+		///		Part of Core
 		///	</summary>
 		///	<returns type="jQuery" />
 		///	<param name="elems" type="Elements">
-		///		Matriz de elementos
+		///		An array of elements
 		///	</param>
 
 		// Build a new jQuery matched element set
@@ -304,14 +304,14 @@ jQuery.fn = jQuery.prototype = {
 	// You should use pushStack() in order to do this, but maintain the stack
 	setArray: function( elems ) {
 		///	<summary>
-		///		Establecer el objeto jQuery en una matriz de elementos. Esta operación es
-		///		completamente destructiva: asegúrese de usar .pushStack() si desea mantener
-		///		la pila de jQuery.
-		///		Parte del núcleo
+		///		Set the jQuery object to an array of elements. This operation is
+		///		completely destructive - be sure to use .pushStack() if you wish to maintain
+		///		the jQuery stack.
+		///		Part of Core
 		///	</summary>
 		///	<returns type="jQuery" />
 		///	<param name="elems" type="Elements">
-		///		Matriz de elementos
+		///		An array of elements
 		///	</param>
 
 		// Resetting the length to 0, then using the native Array push
@@ -327,18 +327,18 @@ jQuery.fn = jQuery.prototype = {
 	// only used internally.)
 	each: function( callback, args ) {
 		///	<summary>
-		///		Ejecutar una función en el contento de cada elemento coincidente.
-		///		Esto significa que cada vez que se ejecuta la función pasada
-		///		(una vez para cada elemento coincidente), la palabra clave "this"
-		///		apunta al elemento específico.
-		///		Asimismo, la función, cuando se ejecuta, toma un único
-		///		argumento que representa la posición del elemento en el conjunto de
-		///		elementos coincidentes.
-		///		Parte del núcleo
+		///		Execute a function within the context of every matched element.
+		///		This means that every time the passed-in function is executed
+		///		(which is once for every element matched) the 'this' keyword
+		///		points to the specific element.
+		///		Additionally, the function, when executed, is passed a single
+		///		argument representing the position of the element in the matched
+		///		set.
+		///		Part of Core
 		///	</summary>
 		///	<returns type="jQuery" />
 		///	<param name="callback" type="Function">
-		///		Función que se va a ejecutar
+		///		A function to execute
 		///	</param>
 
 		return jQuery.each( this, callback, args );
@@ -346,9 +346,9 @@ jQuery.fn = jQuery.prototype = {
 	
 	ready: function( fn ) {
 		///	<summary>
-		///		Enlaza una función que se ejecuta cuando el DOM está preparado para ser atravesado y manipulado.
+		///		Binds a function to be executed whenever the DOM is ready to be traversed and manipulated.
 		///	</summary>
-		///	<param name="fn" type="Function">La función que se ejecuta cuando el DOM está preparado.</param>
+		///	<param name="fn" type="Function">The function to be executed when the DOM is ready.</param>
 
 		// Attach the listeners
 		jQuery.bindReady();
@@ -369,14 +369,14 @@ jQuery.fn = jQuery.prototype = {
 	
 	eq: function( i ) {
 		///	<summary>
-		///		Reducir el conjunto de elementos coincidentes a un único elemento.
-		///		Posición del elemento en el conjunto de elementos coincidentes
-		///		empieza en 0 y llega hasta la longitud - 1.
-		///		Parte del núcleo
+		///		Reduce the set of matched elements to a single element.
+		///		The position of the element in the set of matched elements
+		///		starts at 0 and goes to length - 1.
+		///		Part of Core
 		///	</summary>
 		///	<returns type="jQuery" />
 		///	<param name="num" type="Number">
-		///		pos Índice del elemento en el que se desea establecer el límite.
+		///		pos The index of the element that you wish to limit to.
 		///	</param>
 
 		return i === -1 ?
@@ -386,7 +386,7 @@ jQuery.fn = jQuery.prototype = {
 
 	first: function() {
 		///	<summary>
-		///		Reducir el conjunto de elementos coincidentes al primero del conjunto.
+		///		Reduce the set of matched elements to the first in the set.
 		///	</summary>
 		///	<returns type="jQuery" />
 
@@ -395,7 +395,7 @@ jQuery.fn = jQuery.prototype = {
 
 	last: function() {
 		///	<summary>
-		///		Reducir el conjunto de elementos coincidentes al último del conjunto.
+		///		Reduce the set of matched elements to the final one in the set.
 		///	</summary>
 		///	<returns type="jQuery" />
 
@@ -404,12 +404,12 @@ jQuery.fn = jQuery.prototype = {
 
 	slice: function() {
 		///	<summary>
-		///		Selecciona un subconjunto de elementos coincidentes. Se comporta exactamente igual que el método de segmentación de matriz integrado.
+		///		Selects a subset of the matched elements.  Behaves exactly like the built-in Array slice method.
 		///	</summary>
-		///	<param name="start" type="Number" integer="true">Lugar en el que comienza el subconjunto (en base 0).</param>
-		///	<param name="end" optional="true" type="Number" integer="true">Lugar en el que termina el subconjunto (sin incluir al propio elemento de finalización).
-		///		Si se omite, termina al final de la selección</param>
-		///	<returns type="jQuery">Elementos segmentados</returns>
+		///	<param name="start" type="Number" integer="true">Where to start the subset (0-based).</param>
+		///	<param name="end" optional="true" type="Number" integer="true">Where to end the subset (not including the end element itself).
+		///		If omitted, ends at the end of the selection</param>
+		///	<returns type="jQuery">The sliced elements</returns>
 
 		return this.pushStack( slice.apply( this, arguments ),
 			"slice", slice.call(arguments).join(",") );
@@ -417,7 +417,7 @@ jQuery.fn = jQuery.prototype = {
 
 	map: function( callback ) {
 		///	<summary>
-		///		Este miembro es interno.
+		///		This member is internal.
 		///	</summary>
 		///	<private />
 		///	<returns type="jQuery" />
@@ -429,43 +429,43 @@ jQuery.fn = jQuery.prototype = {
 	
 	end: function() {
 		///	<summary>
-		///		Terminar la última operación "destructiva", lo que revierte la lista de elementos coincidentes
-		///		a su estado anterior. Después de una operación de terminación, la lista de elementos coincidentes se
-		///		revertirá al último estado que tenían dichos elementos.
-		///		Si no se produjo previamente ninguna operación destructiva, se devuelve un conjunto vacío.
-		///		Parte de DOM/Traversing
+		///		End the most recent 'destructive' operation, reverting the list of matched elements
+		///		back to its previous state. After an end operation, the list of matched elements will
+		///		revert to the last state of matched elements.
+		///		If there was no destructive operation before, an empty set is returned.
+		///		Part of DOM/Traversing
 		///	</summary>
 		///	<returns type="jQuery" />
 
 		return this.prevObject || jQuery(null);
 	},
 
-	// Solo para uso interno.
-	// Se comporta como un método de matriz y no como un método de jQuery.
+	// For internal use only.
+	// Behaves like an Array's method, not like a jQuery method.
 	push: push,
 	sort: [].sort,
 	splice: [].splice
 };
 
-// Asignar la función init al prototipo de jQuery para crear posteriormente una instancia
+// Give the init function the jQuery prototype for later instantiation
 jQuery.fn.init.prototype = jQuery.fn;
 
 jQuery.extend = jQuery.fn.extend = function() {
 	///	<summary>
-	///		Extiende un objeto con uno o varios objetos y devuelve el objeto
-	///		original modificado. Esto es muy útil para la herencia simple.
+	///		Extend one object with one or more others, returning the original,
+	///		modified, object. This is a great utility for simple inheritance.
 	///		jQuery.extend(settings, options);
 	///		var settings = jQuery.extend({}, defaults, options);
-	///		Parte de JavaScript
+	///		Part of JavaScript
 	///	</summary>
 	///	<param name="target" type="Object">
-	///		 Objeto que se va a extender
+	///		 The object to extend
 	///	</param>
 	///	<param name="prop1" type="Object">
-	///		 Objeto que se combinará en el primero.
+	///		 The object that will be merged into the first.
 	///	</param>
 	///	<param name="propN" type="Object" optional="true" parameterArray="true">
-	///		 (opcional) Otros objetos que se van a combinar en el primero
+	///		 (optional) More objects to merge into the first
 	///	</param>
 	///	<returns type="Object" />
 
@@ -527,14 +527,14 @@ jQuery.extend = jQuery.fn.extend = function() {
 jQuery.extend({
 	noConflict: function( deep ) {
 		///	<summary>
-		///		Ejecutar esta función para devolver el control de la variable $
-		///		a la biblioteca que la implementó, cualquiera que sea. Esto sirve para asegurarnos 
-		///		de que jQuery no entra en conflicto con el objeto $
-		///		de otras bibliotecas.
-		///		Mediante esta función, solo tenemos acceso a jQuery
-		///		a través de la variable 'jQuery'. Por ejemplo, donde se solía usar
-		///		$(&quot;div p&quot;), ahora se debe usar jQuery(&quot;div p&quot;).
-		///		Parte del núcleo 
+		///		Run this function to give control of the $ variable back
+		///		to whichever library first implemented it. This helps to make 
+		///		sure that jQuery doesn't conflict with the $ object
+		///		of other libraries.
+		///		By using this function, you will only be able to access jQuery
+		///		using the 'jQuery' variable. For example, where you used to do
+		///		$(&quot;div p&quot;), you now must do jQuery(&quot;div p&quot;).
+		///		Part of Core 
 		///	</summary>
 		///	<returns type="undefined" />
 
@@ -547,13 +547,13 @@ jQuery.extend({
 		return jQuery;
 	},
 	
-	// ¿Está DOM listo para usarlo? Establecer en true una vez que tenga lugar.
+	// Is the DOM ready to be used? Set to true once it occurs.
 	isReady: false,
 	
-	// Controlar cuándo el DOM está preparado
+	// Handle when the DOM is ready
 	ready: function() {
 		///	<summary>
-		///		Este método es interno.
+		///		This method is internal.
 		///	</summary>
 		///	<private />
 
@@ -635,30 +635,30 @@ jQuery.extend({
 	// aren't supported. They return false on IE (#2968).
 	isFunction: function( obj ) {
 		///	<summary>
-		///		Determina si el parámetro pasado es una función.
+		///		Determines if the parameter passed is a function.
 		///	</summary>
-		///	<param name="obj" type="Object">Objeto que se va a comprobar</param>
-		///	<returns type="Boolean">Devuelve True si el parámetro es una función; de lo contrario, devuelve false.</returns>
+		///	<param name="obj" type="Object">The object to check</param>
+		///	<returns type="Boolean">True if the parameter is a function; otherwise false.</returns>
 
 		return toString.call(obj) === "[object Function]";
 	},
 
 	isArray: function( obj ) {
 		///	<summary>
-		///		Determinar si el parámetro pasado es una matriz.
+		///		Determine if the parameter passed is an array.
 		///	</summary>
-		///	<param name="obj" type="Object">Objeto del que se va a determinar si es una matriz o no.</param>
-		///	<returns type="Boolean">Devuelve True si el parámetro es una función; de lo contrario, devuelve false.</returns>
+		///	<param name="obj" type="Object">Object to test whether or not it is an array.</param>
+		///	<returns type="Boolean">True if the parameter is a function; otherwise false.</returns>
 
 		return toString.call(obj) === "[object Array]";
 	},
 
 	isPlainObject: function( obj ) {
 		///	<summary>
-		///		Comprobar si el objeto es un objeto simple (creado con "{}" o "new Object").
+		///		Check to see if an object is a plain object (created using "{}" or "new Object").
 		///	</summary>
 		///	<param name="obj" type="Object">
-		///		Objeto que se comprobará para ver si es un objeto simple.
+		///		The object that will be checked to see if it's a plain object.
 		///	</param>
 		///	<returns type="Boolean" />
 
@@ -687,10 +687,10 @@ jQuery.extend({
 
 	isEmptyObject: function( obj ) {
 		///	<summary>
-		///		Comprobar si un objeto está vacío (no contiene propiedades).
+		///		Check to see if an object is empty (contains no properties).
 		///	</summary>
 		///	<param name="obj" type="Object">
-		///		Objeto que se comprobará para ver si está vacío.
+		///		The object that will be checked to see if it's empty.
 		///	</param>
 		///	<returns type="Boolean" />
 
@@ -727,15 +727,15 @@ jQuery.extend({
 
 	noop: function() {
 		///	<summary>
-		///		Función vacía.
+		///		An empty function.
 		///	</summary>
 		///	<returns type="Function" />
 	},
 
-	// Evalúa un script en un contexto global
+	// Evalulates a script in a global context
 	globalEval: function( data ) {
 		///	<summary>
-		///		Evalúa internamente un script en un contexto global.
+		///		Internally evaluates a script in a global context.
 		///	</summary>
 		///	<private />
 
@@ -762,11 +762,11 @@ jQuery.extend({
 
 	nodeName: function( elem, name ) {
 		///	<summary>
-		///		Comprueba si el elemento especificado tiene el nombre de nodo de DOM especificado.
+		///		Checks whether the specified element has the specified DOM node name.
 		///	</summary>
-		///	<param name="elem" type="Element">Elemento que se va a examinar</param>
-		///	<param name="name" type="String">Nombre de nodo que se va a comprobar</param>
-		///	<returns type="Boolean">Devuelve true si el nombre de nodo especificado coincide con el nombre DOM del nodo; de lo contrario, devuelve false</returns>
+		///	<param name="elem" type="Element">The element to examine</param>
+		///	<param name="name" type="String">The node name to check</param>
+		///	<returns type="Boolean">True if the specified node name matches the node's DOM node name; otherwise false</returns>
 
 		return elem.nodeName && elem.nodeName.toUpperCase() === name.toUpperCase();
 	},
@@ -774,19 +774,19 @@ jQuery.extend({
 	// args is for internal usage only
 	each: function( object, callback, args ) {
 		///	<summary>
-		///		Función de iterador genérica que se puede usar para recorrer en iteración
-		///		objetos y matrices. Esta función no es la misma que
-		///		$().each(), que se usa exclusivamente para recorrer en iteración un objeto
-		///		jQuery. Esta función se puede usar para recorrer en iteración cualquier elemento.
-		///		La devolución de llamada tiene dos argumentos: la clave (objetos) o índice (matrices) es el primero
-		///		y el valor es el segundo.
-		///		Parte de JavaScript
+		///		A generic iterator function, which can be used to seemlessly
+		///		iterate over both objects and arrays. This function is not the same
+		///		as $().each() - which is used to iterate, exclusively, over a jQuery
+		///		object. This function can be used to iterate over anything.
+		///		The callback has two arguments:the key (objects) or index (arrays) as first
+		///		the first, and the value as the second.
+		///		Part of JavaScript
 		///	</summary>
 		///	<param name="obj" type="Object">
-		///		 Objeto o matriz que se va a recorrer en iteración.
+		///		 The object, or array, to iterate over.
 		///	</param>
 		///	<param name="fn" type="Function">
-		///		 Función que se va a ejecutar en cada objeto.
+		///		 The function that will be executed on every object.
 		///	</param>
 		///	<returns type="Object" />
 
@@ -828,12 +828,12 @@ jQuery.extend({
 
 	trim: function( text ) {
 		///	<summary>
-		///		Quitar el espacio en blanco del principio y el final de una cadena.
-		///		Parte de JavaScript
+		///		Remove the whitespace from the beginning and end of a string.
+		///		Part of JavaScript
 		///	</summary>
 		///	<returns type="String" />
 		///	<param name="text" type="String">
-		///		Cadena que se va a recortar.
+		///		The string to trim.
 		///	</param>
 
 		return (text || "").replace( rtrim, "" );
@@ -842,9 +842,9 @@ jQuery.extend({
 	// results is for internal usage only
 	makeArray: function( array, results ) {
 		///	<summary>
-		///		Devuelve cualquier elemento en una matriz verdadera. Es un método interno.
+		///		Turns anything into a true array.  This is an internal method.
 		///	</summary>
-		///	<param name="array" type="Object">Elemento que se va a convertir en una matriz real</param>
+		///	<param name="array" type="Object">Anything to turn into an actual Array</param>
 		///	<returns type="Array" />
 		///	<private />
 
@@ -880,17 +880,17 @@ jQuery.extend({
 
 	merge: function( first, second ) {
 		///	<summary>
-		///		Combinar dos matrices y quitar todos los duplicados.
-		///		La nueva matriz está formada por todos los resultados de la primera matriz seguidos de
-		///		los resultados distintos de la segunda matriz.
-		///		Parte de JavaScript
+		///		Merge two arrays together, removing all duplicates.
+		///		The new array is: All the results from the first array, followed
+		///		by the unique results from the second array.
+		///		Part of JavaScript
 		///	</summary>
 		///	<returns type="Array" />
 		///	<param name="first" type="Array">
-		///		 Primera matriz que se va a combinar.
+		///		 The first array to merge.
 		///	</param>
 		///	<param name="second" type="Array">
-		///		 Segunda matriz que se va a combinar.
+		///		 The second array to merge.
 		///	</param>
 
 		var i = first.length, j = 0;
@@ -912,23 +912,23 @@ jQuery.extend({
 
 	grep: function( elems, callback, inv ) {
 		///	<summary>
-		///		Filtrar los elementos de una matriz mediante una función de filtro.
-		///		La función especificada pasará dos argumentos: el
-		///		elemento de matriz actual y el índice del elemento de la matriz. La
-		///		función debe devolver 'true' para mantener el elemento en la matriz 
-		///		y false para quitarlo.
+		///		Filter items out of an array, by using a filter function.
+		///		The specified function will be passed two arguments: The
+		///		current array item and the index of the item in the array. The
+		///		function must return 'true' to keep the item in the array, 
+		///		false to remove it.
 		///		});
-		///		Parte de JavaScript
+		///		Part of JavaScript
 		///	</summary>
 		///	<returns type="Array" />
 		///	<param name="elems" type="Array">
-		///		matriz La matriz en la que se van a buscar elementos.
+		///		array The Array to find items in.
 		///	</param>
 		///	<param name="fn" type="Function">
-		///		 Función que se procesa en cada elemento.
+		///		 The function to process each item against.
 		///	</param>
 		///	<param name="inv" type="Boolean">
-		///		 Invertir la selección: seleccionar el opuesto de la función.
+		///		 Invert the selection - select the opposite of the function.
 		///	</param>
 
 		var ret = [];
@@ -947,27 +947,27 @@ jQuery.extend({
 	// arg is for internal usage only
 	map: function( elems, callback, arg ) {
 		///	<summary>
-		///		Convertir todos los elementos de una matriz en otra matriz de elementos.
-		///		La función de conversión proporcionada a este método se 
-		///		llama para cada elemento de la matriz y se le pasa un argumento: 
-		///		Elemento que se va a convertir.
-		///		La función puede devolver entonces el valor convertido, 'null'
-		///		(para quitar el elemento) o una matriz de valores, que se acoplarán
-		///		en la matriz completa.
-		///		Parte de JavaScript
+		///		Translate all items in an array to another array of items.
+		///		The translation function that is provided to this method is 
+		///		called for each item in the array and is passed one argument: 
+		///		The item to be translated.
+		///		The function can then return the translated value, 'null'
+		///		(to remove the item), or  an array of values - which will
+		///		be flattened into the full array.
+		///		Part of JavaScript
 		///	</summary>
 		///	<returns type="Array" />
 		///	<param name="elems" type="Array">
-		///		matriz La matriz que se va a convertir.
+		///		array The Array to translate.
 		///	</param>
 		///	<param name="fn" type="Function">
-		///		 Función que se procesa en cada elemento.
+		///		 The function to process each item against.
 		///	</param>
 
 		var ret = [], value;
 
-		// Atravesar la matriz y convertir cada elemento en su
-		// nuevo valor o valores.
+		// Go through the array, translating each of the items to their
+		// new value (or values).
 		for ( var i = 0, length = elems.length; i < length; i++ ) {
 			value = callback( elems[ i ], i, arg );
 
@@ -979,18 +979,18 @@ jQuery.extend({
 		return ret.concat.apply( [], ret );
 	},
 
-	// Contador de GUID global para objetos
+	// A global GUID counter for objects
 	guid: 1,
 
 	proxy: function( fn, proxy, thisObject ) {
 		///	<summary>
-		///		Toma una función y devuelve una nueva que tendrá siempre un ámbito particular.
+		///		Takes a function and returns a new one that will always have a particular scope.
 		///	</summary>
 		///	<param name="fn" type="Function">
-		///		Función cuyo ámbito se cambiará.
+		///		The function whose scope will be changed.
 		///	</param>
 		///	<param name="proxy" type="Object">
-		///		Objeto en el que se debe establecer el ámbito de la función.
+		///		The object to which the scope of the function should be set.
 		///	</param>
 		///	<returns type="Function" />
 
@@ -1052,11 +1052,11 @@ if ( jQuery.browser.webkit ) {
 if ( indexOf ) {
 	jQuery.inArray = function( elem, array ) {
 		///	<summary>
-		///		Determina el índice del primer parámetro de la matriz.
+		///		Determines the index of the first parameter in the array.
 		///	</summary>
-		///	<param name="elem">Valor cuya existencia en la matriz se va a comprobar.</param>
-		///	<param name="array" type="Array">Matriz que se va a examinar para buscar el valor</param>
-		///	<returns type="Number" integer="true">Índice de base 0 del elemento si se encuentra; de lo contrario, -1.</returns>
+		///	<param name="elem">The value to see if it exists in the array.</param>
+		///	<param name="array" type="Array">The array to look through for the value</param>
+		///	<returns type="Number" integer="true">The 0-based index of the item if it was found, otherwise -1.</returns>
 
 		return indexOf.call( array, elem );
 	};
@@ -1103,7 +1103,7 @@ function doScrollCheck() {
 
 function evalScript( i, elem ) {
 	///	<summary>
-	///		Este método es interno.
+	///		This method is internal.
 	///	</summary>
 	/// <private />
 
@@ -1153,9 +1153,9 @@ function access( elems, key, value, exec, fn, pass ) {
 
 function now() {
 	///	<summary>
-	///		Obtiene la fecha actual.
+	///		Gets the current date.
 	///	</summary>
-	///	<returns type="Date">La fecha actual.</returns>
+	///	<returns type="Date">The current date.</returns>
 
 	return (new Date).getTime();
 }
@@ -1328,16 +1328,16 @@ jQuery.extend({
 
 	data: function( elem, name, data ) {
 		///	<summary>
-		///		Almacenar datos arbitrarios asociados con el elemento especificado.
+		///		Store arbitrary data associated with the specified element.
 		///	</summary>
 		///	<param name="elem" type="Element">
-		///		Elemento DOM para asociar con los datos.
+		///		The DOM element to associate with the data.
 		///	</param>
 		///	<param name="name" type="String">
-		///		Cadena que da nombre a los datos que se van a establecer.
+		///		A string naming the piece of data to set.
 		///	</param>
 		///	<param name="value" type="Object">
-		///		Nuevo valor de datos.
+		///		The new data value.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -1428,13 +1428,13 @@ jQuery.extend({
 jQuery.fn.extend({
 	data: function( key, value ) {
 		///	<summary>
-		///		Almacenar los datos arbitrarios asociados con los elementos coincidentes.
+		///		Store arbitrary data associated with the matched elements.
 		///	</summary>
 		///	<param name="key" type="String">
-		///		Cadena que da nombre a los datos que se van a establecer.
+		///		A string naming the piece of data to set.
 		///	</param>
 		///	<param name="value" type="Object">
-		///		Nuevo valor de datos.
+		///		The new data value.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -1523,11 +1523,11 @@ jQuery.extend({
 jQuery.fn.extend({
 	queue: function( type, data ) {
 		///	<summary>
-		///		1: queue(): devuelve una referencia a la cola del primer elemento (que es una matriz de funciones).
-		///		2: queue(callback): agrega una nueva función que se ejecuta al final de la cola de todos los elementos coincidentes.
-		///		3: queue(queue): reemplaza la cola de todos los elementos coincidentes por la nueva cola (la matriz de funciones).
+		///		1: queue() - Returns a reference to the first element's queue (which is an array of functions).
+		///		2: queue(callback) - Adds a new function, to be executed, onto the end of the queue of all matched elements.
+		///		3: queue(queue) - Replaces the queue of all matched element with this new queue (the array of functions).
 		///	</summary>
-		///	<param name="type" type="Function">Función que se agrega a la cola.</param>
+		///	<param name="type" type="Function">The function to add to the queue.</param>
 		///	<returns type="jQuery" />
 
 		if ( typeof type !== "string" ) {
@@ -1548,9 +1548,9 @@ jQuery.fn.extend({
 	},
 	dequeue: function( type ) {
 		///	<summary>
-		///		Quita una función puesta en cola de delante de la cola y la ejecuta.
+		///		Removes a queued function from the front of the queue and executes it.
 		///	</summary>
-		///	<param name="type" type="String" optional="true">Tipo de cola a la que obtener acceso.</param>
+		///	<param name="type" type="String" optional="true">The type of queue to access.</param>
 		///	<returns type="jQuery" />
 
 		return this.each(function() {
@@ -1562,13 +1562,13 @@ jQuery.fn.extend({
 	// http://blindsignals.com/index.php/2009/07/jquery-delay/
 	delay: function( time, type ) {
 		///	<summary>
-		///		Establecer un temporizador para retrasar la ejecución de los elementos siguientes en la cola.
+		///		Set a timer to delay execution of subsequent items in the queue.
 		///	</summary>
 		///	<param name="time" type="Number">
-		///		Entero que indica el número de milisegundos para retrasar la ejecución del siguiente elemento de la cola.
+		///		An integer indicating the number of milliseconds to delay execution of the next item in the queue.
 		///	</param>
 		///	<param name="type" type="String">
-		///		Cadena que contiene el nombre de la cola. El valor predeterminado es fx, la cola de efectos estándar.
+		///		A string containing the name of the queue. Defaults to fx, the standard effects queue.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -1585,10 +1585,10 @@ jQuery.fn.extend({
 
 	clearQueue: function( type ) {
 		///	<summary>
-		///		Quitar de la cola todos los elementos que no se han ejecutado aún.
+		///		Remove from the queue all items that have not yet been run.
 		///	</summary>
 		///	<param name="type" type="String" optional="true">
-		///		Cadena que contiene el nombre de la cola. El valor predeterminado es fx, la cola de efectos estándar.
+		///		A string containing the name of the queue. Defaults to fx, the standard effects queue.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -1607,16 +1607,16 @@ var rclass = /[\n\t]/g,
 jQuery.fn.extend({
 	attr: function( name, value ) {
 		///	<summary>
-		///		Establecer una única propiedad en un valor calculado en todos los elementos coincidentes.
-		///		En lugar de un valor, se proporciona una función que calcula el valor.
-		///		Parte de DOM/Attributes
+		///		Set a single property to a computed value, on all matched elements.
+		///		Instead of a value, a function is provided, that computes the value.
+		///		Part of DOM/Attributes
 		///	</summary>
 		///	<returns type="jQuery" />
 		///	<param name="name" type="String">
-		///		Nombre de la propiedad que se va a establecer.
+		///		The name of the property to set.
 		///	</param>
 		///	<param name="value" type="Function">
-		///		Función que devuelve el valor que se va a establecer.
+		///		A function returning the value to set.
 		///	</param>
 
 		return access( this, name, value, true, jQuery.attr );
@@ -1624,11 +1624,11 @@ jQuery.fn.extend({
 
 	removeAttr: function( name, fn ) {
 		///	<summary>
-		///		Quitar un atributo de cada uno de los elementos coincidentes.
-		///		Parte de DOM/Attributes
+		///		Remove an attribute from each of the matched elements.
+		///		Part of DOM/Attributes
 		///	</summary>
 		///	<param name="name" type="String">
-		///		Atributo para quitar.
+		///		An attribute to remove.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -1642,11 +1642,11 @@ jQuery.fn.extend({
 
 	addClass: function( value ) {
 		///	<summary>
-		///		Agrega la clase o clases especificadas a cada uno de los elementos del conjunto de elementos coincidentes.
-		///		Parte de DOM/Attributes
+		///		Adds the specified class(es) to each of the set of matched elements.
+		///		Part of DOM/Attributes
 		///	</summary>
 		///	<param name="value" type="String">
-		///		Uno o varios nombres de clase para agregar al atributo de clase de cada elemento coincidente.
+		///		One or more class names to be added to the class attribute of each matched element.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -1684,11 +1684,11 @@ jQuery.fn.extend({
 
 	removeClass: function( value ) {
 		///	<summary>
-		///		Quita todas las clases especificadas del conjunto de elementos coincidentes.
-		///		Parte de DOM/Attributes
+		///		Removes all or the specified class(es) from the set of matched elements.
+		///		Part of DOM/Attributes
 		///	</summary>
 		///	<param name="value" type="String" optional="true">
-		///		(Opcional) Nombre de clase para quitar del atributo de clase de cada elemento coincidente.
+		///		(Optional) A class name to be removed from the class attribute of each matched element.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -1725,14 +1725,14 @@ jQuery.fn.extend({
 
 	toggleClass: function( value, stateVal ) {
 		///	<summary>
-		///		Agregar o quitar una clase de cada elemento del conjunto de elementos coincidentes, dependiendo
-		///		de la presencia de la clase o del valor del argumento modificador.
+		///		Add or remove a class from each element in the set of matched elements, depending
+		///		on either the class's presence or the value of the switch argument.
 		///	</summary>
 		///	<param name="value" type="Object">
-		///		Nombre de clase al que se alterna para cada elemento del conjunto coincidente.
+		///		A class name to be toggled for each element in the matched set.
 		///	</param>
 		///	<param name="stateVal" type="Object">
-		///		Valor booleano para determinar si la clase se debe agregar o quitar.
+		///		A boolean value to determine whether the class should be added or removed.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -1772,10 +1772,10 @@ jQuery.fn.extend({
 
 	hasClass: function( selector ) {
 		///	<summary>
-		///		Compara la selección actual con una clase y devuelve un valor que indica si al menos una selección tiene una clase dada.
+		///		Checks the current selection against a class and returns whether at least one selection has a given class.
 		///	</summary>
-		///	<param name="selector" type="String">Clase con la que se va a comparar</param>
-		///	<returns type="Boolean">Devuelve True si al menos un elemento de la selección tiene la clase; de lo contrario, devuelve false.</returns>
+		///	<param name="selector" type="String">The class to check against</param>
+		///	<returns type="Boolean">True if at least one element in the selection has the class, otherwise false.</returns>
 
 		var className = " " + selector + " ";
 		for ( var i = 0, l = this.length; i < l; i++ ) {
@@ -1789,13 +1789,13 @@ jQuery.fn.extend({
 
 	val: function( value ) {
 		///	<summary>
-		///		Establece el valor de cada elemento coincidente.
-		///		Parte de DOM/Attributes
+		///		Set the value of every matched element.
+		///		Part of DOM/Attributes
 		///	</summary>
 		///	<returns type="jQuery" />
 		///	<param name="value" type="String">
-		///		Cadena de texto o matriz de cadenas para establecer como propiedad de valor de cada
-		///		elemento coincidente.
+		///		A string of text or an array of strings to set as the value property of each
+		///		matched element.
 		///	</param>
 
 		if ( value === undefined ) {
@@ -1907,7 +1907,7 @@ jQuery.extend({
 		
 	attr: function( elem, name, value, pass ) {
 		///	<summary>
-		///		Este método es interno.
+		///		This method is internal.
 		///	</summary>
 		///	<private />
 
@@ -2021,7 +2021,7 @@ jQuery.event = {
 	// Original by Dean Edwards
 	add: function( elem, types, handler, data ) {
 		///	<summary>
-		///		Este método es interno.
+		///		This method is internal.
 		///	</summary>
 		///	<private />
 
@@ -2147,7 +2147,7 @@ jQuery.event = {
 	// Detach an event or set of events from an element
 	remove: function( elem, types, handler ) {
 		///	<summary>
-		///		Este método es interno.
+		///		This method is internal.
 		///	</summary>
 		///	<private />
 
@@ -2350,7 +2350,7 @@ jQuery.event = {
 
 	handle: function( event ) {
 		///	<summary>
-		///		Este método es interno.
+		///		This method is internal.
 		///	</summary>
 		///	<private />
 
@@ -2405,7 +2405,7 @@ jQuery.event = {
 
 	fix: function( event ) {
 		///	<summary>
-		///		Este método es interno.
+		///		This method is internal.
 		///	</summary>
 		///	<private />
 
@@ -2796,7 +2796,7 @@ if ( document.addEventListener ) {
 		jQuery.event.special[ fix ] = {
 			setup: function() {
 				///	<summary>
-				///		Este método es interno.
+				///		This method is internal.
 				///	</summary>
 				///	<private />
 
@@ -2804,7 +2804,7 @@ if ( document.addEventListener ) {
 			}, 
 			teardown: function() { 
 				///	<summary>
-				///		Este método es interno.
+				///		This method is internal.
 				///	</summary>
 				///	<private />
 
@@ -2850,13 +2850,13 @@ if ( document.addEventListener ) {
 
 jQuery.fn[ "bind" ] = function( type, data, fn ) {
 	///	<summary>
-	///		Enlaza un controlador a uno o varios eventos para cada elemento coincidente. También puede enlazar eventos personalizados.
+	///		Binds a handler to one or more events for each matched element.  Can also bind custom events.
 	///	</summary>
-	///	<param name="type" type="String">Uno o varios tipos de eventos separados por un espacio. Los valores de tipo de evento integrados son: blur, focus, load, resize, scroll, unload, click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, error .</param>
-	///	<param name="data" optional="true" type="Object">Datos adicionales pasados al controlador de eventos como event.data</param>
-	///	<param name="fn" type="Function">Función que se enlaza al evento en cada uno de los elementos del conjunto de elementos coincidentes. Se debe usar una función callback(eventObject) como esta, que se corresponde con el elemento DOM.</param>
+	///	<param name="type" type="String">One or more event types separated by a space.  Built-in event type values are: blur, focus, load, resize, scroll, unload, click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, error .</param>
+	///	<param name="data" optional="true" type="Object">Additional data passed to the event handler as event.data</param>
+	///	<param name="fn" type="Function">A function to bind to the event on each of the set of matched elements.  function callback(eventObject) such that this corresponds to the dom element.</param>
 
-	// Controlar literales de objeto
+	// Handle object literals
 	if ( typeof type === "object" ) {
 		for ( var key in type ) {
 			this[ "bind" ](key, data, type[key], fn);
@@ -2883,11 +2883,11 @@ jQuery.fn[ "bind" ] = function( type, data, fn ) {
 
 jQuery.fn[ "one" ] = function( type, data, fn ) {
 	///	<summary>
-	///		Enlaza un controlador a uno o varios eventos para que se ejecuten exactamente una vez para cada elemento coincidente.
+	///		Binds a handler to one or more events to be executed exactly once for each matched element.
 	///	</summary>
-	///	<param name="type" type="String">Uno o varios tipos de eventos separados por un espacio. Los valores de tipo de evento integrados son: blur, focus, load, resize, scroll, unload, click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, error .</param>
-	///	<param name="data" optional="true" type="Object">Datos adicionales pasados al controlador de eventos como event.data</param>
-	///	<param name="fn" type="Function">Función que se enlaza al evento en cada uno de los elementos del conjunto de elementos coincidentes. Se debe usar una función callback(eventObject) como esta, que se corresponde con el elemento DOM.</param>
+	///	<param name="type" type="String">One or more event types separated by a space.  Built-in event type values are: blur, focus, load, resize, scroll, unload, click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, error .</param>
+	///	<param name="data" optional="true" type="Object">Additional data passed to the event handler as event.data</param>
+	///	<param name="fn" type="Function">A function to bind to the event on each of the set of matched elements.  function callback(eventObject) such that this corresponds to the dom element.</param>
 
 	// Handle object literals
 	if ( typeof type === "object" ) {
@@ -2917,10 +2917,10 @@ jQuery.fn[ "one" ] = function( type, data, fn ) {
 jQuery.fn.extend({
 	unbind: function( type, fn ) {
 		///	<summary>
-		///		Desenlaza un controlador de uno o varios eventos para cada elemento coincidente.
+		///		Unbinds a handler from one or more events for each matched element.
 		///	</summary>
-		///	<param name="type" type="String">Uno o varios tipos de eventos separados por un espacio. Los valores de tipo de evento integrados son: blur, focus, load, resize, scroll, unload, click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, error .</param>
-		///	<param name="fn" type="Function">Función que se enlaza al evento en cada uno de los elementos del conjunto de elementos coincidentes. Se debe usar una función callback(eventObject) como esta, que se corresponde con el elemento DOM.</param>
+		///	<param name="type" type="String">One or more event types separated by a space.  Built-in event type values are: blur, focus, load, resize, scroll, unload, click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, error .</param>
+		///	<param name="fn" type="Function">A function to bind to the event on each of the set of matched elements.  function callback(eventObject) such that this corresponds to the dom element.</param>
 
 		// Handle object literals
 		if ( typeof type === "object" && !type.preventDefault ) {
@@ -2936,11 +2936,11 @@ jQuery.fn.extend({
 	},
 	trigger: function( type, data ) {
 		///	<summary>
-		///		Desencadena un tipo de evento en cada elemento coincidente.
+		///		Triggers a type of event on every matched element.
 		///	</summary>
-		///	<param name="type" type="String">Uno o varios tipos de eventos separados por un espacio. Los valores de tipo de evento integrados son: blur, focus, load, resize, scroll, unload, click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, error .</param>
-		///	<param name="data" optional="true" type="Array">Datos adicionales pasados al controlador de eventos como argumentos adicionales.</param>
-		///	<param name="fn" type="Function">Este parámetro no está documentado.</param>
+		///	<param name="type" type="String">One or more event types separated by a space.  Built-in event type values are: blur, focus, load, resize, scroll, unload, click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, error .</param>
+		///	<param name="data" optional="true" type="Array">Additional data passed to the event handler as additional arguments.</param>
+		///	<param name="fn" type="Function">This parameter is undocumented.</param>
 
 		return this.each(function() {
 			jQuery.event.trigger( type, data, this );
@@ -2949,11 +2949,11 @@ jQuery.fn.extend({
 
 	triggerHandler: function( type, data ) {
 		///	<summary>
-		///		Desencadena todos los controladores de eventos enlazados en un elemento de un tipo de evento específico sin ejecutar las acciones predeterminadas del explorador.
+		///		Triggers all bound event handlers on an element for a specific event type without executing the browser's default actions.
 		///	</summary>
-		///	<param name="type" type="String">Uno o varios tipos de eventos separados por un espacio. Los valores de tipo de evento integrados son: blur, focus, load, resize, scroll, unload, click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, error .</param>
-		///	<param name="data" optional="true" type="Array">Datos adicionales pasados al controlador de eventos como argumentos adicionales.</param>
-		///	<param name="fn" type="Function">Este parámetro no está documentado.</param>
+		///	<param name="type" type="String">One or more event types separated by a space.  Built-in event type values are: blur, focus, load, resize, scroll, unload, click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave, change, select, submit, keydown, keypress, keyup, error .</param>
+		///	<param name="data" optional="true" type="Array">Additional data passed to the event handler as additional arguments.</param>
+		///	<param name="fn" type="Function">This parameter is undocumented.</param>
 
 		if ( this[0] ) {
 			var event = jQuery.Event( type );
@@ -2966,9 +2966,9 @@ jQuery.fn.extend({
 
 	toggle: function( fn ) {
 		///	<summary>
-		///		Alterna entre dos o más llamadas a función cada clic alterno.
+		///		Toggles among two or more function calls every other click.
 		///	</summary>
-		///	<param name="fn" type="Function">Funciones cuya ejecución se alterna</param>
+		///	<param name="fn" type="Function">The functions among which to toggle execution</param>
 
 		// Save reference to arguments for access in closure
 		var args = arguments, i = 1;
@@ -2993,10 +2993,10 @@ jQuery.fn.extend({
 
 	hover: function( fnOver, fnOut ) {
 		///	<summary>
-		///		Simula el movimiento del mouse dentro y fuera de un objeto (mantener el mouse).
+		///		Simulates hovering (moving the mouse on or off of an object).
 		///	</summary>
-		///	<param name="fnOver" type="Function">Función que se activa cuando el mouse se coloca en un elemento coincidente.</param>
-		///	<param name="fnOut" type="Function">Función que se activa cuando el mouse se desplaza fuera de un elemento coincidente.</param>
+		///	<param name="fnOver" type="Function">The function to fire when the mouse is moved over a matched element.</param>
+		///	<param name="fnOut" type="Function">The function to fire when the mouse is moved off of a matched element.</param>
 
 		return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
 	}
@@ -3037,17 +3037,17 @@ jQuery.fn.extend({
 
 jQuery.fn[ "live" ] = function( types, data, fn ) {
 	///	<summary>
-	///		Asociar un controlador al evento para todos los elementos que coinciden con el selector actual, ahora o
-	///		en el futuro.
+	///		Attach a handler to the event for all elements which match the current selector, now or
+	///		in the future.
 	///	</summary>
 	///	<param name="types" type="String">
-	///		Cadena que contiene un tipo de evento de JavaScript, como "click" o "keydown".
+	///		A string containing a JavaScript event type, such as "click" or "keydown".
 	///	</param>
 	///	<param name="data" type="Object">
-	///		Asignación de datos que se pasará al controlador de eventos.
+	///		A map of data that will be passed to the event handler.
 	///	</param>
 	///	<param name="fn" type="Function">
-	///		Función para ejecutar en el momento en que se desencadena el evento.
+	///		A function to execute at the time the event is triggered.
 	///	</param>
 	///	<returns type="jQuery" />
 
@@ -3083,13 +3083,13 @@ jQuery.fn[ "live" ] = function( types, data, fn ) {
 
 jQuery.fn[ "die" ] = function( types, data, fn ) {
 	///	<summary>
-	///		Quitar de los elementos todos los controladores de eventos asociados previamente con .live().
+	///		Remove all event handlers previously attached using .live() from the elements.
 	///	</summary>
 	///	<param name="types" type="String">
-	///		Cadena que contiene un tipo de evento de JavaScript, como click o keydown.
+	///		A string containing a JavaScript event type, such as click or keydown.
 	///	</param>
 	///	<param name="data" type="Object">
-	///		Función que dejará de ejecutarse.
+	///		The function that is to be no longer executed.
 	///	</param>
 	///	<returns type="jQuery" />
 
@@ -3202,10 +3202,10 @@ function liveConvert( type, selector ) {
 
 jQuery.fn[ "blur" ] = function( fn ) {
 	///	<summary>
-	///		1: blur(): desencadena el evento blur para cada elemento coincidente.
-	///		2: blur(fn): enlaza una función al evento blur de cada elemento coincidente.
+	///		1: blur() - Triggers the blur event of each matched element.
+	///		2: blur(fn) - Binds a function to the blur event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "blur", fn ) : this.trigger( "blur" );
@@ -3213,10 +3213,10 @@ jQuery.fn[ "blur" ] = function( fn ) {
 
 jQuery.fn[ "focus" ] = function( fn ) {
 	///	<summary>
-	///		1: focus(): desencadena el evento focus de cada elemento coincidente.
-	///		2: focus(fn): enlaza una función al evento focus de cada elemento coincidente.
+	///		1: focus() - Triggers the focus event of each matched element.
+	///		2: focus(fn) - Binds a function to the focus event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "focus", fn ) : this.trigger( "focus" );
@@ -3224,10 +3224,10 @@ jQuery.fn[ "focus" ] = function( fn ) {
 
 jQuery.fn[ "focusin" ] = function( fn ) {
 		///	<summary>
-		///		Enlazar un controlador de eventos al evento de JavaScript "focusin".
+		///		Bind an event handler to the "focusin" JavaScript event.
 		///	</summary>
 		///	<param name="fn" type="Function">
-		///		Función para ejecutar cada vez que se desencadena el evento.
+		///		A function to execute each time the event is triggered.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -3236,10 +3236,10 @@ jQuery.fn[ "focusin" ] = function( fn ) {
 
 jQuery.fn[ "focusout" ] = function( fn ) {
 		///	<summary>
-		///		Enlazar un controlador de eventos al evento de JavaScript "focusout".
+		///		Bind an event handler to the "focusout" JavaScript event.
 		///	</summary>
 		///	<param name="fn" type="Function">
-		///		Función para ejecutar cada vez que se desencadena el evento.
+		///		A function to execute each time the event is triggered.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -3248,10 +3248,10 @@ jQuery.fn[ "focusout" ] = function( fn ) {
 
 jQuery.fn[ "load" ] = function( fn ) {
 	///	<summary>
-	///		1: load(): desencadena el evento load de cada elemento coincidente.
-	///		2: load(fn); enlaza una función al evento load de cada elemento coincidente.
+	///		1: load() - Triggers the load event of each matched element.
+	///		2: load(fn) - Binds a function to the load event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "load", fn ) : this.trigger( "load" );
@@ -3259,10 +3259,10 @@ jQuery.fn[ "load" ] = function( fn ) {
 
 jQuery.fn[ "resize" ] = function( fn ) {
 	///	<summary>
-	///		1: resize(): desencadena el evento resize de cada elemento coincidente.
-	///		2: resize(fn): enlaza una función al evento resize de cada elemento coincidente.
+	///		1: resize() - Triggers the resize event of each matched element.
+	///		2: resize(fn) - Binds a function to the resize event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "resize", fn ) : this.trigger( "resize" );
@@ -3270,10 +3270,10 @@ jQuery.fn[ "resize" ] = function( fn ) {
 
 jQuery.fn[ "scroll" ] = function( fn ) {
 	///	<summary>
-	///		1: scroll(): desencadena el evento scroll de cada elemento coincidente.
-	///		2: scroll(fn): enlaza una función al evento scroll de cada elemento coincidente.
+	///		1: scroll() - Triggers the scroll event of each matched element.
+	///		2: scroll(fn) - Binds a function to the scroll event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "scroll", fn ) : this.trigger( "scroll" );
@@ -3281,10 +3281,10 @@ jQuery.fn[ "scroll" ] = function( fn ) {
 
 jQuery.fn[ "unload" ] = function( fn ) {
 	///	<summary>
-	///		1: unload(); desencadena el evento unload de cada elemento coincidente.
-	///		2: unload(fn); enlaza una función al evento unload de cada elemento coincidente.
+	///		1: unload() - Triggers the unload event of each matched element.
+	///		2: unload(fn) - Binds a function to the unload event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "unload", fn ) : this.trigger( "unload" );
@@ -3292,10 +3292,10 @@ jQuery.fn[ "unload" ] = function( fn ) {
 
 jQuery.fn[ "click" ] = function( fn ) {
 	///	<summary>
-	///		1: click(): desencadena el evento click de cada elemento coincidente.
-	///		2: click(fn): enlaza una función al evento click de cada elemento coincidente.
+	///		1: click() - Triggers the click event of each matched element.
+	///		2: click(fn) - Binds a function to the click event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "click", fn ) : this.trigger( "click" );
@@ -3303,10 +3303,10 @@ jQuery.fn[ "click" ] = function( fn ) {
 
 jQuery.fn[ "dblclick" ] = function( fn ) {
 	///	<summary>
-	///		1: dblclick(); desencadena el evento dblclick de cada elemento coincidente.
-	///		2: dblclick(fn): enlaza una función al evento dblclick de cada elemento coincidente.
+	///		1: dblclick() - Triggers the dblclick event of each matched element.
+	///		2: dblclick(fn) - Binds a function to the dblclick event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "dblclick", fn ) : this.trigger( "dblclick" );
@@ -3314,9 +3314,9 @@ jQuery.fn[ "dblclick" ] = function( fn ) {
 
 jQuery.fn[ "mousedown" ] = function( fn ) {
 	///	<summary>
-	///		Enlaza una función al evento mousedown de cada elemento coincidente. 
+	///		Binds a function to the mousedown event of each matched element. 
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "mousedown", fn ) : this.trigger( "mousedown" );
@@ -3324,9 +3324,9 @@ jQuery.fn[ "mousedown" ] = function( fn ) {
 
 jQuery.fn[ "mouseup" ] = function( fn ) {
 	///	<summary>
-	///		Enlaza una función al evento mouseup de cada elemento coincidente.
+	///		Bind a function to the mouseup event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "mouseup", fn ) : this.trigger( "mouseup" );
@@ -3334,9 +3334,9 @@ jQuery.fn[ "mouseup" ] = function( fn ) {
 
 jQuery.fn[ "mousemove" ] = function( fn ) {
 	///	<summary>
-	///		Enlaza una función al evento mousemove de cada elemento coincidente.
+	///		Bind a function to the mousemove event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "mousemove", fn ) : this.trigger( "mousemove" );
@@ -3344,9 +3344,9 @@ jQuery.fn[ "mousemove" ] = function( fn ) {
 
 jQuery.fn[ "mouseover" ] = function( fn ) {
 	///	<summary>
-	///		Enlaza una función al evento mouseover de cada elemento coincidente. 
+	///		Bind a function to the mouseover event of each matched element. 
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "mouseover", fn ) : this.trigger( "mouseover" );
@@ -3354,9 +3354,9 @@ jQuery.fn[ "mouseover" ] = function( fn ) {
 
 jQuery.fn[ "mouseout" ] = function( fn ) {
 	///	<summary>
-	///		Enlaza una función al evento mouseout de cada elemento coincidente. 
+	///		Bind a function to the mouseout event of each matched element. 
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "mouseout", fn ) : this.trigger( "mouseout" );
@@ -3364,9 +3364,9 @@ jQuery.fn[ "mouseout" ] = function( fn ) {
 
 jQuery.fn[ "mouseenter" ] = function( fn ) {
 	///	<summary>
-	///		Enlaza una función al evento mouseenter de cada elemento coincidente. 
+	///		Bind a function to the mouseenter event of each matched element. 
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "mouseenter", fn ) : this.trigger( "mouseenter" );
@@ -3374,9 +3374,9 @@ jQuery.fn[ "mouseenter" ] = function( fn ) {
 
 jQuery.fn[ "mouseleave" ] = function( fn ) {
 	///	<summary>
-	///		Enlaza una función al evento mouseleave de cada elemento coincidente. 
+	///		Bind a function to the mouseleave event of each matched element. 
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "mouseleave", fn ) : this.trigger( "mouseleave" );
@@ -3384,10 +3384,10 @@ jQuery.fn[ "mouseleave" ] = function( fn ) {
 
 jQuery.fn[ "change" ] = function( fn ) {
 	///	<summary>
-	///		1: change(): desencadena el evento change de cada elemento coincidente.
-	///		2: change(fn); enlaza una función al evento change de cada elemento coincidente.
+	///		1: change() - Triggers the change event of each matched element.
+	///		2: change(fn) - Binds a function to the change event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "change", fn ) : this.trigger( "change" );
@@ -3395,10 +3395,10 @@ jQuery.fn[ "change" ] = function( fn ) {
 
 jQuery.fn[ "select" ] = function( fn ) {
 	///	<summary>
-	///		1: select(): desencadena el evento select de cada elemento coincidente.
-	///		2: select(fn); enlaza una función al evento select de cada elemento coincidente.
+	///		1: select() - Triggers the select event of each matched element.
+	///		2: select(fn) - Binds a function to the select event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "select", fn ) : this.trigger( "select" );
@@ -3406,10 +3406,10 @@ jQuery.fn[ "select" ] = function( fn ) {
 
 jQuery.fn[ "submit" ] = function( fn ) {
 	///	<summary>
-	///		1: submit(): desencadena el evento submit de cada elemento coincidente.
-	///		2: submit(fn); enlaza una función al evento submit de cada elemento coincidente.
+	///		1: submit() - Triggers the submit event of each matched element.
+	///		2: submit(fn) - Binds a function to the submit event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "submit", fn ) : this.trigger( "submit" );
@@ -3417,10 +3417,10 @@ jQuery.fn[ "submit" ] = function( fn ) {
 
 jQuery.fn[ "keydown" ] = function( fn ) {
 	///	<summary>
-	///		1: keydown(): desencadena el evento keydown de cada elemento coincidente.
-	///		2: keydown(fn); enlaza una función al evento keydown de cada elemento coincidente.
+	///		1: keydown() - Triggers the keydown event of each matched element.
+	///		2: keydown(fn) - Binds a function to the keydown event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "keydown", fn ) : this.trigger( "keydown" );
@@ -3428,10 +3428,10 @@ jQuery.fn[ "keydown" ] = function( fn ) {
 
 jQuery.fn[ "keypress" ] = function( fn ) {
 	///	<summary>
-	///		1: keypress(): desencadena el evento keypress de cada elemento coincidente.
-	///		2: keypress(fn); enlaza una función al evento keypress de cada elemento coincidente.
+	///		1: keypress() - Triggers the keypress event of each matched element.
+	///		2: keypress(fn) - Binds a function to the keypress event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "keypress", fn ) : this.trigger( "keypress" );
@@ -3439,10 +3439,10 @@ jQuery.fn[ "keypress" ] = function( fn ) {
 
 jQuery.fn[ "keyup" ] = function( fn ) {
 	///	<summary>
-	///		1: keyup(): desencadena el evento keyup de cada elemento coincidente.
-	///		2: keyup(fn): enlaza una función al evento keyup de cada elemento coincidente.
+	///		1: keyup() - Triggers the keyup event of each matched element.
+	///		2: keyup(fn) - Binds a function to the keyup event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "keyup", fn ) : this.trigger( "keyup" );
@@ -3450,10 +3450,10 @@ jQuery.fn[ "keyup" ] = function( fn ) {
 
 jQuery.fn[ "error" ] = function( fn ) {
 	///	<summary>
-	///		1: error(): desencadena el evento error de cada elemento coincidente.
-	///		2: error(fn); enlaza una función al evento error de cada elemento coincidente.
+	///		1: error() - Triggers the error event of each matched element.
+	///		2: error(fn) - Binds a function to the error event of each matched element.
 	///	</summary>
-	///	<param name="fn" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="fn" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return fn ? this.bind( "error", fn ) : this.trigger( "error" );
@@ -3622,10 +3622,10 @@ var Sizzle = function(selector, context, results, seed) {
 
 Sizzle.uniqueSort = function(results){
 	///	<summary>
-	///		Quita todos los elementos duplicados de una matriz de elementos.
+	///		Removes all duplicate elements from an array of elements.
 	///	</summary>
-	///	<param name="array" type="Array&lt;Element&gt;">Matriz que se va a convertir</param>
-	///	<returns type="Array&lt;Element&gt;">La matriz después de la conversión.</returns>
+	///	<param name="array" type="Array&lt;Element&gt;">The array to translate</param>
+	///	<returns type="Array&lt;Element&gt;">The array after translation.</returns>
 
 	if ( sortOrder ) {
 		hasDuplicate = baseHasDuplicate;
@@ -3988,7 +3988,7 @@ var Expr = Sizzle.selectors = {
 		},
 		has: function(elem, i, match){
 			///	<summary>
-			///		Solo para uso interno; usar hasClass('class')
+			///		Internal use only; use hasClass('class')
 			///	</summary>
 			///	<private />
 
@@ -4506,26 +4506,26 @@ function dirCheck( dir, cur, doneName, checkSet, nodeCheck, isXML ) {
 
 var contains = document.compareDocumentPosition ? function(a, b){
 	///	<summary>
-	///		Comprobar si un nodo DOM está dentro de otro nodo DOM.
+	///		Check to see if a DOM node is within another DOM node.
 	///	</summary>
 	///	<param name="a" type="Object">
-	///		Elemento DOM que puede contener el otro elemento.
+	///		The DOM element that may contain the other element.
 	///	</param>
 	///	<param name="b" type="Object">
-	///		Nodo DOM que el otro elemento puede contener.
+	///		The DOM node that may be contained by the other element.
 	///	</param>
 	///	<returns type="Boolean" />
 
 	return a.compareDocumentPosition(b) & 16;
 } : function(a, b){
 	///	<summary>
-	///		Comprobar si un nodo DOM está dentro de otro nodo DOM.
+	///		Check to see if a DOM node is within another DOM node.
 	///	</summary>
 	///	<param name="a" type="Object">
-	///		Elemento DOM que puede contener el otro elemento.
+	///		The DOM element that may contain the other element.
 	///	</param>
 	///	<param name="b" type="Object">
-	///		Nodo DOM que el otro elemento puede contener.
+	///		The DOM node that may be contained by the other element.
 	///	</param>
 	///	<returns type="Boolean" />
 
@@ -4534,10 +4534,10 @@ var contains = document.compareDocumentPosition ? function(a, b){
 
 var isXML = function(elem){
 	///	<summary>
-	///		Determina si el parámetro pasado es un documento XML.
+	///		Determines if the parameter passed is an XML document.
 	///	</summary>
-	///	<param name="elem" type="Object">Objeto que se va a comprobar</param>
-	///	<returns type="Boolean">Devuelve True si el parámetro es un documento XML; de lo contrario, devuelve false.</returns>
+	///	<param name="elem" type="Object">The object to test</param>
+	///	<returns type="Boolean">True if the parameter is an XML document; otherwise false.</returns>
 
 	// documentElement is verified for cases where it doesn't yet exist
 	// (such as loading iframes in IE - #4833) 
@@ -4617,16 +4617,16 @@ var winnow = function( elements, qualifier, keep ) {
 jQuery.fn.extend({
 	find: function( selector ) {
 		///	<summary>
-		///		Busca todos los elementos que coinciden con la expresión especificada.
-		///		Este método es una forma eficaz de buscar elementos descendientes
-		///		adicionales con los que realizar el proceso.
-		///		Toda la operación de búsqueda se realiza mediante una expresión jQuery. La expresión se puede
-		///		escribir mediante la sintaxis de selector de CSS 1-3 o lenguaje XPath básico.
-		///		Parte de DOM/Traversing
+		///		Searches for all elements that match the specified expression.
+		///		This method is a good way to find additional descendant
+		///		elements with which to process.
+		///		All searching is done using a jQuery expression. The expression can be
+		///		written using CSS 1-3 Selector syntax, or basic XPath.
+		///		Part of DOM/Traversing
 		///	</summary>
 		///	<returns type="jQuery" />
 		///	<param name="selector" type="String">
-		///		Expresión con la que se va a realizar la búsqueda.
+		///		An expression to search with.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -4637,7 +4637,7 @@ jQuery.fn.extend({
 			jQuery.find( selector, this[i], ret );
 
 			if ( i > 0 ) {
-				// Asegúrese de que los resultados son únicos.
+				// Make sure that the results are unique
 				for ( var n = length; n < ret.length; n++ ) {
 					for ( var r = 0; r < length; r++ ) {
 						if ( ret[r] === ret[n] ) {
@@ -4654,11 +4654,11 @@ jQuery.fn.extend({
 
 	has: function( target ) {
 		///	<summary>
-		///		Reducir el conjunto de elementos coincidentes a aquellos que tienen un descendiente que coincida con
-		///		el selector o el elemento DOM.
+		///		Reduce the set of matched elements to those that have a descendant that matches the
+		///		selector or DOM element.
 		///	</summary>
 		///	<param name="target" type="String">
-		///		Cadena que contiene una expresión de selector con la que deben coincidir los elementos.
+		///		A string containing a selector expression to match elements against.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -4674,13 +4674,13 @@ jQuery.fn.extend({
 
 	not: function( selector ) {
 		///	<summary>
-		///		Quita todos los elementos incluidos en la matriz de elementos del conjunto
-		///		de elementos coincidentes. Este método se usa para quitar uno o varios
-		///		elementos de un objeto jQuery.
-		///		Parte de DOM/Traversing
+		///		Removes any elements inside the array of elements from the set
+		///		of matched elements. This method is used to remove one or more
+		///		elements from a jQuery object.
+		///		Part of DOM/Traversing
 		///	</summary>
 		///	<param name="selector" type="jQuery">
-		///		Conjunto de elementos que se va a quitar del conjunto de elementos coincidentes de jQuery.
+		///		A set of elements to remove from the jQuery set of matched elements.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -4689,15 +4689,15 @@ jQuery.fn.extend({
 
 	filter: function( selector ) {
 		///	<summary>
-		///		Quita todos los elementos del conjunto de elementos coincidentes que no
-		///		superan el filtro especificado. Este método se usa para restringir
-		///		los resultados de una búsqueda.
+		///		Removes all elements from the set of matched elements that do not
+		///		pass the specified filter. This method is used to narrow down
+		///		the results of a search.
 		///		})
-		///		Parte de DOM/Traversing
+		///		Part of DOM/Traversing
 		///	</summary>
 		///	<returns type="jQuery" />
 		///	<param name="selector" type="Function">
-		///		Función que se usa para el filtrado
+		///		A function to use for filtering
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -4706,16 +4706,16 @@ jQuery.fn.extend({
 	
 	is: function( selector ) {
 		///	<summary>
-		///		Compara la selección actual con una expresión y devuelve true
-		///		si al menos un elemento de la selección coincide con la expresión especificada.
-		///		Devuelve false si no hay ningún elemento coincidente o si la expresión no es válida.
-		///		filter(String) se utiliza internamente y, por tanto, todas las reglas que se aplican allí
-		///		también se aplican aquí.
-		///		Parte de DOM/Traversing
+		///		Checks the current selection against an expression and returns true,
+		///		if at least one element of the selection fits the given expression.
+		///		Does return false, if no element fits or the expression is not valid.
+		///		filter(String) is used internally, therefore all rules that apply there
+		///		apply here, too.
+		///		Part of DOM/Traversing
 		///	</summary>
 		///	<returns type="Boolean" />
 		///	<param name="expr" type="String">
-		///		 Expresión con la que se va a filtrar
+		///		 The expression with which to filter
 		///	</param>
 
 		return !!selector && jQuery.filter( selector, this ).length > 0;
@@ -4723,14 +4723,14 @@ jQuery.fn.extend({
 
 	closest: function( selectors, context ) {
 		///	<summary>
-		///		Obtener un conjunto de elementos que contenga el elemento primario más cercano que coincida con el selector especificado, incluido el elemento inicial.
+		///		Get a set of elements containing the closest parent element that matches the specified selector, the starting element included.
 		///	</summary>
 		///	<param name="selectors" type="String">
-		///		Cadena que contiene una expresión de selector con la que deben coincidir los elementos.
+		///		A string containing a selector expression to match elements against.
 		///	</param>
 		///	<param name="context" type="Element">
-		///		Elemento DOM en el que se puede encontrar un elemento coincidente. Si no se pasa contexto,
-		///		se usará el contexto del conjunto jQuery.
+		///		A DOM element within which a matching element may be found. If no context is passed
+		///		in then the context of the jQuery set will be used instead.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -4782,14 +4782,14 @@ jQuery.fn.extend({
 	// the matched set of elements
 	index: function( elem ) {
 		///	<summary>
-		///		Busca cada elemento coincidente del objeto y devuelve
-		///		el índice del elemento, si se encuentra, empezando por cero. 
-		///		Devuelve -1 si no se encuentra el objeto.
-		///		Parte del núcleo
+		///		Searches every matched element for the object and returns
+		///		the index of the element, if found, starting with zero. 
+		///		Returns -1 if the object wasn't found.
+		///		Part of Core
 		///	</summary>
 		///	<returns type="Number" />
 		///	<param name="elem" type="Element">
-		///		Objeto que se va a buscar
+		///		Object to search for
 		///	</param>
 
 		if ( !elem || typeof elem === "string" ) {
@@ -4806,14 +4806,14 @@ jQuery.fn.extend({
 
 	add: function( selector, context ) {
 		///	<summary>
-		///		Agrega uno o varios elementos al conjunto de elementos coincidentes.
-		///		Parte de DOM/Traversing
+		///		Adds one or more Elements to the set of matched elements.
+		///		Part of DOM/Traversing
 		///	</summary>
 		///	<param name="selector" type="String">
-		///		Cadena que contiene una expresión de selector con la que deben coincidir elementos adicionales.
+		///		A string containing a selector expression to match additional elements against.
 		///	</param>
 		///	<param name="context" type="Element">
-		///		Agregar algunos elementos con raíz en el contexto especificado.
+		///		Add some elements rooted against the specified context.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -4829,7 +4829,7 @@ jQuery.fn.extend({
 
 	andSelf: function() {
 		///	<summary>
-		///		Agrega la selección anterior a la actual.
+		///		Adds the previous selection to the current selection.
 		///	</summary>
 		///	<returns type="jQuery" />
 
@@ -4898,12 +4898,12 @@ jQuery.each({
 
 jQuery.fn[ "parentsUntil" ] = function( until, selector ) {
 	///	<summary>
-	///		Obtener los antecesores de cada elemento en el conjunto actual de elementos coincidentes, hasta
-	///		(sin incluirlo) el elemento coincidente con el selector.
+	///		Get the ancestors of each element in the current set of matched elements, up to but not
+	///		including the element matched by the selector.
 	///	</summary>
 	///	<param name="until" type="String">
-	///		Cadena que contiene una expresión de selector para indicar dónde detener la búsqueda de
-	///		coincidencias en los elementos antecesores.
+	///		A string containing a selector expression to indicate where to stop matching ancestor
+	///		elements.
 	///	</param>
 	///	<returns type="jQuery" />
 
@@ -4932,12 +4932,12 @@ jQuery.fn[ "parentsUntil" ] = function( until, selector ) {
 
 jQuery.fn[ "nextUntil" ] = function( until, selector ) {
 	///	<summary>
-	///		Obtener todos los elementos del mismo nivel de cada elemento hasta (sin incluirlo) el elemento coincidente
-	///		con el selector.
+	///		Get all following siblings of each element up to but not including the element matched
+	///		by the selector.
 	///	</summary>
 	///	<param name="until" type="String">
-	///		Cadena que contiene una expresión de selector para indicar dónde detener la búsqueda
-	///		de coincidencias en los elementos siguientes del mismo nivel.
+	///		A string containing a selector expression to indicate where to stop matching following
+	///		sibling elements.
 	///	</param>
 	///	<returns type="jQuery" />
 
@@ -4966,12 +4966,12 @@ jQuery.fn[ "nextUntil" ] = function( until, selector ) {
 
 jQuery.fn[ "prevUntil" ] = function( until, selector ) {
 	///	<summary>
-	///		Obtener todos los elementos anteriores del mismo nivel de cada elemento hasta (sin incluirlo) el elemento coincidente
-	///		con el selector.
+	///		Get all preceding siblings of each element up to but not including the element matched
+	///		by the selector.
 	///	</summary>
 	///	<param name="until" type="String">
-	///		Cadena que contiene una expresión de selector para indicar dónde detener la búsqueda
-	///		de coincidencias de elementos anteriores del mismo nivel.
+	///		A string containing a selector expression to indicate where to stop matching preceding
+	///		sibling elements.
 	///	</param>
 	///	<returns type="jQuery" />
 
@@ -5009,7 +5009,7 @@ jQuery.extend({
 	
 	dir: function( elem, dir, until ) {
 		///	<summary>
-		///		Este miembro es solo para uso interno.
+		///		This member is internal only.
 		///	</summary>
 		///	<private />
 
@@ -5025,7 +5025,7 @@ jQuery.extend({
 
 	nth: function( cur, result, dir, elem ) {
 		///	<summary>
-		///		Este miembro es solo para uso interno.
+		///		This member is internal only.
 		///	</summary>
 		///	<private />
 
@@ -5043,7 +5043,7 @@ jQuery.extend({
 
 	sibling: function( n, elem ) {
 		///	<summary>
-		///		Este miembro es solo para uso interno.
+		///		This member is internal only.
 		///	</summary>
 		///	<private />
 
@@ -5094,14 +5094,14 @@ if ( !jQuery.support.htmlSerialize ) {
 jQuery.fn.extend({
 	text: function( text ) {
 		///	<summary>
-		///		Establecer el contenido de texto de todos los elementos coincidentes.
-		///		Similar a html(), pero aplica un carácter de escape a HTML (reemplazar &quot;&lt;&quot; y &quot;&gt;&quot; por sus
-		///		entidades HTML).
-		///		Parte de DOM/Attributes
+		///		Set the text contents of all matched elements.
+		///		Similar to html(), but escapes HTML (replace &quot;&lt;&quot; and &quot;&gt;&quot; with their
+		///		HTML entities).
+		///		Part of DOM/Attributes
 		///	</summary>
 		///	<returns type="jQuery" />
 		///	<param name="text" type="String">
-		///		Valor de texto en el que se establece el contenido del elemento.
+		///		The text value to set the contents of the element to.
 		///	</param>
 
 		if ( jQuery.isFunction(text) ) {
@@ -5120,20 +5120,20 @@ jQuery.fn.extend({
 
 	wrapAll: function( html ) {
 		///	<summary>
-		///		Encapsula todos los elementos coincidentes con una estructura de otros elementos.
-		///		Este proceso de encapsulamiento sirve sobre todo para insertar una estructura
-		///		adicional en un documento sin ejecutar las cualidades semánticas
-		///		originales de un documento.
-		///		Esto funciona atravesando el primer elemento
-		///		proporcionado y buscando el elemento antecesor más profundo dentro de su
-		///		estructura. Será ese elemento el que encapsulará a todos los demás.
-		///		Esto no funciona con elementos que contienen texto. Todo el texto necesario
-		///		debe agregarse después del encapsulamiento.
-		///		Parte de DOM/Manipulation
+		///		Wrap all matched elements with a structure of other elements.
+		///		This wrapping process is most useful for injecting additional
+		///		stucture into a document, without ruining the original semantic
+		///		qualities of a document.
+		///		This works by going through the first element
+		///		provided and finding the deepest ancestor element within its
+		///		structure - it is that element that will en-wrap everything else.
+		///		This does not work with elements that contain text. Any necessary text
+		///		must be added after the wrapping is done.
+		///		Part of DOM/Manipulation
 		///	</summary>
 		///	<returns type="jQuery" />
 		///	<param name="html" type="Element">
-		///		Elemento DOM que se encapsulará en torno al destino.
+		///		A DOM element that will be wrapped around the target.
 		///	</param>
 
 		if ( jQuery.isFunction( html ) ) {
@@ -5143,7 +5143,7 @@ jQuery.fn.extend({
 		}
 
 		if ( this[0] ) {
-			// Elementos en torno a los cuales se encapsula el destino
+			// The elements to wrap the target around
 			var wrap = jQuery( html, this[0].ownerDocument ).eq(0).clone(true);
 
 			if ( this[0].parentNode ) {
@@ -5166,10 +5166,10 @@ jQuery.fn.extend({
 
 	wrapInner: function( html ) {
 		///	<summary>
-		///		Encapsula el contenido secundario interno de cada elemento coincidente (incluidos los nodos de texto) con una estructura HTML.
+		///		Wraps the inner child contents of each matched elemenht (including text nodes) with an HTML structure.
 		///	</summary>
 		///	<param name="html" type="String">
-		///		Cadena de HTML o elemento DOM que se encapsulará en torno al contenido de destino.
+		///		A string of HTML or a DOM element that will be wrapped around the target contents.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -5193,20 +5193,20 @@ jQuery.fn.extend({
 
 	wrap: function( html ) {
 		///	<summary>
-		///		Encapsula todos los elementos coincidentes con una estructura de otros elementos.
-		///		Este proceso de encapsulamiento sirve sobre todo para insertar una estructura
-		///		adicional en un documento sin ejecutar las cualidades semánticas
-		///		originales de un documento.
-		///		Esto funciona atravesando el primer elemento
-		///		proporcionado y buscando el elemento antecesor más profundo dentro de su
-		///		estructura. Será ese elemento el que encapsulará a todos los demás.
-		///		Esto no funciona con elementos que contienen texto. Todo el texto necesario
-		///		debe agregarse después del encapsulamiento.
-		///		Parte de DOM/Manipulation
+		///		Wrap all matched elements with a structure of other elements.
+		///		This wrapping process is most useful for injecting additional
+		///		stucture into a document, without ruining the original semantic
+		///		qualities of a document.
+		///		This works by going through the first element
+		///		provided and finding the deepest ancestor element within its
+		///		structure - it is that element that will en-wrap everything else.
+		///		This does not work with elements that contain text. Any necessary text
+		///		must be added after the wrapping is done.
+		///		Part of DOM/Manipulation
 		///	</summary>
 		///	<returns type="jQuery" />
 		///	<param name="html" type="Element">
-		///		Elemento DOM que se encapsulará en torno al destino.
+		///		A DOM element that will be wrapped around the target.
 		///	</param>
 
 		return this.each(function() {
@@ -5216,8 +5216,8 @@ jQuery.fn.extend({
 
 	unwrap: function() {
 		///	<summary>
-		///		Quitar los elementos primarios del conjunto de elementos coincidentes del elemento DOM, dejando
-		///		los elementos coincidentes en su lugar.
+		///		Remove the parents of the set of matched elements from the DOM, leaving the matched
+		///		elements in their place.
 		///	</summary>
 		///	<returns type="jQuery" />
 		return this.parent().each(function() {
@@ -5229,10 +5229,10 @@ jQuery.fn.extend({
 
 	append: function() {
 		///	<summary>
-		///		Anexar contenido al interior de cada elemento coincidente.
-		///		Esa operación es similar a utilizar appendChild en todos los
-		///		elementos especificados agregándolos al documento.
-		///		Parte de DOM/Manipulation
+		///		Append content to the inside of every matched element.
+		///		This operation is similar to doing an appendChild to all the
+		///		specified elements, adding them into the document.
+		///		Part of DOM/Manipulation
 		///	</summary>
 		///	<returns type="jQuery" />
 
@@ -5245,10 +5245,10 @@ jQuery.fn.extend({
 
 	prepend: function() {
 		///	<summary>
-		///		Anteponer contenido al interior de cada elemento coincidente.
-		///		Esta operación es el mejor modo de insertar elementos
-		///		al principio de todos los elementos coincidentes.
-		///		Parte de DOM/Manipulation
+		///		Prepend content to the inside of every matched element.
+		///		This operation is the best way to insert elements
+		///		inside, at the beginning, of all matched elements.
+		///		Part of DOM/Manipulation
 		///	</summary>
 		///	<returns type="jQuery" />
 
@@ -5261,8 +5261,8 @@ jQuery.fn.extend({
 
 	before: function() {
 		///	<summary>
-		///		Insertar contenido delante de cada elemento coincidente.
-		///		Parte de DOM/Manipulation
+		///		Insert content before each of the matched elements.
+		///		Part of DOM/Manipulation
 		///	</summary>
 		///	<returns type="jQuery" />
 
@@ -5279,8 +5279,8 @@ jQuery.fn.extend({
 
 	after: function() {
 		///	<summary>
-		///		Insertar contenido detrás de cada elemento coincidente.
-		///		Parte de DOM/Manipulation
+		///		Insert content after each of the matched elements.
+		///		Part of DOM/Manipulation
 		///	</summary>
 		///	<returns type="jQuery" />
 
@@ -5297,14 +5297,14 @@ jQuery.fn.extend({
 
 	clone: function( events ) {
 		///	<summary>
-		///		Clonar los elementos DOM coincidentes y seleccionar los clones. 
-		///		Esto sirve para mover copias de los elementos a otra
-		///		ubicación en el DOM.
-		///		Parte de DOM/Manipulation
+		///		Clone matched DOM Elements and select the clones. 
+		///		This is useful for moving copies of the elements to another
+		///		location in the DOM.
+		///		Part of DOM/Manipulation
 		///	</summary>
 		///	<returns type="jQuery" />
 		///	<param name="deep" type="Boolean" optional="true">
-		///		(Opcional) Establecer en false si no se desean clonar todos los elementos descendientes además del propio elemento.
+		///		(Optional) Set to false if you don't want to clone all descendant nodes, in addition to the element itself.
 		///	</param>
 
 		// Do the clone
@@ -5344,13 +5344,13 @@ jQuery.fn.extend({
 
 	html: function( value ) {
 		///	<summary>
-		///		Establecer el contenido html de cada elemento coincidente.
-		///		Esta propiedad no está disponible en los documentos XML.
-		///		Parte de DOM/Attributes
+		///		Set the html contents of every matched element.
+		///		This property is not available on XML documents.
+		///		Part of DOM/Attributes
 		///	</summary>
 		///	<returns type="jQuery" />
 		///	<param name="value" type="String">
-		///		Cadena HTML para establecer como contenido de cada elemento coincidente.
+		///		A string of HTML to set as the content of each matched element.
 		///	</param>
 
 		if ( value === undefined ) {
@@ -5396,12 +5396,12 @@ jQuery.fn.extend({
 
 	replaceWith: function( value ) {
 		///	<summary>
-		///		Reemplaza todos los elementos coincidentes por los elementos HTML o DOM especificados.
+		///		Replaces all matched element with the specified HTML or DOM elements.
 		///	</summary>
 		///	<param name="value" type="Object">
-		///		Contenido para insertar. Puede ser una cadena HTML, un elemento DOM o un objeto jQuery.
+		///		The content to insert. May be an HTML string, DOM element, or jQuery object.
 		///	</param>
-		///	<returns type="jQuery">El elemento que se acaba de reemplazar.</returns>
+		///	<returns type="jQuery">The element that was just replaced.</returns>
 
 		if ( this[0] && this[0].parentNode ) {
 			// Make sure that the elements are removed from the DOM before they are inserted
@@ -5434,10 +5434,10 @@ jQuery.fn.extend({
 
 	detach: function( selector ) {
 		///	<summary>
-		///		Quitar el conjunto de elementos coincidentes del elemento DOM.
+		///		Remove the set of matched elements from the DOM.
 		///	</summary>
 		///	<param name="selector" type="String">
-		///		Expresión de selector que filtra el conjunto de elementos coincidentes para quitar.
+		///		A selector expression that filters the set of matched elements to be removed.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -5446,20 +5446,20 @@ jQuery.fn.extend({
 
 	domManip: function( args, table, callback ) {
 		///	<param name="args" type="Array">
-		///		 Argumentos
+		///		 Args
 		///	</param>
 		///	<param name="table" type="Boolean">
-		///		 Insertar TBODY en TABLEs si se encuentra alguno.
+		///		 Insert TBODY in TABLEs if one is not found.
 		///	</param>
 		///	<param name="dir" type="Number">
-		///		 Si dir&lt;0, procesar los argumentos en el orden inverso.
+		///		 If dir&lt;0, process args in reverse order.
 		///	</param>
 		///	<param name="fn" type="Function">
-		///		 La función que realiza la manipulación de DOM.
+		///		 The function doing the DOM manipulation.
 		///	</param>
 		///	<returns type="jQuery" />
 		///	<summary>
-		///		Parte del núcleo
+		///		Part of Core
 		///	</summary>
 
 		var results, first, value = args[0], scripts = [];
@@ -5593,14 +5593,14 @@ jQuery.fragments = {};
 
 jQuery.fn[ "appendTo" ] = function( selector ) {
 	///	<summary>
-	///		Anexar todos los elementos coincidentes en otro conjunto de elementos especificado.
-	///		A partir de jQuery 1.3.2, se devuelven todos los elementos insertados.
-	///		Esta operación es, básicamente, la operación contraria de un
-	///		$(A).append(B) normal, en la que en lugar de anexar B en A, se anexa
-	///		A en B.
+	///		Append all of the matched elements to another, specified, set of elements.
+	///		As of jQuery 1.3.2, returns all of the inserted elements.
+	///		This operation is, essentially, the reverse of doing a regular
+	///		$(A).append(B), in that instead of appending B to A, you're appending
+	///		A to B.
 	///	</summary>
 	///	<param name="selector" type="Selector">
-	///		 destino en el que se anexará el contenido.
+	///		 target to which the content will be appended.
 	///	</param>
 	///	<returns type="jQuery" />
 
@@ -5616,14 +5616,14 @@ jQuery.fn[ "appendTo" ] = function( selector ) {
 
 jQuery.fn[ "prependTo" ] = function( selector ) {
 	///	<summary>
-	///		Anteponer todos los elementos coincidentes a otro conjunto de elementos especificado.
-	///		A partir de jQuery 1.3.2, se devuelven todos los elementos insertados.
-	///		Esta operación es, básicamente, la operación contraria de un
-	///		$(A).prepend(B), en la que en lugar de anteponer B a A, se antepone
-	///		A a B.
+	///		Prepend all of the matched elements to another, specified, set of elements.
+	///		As of jQuery 1.3.2, returns all of the inserted elements.
+	///		This operation is, essentially, the reverse of doing a regular
+	///		$(A).prepend(B), in that instead of prepending B to A, you're prepending
+	///		A to B.
 	///	</summary>
 	///	<param name="selector" type="Selector">
-	///		 destino en el que se anexará el contenido.
+	///		 target to which the content will be appended.
 	///	</param>
 	///	<returns type="jQuery" />
 
@@ -5639,14 +5639,14 @@ jQuery.fn[ "prependTo" ] = function( selector ) {
 
 jQuery.fn[ "insertBefore" ] = function( selector ) {
 	///	<summary>
-	///		Insertar todos los elementos coincidentes delante de otro conjunto de elementos especificado.
-	///		A partir de jQuery 1.3.2, se devuelven todos los elementos insertados.
-	///		Esta operación es, básicamente, la operación contraria de un
-	///		$(A).before(B) normal, en la que en lugar de insertar B delante de A, se inserta
-	///		A delante de B.
+	///		Insert all of the matched elements before another, specified, set of elements.
+	///		As of jQuery 1.3.2, returns all of the inserted elements.
+	///		This operation is, essentially, the reverse of doing a regular
+	///		$(A).before(B), in that instead of inserting B before A, you're inserting
+	///		A before B.
 	///	</summary>
 	///	<param name="content" type="String">
-	///		 Contenido tras el que se insertan los elementos seleccionados.
+	///		 Content after which the selected element(s) is inserted.
 	///	</param>
 	///	<returns type="jQuery" />
 
@@ -5662,14 +5662,14 @@ jQuery.fn[ "insertBefore" ] = function( selector ) {
 
 jQuery.fn[ "insertAfter" ] = function( selector ) {
 	///	<summary>
-	///		Insertar todos los elementos coincidentes detrás de otro conjunto de elementos especificado.
-	///		A partir de jQuery 1.3.2, se devuelven todos los elementos insertados.
-	///		Esta operación es, básicamente, la operación contraria de un
-	///		$(A).after(B) normal, en la que el lugar de insertar B detrás de A, se inserta
-	///		A detrás de B.
+	///		Insert all of the matched elements after another, specified, set of elements.
+	///		As of jQuery 1.3.2, returns all of the inserted elements.
+	///		This operation is, essentially, the reverse of doing a regular
+	///		$(A).after(B), in that instead of inserting B after A, you're inserting
+	///		A after B.
 	///	</summary>
 	///	<param name="content" type="String">
-	///		 Contenido tras el que se insertan los elementos seleccionados.
+	///		 Content after which the selected element(s) is inserted.
 	///	</param>
 	///	<returns type="jQuery" />
 
@@ -5685,10 +5685,10 @@ jQuery.fn[ "insertAfter" ] = function( selector ) {
 
 jQuery.fn[ "replaceAll" ] = function( selector ) {
 	///	<summary>
-	///		Reemplaza los elementos que ha encontrado el selector especificado por los elementos coincidentes.
-	///		A partir de jQuery 1.3.2, se devuelven todos los elementos insertados.
+	///		Replaces the elements matched by the specified selector with the matched elements.
+	///		As of jQuery 1.3.2, returns all of the inserted elements.
 	///	</summary>
-	///	<param name="selector" type="Selector">Elementos que se buscan y con los que se reemplazan los elementos coincidentes.</param>
+	///	<param name="selector" type="Selector">The elements to find and replace the matched elements with.</param>
 	///	<returns type="jQuery" />
 
 	var ret = [], insert = jQuery( selector );
@@ -5718,8 +5718,8 @@ jQuery.each({
 
 	empty: function() {
 		///	<summary>
-		///		Quita todos los nodos secundarios del conjunto de elementos coincidentes.
-		///		Parte de DOM/Manipulation
+		///		Removes all child nodes from the set of matched elements.
+		///		Part of DOM/Manipulation
 		///	</summary>
 		///	<returns type="jQuery" />
 
@@ -5742,7 +5742,7 @@ jQuery.each({
 jQuery.extend({
 	clean: function( elems, context, fragment, scripts ) {
 		///	<summary>
-		///		Este método es exclusivamente para uso interno.
+		///		This method is internal only.
 		///	</summary>
 		///	<private />
 
@@ -5870,16 +5870,16 @@ var rexclude = /z-?index|font-?weight|opacity|zoom|line-?height/i,
 
 jQuery.fn.css = function( name, value ) {
 	///	<summary>
-	///		Establecer una única propiedad de estilo en un valor en todos los elementos coincidentes.
-	///		Si se proporciona un número, este se convierte automáticamente en un valor de píxel.
-	///		Parte de CSS
+	///		Set a single style property to a value, on all matched elements.
+	///		If a number is provided, it is automatically converted into a pixel value.
+	///		Part of CSS
 	///	</summary>
 	///	<returns type="jQuery" />
 	///	<param name="name" type="String">
-	///		Nombre de propiedad CSS.
+	///		A CSS property name.
 	///	</param>
 	///	<param name="value" type="String">
-	///		Valor para establecer para la propiedad.
+	///		A value to set for the property.
 	///	</param>
 
 	return access( this, name, value, true, function( elem, name, value ) {
@@ -5943,7 +5943,7 @@ jQuery.extend({
 
 	css: function( elem, name, force, extra ) {
 		///	<summary>
-		///		Este método es exclusivamente para uso interno.
+		///		This method is internal only.
 		///	</summary>
 		///	<private />
 
@@ -5984,7 +5984,7 @@ jQuery.extend({
 
 	curCSS: function( elem, name, force ) {
 		///	<summary>
-		///		Este método es exclusivamente para uso interno.
+		///		This method is internal only.
 		///	</summary>
 		///	<private />
 
@@ -6066,7 +6066,7 @@ jQuery.extend({
 	// A method for quickly swapping in/out CSS properties to get correct calculations
 	swap: function( elem, options, callback ) {
 		///	<summary>
-		///		Agregar o quitar opciones de estilo.
+		///		Swap in/out style options.
 		///	</summary>
 
 		var old = {};
@@ -6118,12 +6118,12 @@ jQuery.fn.extend({
 
 	load: function( url, params, callback ) {
 		///	<summary>
-		///		Carga HTML de un archivo remoto y lo inserta en el DOM. De forma predeterminada, realiza una solicitud GET, pero si se incluyen parámetros
-		///		entonces se realiza una solicitud POST.
+		///		Loads HTML from a remote file and injects it into the DOM.  By default performs a GET request, but if parameters are included
+		///		then a POST will be performed.
 		///	</summary>
-		///	<param name="url" type="String">La dirección URL de la página HTML que se va a cargar.</param>
-		///	<param name="data" optional="true" type="Map">Pares clave-valor que se enviarán al servidor.</param>
-		///	<param name="callback" optional="true" type="Function">La función a la que se llama cuando se completa la solicitud de AJAX. Debe asignar una function(responseText, textStatus, XMLHttpRequest) como esta, que asigna el elemento DOM insertado.</param>
+		///	<param name="url" type="String">The URL of the HTML page to load.</param>
+		///	<param name="data" optional="true" type="Map">Key/value pairs that will be sent to the server.</param>
+		///	<param name="callback" optional="true" type="Function">The function called when the AJAX request is complete.  It should map function(responseText, textStatus, XMLHttpRequest) such that this maps the injected DOM element.</param>
 		///	<returns type="jQuery" />
 
 		if ( typeof url !== "string" ) {
@@ -6195,17 +6195,17 @@ jQuery.fn.extend({
 
 	serialize: function() {
 		///	<summary>
-		///		Serializa un conjunto de elementos de entrada en una cadena de datos.
+		///		Serializes a set of input elements into a string of data.
 		///	</summary>
-		///	<returns type="String">El resultado serializado</returns>
+		///	<returns type="String">The serialized result</returns>
 
 		return jQuery.param(this.serializeArray());
 	},
 	serializeArray: function() {
 		///	<summary>
-		///		Serializa todos los formularios y elementos de formulario, pero devuelve una estructura de datos JSON.
+		///		Serializes all forms and form elements but returns a JSON data structure.
 		///	</summary>
-		///	<returns type="String">Estructura de datos JSON que representa los elementos serializados.</returns>
+		///	<returns type="String">A JSON data structure representing the serialized items.</returns>
 
 		return this.map(function() {
 			return this.elements ? jQuery.makeArray(this.elements) : this;
@@ -6238,9 +6238,9 @@ jQuery.fn.extend({
 
 jQuery.fn["ajaxStart"] = function( f ) {
 	///	<summary>
-	///		Adjuntar una función que se ejecute siempre que se inicie una solicitud AJAX y no haya ninguna activa. Este es un evento AJAX.
+	///		Attach a function to be executed whenever an AJAX request begins and there is none already active. This is an Ajax Event.
 	///	</summary>
-	///	<param name="f" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="f" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return this.bind("ajaxStart", f);
@@ -6248,9 +6248,9 @@ jQuery.fn["ajaxStart"] = function( f ) {
 
 jQuery.fn["ajaxStop"] = function( f ) {
 	///	<summary>
-	///		Adjuntar una función que se ejecute siempre que finalicen todas las solicitudes AJAX. Este es un evento AJAX.
+	///		Attach a function to be executed whenever all AJAX requests have ended. This is an Ajax Event.
 	///	</summary>
-	///	<param name="f" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="f" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return this.bind("ajaxStop", f);
@@ -6258,9 +6258,9 @@ jQuery.fn["ajaxStop"] = function( f ) {
 
 jQuery.fn["ajaxComplete"] = function( f ) {
 	///	<summary>
-	///		Adjuntar una función que se ejecute siempre que se complete una solicitud AJAX. Este es un evento AJAX.
+	///		Attach a function to be executed whenever an AJAX request completes. This is an Ajax Event.
 	///	</summary>
-	///	<param name="f" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="f" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return this.bind("ajaxComplete", f);
@@ -6268,9 +6268,9 @@ jQuery.fn["ajaxComplete"] = function( f ) {
 
 jQuery.fn["ajaxError"] = function( f ) {
 	///	<summary>
-	///		Adjuntar una función que se ejecute siempre que no se pueda completar una solicitud AJAX. Este es un evento AJAX.
+	///		Attach a function to be executed whenever an AJAX request fails. This is an Ajax Event.
 	///	</summary>
-	///	<param name="f" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="f" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return this.bind("ajaxError", f);
@@ -6278,9 +6278,9 @@ jQuery.fn["ajaxError"] = function( f ) {
 
 jQuery.fn["ajaxSuccess"] = function( f ) {
 	///	<summary>
-	///		Adjuntar una función que se ejecute siempre que se complete una solicitud AJAX correctamente. Este es un evento AJAX.
+	///		Attach a function to be executed whenever an AJAX request completes successfully. This is an Ajax Event.
 	///	</summary>
-	///	<param name="f" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="f" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return this.bind("ajaxSuccess", f);
@@ -6288,9 +6288,9 @@ jQuery.fn["ajaxSuccess"] = function( f ) {
 
 jQuery.fn["ajaxSend"] = function( f ) {
 	///	<summary>
-	///		Adjuntar una función que se ejecute antes de que se envíe una solicitud AJAX. Este es un evento AJAX.
+	///		Attach a function to be executed before an AJAX request is sent. This is an Ajax Event.
 	///	</summary>
-	///	<param name="f" type="Function">La función que se va a ejecutar.</param>
+	///	<param name="f" type="Function">The function to execute.</param>
 	///	<returns type="jQuery" />
 
 	return this.bind("ajaxSend", f);
@@ -6300,12 +6300,12 @@ jQuery.extend({
 
 	get: function( url, data, callback, type ) {
 		///	<summary>
-		///		Carga una página remota mediante una solicitud GET HTTP.
+		///		Loads a remote page using an HTTP GET request.
 		///	</summary>
-		///	<param name="url" type="String">La dirección URL de la página HTML que se va a cargar.</param>
-		///	<param name="data" optional="true" type="Map">Pares clave-valor que se enviarán al servidor.</param>
-		///	<param name="callback" optional="true" type="Function">La función a la que se llama cuando se completa la solicitud de AJAX. Debe asignar una function(responseText, textStatus) como esta, que asigna las opciones de esta solicitud AJAX.</param>
-		///	<param name="type" optional="true" type="String">Tipo de datos que se van a devolver para la función de devolución de llamada. Los valores válidos son xml, html, script, json, text, _default.</param>
+		///	<param name="url" type="String">The URL of the HTML page to load.</param>
+		///	<param name="data" optional="true" type="Map">Key/value pairs that will be sent to the server.</param>
+		///	<param name="callback" optional="true" type="Function">The function called when the AJAX request is complete.  It should map function(responseText, textStatus) such that this maps the options for this AJAX request.</param>
+		///	<param name="type" optional="true" type="String">Type of data to be returned to callback function.  Valid valiues are xml, html, script, json, text, _default.</param>
 		///	<returns type="XMLHttpRequest" />
 
 		// shift arguments if data argument was omited
@@ -6326,10 +6326,10 @@ jQuery.extend({
 
 	getScript: function( url, callback ) {
 		///	<summary>
-		///		Carga y ejecuta un archivo JavaScript local mediante una solicitud GET HTTP.
+		///		Loads and executes a local JavaScript file using an HTTP GET request.
 		///	</summary>
-		///	<param name="url" type="String">La dirección URL del script que se va a cargar.</param>
-		///	<param name="callback" optional="true" type="Function">La función a la que se llama cuando se completa la solicitud de AJAX. Debe asignar una function(data, textStatus) como esta, que asigna las opciones de la solicitud AJAX.</param>
+		///	<param name="url" type="String">The URL of the script to load.</param>
+		///	<param name="callback" optional="true" type="Function">The function called when the AJAX request is complete.  It should map function(data, textStatus) such that this maps the options for the AJAX request.</param>
 		///	<returns type="XMLHttpRequest" />
 
 		return jQuery.get(url, null, callback, "script");
@@ -6337,11 +6337,11 @@ jQuery.extend({
 
 	getJSON: function( url, data, callback ) {
 		///	<summary>
-		///		Carga datos JSON mediante una solicitud GET HTTP.
+		///		Loads JSON data using an HTTP GET request.
 		///	</summary>
-		///	<param name="url" type="String">La dirección URL de los datos JSON que se van a cargar.</param>
-		///	<param name="data" optional="true" type="Map">Pares clave-valor que se enviarán al servidor.</param>
-		///	<param name="callback" optional="true" type="Function">La función a la que se llama cuando se completa la solicitud AJAX si los datos se cargan correctamente. Debe asignar una function(data, textStatus) como esta, que asigna las opciones de esta solicitud AJAX.</param>
+		///	<param name="url" type="String">The URL of the JSON data to load.</param>
+		///	<param name="data" optional="true" type="Map">Key/value pairs that will be sent to the server.</param>
+		///	<param name="callback" optional="true" type="Function">The function called when the AJAX request is complete if the data is loaded successfully.  It should map function(data, textStatus) such that this maps the options for this AJAX request.</param>
 		///	<returns type="XMLHttpRequest" />
 
 		return jQuery.get(url, data, callback, "json");
@@ -6349,12 +6349,12 @@ jQuery.extend({
 
 	post: function( url, data, callback, type ) {
 		///	<summary>
-		///		Carga una página remota mediante una solicitud POST HTTP.
+		///		Loads a remote page using an HTTP POST request.
 		///	</summary>
-		///	<param name="url" type="String">La dirección URL de la página HTML que se va a cargar.</param>
-		///	<param name="data" optional="true" type="Map">Pares clave-valor que se enviarán al servidor.</param>
-		///	<param name="callback" optional="true" type="Function">La función a la que se llama cuando se completa la solicitud AJAX. Debe asignar una function(responseText, textStatus) como esta, que asigna las opciones de esta solicitud AJAX.</param>
-		///	<param name="type" optional="true" type="String">Tipo de datos que se van a devolver para la función de devolución de llamada. Los valores válidos son xml, html, script, json, text, _default.</param>
+		///	<param name="url" type="String">The URL of the HTML page to load.</param>
+		///	<param name="data" optional="true" type="Map">Key/value pairs that will be sent to the server.</param>
+		///	<param name="callback" optional="true" type="Function">The function called when the AJAX request is complete.  It should map function(responseText, textStatus) such that this maps the options for this AJAX request.</param>
+		///	<param name="type" optional="true" type="String">Type of data to be returned to callback function.  Valid valiues are xml, html, script, json, text, _default.</param>
 		///	<returns type="XMLHttpRequest" />
 
 		// shift arguments if data argument was omited
@@ -6375,9 +6375,9 @@ jQuery.extend({
 
 	ajaxSetup: function( settings ) {
 		///	<summary>
-		///		Establece la configuración global de las solicitudes AJAX.
+		///		Sets up global settings for AJAX requests.
 		///	</summary>
-		///	<param name="settings" type="Options">Conjunto de pares clave-valor que configuran la solicitud AJAX predeterminada.</param>
+		///	<param name="settings" type="Options">A set of key/value pairs that configure the default Ajax request.</param>
 
 		jQuery.extend( jQuery.ajaxSettings, settings );
 	},
@@ -6425,7 +6425,7 @@ jQuery.extend({
 
 	ajax: function( origSettings ) {
 		///	<summary>
-		///		Cargar una página remota mediante una solicitud HTTP.
+		///		Load a remote page using an HTTP request.
 		///	</summary>
 		///	<private />
 
@@ -6756,7 +6756,7 @@ jQuery.extend({
 
 	handleError: function( s, xhr, status, e ) {
 		///	<summary>
-		///		Este método es interno.
+		///		This method is internal.
 		///	</summary>
 		///	<private />
 
@@ -6777,7 +6777,7 @@ jQuery.extend({
 	// Determines if an XMLHttpRequest was successful or not
 	httpSuccess: function( xhr ) {
 		///	<summary>
-		///		Este método es interno.
+		///		This method is internal.
 		///	</summary>
 		///	<private />
 
@@ -6795,7 +6795,7 @@ jQuery.extend({
 	// Determines if an XMLHttpRequest returns NotModified
 	httpNotModified: function( xhr, url ) {
 		///	<summary>
-		///		Este método es interno.
+		///		This method is internal.
 		///	</summary>
 		///	<private />
 
@@ -6816,7 +6816,7 @@ jQuery.extend({
 
 	httpData: function( xhr, type, s ) {
 		///	<summary>
-		///		Este método es interno.
+		///		This method is internal.
 		///	</summary>
 		///	<private />
 
@@ -6853,14 +6853,14 @@ jQuery.extend({
 	// key/values into a query string
 	param: function( a, traditional ) {
 		///	<summary>
-		///		Crear una representación serializada de una matriz o un objeto, aptos para usarlos en una cadena de consulta de dirección URL
-		///		o una solicitud Ajax.
+		///		Create a serialized representation of an array or object, suitable for use in a URL
+		///		query string or Ajax request.
 		///	</summary>
 		///	<param name="a" type="Object">
-		///		Matriz u objeto para serializar.
+		///		An array or object to serialize.
 		///	</param>
 		///	<param name="traditional" type="Boolean">
-		///		Valor booleano que indica si se realiza una serialización "superficial" tradicional.
+		///		A Boolean indicating whether to perform a traditional "shallow" serialization.
 		///	</param>
 		///	<returns type="String" />
 
@@ -6943,11 +6943,11 @@ var elemdisplay = {},
 jQuery.fn.extend({
 	show: function( speed, callback ) {
 		///	<summary>
-		///		Mostrar todos los elementos coincidentes con una animación fluida y activando una devolución de llamada opcional al finalizar.
+		///		Show all matched elements using a graceful animation and firing an optional callback after completion.
 		///	</summary>
-		///	<param name="speed" type="String">Cadena que representa una de las tres velocidades definidas ('slow', 'normal' o 'fast') o
-		///		el número de milisegundos que se ejecuta la animación</param>
-		///	<param name="callback" optional="true" type="Function">Función que se ejecuta cuando se completa la animación, una vez para cada elemento animado. Debe asignar una función callback() como esta, que será el elemento DOM que se va a animar.</param>
+		///	<param name="speed" type="String">A string representing one of three predefined speeds ('slow', 'normal', or 'fast'), or
+		///		the number of milliseconds to run the animation</param>
+		///	<param name="callback" optional="true" type="Function">A function to be executed whenever the animation completes, once for each animated element.  It should map function callback() such that this is the DOM element being animated.</param>
 		///	<returns type="jQuery" />
 
 		if ( speed || speed === 0) {
@@ -6995,11 +6995,11 @@ jQuery.fn.extend({
 
 	hide: function( speed, callback ) {
 		///	<summary>
-		///		Oculta todos los elementos coincidentes con una animación fluida y activando una devolución de llamada opcional al finalizar.
+		///		Hides all matched elements using a graceful animation and firing an optional callback after completion.
 		///	</summary>
-		///	<param name="speed" type="String">Cadena que representa una de las tres velocidades definidas ('slow', 'normal' o 'fast') o
-		///		el número de milisegundos que se ejecuta la animación</param>
-		///	<param name="callback" optional="true" type="Function">Función que se ejecuta cuando se completa la animación, una vez para cada elemento animado. Debe asignar una función callback() como esta, que será el elemento DOM que se va a animar.</param>
+		///	<param name="speed" type="String">A string representing one of three predefined speeds ('slow', 'normal', or 'fast'), or
+		///		the number of milliseconds to run the animation</param>
+		///	<param name="callback" optional="true" type="Function">A function to be executed whenever the animation completes, once for each animated element.  It should map function callback() such that this is the DOM element being animated.</param>
 		///	<returns type="jQuery" />
 
 		if ( speed || speed === 0 ) {
@@ -7028,7 +7028,7 @@ jQuery.fn.extend({
 
 	toggle: function( fn, fn2 ) {
 		///	<summary>
-		///		Alterna la presentación de cada uno de los elementos del conjunto de elementos coincidentes.
+		///		Toggles displaying each of the set of matched elements.
 		///	</summary>
 		///	<returns type="jQuery" />
 
@@ -7052,11 +7052,11 @@ jQuery.fn.extend({
 
 	fadeTo: function( speed, to, callback ) {
 		///	<summary>
-		///		Establece la opacidad de todos los elementos coincidentes en una opacidad especificada.
+		///		Fades the opacity of all matched elements to a specified opacity.
 		///	</summary>
-		///	<param name="speed" type="String">Cadena que representa una de las tres velocidades definidas ('slow', 'normal' o 'fast') o
-		///		el número de milisegundos que se ejecuta la animación</param>
-		///	<param name="callback" optional="true" type="Function">Función que se ejecuta cuando se completa la animación, una vez para cada elemento animado. Debe asignar una función callback() como esta, que será el elemento DOM que se va a animar.</param>
+		///	<param name="speed" type="String">A string representing one of three predefined speeds ('slow', 'normal', or 'fast'), or
+		///		the number of milliseconds to run the animation</param>
+		///	<param name="callback" optional="true" type="Function">A function to be executed whenever the animation completes, once for each animated element.  It should map function callback() such that this is the DOM element being animated.</param>
 		///	<returns type="jQuery" />
 
 		return this.filter(":hidden").css("opacity", 0).show().end()
@@ -7065,13 +7065,13 @@ jQuery.fn.extend({
 
 	animate: function( prop, speed, easing, callback ) {
 		///	<summary>
-		///		Función para crear animaciones personalizadas.
+		///		A function for making custom animations.
 		///	</summary>
-		///	<param name="prop" type="Options">Conjunto de atributos de estilo que se van a animar y hasta cuándo.</param>
-		///	<param name="speed" optional="true" type="String">Cadena que representa una de las tres velocidades definidas ('slow', 'normal' o 'fast') o
-		///		el número de milisegundos que se ejecuta la animación</param>
-		///	<param name="easing" optional="true" type="String">Nombre del efecto de suavizado que se desea usar. Hay dos valores integrados, 'linear' y 'swing'.</param>
-		///	<param name="callback" optional="true" type="Function">Función que se ejecuta cuando se completa la animación, una vez para cada elemento animado. Debe asignar una función callback() como esta, que será el elemento DOM que se va a animar.</param>
+		///	<param name="prop" type="Options">A set of style attributes that you wish to animate and to what end.</param>
+		///	<param name="speed" optional="true" type="String">A string representing one of three predefined speeds ('slow', 'normal', or 'fast'), or
+		///		the number of milliseconds to run the animation</param>
+		///	<param name="easing" optional="true" type="String">The name of the easing effect that you want to use.  There are two built-in values, 'linear' and 'swing'.</param>
+		///	<param name="callback" optional="true" type="Function">A function to be executed whenever the animation completes, once for each animated element.  It should map function callback() such that this is the DOM element being animated.</param>
 		///	<returns type="jQuery" />
 
 		var optall = jQuery.speed(speed, easing, callback);
@@ -7160,10 +7160,10 @@ jQuery.fn.extend({
 
 	stop: function( clearQueue, gotoEnd ) {
 		///	<summary>
-		///		Detiene todas las animaciones actuales en los elementos especificados.
+		///		Stops all currently animations on the specified elements.
 		///	</summary>
-		///	<param name="clearQueue" optional="true" type="Boolean">True para borrar las animaciones que están en la cola de ejecución.</param>
-		///	<param name="gotoEnd" optional="true" type="Boolean">True para mover el valor del elemento al final de su destino de animación.</param>
+		///	<param name="clearQueue" optional="true" type="Boolean">True to clear animations that are queued to run.</param>
+		///	<param name="gotoEnd" optional="true" type="Boolean">True to move the element value to the end of its animation target.</param>
 		///	<returns type="jQuery" />
 
 		var timers = jQuery.timers;
@@ -7211,11 +7211,11 @@ jQuery.fn.extend({
 
 jQuery.fn[ "slideDown" ] = function( speed, callback ) {
 	///	<summary>
-	///		Mostrar todos los elementos coincidentes ajustando su alto.
+	///		Reveal all matched elements by adjusting their height.
 	///	</summary>
-	///	<param name="speed" type="String">Cadena que representa una de las tres velocidades definidas ('slow', 'normal' o 'fast') o
-	///		el número de milisegundos que se ejecuta la animación</param>
-	///	<param name="callback" optional="true" type="Function">Función que se ejecuta cuando se completa la animación, una vez para cada elemento animado. Debe asignar una función callback() como esta, que será el elemento DOM que se va a animar.</param>
+	///	<param name="speed" type="String">A string representing one of three predefined speeds ('slow', 'normal', or 'fast'), or
+	///		the number of milliseconds to run the animation</param>
+	///	<param name="callback" optional="true" type="Function">A function to be executed whenever the animation completes, once for each animated element.  It should map function callback() such that this is the DOM element being animated.</param>
 	///	<returns type="jQuery" />
 
 	return this.animate( genFx("show", 1), speed, callback );
@@ -7223,11 +7223,11 @@ jQuery.fn[ "slideDown" ] = function( speed, callback ) {
 
 jQuery.fn[ "slideUp" ] = function( speed, callback ) {
 	///	<summary>
-	///		Ocultar todos los elementos coincidentes ajustando su alto.
+	///		Hiding all matched elements by adjusting their height.
 	///	</summary>
-	///	<param name="speed" type="String">Cadena que representa una de las tres velocidades definidas ('slow', 'normal' o 'fast') o
-	///		el número de milisegundos que se ejecuta la animación</param>
-	///	<param name="callback" optional="true" type="Function">Función que se ejecuta cuando se completa la animación, una vez para cada elemento animado. Debe asignar una función callback() como esta, que será el elemento DOM que se va a animar.</param>
+	///	<param name="speed" type="String">A string representing one of three predefined speeds ('slow', 'normal', or 'fast'), or
+	///		the number of milliseconds to run the animation</param>
+	///	<param name="callback" optional="true" type="Function">A function to be executed whenever the animation completes, once for each animated element.  It should map function callback() such that this is the DOM element being animated.</param>
 	///	<returns type="jQuery" />
 
 	return this.animate( genFx("hide", 1), speed, callback );
@@ -7235,11 +7235,11 @@ jQuery.fn[ "slideUp" ] = function( speed, callback ) {
 
 jQuery.fn[ "slideToggle" ] = function( speed, callback ) {
 	///	<summary>
-	///		Alterna la visibilidad de todos los elementos coincidentes ajustando su alto.
+	///		Toggles the visibility of all matched elements by adjusting their height.
 	///	</summary>
-	///	<param name="speed" type="String">Cadena que representa una de las tres velocidades definidas ('slow', 'normal' o 'fast') o
-	///		el número de milisegundos que se ejecuta la animación</param>
-	///	<param name="callback" optional="true" type="Function">Función que se ejecuta cuando se completa la animación, una vez para cada elemento animado. Debe asignar una función callback() como esta, que será el elemento DOM que se va a animar.</param>
+	///	<param name="speed" type="String">A string representing one of three predefined speeds ('slow', 'normal', or 'fast'), or
+	///		the number of milliseconds to run the animation</param>
+	///	<param name="callback" optional="true" type="Function">A function to be executed whenever the animation completes, once for each animated element.  It should map function callback() such that this is the DOM element being animated.</param>
 	///	<returns type="jQuery" />
 
 	return this.animate( genFx("toggle", 1), speed, callback );
@@ -7247,11 +7247,11 @@ jQuery.fn[ "slideToggle" ] = function( speed, callback ) {
 
 jQuery.fn[ "fadeIn" ] = function( speed, callback ) {
 	///	<summary>
-	///		Aplica un fundido a todos los elementos coincidentes ajustando su opacidad.
+	///		Fades in all matched elements by adjusting their opacity.
 	///	</summary>
-	///	<param name="speed" type="String">Cadena que representa una de las tres velocidades definidas ('slow', 'normal' o 'fast') o
-	///		el número de milisegundos que se ejecuta la animación</param>
-	///	<param name="callback" optional="true" type="Function">Función que se ejecuta cuando se completa la animación, una vez para cada elemento animado. Debe asignar una función callback() como esta, que será el elemento DOM que se va a animar.</param>
+	///	<param name="speed" type="String">A string representing one of three predefined speeds ('slow', 'normal', or 'fast'), or
+	///		the number of milliseconds to run the animation</param>
+	///	<param name="callback" optional="true" type="Function">A function to be executed whenever the animation completes, once for each animated element.  It should map function callback() such that this is the DOM element being animated.</param>
 	///	<returns type="jQuery" />
 
 	return this.animate( { opacity: "show" }, speed, callback );
@@ -7259,11 +7259,11 @@ jQuery.fn[ "fadeIn" ] = function( speed, callback ) {
 
 jQuery.fn[ "fadeOut" ] = function( speed, callback ) {
 	///	<summary>
-	///		Establece la opacidad de todos los elementos coincidentes en una opacidad especificada.
+	///		Fades the opacity of all matched elements to a specified opacity.
 	///	</summary>
-	///	<param name="speed" type="String">Cadena que representa una de las tres velocidades definidas ('slow', 'normal' o 'fast') o
-	///		el número de milisegundos que se ejecuta la animación</param>
-	///	<param name="callback" optional="true" type="Function">Función que se ejecuta cuando se completa la animación, una vez para cada elemento animado. Debe asignar una función callback() como esta, que será el elemento DOM que se va a animar.</param>
+	///	<param name="speed" type="String">A string representing one of three predefined speeds ('slow', 'normal', or 'fast'), or
+	///		the number of milliseconds to run the animation</param>
+	///	<param name="callback" optional="true" type="Function">A function to be executed whenever the animation completes, once for each animated element.  It should map function callback() such that this is the DOM element being animated.</param>
 	///	<returns type="jQuery" />
 
 	return this.animate( { opacity: "hide" }, speed, callback );
@@ -7272,7 +7272,7 @@ jQuery.fn[ "fadeOut" ] = function( speed, callback ) {
 jQuery.extend({
 	speed: function( speed, easing, fn ) {
 		///	<summary>
-		///		Este miembro es interno.
+		///		This member is internal.
 		///	</summary>
 		///	<private />
 
@@ -7303,7 +7303,7 @@ jQuery.extend({
 	easing: {
 		linear: function( p, n, firstNum, diff ) {
 			///	<summary>
-			///		Este miembro es interno.
+			///		This member is internal.
 			///	</summary>
 			///	<private />
 
@@ -7311,7 +7311,7 @@ jQuery.extend({
 		},
 		swing: function( p, n, firstNum, diff ) {
 			///	<summary>
-			///		Este miembro es interno.
+			///		This member is internal.
 			///	</summary>
 			///	<private />
 
@@ -7323,7 +7323,7 @@ jQuery.extend({
 
 	fx: function( elem, options, prop ) {
 		///	<summary>
-		///		Este miembro es interno.
+		///		This member is internal.
 		///	</summary>
 		///	<private />
 
@@ -7342,7 +7342,7 @@ jQuery.fx.prototype = {
 	// Simple function for setting a style value
 	update: function() {
 		///	<summary>
-		///		Este miembro es interno.
+		///		This member is internal.
 		///	</summary>
 		///	<private />
 
@@ -7361,7 +7361,7 @@ jQuery.fx.prototype = {
 	// Get the current size
 	cur: function( force ) {
 		///	<summary>
-		///		Este miembro es interno.
+		///		This member is internal.
 		///	</summary>
 		///	<private />
 
@@ -7397,7 +7397,7 @@ jQuery.fx.prototype = {
 	// Simple 'show' function
 	show: function() {
 		///	<summary>
-		///		Muestra cada uno de los elementos del conjunto de elementos coincidentes si están ocultos.
+		///		Displays each of the set of matched elements if they are hidden.
 		///	</summary>
 
 		// Remember where we started, so that we can go back to it later
@@ -7416,7 +7416,7 @@ jQuery.fx.prototype = {
 	// Simple 'hide' function
 	hide: function() {
 		///	<summary>
-		///		Oculta cada uno de los elementos del conjunto de elementos coincidentes si se muestran.
+		///		Hides each of the set of matched elements if they are shown.
 		///	</summary>
 
 		// Remember where we started, so that we can go back to it later
@@ -7430,7 +7430,7 @@ jQuery.fx.prototype = {
 	// Each step of an animation
 	step: function( gotoEnd ) {
 		///	<summary>
-		///		Este método es interno.
+		///		This method is internal.
 		///	</summary>
 		///	<private />
 
@@ -7561,12 +7561,12 @@ function genFx( type, num ) {
 if ( "getBoundingClientRect" in document.documentElement ) {
 	jQuery.fn.offset = function( options ) {
 		///	<summary>
-		///		Establecer las coordenadas actuales de cada elemento del conjunto de elementos coincidentes,
-		///		relativas al documento.
+		///		Set the current coordinates of every element in the set of matched elements,
+		///		relative to the document.
 		///	</summary>
 		///	<param name="options" type="Object">
-		///		Objeto que contiene las propiedades top y left, que son enteros que indican las nuevas
-		///		coordenadas superior e izquierda para los elementos.
+		///		An object containing the properties top and left, which are integers indicating the
+		///		new top and left coordinates for the elements.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -7597,12 +7597,12 @@ if ( "getBoundingClientRect" in document.documentElement ) {
 } else {
 	jQuery.fn.offset = function( options ) {
 		///	<summary>
-		///		Establecer las coordenadas actuales de cada elemento del conjunto de elementos coincidentes,
-		///		relativas al documento.
+		///		Set the current coordinates of every element in the set of matched elements,
+		///		relative to the document.
 		///	</summary>
 		///	<param name="options" type="Object">
-		///		Objeto que contiene las propiedades top y left, que son enteros que indican las nuevas
-		///		coordenadas superior e izquierda para los elementos.
+		///		An object containing the properties top and left, which are integers indicating the
+		///		new top and left coordinates for the elements.
 		///	</param>
 		///	<returns type="jQuery" />
 
@@ -7748,9 +7748,9 @@ jQuery.offset = {
 jQuery.fn.extend({
 	position: function() {
 		///	<summary>
-		///		Obtiene las posiciones superior e izquierda de un elemento con respecto al desplazamiento de su elemento primario.
+		///		Gets the top and left positions of an element relative to its offset parent.
 		///	</summary>
-		///	<returns type="Object">Objeto con dos propiedades Integer, 'top' y 'left'.</returns>
+		///	<returns type="Object">An object with two integer properties, 'top' and 'left'.</returns>
 
 		if ( !this[0] ) {
 			return null;
@@ -7784,7 +7784,7 @@ jQuery.fn.extend({
 
 	offsetParent: function() {
 		///	<summary>
-		///		Este método es interno.
+		///		This method is internal.
 		///	</summary>
 		///	<private />
 
@@ -7805,10 +7805,10 @@ jQuery.each( ["Left", "Top"], function( i, name ) {
 
 	jQuery.fn[ method ] = function(val) {
 		///	<summary>
-		///		Obtiene y opcionalmente establece el desplazamiento izquierdo del primer elemento coincidente.
+		///		Gets and optionally sets the scroll left offset of the first matched element.
 		///	</summary>
-		///	<param name="val" type="Number" integer="true" optional="true">Número positivo que representa el desplazamiento izquierdo deseado.</param>
-		///	<returns type="Number" integer="true">Desplazamiento izquierdo del primer elemento coincidente.</returns>
+		///	<param name="val" type="Number" integer="true" optional="true">A positive number representing the desired scroll left offset.</param>
+		///	<returns type="Number" integer="true">The scroll left offset of the first matched element.</returns>
 
 		var elem = this[0], win;
 		
@@ -7849,10 +7849,10 @@ jQuery.each( ["Left", "Top"], function( i, name ) {
 
 	jQuery.fn[ method ] = function(val) {
 		///	<summary>
-		///		Obtiene y opcionalmente establece el desplazamiento superior del primer elemento coincidente.
+		///		Gets and optionally sets the scroll top offset of the first matched element.
 		///	</summary>
-		///	<param name="val" type="Number" integer="true" optional="true">Número positivo que representa el desplazamiento superior deseado.</param>
-		///	<returns type="Number" integer="true">Desplazamiento superior del primer elemento coincidente.</returns>
+		///	<param name="val" type="Number" integer="true" optional="true">A positive number representing the desired scroll top offset.</param>
+		///	<returns type="Number" integer="true">The scroll top offset of the first matched element.</returns>
 
 		var elem = this[0], win;
 		
@@ -7903,9 +7903,9 @@ jQuery.each([ "Height" ], function( i, name ) {
 	// innerHeight and innerWidth
 	jQuery.fn["inner" + name] = function() {
 		///	<summary>
-		///		Obtiene el alto interior del primer elemento coincidente, sin incluir el borde pero sí el espaciado interno.
+		///		Gets the inner height of the first matched element, excluding border but including padding.
 		///	</summary>
-		///	<returns type="Number" integer="true">Alto exterior del primer elemento coincidente.</returns>
+		///	<returns type="Number" integer="true">The outer height of the first matched element.</returns>
 
 		return this[0] ?
 			jQuery.css( this[0], type, false, "padding" ) :
@@ -7915,10 +7915,10 @@ jQuery.each([ "Height" ], function( i, name ) {
 	// outerHeight and outerWidth
 	jQuery.fn["outer" + name] = function( margin ) {
 		///	<summary>
-		///		Obtiene el alto exterior del primer elemento coincidente, sin incluir el borde pero sí el espaciado interno de forma predeterminada.
+		///		Gets the outer height of the first matched element, including border and padding by default.
 		///	</summary>
-		///	<param name="margins" type="Map">Conjunto de pares clave-valor que especifican las opciones del método.</param>
-		///	<returns type="Number" integer="true">Alto exterior del primer elemento coincidente.</returns>
+		///	<param name="margins" type="Map">A set of key/value pairs that specify the options for the method.</param>
+		///	<returns type="Number" integer="true">The outer height of the first matched element.</returns>
 
 		return this[0] ?
 			jQuery.css( this[0], type, false, margin ? "margin" : "border" ) :
@@ -7927,14 +7927,14 @@ jQuery.each([ "Height" ], function( i, name ) {
 
 	jQuery.fn[ type ] = function( size ) {
 		///	<summary>
-		///		Establece el alto CSS de cada elemento coincidente. Si no se específico
-		///		ninguna unidad explícita (como 'em' o '%'), se agrega &quot;px&quot; al ancho. Si no se especifica ningún parámetro, obtiene
-		///		el alto en píxeles actual calculado del primer elemento coincidente.
-		///		Parte de CSS
+		///		Set the CSS height of every matched element. If no explicit unit
+		///		was specified (like 'em' or '%') then &quot;px&quot; is added to the width.  If no parameter is specified, it gets
+		///		the current computed pixel height of the first matched element.
+		///		Part of CSS
 		///	</summary>
 		///	<returns type="jQuery" type="jQuery" />
 		///	<param name="cssProperty" type="String">
-		///		Establecer la propiedad CSS en el valor especificado. Omitir para obtener el valor del primer elemento coincidente.
+		///		Set the CSS property to the specified value. Omit to get the value of the first matched element.
 		///	</param>
 
 		// Get window width or height
@@ -7983,9 +7983,9 @@ jQuery.each([ "Width" ], function( i, name ) {
 	// innerHeight and innerWidth
 	jQuery.fn["inner" + name] = function() {
 		///	<summary>
-		///		Obtiene el ancho interior del primer elemento coincidente, sin incluir el borde pero sí el espaciado interno.
+		///		Gets the inner width of the first matched element, excluding border but including padding.
 		///	</summary>
-		///	<returns type="Number" integer="true">Ancho exterior del primer elemento coincidente.</returns>
+		///	<returns type="Number" integer="true">The outer width of the first matched element.</returns>
 
 		return this[0] ?
 			jQuery.css( this[0], type, false, "padding" ) :
@@ -7995,10 +7995,10 @@ jQuery.each([ "Width" ], function( i, name ) {
 	// outerHeight and outerWidth
 	jQuery.fn["outer" + name] = function( margin ) {
 		///	<summary>
-		///		Obtiene el ancho exterior del primer elemento coincidente, sin incluir el borde pero sí el espaciado interno de forma predeterminada.
+		///		Gets the outer width of the first matched element, including border and padding by default.
 		///	</summary>
-		///	<param name="margin" type="Map">Conjunto de pares clave-valor que especifican las opciones del método.</param>
-		///	<returns type="Number" integer="true">Ancho exterior del primer elemento coincidente.</returns>
+		///	<param name="margin" type="Map">A set of key/value pairs that specify the options for the method.</param>
+		///	<returns type="Number" integer="true">The outer width of the first matched element.</returns>
 
 		return this[0] ?
 			jQuery.css( this[0], type, false, margin ? "margin" : "border" ) :
@@ -8007,14 +8007,14 @@ jQuery.each([ "Width" ], function( i, name ) {
 
 	jQuery.fn[ type ] = function( size ) {
 		///	<summary>
-		///		Establece el ancho CSS de cada elemento coincidente. Si no se específico
-		///		ninguna unidad explícita (como 'em' o '%'), se agrega &quot;px&quot; al ancho. Si no se especifica ningún parámetro, obtiene
-		///		el ancho en píxeles actual calculado del primer elemento coincidente.
-		///		Parte de CSS
+		///		Set the CSS width of every matched element. If no explicit unit
+		///		was specified (like 'em' or '%') then &quot;px&quot; is added to the width.  If no parameter is specified, it gets
+		///		the current computed pixel width of the first matched element.
+		///		Part of CSS
 		///	</summary>
 		///	<returns type="jQuery" type="jQuery" />
 		///	<param name="cssProperty" type="String">
-		///		Establecer la propiedad CSS en el valor especificado. Omitir para obtener el valor del primer elemento coincidente.
+		///		Set the CSS property to the specified value. Omit to get the value of the first matched element.
 		///	</param>
 
 		// Get window width or height

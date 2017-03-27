@@ -110,6 +110,7 @@
     <Content Include="Control_Usuarios\Restablecer_Password.aspx" />
     <Content Include="Control_Usuarios\Login.aspx" />
     <Content Include="Control_Usuarios\Register.aspx" />
+    <Content Include="CSS\calendar-blue.css" />
     <Content Include="CSS\progressbar.css" />
     <Content Include="CSS\bttn.min.css" />
     <Content Include="CSS\Folder-96.png" />
@@ -122,6 +123,7 @@
     <Content Include="img\AcercaStorage.png" />
     <Content Include="Contactos.aspx" />
     <Content Include="img\alfa.png" />
+    <Content Include="img\calendar-icon.png" />
     <Content Include="img\Contactanos.png" />
     <Content Include="img\contactos.png" />
     <Content Include="img\loading2.gif" />
@@ -133,10 +135,12 @@
     <Content Include="AdministrarUsuario.aspx" />
     <Content Include="Inicio.aspx" />
     <Content Include="js\basic.css" />
+    <Content Include="js\calendar-en.min.js" />
     <Content Include="js\jquery-1.10.2.min.js" />
     <None Include="js\jquery-1.4.1-vsdoc.js" />
     <Content Include="js\jquery-1.4.1.js" />
     <Content Include="js\jquery-1.4.1.min.js" />
+    <Content Include="js\jquery.dynDateTime.min.js" />
     <Content Include="js\jquery.responsivetable.js" />
     <Content Include="js\jquery.responsivetable.min.js" />
     <Content Include="js\main.js" />

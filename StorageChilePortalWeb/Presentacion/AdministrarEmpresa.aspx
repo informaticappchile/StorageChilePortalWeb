@@ -34,9 +34,9 @@
                     <asp:BoundField DataField="NombreEmpresa" HeaderText="Nombre Empresa" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle" />
                     <asp:BoundField DataField="RutEmpresa" HeaderText="Rut"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:BoundField DataField="CorreoEmpresa" HeaderText="Email"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
-                    <asp:BoundField DataField="EstadoAlmacen" HeaderText="Estado Servicio Almacen"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
-                    <asp:BoundField DataField="EstadoBodega" HeaderText="Estado Servicio Bodega"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
-                    <asp:BoundField DataField="Foto" HeaderText="Estado" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle" />
+                    <asp:BoundField DataField="Bodega" HeaderText="Estado Servicio Almacen"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
+                    <asp:BoundField DataField="Almacén" HeaderText="Estado Servicio Bodega"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
+                    <asp:BoundField DataField="Digitalización" HeaderText="Estado Servicio Dig."  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:TemplateField HeaderText="Modificar">
                         <ItemTemplate>
                             <a href="Administrador_Editar_Empresa.aspx?ID=<%#Eval("NombreEmpresa") %>">
@@ -48,7 +48,7 @@
                     <asp:TemplateField HeaderText="Eliminar">
                         <ItemTemplate>
                             <asp:LinkButton ID="Eliminar" runat="server" CssClass="mdl-button mdl-js-button mdl-button--icon"
-                                 OnClientClick="return confirm('¿Está seguro que desea eliminar realmente a este usuario?');" 
+                                 OnClientClick="return confirm('¿Está seguro que desea dar de baja los servicios de esta empresa?');" 
                                 CommandArgument='<%#DataBinder.Eval(Container.DataItem,"NombreEmpresa").ToString().TrimEnd()%>' CommandName="DEL">
                                 <i class="material-icons">delete</i>
                             </asp:LinkButton>        

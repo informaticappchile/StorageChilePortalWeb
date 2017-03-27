@@ -21,6 +21,9 @@ namespace Presentacion
          */
         protected void Page_Load(object sender, EventArgs e)
         {
+            LogicaUsuario lu = new LogicaUsuario();
+            User_EN userAutoLog = lu.BuscarUsuario("admin");
+            Session["user_session_data"] = userAutoLog;
             if (Session["user_session_data"] == null)
             {//Valida que existe usuario logueado.
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -66,8 +69,10 @@ namespace Presentacion
             {
                 if (e.CommandName == "DEL")
                 {
-                    LogicaUsuario lu = new LogicaUsuario();
-                    if (lu.BorrarUsuario(e.CommandArgument.ToString()))
+                    LogicaServicio ls = new LogicaServicio();
+                    LogicaEmpresa le = new LogicaEmpresa();
+
+                    if (ls.bajarServiciosEmpresa(le.BuscarEmpresa(e.CommandArgument.ToString())))
                     {
                         Llenar_GridView();
                         //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -75,7 +80,7 @@ namespace Presentacion
                         //Aperturamos la escritura de Javascript
                         sbMensaje.Append("<script type='text/javascript'>");
                         //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje.AppendFormat("alert('{0}');", "El usuario ha sido eliminado correctamente");
+                        sbMensaje.AppendFormat("alert('{0}');", "La empresa ha sido dada de baja correctamente");
                         //Cerramos el Script
                         sbMensaje.Append("</script>");
                         //Registramos el Script escrito en el StringBuilder
@@ -88,7 +93,7 @@ namespace Presentacion
                         //Aperturamos la escritura de Javascript
                         sbMensaje.Append("<script type='text/javascript'>");
                         //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje.AppendFormat("alert('{0}');", "No se ha podido eliminar al usuario, intente más tarde o consulte a soporte técnico");
+                        sbMensaje.AppendFormat("alert('{0}');", "No se ha podido dar de baja a la empresa, intente más tarde o consulte a soporte técnico");
                         //Cerramos el Script
                         sbMensaje.Append("</script>");
                         //Registramos el Script escrito en el StringBuilder
@@ -100,8 +105,8 @@ namespace Presentacion
 
         private void Llenar_GridView()
         {
-            LogicaEmpresa lu = new LogicaEmpresa();
-            Responsive.DataSource = lu.MostrarEmpresas();
+            LogicaServicio ls = new LogicaServicio();
+            Responsive.DataSource = ls.MostrarServiciosEmpresas();
             Responsive.DataBind();
         }
     }

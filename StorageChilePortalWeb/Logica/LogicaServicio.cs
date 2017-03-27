@@ -5,6 +5,7 @@ using System.Text;
 using Entidades;
 using Persistencia;
 using System.Collections;
+using System.Data;
 
 namespace Logica
 {
@@ -76,6 +77,22 @@ namespace Logica
             a = c.MostrarServicios();
 
             return a;
+        }
+
+        public DataTable MostrarServiciosEmpresas()
+        {
+            DataTable a = new DataTable();
+            Servicio_CAD c = new Servicio_CAD();
+            a = c.MostrarServiciosEmpresas();
+
+            return a;
+        }
+
+        //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
+        public bool bajarServiciosEmpresa(Empresa_EN e)
+        {
+            Servicio_CAD actUser = new Servicio_CAD();
+            return actUser.bajarServiciosEmpresa(e);
         }
 
     }

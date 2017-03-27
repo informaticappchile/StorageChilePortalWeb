@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="Register" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Register_Empresa.aspx.cs" Inherits="Presentacion.Register_Empresa" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -166,10 +168,10 @@
             var switch_label = document.getElementById("Registro_Empresa_ServicioBodega_Label");
             if (switch_status.checked) {
                 switch_label.innerHTML = "Activado";
-                switch_digi.checked = switch_status.checked;
-                onClickEvent_ServicioDigitalizacion_Switch();
+                //switch_digi.click;
             }
-            else {
+            else
+            {
                 switch_label.innerHTML = "No Activado";
             }
         }
@@ -179,7 +181,8 @@
             if (switch_status.checked) {
                 switch_label.innerHTML = "Activado";
             }
-            else {
+            else
+            {
                 switch_label.innerHTML = "No Activado";
             }
         }
