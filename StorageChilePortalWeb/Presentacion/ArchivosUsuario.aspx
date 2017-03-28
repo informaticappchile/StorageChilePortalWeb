@@ -100,6 +100,8 @@
                 <asp:BoundField DataField="RutAsociado" HeaderText="Rut"  />
 
                 <asp:BoundField DataField="ArchivoAsociado" HeaderText="Archivo"  />
+                
+                <asp:BoundField DataField="Ubicacion" HeaderText="Ubicación"  />
 
                 <asp:TemplateField HeaderText="Formato">
                     <ItemTemplate>

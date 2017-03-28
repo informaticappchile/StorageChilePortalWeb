@@ -180,7 +180,8 @@ namespace Persistencia
             try
             {
 
-                string insert = "insert into Archivo(Ruta,IdPersonal,IdUsuario) VALUES ('" + f.CarpetaAsociado + "/"+f.ArchivoAsociado + "'," +f.IDPersonal + "," +f.IDUsuario + ")";
+                string insert = "insert into Archivo(Ruta,IdPersonal,IdUsuario,Ubicacion) VALUES ('" + f.CarpetaAsociado + 
+                    "/"+f.ArchivoAsociado + "'," +f.IDPersonal + "," +f.IDUsuario + ",'"+ f.Ubicacion + "')";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
                 nueva_conexion.EjecutarQuery();

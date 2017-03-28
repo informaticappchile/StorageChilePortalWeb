@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h1 class="mdl-card__title-text">Registrar Nuevo Usuario</h1>
+            <h1 class="mdl-card__title-text">Registrar Nueva Empresa</h1>
         </div> 
         <div class="mdl-card__supporting-text">
             <asp:Label ID="UsernameExistsError_Register" runat="server" Text="Nombre de empresa ya registrado" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>

@@ -72,25 +72,24 @@ namespace Persistencia
          * Se encarga de mostrar el usuario que se quiere mostrar a través de su ID
          */
 
-        public ArrayList MostrarServicioEmpresa(Empresa_EN e)
+        public List<Servicio_EN> MostrarServicioEmpresa(Empresa_EN e)
         {
             Conexion nueva_conexion = new Conexion();
-            nueva_conexion.SetQuery("Select * from Empresa where IdEmpresa=" + e.ID);
+            nueva_conexion.SetQuery("Select s.IdServicio, s.NombreServicio, se.EstadoServicio "+
+                "from Servicio s, ServicioEmpresa se "+ 
+                "where se.IdEmpresa = " + e.ID + " AND se.IdServicio = s.IdServicio");
             DataTable dt = nueva_conexion.QuerySeleccion();
-
-
-            if (dt != null)
+            List<Servicio_EN> ls = new List<Servicio_EN>();
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
-                Empresa_EN empresa = new Empresa_EN();
-                empresa.ID = Convert.ToInt16(dt.Rows[0]["IdEmpresa"]);
-                empresa.Correo = dt.Rows[0]["CorreoEmpresa"].ToString();
-                empresa.NombreEmp = dt.Rows[0]["NombreEmpresa"].ToString();
-                empresa.Rut = dt.Rows[0]["RutEmpresa"].ToString();
-                empresa.LogoEmpresa = (byte[])dt.Rows[0]["Foto"];
-                lista.Add(empresa);
+                Servicio_EN servicio = new Servicio_EN();
+                servicio.ID = Convert.ToInt16(dt.Rows[i]["IdServicio"]);
+                servicio.Nombre = dt.Rows[i]["NombreServicio"].ToString();
+                servicio.Verified = Convert.ToBoolean(dt.Rows[i]["EstadoServicio"].ToString());
+                ls.Add(servicio);
             }
 
-            return lista;
+            return ls;
         }
 
         /**
@@ -200,21 +199,24 @@ namespace Persistencia
          * Se encarga de actualizar el usuario si sufre alguna modificacion en alguno de sus campos
          **/ 
          
-        public void actualizarEmpresa(Empresa_EN e)
+        public void actualizarServicioEmpresa(Empresa_EN e, List<Servicio_EN> ls)
         {
             Conexion nueva_conexion = new Conexion();
 
             try
             {
-                string update = "";
-                
-
-                update = "Update Empresa set CorreoEmpresa = '" + e.Correo + "',NombreEmpresa  = '" + e.NombreEmp +
-                    "',Foto = '" + e.LogoEmpresa + "'' where Empresa.IdEmpresa =" + e.ID;
-                nueva_conexion.SetQuery(update);
+                foreach (Servicio_EN s in ls)
+                {
+                    string update = "";
 
 
-                nueva_conexion.EjecutarQuery();
+                    update = "Update ServicioEmpresa set EstadoServicio = " + s.Verified +
+                        " where ServicioEmpresa.IdEmpresa = " + e.ID + " AND ServicioEmpresa.IdServicio = " + s.ID;
+                    nueva_conexion.SetQuery(update);
+
+
+                    nueva_conexion.EjecutarQuery();
+                }
             }
             catch (Exception ex) { ex.Message.ToString(); }
             finally { nueva_conexion.Cerrar_Conexion(); }

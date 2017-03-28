@@ -43,6 +43,17 @@
                 </li>
                 <li class="mdl-list__item">
                     <span class="mdl-list__item-primary-content">
+                        <i class="material-icons  mdl-list__item-avatar">location_on</i>
+                        <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <asp:TextBox ID="ubicacion_sa_inpu" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
+                            <label class="mdl-textfield__label" for="contenedor_sa_inpu">Ubicación</label>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ubicacion_sa_inpu" ErrorMessage="Introduce el nombre de usuario" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="contenedor_sa_inpu" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                        </span>
+                    </span>
+                </li>
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
                         <i class="material-icons  mdl-list__item-avatar">folder</i>
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <asp:TextBox ID="contenedor_sa_inpu" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>

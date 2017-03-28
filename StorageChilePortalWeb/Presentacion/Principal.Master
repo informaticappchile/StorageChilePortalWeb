@@ -80,6 +80,9 @@
                         <asp:HyperLink ID="Link_Arcivos_Usuario" runat="server" NavigateUrl="~/BusquedaUsuario.aspx" CssClass="mdl-navigation__link" Visible="false">
                             <i class="material-icons">account_circle</i> Buscar Usuario
                         </asp:HyperLink>
+                        <asp:HyperLink ID="Link_Administrar_Empresa" runat="server" NavigateUrl="~/AdministrarEmpresa.aspx" CssClass="mdl-navigation__link" Visible="false">
+                            <i class="material-icons">business_center</i> Administrar Empresa
+                        </asp:HyperLink>
                         <asp:HyperLink ID="Link_Registrar_Empresa" runat="server" NavigateUrl="~/Control_Usuarios/Register_Empresa.aspx" CssClass="mdl-navigation__link" Visible="false">
                             <i class="material-icons">domain</i> Registrar Empresa
                         </asp:HyperLink>

@@ -10,222 +10,240 @@
 namespace Presentacion {
     
     
-    public partial class Site1 {
+    public partial class Editar_Empresa {
         
         /// <summary>
-        /// Control head.
+        /// Control Editar_Nombre_Empresa_Span.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Editar_Nombre_Empresa_Span;
         
         /// <summary>
-        /// Control form1.
+        /// Control Editar_Nombre_Empresa.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.TextBox Editar_Nombre_Empresa;
         
         /// <summary>
-        /// Control Link_Inicio.
+        /// Control RequiredFieldValidatorUserName.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Link_Inicio;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorUserName;
         
         /// <summary>
-        /// Control Logo.
+        /// Control RegExUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Logo;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegExUsuario;
         
         /// <summary>
-        /// Control LogoPrincipal.
+        /// Control Editar_Rut_Empresa_Span.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LogoPrincipal;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Editar_Rut_Empresa_Span;
         
         /// <summary>
-        /// Control LbBienvenido.
+        /// Control Editar_Rut_Empresa.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LbBienvenido;
+        protected global::System.Web.UI.WebControls.TextBox Editar_Rut_Empresa;
         
         /// <summary>
-        /// Control LogoEmpresa.
+        /// Control Editar_Email_Empresa_Span.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LogoEmpresa;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Editar_Email_Empresa_Span;
         
         /// <summary>
-        /// Control Busqueda.
+        /// Control Editar_Email_Empresa.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Busqueda;
+        protected global::System.Web.UI.WebControls.TextBox Editar_Email_Empresa;
         
         /// <summary>
-        /// Control Barra_Secundaria.
+        /// Control RequiredFieldValidatorEmail.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Barra_Secundaria;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorEmail;
         
         /// <summary>
-        /// Control HyperLink1.
+        /// Control RegularExpressionValidatorEmail.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidatorEmail;
         
         /// <summary>
-        /// Control HyperLink2.
+        /// Control Editar_Fecha_Resgistro_Span.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Editar_Fecha_Resgistro_Span;
         
         /// <summary>
-        /// Control Link_Login.
+        /// Control Editar_Fecha_Resgistro.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Link_Login;
+        protected global::System.Web.UI.WebControls.TextBox Editar_Fecha_Resgistro;
         
         /// <summary>
-        /// Control Link_Feed.
+        /// Control Editar_Empresa_ServicioAlmacen.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Link_Feed;
+        protected global::System.Web.UI.WebControls.Label Editar_Empresa_ServicioAlmacen;
         
         /// <summary>
-        /// Control Link_MyFiles.
+        /// Control Editar_Empresa_ServicioAlmacen_Switch.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Link_MyFiles;
+        protected global::System.Web.UI.WebControls.CheckBox Editar_Empresa_ServicioAlmacen_Switch;
         
         /// <summary>
-        /// Control Link_Editar_Perfil.
+        /// Control Editar_Empresa_ServicioAlmacen_Label.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Link_Editar_Perfil;
+        protected global::System.Web.UI.WebControls.Label Editar_Empresa_ServicioAlmacen_Label;
         
         /// <summary>
-        /// Control Link_Arcivos_Usuario.
+        /// Control Editar_Empresa_ServicioBodega.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Link_Arcivos_Usuario;
+        protected global::System.Web.UI.WebControls.Label Editar_Empresa_ServicioBodega;
         
         /// <summary>
-        /// Control Link_Administrar_Empresa.
+        /// Control Editar_Empresa_ServicioBodega_Switch.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Link_Administrar_Empresa;
+        protected global::System.Web.UI.WebControls.CheckBox Editar_Empresa_ServicioBodega_Switch;
         
         /// <summary>
-        /// Control Link_Registrar_Empresa.
+        /// Control Editar_Empresa_ServicioBodega_Label.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Link_Registrar_Empresa;
+        protected global::System.Web.UI.WebControls.Label Editar_Empresa_ServicioBodega_Label;
         
         /// <summary>
-        /// Control Link_Registrar_Usuario.
+        /// Control Editar_Empresa_ServicioDigitalizacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Link_Registrar_Usuario;
+        protected global::System.Web.UI.WebControls.Label Editar_Empresa_ServicioDigitalizacion;
         
         /// <summary>
-        /// Control Link_Administrar_Usuarios.
+        /// Control Editar_Empresa_ServicioDigitalizacion_Switch.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Link_Administrar_Usuarios;
+        protected global::System.Web.UI.WebControls.CheckBox Editar_Empresa_ServicioDigitalizacion_Switch;
         
         /// <summary>
-        /// Control Link_Contactos.
+        /// Control Editar_Empresa_ServicioDigitalizacion_Label.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Link_Contactos;
+        protected global::System.Web.UI.WebControls.Label Editar_Empresa_ServicioDigitalizacion_Label;
         
         /// <summary>
-        /// Control Link_Almacen.
+        /// Control FileUpload1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Link_Almacen;
+        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
         
         /// <summary>
-        /// Control Link_Cerrar_Sesion.
+        /// Control preview.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink Link_Cerrar_Sesion;
+        protected global::System.Web.UI.WebControls.Image preview;
         
         /// <summary>
-        /// Control ContentPlaceHolder1.
+        /// Control uplValidator.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator uplValidator;
+        
+        /// <summary>
+        /// Control Editar_Perfil_Guardar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton Editar_Perfil_Guardar;
+        
+        /// <summary>
+        /// Control Editar_Perfil_ID.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Editar_Perfil_ID;
     }
 }

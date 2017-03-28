@@ -55,10 +55,10 @@ namespace Logica
         }
 
         //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
-        public void actualizarEmpresa(Empresa_EN e)
+        public void actualizarServicioEmpresa(Empresa_EN e, List<Servicio_EN> ls)
         {
-            Empresa_CAD actUser = new Empresa_CAD();
-            actUser.actualizarEmpresa(e);
+            Servicio_CAD actUser = new Servicio_CAD();
+            actUser.actualizarServicioEmpresa(e, ls);
         }
 
         public ArrayList MostrarServiciosEmpresas(Empresa_EN e)
@@ -93,6 +93,15 @@ namespace Logica
         {
             Servicio_CAD actUser = new Servicio_CAD();
             return actUser.bajarServiciosEmpresa(e);
+        }
+
+        public List<Servicio_EN> MostrarServicioEmpresa(Empresa_EN e)
+        {
+            List<Servicio_EN> a = new List<Servicio_EN>();
+            Servicio_CAD c = new Servicio_CAD();
+            a = c.MostrarServicioEmpresa(e);
+
+            return a;
         }
 
     }

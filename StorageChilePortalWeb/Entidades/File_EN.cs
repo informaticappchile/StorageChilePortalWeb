@@ -122,5 +122,14 @@ namespace Entidades
             get { return version; }
             set { version = value; }
         }
+
+        //Declaramos el rut asociado del archivo en private
+        private string ubicacion;
+        //Declaramos el rut asociado del archivo en public para poder utilizarlo
+        public string Ubicacion
+        {
+            get { return ubicacion; }
+            set { ubicacion = value; }
+        }
     }
 }

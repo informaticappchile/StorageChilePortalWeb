@@ -20,7 +20,7 @@
     </script>
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h1 class="mdl-card__title-text">Administración de Usuario</h1>
+            <h1 class="mdl-card__title-text">Administración de Empresas</h1>
         </div>
         <br />
         <div>
@@ -39,13 +39,13 @@
                     <asp:BoundField DataField="Digitalización" HeaderText="Estado Servicio Dig."  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:TemplateField HeaderText="Modificar">
                         <ItemTemplate>
-                            <a href="Administrador_Editar_Empresa.aspx?ID=<%#Eval("NombreEmpresa") %>">
+                            <a href="/Control_Usuarios/Editar_Empresa.aspx?ID=<%#Eval("NombreEmpresa") %>">
                                 <i class="material-icons" >update</i>
                             </a>
                         </ItemTemplate>
                         <ItemStyle Width="24" />
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Eliminar">
+                    <asp:TemplateField HeaderText="Eliminar Servicios">
                         <ItemTemplate>
                             <asp:LinkButton ID="Eliminar" runat="server" CssClass="mdl-button mdl-js-button mdl-button--icon"
                                  OnClientClick="return confirm('¿Está seguro que desea dar de baja los servicios de esta empresa?');" 

@@ -157,12 +157,14 @@ namespace Persistencia
 
             try
             {
+                string nombreParam1 = "@foto";
                 string update = "";
                 
 
                 update = "Update Empresa set CorreoEmpresa = '" + e.Correo + "',NombreEmpresa  = '" + e.NombreEmp +
-                    "',Foto = '" + e.LogoEmpresa + "'' where Empresa.IdEmpresa =" + e.ID;
+                    "',Foto = " + nombreParam1 + " where Empresa.IdEmpresa =" + e.ID;
                 nueva_conexion.SetQuery(update);
+                nueva_conexion.addParameter(nombreParam1, e.LogoEmpresa);
 
 
                 nueva_conexion.EjecutarQuery();

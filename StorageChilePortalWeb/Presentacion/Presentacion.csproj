@@ -104,6 +104,7 @@
     <Content Include="Almacen\MenuAlmacen.aspx" />
     <Content Include="BusquedaArchivos.aspx" />
     <Content Include="BusquedaUsuario.aspx" />
+    <Content Include="Control_Usuarios\Editar_Empresa.aspx" />
     <Content Include="Control_Usuarios\ConfirmacionRegistro.aspx" />
     <Content Include="Control_Usuarios\Editar_Perfil.aspx" />
     <Content Include="Control_Usuarios\Register_Empresa.aspx" />
@@ -213,6 +214,13 @@
     </Compile>
     <Compile Include="BusquedaUsuario.aspx.designer.cs">
       <DependentUpon>BusquedaUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Control_Usuarios\Editar_Empresa.aspx.cs">
+      <DependentUpon>Editar_Empresa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Control_Usuarios\Editar_Empresa.aspx.designer.cs">
+      <DependentUpon>Editar_Empresa.aspx</DependentUpon>
     </Compile>
     <Compile Include="Control_Usuarios\ConfirmacionRegistro.aspx.cs">
       <DependentUpon>ConfirmacionRegistro.aspx</DependentUpon>

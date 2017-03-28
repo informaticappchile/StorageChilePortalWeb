@@ -80,6 +80,7 @@ namespace Presentacion
 
                         pe.Nombre = nombre_sa_input.Text;
                         pe.Rut = rut_sa_input.Text;
+                        fe.Ubicacion = ubicacion_sa_inpu.Text;
                         fe.CarpetaAsociado = contenedor_sa_inpu.Text;
                         fe.ArchivoAsociado = uploadFile.FileName;
                         lp.InsertarPersonal(pe);
