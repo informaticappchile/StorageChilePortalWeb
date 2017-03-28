@@ -411,5 +411,24 @@ namespace Persistencia
             finally { nueva_conexion.Cerrar_Conexion(); }
         }
 
+        /**
+         * Se encarga de mostrar el usuario que se quiere mostrar a través de su ID
+         */
+
+        public string miPerfil(User_EN u)
+        {
+            Conexion nueva_conexion = new Conexion();
+            nueva_conexion.SetQuery("Select NombrePerfil from Perfil where IdPerfil=" + u.IdPerfil);
+            DataTable dt = nueva_conexion.QuerySeleccion();
+
+            string nomPerfil = "";
+            if (dt != null)
+            {
+                nomPerfil = dt.Rows[0]["NombrePerfil"].ToString();
+            }
+
+            return nomPerfil;
+        }
+
     }
 }

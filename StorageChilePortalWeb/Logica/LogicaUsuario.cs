@@ -130,5 +130,13 @@ namespace Logica
             return a;
         }
 
+        public string miPerfil(User_EN u)
+        {
+            string miPerfil = "";
+            User_CAD actUser = new User_CAD();
+            miPerfil = actUser.miPerfil(u);
+
+            return miPerfil;
+        }
     }
 }
