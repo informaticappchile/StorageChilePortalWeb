@@ -18,122 +18,92 @@ namespace Entidades
         }
 
         //Declaramos el nombre del user en private
-        private string nombre;
+        private string nombreProveedor;
 
         //Declaramos el nombre del user en public para poder utilizarlo
-        public string Nombre
+        public string NombreProveedor
         {
-            get { return nombre; }
-            set { nombre = value; }
+            get { return nombreProveedor; }
+            set { nombreProveedor = value; }
+        }
+
+        //Declaramos el nombre del user en private
+        private string descripcion;
+
+        //Declaramos el nombre del user en public para poder utilizarlo
+        public string Descripcion
+        {
+            get { return descripcion; }
+            set { descripcion = value; }
         }
 
         //Declaramos el nombre de usuario del user en private
-        private string nombreUsu;
+        private string codProducto;
         //Declaramos el nombre de usuario del user en public para poder utilizarlo
-        public string NombreUsu
+        public string CodProducto
         {
-            get { return nombreUsu; }
-            set { nombreUsu = value; }
+            get { return codProducto; }
+            set { codProducto = value; }
         }
 
         //Declaramos la contraseña del user en private
-        private string contraseña;
+        private int cantMinStock;
 
         //Declaramos la contraseña del user en public para poder utilizarlo
-        public string Contraseña
+        public int CantMinStock
         {
-            get { return contraseña; }
-            set { contraseña = value; }
-        }
-
-        //Declaramos la visibilidad del perfil del user en private
-        private int idPerfil;
-
-        //Declaramos la visibilidad de perfil del user en public para poder utilizarlo
-        public int IdPerfil
-        {
-            get { return idPerfil; }
-            set { idPerfil = value; }
+            get { return cantMinStock; }
+            set { cantMinStock = value; }
         }
 
         //Declaramos el verificado del user en private
-        private string verified;
+        private string grupo;
 
         //Declaramos el verificado del user en public para poder utilizarlo
-        public string Verified
+        public string Grupo
         {
-            get { return verified; }
-            set { verified = value; }
-        }
-
-        //Declaramos la fecha de registro del usuario
-        private DateTime fechaRegistro;
-
-
-        public DateTime FechaRegistro
-        {
-            get { return fechaRegistro; }
-            set { fechaRegistro = value; }
-        }
-
-
-
-        //Declaramos la fecha del último ingreso del usuario
-
-        private DateTime ultimoIngreso;
-        public DateTime UltimoIngreso
-        {
-            get { return ultimoIngreso; }
-            set { ultimoIngreso = value; }
-        }
-
-        //Declaramos la fecha de registro del usuario
-        private DateTime fechaBloqueo;
-
-
-        public DateTime FechaBloqueo
-        {
-            get { return fechaBloqueo; }
-            set { fechaBloqueo = value; }
-        }
-
-        //Declaramos la cantidad de ingresos del usuario al sistema
-
-        private int cantIngreso;
-        public int CantIngreso
-        {
-            get { return cantIngreso; }
-            set { cantIngreso = value; }
-        }
-
-        private int intentos;
-
-        //Declaramos la visibilidad de perfil del user en public para poder utilizarlo
-        public int Intentos
-        {
-            get { return intentos; }
-            set { intentos = value; }
+            get { return grupo; }
+            set { grupo = value; }
         }
 
         //Declaramos el nombre de la empresa del user en private
-        private string nombreEmp;
+        private string unidadMedida;
         //Declaramos el nombre de la empresa del user en public para poder utilizarlo
-        public string NombreEmp
+        public string UnidadMedida
         {
-            get { return nombreEmp; }
-            set { nombreEmp = value; }
+            get { return unidadMedida; }
+            set { unidadMedida = value; }
+        }
+        //Declaramos el id del user en private
+        private int idGrupo;
+
+        //Declaramos el id del user en public para poder utilizarlo
+        public int IdGrupo
+        {
+            get { return idGrupo; }
+            set { idGrupo = value; }
+        }
+        //Declaramos el id del user en private
+        private int idMedidad;
+
+        //Declaramos el id del user en public para poder utilizarlo
+        public int IdMedidad
+        {
+            get { return idMedidad; }
+            set { idMedidad = value; }
         }
 
         //Declaramos el constructor de la clase User_EN
-        public User_EN()
+        public Producto_EN()
         {
             id = 0;
-            nombre = "";
-            nombreUsu = "";
-            correo = "";
-            contraseña = "";
-            idPerfil = 0;
-            verified = "";
+            descripcion = "";
+            codProducto = "";
+            grupo = "";
+            cantMinStock = 0;
+            unidadMedida = "";
+            idMedidad = 0;
+            idGrupo = 0;
         }
 
     }
