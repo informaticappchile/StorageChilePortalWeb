@@ -48,6 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Empresa_EN.cs" />
     <Compile Include="Servicio_EN.cs" />
+    <Compile Include="Ciudad_EN.cs" />
     <Compile Include="User_EN.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -43,8 +43,8 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
-            LogicaEmpresa le = new LogicaEmpresa();
-            ArrayList lista = le.MostrarEmpresas();
+            LogicaProveedor le = new LogicaProveedor();
+            ArrayList lista = le.MostrarProveedores();
             if (lista.Count == 0)
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -52,17 +52,27 @@ namespace Presentacion
                 //Aperturamos la escritura de Javascript
                 sbMensaje.Append("<script type='text/javascript'>");
                 //Le indicamos al alert que mensaje va mostrar
-                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene empresas disponibles en el sistema. Por favor registre una.");
+                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene proveedores disponibles en el sistema. Por favor registre uno.");
                 //Cerramos el Script
-                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Control_Usuarios/Register_Empresa.aspx\";");
+                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/RegisterProveedor.aspx\";");
                 sbMensaje.Append("</script>");
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
-            /*DropDownList1.DataSource = lista;
-            DropDownList1.DataTextField = "NombreEmp";
-            DropDownList1.DataValueField = "NombreEmp";
-            DropDownList1.DataBind();*/
+            if (Page.IsPostBack == false)
+            {
+                proveedor_register.DataSource = lista;
+                proveedor_register.DataTextField = "RazonSocial";
+                proveedor_register.DataValueField = "RazonSocial";
+                proveedor_register.DataBind();
+                LogicaProducto lp = new LogicaProducto();
+                lista = lp.MostrarGrupos();
+                grupo_register.DataSource = lista;
+                grupo_register.DataBind();
+                lista = lp.MostrarUnidades();
+                unidad_register.DataSource = lista;
+                unidad_register.DataBind();
+            }
         }
         /* Una vez el usuario ha rellenado todos los campos solicitados en el apartado del registro
          * correctamente, es decir, el email tiene formato de email, las contraseñas coinciden...proceemos a
@@ -72,55 +82,55 @@ namespace Presentacion
         {
             EmailExistsError_Register.Visible = 
             UsernameExistsError_Register.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
-            User_EN busqueda = new User_EN();
-            LogicaUsuario lu = new LogicaUsuario();
-            /*if (lu.BuscarUsuario(user_name_register.Text).NombreUsu != user_name_register.Text ) //Comprobamos que ese nombre de usuario ya este
+            Producto_EN busqueda = new Producto_EN();
+            LogicaProducto lu = new LogicaProducto();
+            if (lu.BuscarProducto(codiogo_producto_register.Text).CodProducto != codiogo_producto_register.Text ) //Comprobamos que ese nombre de usuario ya este
             {
-                if (lu.BuscarUsuario(correo_register.Text).Correo != correo_register.Text) //Comprobamos que ese correo ya este
+                Producto_EN en = new Producto_EN();//Si lo cumple todo, creamos un nuevo usuario
+                en.CodProducto = codiogo_producto_register.Text;//Con su nombre de usuario
+                en.Descripcion = descripcion_register.Text;//Con su correo
+                en.CantMinStock = Convert.ToInt32(cant_min_stock_register.Text);//Con su contrasenya
+                en.IdGrupo = lu.GetIdGrupo(grupo_register.Text);
+                en.IdMedidad = lu.GetIdUnidad(unidad_register.Text);
+                lu.InsertarProducto(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
+                Producto_EN u = lu.BuscarProducto(en.CodProducto);
+                if (validarRegistroProducto(u))
                 {
-                    User_EN en = new User_EN();//Si lo cumple todo, creamos un nuevo usuario
-                    en.NombreUsu = user_name_register.Text;//Con su nombre de usuario
-                    en.Correo = correo_register.Text;//Con su correo
-                    en.Contraseña = password_register1.Text;//Con su contrasenya
-                    lu.InsertarUsuario(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
-                    EnviarCorreoConfirmacion();//Esto enviara un correo de confirmaacion al usuario
-                    User_EN u = lu.BuscarUsuario(en.NombreUsu);
-                    if (validarRegistroUsuario(u))
-                    {
-                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                        StringBuilder sbMensaje = new StringBuilder();
-                        //Aperturamos la escritura de Javascript
-                        sbMensaje.Append("<script type='text/javascript'>");
-                        //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje.AppendFormat("alert('{0}');", "Se ha registrado al usuario: "+ en.NombreUsu);
-                        //Cerramos el Script
-                        sbMensaje.Append("</script>");
-                        //Registramos el Script escrito en el StringBuilder
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                    }
-                    else
-                    {
-                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                        StringBuilder sbMensaje = new StringBuilder();
-                        //Aperturamos la escritura de Javascript
-                        sbMensaje.Append("<script type='text/javascript'>");
-                        //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje.AppendFormat("alert('{0}');", "Ha ocurrido un error al registrar el usuario, reintente mas tarde o comuníquese con el servicio de soporte.");
-                        //Cerramos el Script
-                        sbMensaje.Append("</script>");
-                        //Registramos el Script escrito en el StringBuilder
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                    }
+                    LogicaProveedor lp = new LogicaProveedor();
+                    u.IdProveedor = lp.BuscarProveedor(proveedor_register.Text).ID;
+                    lu.InsertarProductoProveedor(u);
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Se ha registrado el producto: " + en.Descripcion);
+                    //Cerramos el Script
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                 }
-                else EmailExistsError_Register.Visible = true;
+                else
+                {
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Ha ocurrido un error al registrar el producto, reintente mas tarde o comuníquese con el servicio de soporte.");
+                    //Cerramos el Script
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                }
             }
-            else UsernameExistsError_Register.Visible = true;*/
+            else UsernameExistsError_Register.Visible = true;
 
         }
 
-        private bool validarRegistroUsuario(User_EN u)
+        private bool validarRegistroProducto(Producto_EN u)
         {
-            if (u != null || u.NombreUsu != "")
+            if (u != null || u.CodProducto != "")
             {
                 return true;
             }

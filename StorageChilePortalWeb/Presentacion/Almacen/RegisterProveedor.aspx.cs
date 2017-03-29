@@ -43,26 +43,15 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
-            LogicaEmpresa le = new LogicaEmpresa();
-            ArrayList lista = le.MostrarEmpresas();
-            if (lista.Count == 0)
+            if (Page.IsPostBack == false)
             {
-                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                StringBuilder sbMensaje = new StringBuilder();
-                //Aperturamos la escritura de Javascript
-                sbMensaje.Append("<script type='text/javascript'>");
-                //Le indicamos al alert que mensaje va mostrar
-                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene empresas disponibles en el sistema. Por favor registre una.");
-                //Cerramos el Script
-                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Control_Usuarios/Register_Empresa.aspx\";");
-                sbMensaje.Append("</script>");
-                //Registramos el Script escrito en el StringBuilder
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                LogicaProveedor lp = new LogicaProveedor();
+                ArrayList lista = lp.MostrarCiudades();
+                ciudad_register.DataSource = lista;
+                ciudad_register.DataTextField = "Nombre";
+                ciudad_register.DataValueField = "Nombre";
+                ciudad_register.DataBind();
             }
-            /*DropDownList1.DataSource = lista;
-            DropDownList1.DataTextField = "NombreEmp";
-            DropDownList1.DataValueField = "NombreEmp";
-            DropDownList1.DataBind();*/
         }
 
         /* Una vez el usuario ha rellenado todos los campos solicitados en el apartado del registro
@@ -73,55 +62,54 @@ namespace Presentacion
         {
             EmailExistsError_Register.Visible = 
             UsernameExistsError_Register.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
-            User_EN busqueda = new User_EN();
-            LogicaUsuario lu = new LogicaUsuario();
-            /*if (lu.BuscarUsuario(user_name_register.Text).NombreUsu != user_name_register.Text ) //Comprobamos que ese nombre de usuario ya este
+            Proveedor_EN busqueda = new Proveedor_EN();
+            LogicaProveedor lu = new LogicaProveedor();
+            if (lu.BuscarProveedor(razon_social_register.Text).RazonSocial!= razon_social_register.Text ) //Comprobamos que ese nombre de usuario ya este
             {
-                if (lu.BuscarUsuario(correo_register.Text).Correo != correo_register.Text) //Comprobamos que ese correo ya este
+                Proveedor_EN en = new Proveedor_EN();//Si lo cumple todo, creamos un nuevo usuario
+                en.Vendedor = vendedor_name_register.Text;
+                en.RazonSocial = razon_social_register.Text;//Con su nombre de usuario
+                en.Rut = rut_empresa_register.Text;//Con su correo
+                en.Direccion = direccion_register.Text;//Con su contrasenya
+                en.Ciudad = ciudad_register.Text;
+                en.IdCiudad = lu.GetIdCiudad(ciudad_register.Text);
+                en.Fono = fono_register.Text;
+                lu.InsertarProveedor(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
+                Proveedor_EN u = lu.BuscarProveedor(en.RazonSocial);
+                if (validarRegistroProveedor(u))
                 {
-                    User_EN en = new User_EN();//Si lo cumple todo, creamos un nuevo usuario
-                    en.NombreUsu = user_name_register.Text;//Con su nombre de usuario
-                    en.Correo = correo_register.Text;//Con su correo
-                    en.Contraseña = password_register1.Text;//Con su contrasenya
-                    lu.InsertarUsuario(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
-                    EnviarCorreoConfirmacion();//Esto enviara un correo de confirmaacion al usuario
-                    User_EN u = lu.BuscarUsuario(en.NombreUsu);
-                    if (validarRegistroUsuario(u))
-                    {
-                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                        StringBuilder sbMensaje = new StringBuilder();
-                        //Aperturamos la escritura de Javascript
-                        sbMensaje.Append("<script type='text/javascript'>");
-                        //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje.AppendFormat("alert('{0}');", "Se ha registrado al usuario: "+ en.NombreUsu);
-                        //Cerramos el Script
-                        sbMensaje.Append("</script>");
-                        //Registramos el Script escrito en el StringBuilder
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                    }
-                    else
-                    {
-                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                        StringBuilder sbMensaje = new StringBuilder();
-                        //Aperturamos la escritura de Javascript
-                        sbMensaje.Append("<script type='text/javascript'>");
-                        //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje.AppendFormat("alert('{0}');", "Ha ocurrido un error al registrar el usuario, reintente mas tarde o comuníquese con el servicio de soporte.");
-                        //Cerramos el Script
-                        sbMensaje.Append("</script>");
-                        //Registramos el Script escrito en el StringBuilder
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                    }
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Se ha registrado al proveedor: " + en.RazonSocial);
+                    //Cerramos el Script
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                 }
-                else EmailExistsError_Register.Visible = true;
+                else
+                {
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Ha ocurrido un error al registrar al proveedor, reintente mas tarde o comuníquese con el servicio de soporte.");
+                    //Cerramos el Script
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                }
             }
-            else UsernameExistsError_Register.Visible = true;*/
+            else UsernameExistsError_Register.Visible = true;
 
         }
 
-        private bool validarRegistroUsuario(User_EN u)
+        private bool validarRegistroProveedor(Proveedor_EN u)
         {
-            if (u != null || u.NombreUsu != "")
+            if (u != null || u.RazonSocial != "")
             {
                 return true;
             }

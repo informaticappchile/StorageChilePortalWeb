@@ -59,8 +59,8 @@
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <asp:TextBox ID="cant_min_stock_register" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
                             <label class="mdl-textfield__label" for="cant_min_stock_register">Cantidad Mínima de Stock</label>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="cant_min_stock_register" ErrorMessage="Introduce un rut por favor" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Formato de rut no valido. Ejemplo: 11222333-9" ControlToValidate="cant_min_stock_register" ValidationExpression="\b\d{1,8}\-[K|k|0-9]" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="cant_min_stock_register" ErrorMessage="Introduce un número por favor" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="cant_min_stock_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                         </span>
                     </span>
                 </li>
@@ -71,17 +71,6 @@
                                 <asp:DropDownList id="unidad_register" runat="server" CssClass="mdl-textfield__input">
                                 </asp:DropDownList>
                             <label class="mdl-textfield__label" for="unidad_register">Unidad de Medida</label>
-                        </span>
-                    </span>
-                </li>
-                <li class="mdl-list__item">
-                    <span class="mdl-list__item-primary-content">
-                        <i class="material-icons  mdl-list__item-avatar">attach_money</i>
-                        <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <asp:TextBox ID="precio_unitario_register" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
-                            <label class="mdl-textfield__label" for="precio_unitario_register">Precio Unitario</label>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="precio_unitario_register" ErrorMessage="Introduce un rut por favor" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ErrorMessage="Formato de rut no valido. Ejemplo: 11222333-9" ControlToValidate="precio_unitario_register" ValidationExpression="\b\d{1,8}\-[K|k|0-9]" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                         </span>
                     </span>
                 </li>
@@ -96,7 +85,7 @@
                         'callback': function (response) {
                             $.ajax({
                                 type: "POST",
-                                url: "Register.aspx/VerifyCaptcha",
+                                url: "RegisterInventario.aspx/VerifyCaptcha",
                                 data: "{response: '" + response + "'}",
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",

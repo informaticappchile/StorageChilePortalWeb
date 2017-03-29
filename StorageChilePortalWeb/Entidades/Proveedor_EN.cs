@@ -65,6 +65,24 @@ namespace Entidades
             set { ciudad = value; }
         }
 
+        //Declaramos el nombre de la empresa del user en private
+        private int idCiudad;
+        //Declaramos el nombre de la empresa del user en public para poder utilizarlo
+        public int IdCiudad
+        {
+            get { return idCiudad; }
+            set { idCiudad = value; }
+        }
+
+        //Declaramos el nombre de la empresa del user en private
+        private string vendedor;
+        //Declaramos el nombre de la empresa del user en public para poder utilizarlo
+        public string Vendedor
+        {
+            get { return vendedor; }
+            set { vendedor = value; }
+        }
+
         //Declaramos el constructor de la clase User_EN
         public Proveedor_EN()
         {
@@ -73,7 +91,8 @@ namespace Entidades
             direccion = "";
             rut = "";
             fono = "";
-            Ciudad = "";
+            ciudad = "";
+            vendedor = "";
         }
 
     }

@@ -93,6 +93,16 @@ namespace Entidades
             set { idMedidad = value; }
         }
 
+        //Declaramos el id del user en private
+        private int idProveedor;
+
+        //Declaramos el id del user en public para poder utilizarlo
+        public int IdProveedor
+        {
+            get { return idProveedor; }
+            set { idProveedor = value; }
+        }
+
         //Declaramos el constructor de la clase User_EN
         public Producto_EN()
         {
@@ -102,8 +112,10 @@ namespace Entidades
             grupo = "";
             cantMinStock = 0;
             unidadMedida = "";
+            nombreProveedor = "";
             idMedidad = 0;
             idGrupo = 0;
+            idProveedor = 0;
         }
 
     }

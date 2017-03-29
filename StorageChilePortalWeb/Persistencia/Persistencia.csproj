@@ -55,6 +55,7 @@
     <Compile Include="Admin_CAD.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="Comennt_CAD.cs" />
+    <Compile Include="Proveedor_CAD.cs" />
     <Compile Include="Producto_CAD.cs" />
     <Compile Include="Servicio_CAD.cs" />
     <Compile Include="File_CAD.cs" />
