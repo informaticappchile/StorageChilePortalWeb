@@ -15,10 +15,10 @@
                     <span class="mdl-list__item-primary-content">
                         <i class="material-icons  mdl-list__item-avatar">fingerprint</i>
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <asp:TextBox ID="codiogo_producto_register" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
-                            <label class="mdl-textfield__label" for="codiogo_producto_register">Código Producto</label>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidatorUserName" runat="server" ControlToValidate="codiogo_producto_register" ErrorMessage="Introduce el nombre de usuario" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegExUsuario" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="codiogo_producto_register" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                            <asp:TextBox ID="codigo_producto_register" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
+                            <label class="mdl-textfield__label" for="codigo_producto_register">Código Producto</label>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidatorUserName" runat="server" ControlToValidate="codigo_producto_register" ErrorMessage="Introduce el nombre de usuario" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator ID="RegExUsuario" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="codigo_producto_register" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                         </span>
                     </span>
                 </li>
@@ -114,6 +114,7 @@
         </div>
         <div class="mdl-card__actions mdl-card--border">
             <asp:Button ID="Button_Register" runat="server" Text="Registrar" OnClick="Button_Register_Click" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
+            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Almacen/AdministrarProducto.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">ADMINISTRAR</asp:HyperLink>
             <!--<button type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="Button_Register" onclick="Button_Register_Click">
                 <b>Registrar</b>
             </button>-->

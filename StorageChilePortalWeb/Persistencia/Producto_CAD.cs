@@ -67,7 +67,7 @@ namespace Persistencia
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *"+
-                " from Proveedor pr, Productos p, GrupoProducto g, UnidadMedida um, ProveedorProducto pp" +
+                " from Proveedor pr, Producto p, GrupoProducto g, UnidadMedida um, ProveedorProducto pp" +
                 " where p.IdProducto=" + e.ID +"AND g.IdGrupoProducto = p.IdGrupoProducto AND pr.IdProveedor = " + p.ID +
                 " um.IdUnidadMedida = p.IdUnidadMedida AND pr.IdProveedor = pp.IdProveedor AND pp.IdProducto O p.IdProducto");
             DataTable dt = nueva_conexion.QuerySeleccion();
@@ -99,8 +99,8 @@ namespace Persistencia
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    " from Productos p, GrupoProducto gp, UnidadMedida um" + 
-                                    " where p.IdGrupoProduto = gp.IdGrupoProducto AND p.UnidadMedida = um.IdUnidadMedida");
+                                    " from Producto p, GrupoProducto gp, UnidadMedida um" + 
+                                    " where p.IdGrupoProducto = gp.IdGrupoProducto AND p.IdUnidadMedida = um.IdUnidadMedida");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -191,7 +191,8 @@ namespace Persistencia
                 
 
                 update = "Update Producto set Descripcion = '" + e.Descripcion + "',CantMinStock  = " + e.CantMinStock +
-                    " where Producto.IdProducto =" + e.ID;
+                    ",IdGrupoProducto = "+e.IdGrupo +",IdUnidadMedida = " + e.IdMedidad + ",CodProducto = '" + e.CodProducto + "'"+ 
+                    " where Producto.IdProducto = " + e.ID;
                 nueva_conexion.SetQuery(update);
 
 

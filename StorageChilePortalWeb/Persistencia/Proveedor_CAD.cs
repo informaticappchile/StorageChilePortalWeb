@@ -168,7 +168,7 @@ namespace Persistencia
 
                 update = "Update Proveedor set Direccion = '" + e.Direccion + "',IdCiudad  = " + e.IdCiudad +
                     ",RutProveedor='" + e.Rut + "',RazonSocial='" + e.RazonSocial +"',Vendedor='" + e.Vendedor + "',Fono='" + e.Fono + 
-                    " where Proveedor.IdProveedor =" + e.ID;
+                    "' where Proveedor.IdProveedor =" + e.ID;
                 nueva_conexion.SetQuery(update);
 
                 nueva_conexion.EjecutarQuery();

@@ -10,34 +10,16 @@
 namespace Presentacion {
     
     
-    public partial class RegisterInventario {
+    public partial class Editar_Producto {
         
         /// <summary>
-        /// Control UsernameExistsError_Register.
+        /// Control codigo_producto_editar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label UsernameExistsError_Register;
-        
-        /// <summary>
-        /// Control EmailExistsError_Register.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label EmailExistsError_Register;
-        
-        /// <summary>
-        /// Control codigo_producto_register.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox codigo_producto_register;
+        protected global::System.Web.UI.WebControls.TextBox codigo_producto_editar;
         
         /// <summary>
         /// Control RequiredFieldValidatorUserName.
@@ -58,22 +40,22 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegExUsuario;
         
         /// <summary>
-        /// Control grupo_register.
+        /// Control grupo_editar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList grupo_register;
+        protected global::System.Web.UI.WebControls.DropDownList grupo_editar;
         
         /// <summary>
-        /// Control descripcion_register.
+        /// Control descripcion_editar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox descripcion_register;
+        protected global::System.Web.UI.WebControls.TextBox descripcion_editar;
         
         /// <summary>
         /// Control RequiredFieldValidator1.
@@ -94,22 +76,13 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
         
         /// <summary>
-        /// Control proveedor_register.
+        /// Control cant_min_stock_editar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList proveedor_register;
-        
-        /// <summary>
-        /// Control cant_min_stock_register.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox cant_min_stock_register;
+        protected global::System.Web.UI.WebControls.TextBox cant_min_stock_editar;
         
         /// <summary>
         /// Control RequiredFieldValidator2.
@@ -130,48 +103,30 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
         
         /// <summary>
-        /// Control unidad_register.
+        /// Control unidad_editar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList unidad_register;
+        protected global::System.Web.UI.WebControls.DropDownList unidad_editar;
         
         /// <summary>
-        /// Control txtCaptcha.
+        /// Control Editar_Perfil_Guardar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCaptcha;
+        protected global::System.Web.UI.WebControls.LinkButton Editar_Perfil_Guardar;
         
         /// <summary>
-        /// Control rfvCaptcha.
+        /// Control Editar_Perfil_ID.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCaptcha;
-        
-        /// <summary>
-        /// Control Button_Register.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_Register;
-        
-        /// <summary>
-        /// Control HyperLink1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.TextBox Editar_Perfil_ID;
     }
 }

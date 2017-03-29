@@ -84,10 +84,10 @@ namespace Presentacion
             UsernameExistsError_Register.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
             Producto_EN busqueda = new Producto_EN();
             LogicaProducto lu = new LogicaProducto();
-            if (lu.BuscarProducto(codiogo_producto_register.Text).CodProducto != codiogo_producto_register.Text ) //Comprobamos que ese nombre de usuario ya este
+            if (lu.BuscarProducto(codigo_producto_register.Text).CodProducto != codigo_producto_register.Text ) //Comprobamos que ese nombre de usuario ya este
             {
                 Producto_EN en = new Producto_EN();//Si lo cumple todo, creamos un nuevo usuario
-                en.CodProducto = codiogo_producto_register.Text;//Con su nombre de usuario
+                en.CodProducto = codigo_producto_register.Text;//Con su nombre de usuario
                 en.Descripcion = descripcion_register.Text;//Con su correo
                 en.CantMinStock = Convert.ToInt32(cant_min_stock_register.Text);//Con su contrasenya
                 en.IdGrupo = lu.GetIdGrupo(grupo_register.Text);

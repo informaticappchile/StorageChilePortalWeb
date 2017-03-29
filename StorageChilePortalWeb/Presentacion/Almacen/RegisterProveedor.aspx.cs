@@ -29,7 +29,7 @@ namespace Presentacion
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
             User_EN en = (User_EN)Session["user_session_data"];
-            if(en.IdPerfil != 2)
+            if (en.IdPerfil != 2)
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                 StringBuilder sbMensaje = new StringBuilder();
@@ -60,11 +60,11 @@ namespace Presentacion
          */
         protected void Button_Register_Click(object sender, EventArgs e)
         {
-            EmailExistsError_Register.Visible = 
+            EmailExistsError_Register.Visible =
             UsernameExistsError_Register.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
             Proveedor_EN busqueda = new Proveedor_EN();
             LogicaProveedor lu = new LogicaProveedor();
-            if (lu.BuscarProveedor(razon_social_register.Text).RazonSocial!= razon_social_register.Text ) //Comprobamos que ese nombre de usuario ya este
+            if (lu.BuscarProveedor(razon_social_register.Text).RazonSocial != razon_social_register.Text) //Comprobamos que ese nombre de usuario ya este
             {
                 Proveedor_EN en = new Proveedor_EN();//Si lo cumple todo, creamos un nuevo usuario
                 en.Vendedor = vendedor_name_register.Text;
@@ -128,5 +128,6 @@ namespace Presentacion
             string url = "https://www.google.com/recaptcha/api/siteverify?secret=" + ReCaptcha_Secret + "&response=" + response;
             return (new WebClient()).DownloadString(url);
         }
+
     }
 }

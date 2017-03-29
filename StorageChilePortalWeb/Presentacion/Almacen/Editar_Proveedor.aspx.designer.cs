@@ -10,34 +10,16 @@
 namespace Presentacion {
     
     
-    public partial class RegisterProveedor {
+    public partial class Editar_Proveedor {
         
         /// <summary>
-        /// Control UsernameExistsError_Register.
+        /// Control vendedor_name_editar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label UsernameExistsError_Register;
-        
-        /// <summary>
-        /// Control EmailExistsError_Register.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label EmailExistsError_Register;
-        
-        /// <summary>
-        /// Control vendedor_name_register.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox vendedor_name_register;
+        protected global::System.Web.UI.WebControls.TextBox vendedor_name_editar;
         
         /// <summary>
         /// Control RequiredFieldValidatorUserName.
@@ -58,13 +40,13 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegExUsuario;
         
         /// <summary>
-        /// Control razon_social_register.
+        /// Control razon_social_editar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox razon_social_register;
+        protected global::System.Web.UI.WebControls.TextBox razon_social_editar;
         
         /// <summary>
         /// Control RequiredFieldValidator1.
@@ -85,13 +67,13 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
         
         /// <summary>
-        /// Control rut_empresa_register.
+        /// Control rut_empresa_editar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox rut_empresa_register;
+        protected global::System.Web.UI.WebControls.TextBox rut_empresa_editar;
         
         /// <summary>
         /// Control RequiredFieldValidator2.
@@ -112,13 +94,13 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
         
         /// <summary>
-        /// Control direccion_register.
+        /// Control direccion_editar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox direccion_register;
+        protected global::System.Web.UI.WebControls.TextBox direccion_editar;
         
         /// <summary>
         /// Control RequiredFieldValidator3.
@@ -139,22 +121,22 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator3;
         
         /// <summary>
-        /// Control ciudad_register.
+        /// Control ciudad_editar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ciudad_register;
+        protected global::System.Web.UI.WebControls.DropDownList ciudad_editar;
         
         /// <summary>
-        /// Control fono_register.
+        /// Control fono_editar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox fono_register;
+        protected global::System.Web.UI.WebControls.TextBox fono_editar;
         
         /// <summary>
         /// Control RequiredFieldValidator4.
@@ -175,39 +157,21 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator4;
         
         /// <summary>
-        /// Control txtCaptcha.
+        /// Control Editar_Perfil_Guardar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCaptcha;
+        protected global::System.Web.UI.WebControls.LinkButton Editar_Perfil_Guardar;
         
         /// <summary>
-        /// Control rfvCaptcha.
+        /// Control Editar_Perfil_ID.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCaptcha;
-        
-        /// <summary>
-        /// Control Button_Register.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_Register;
-        
-        /// <summary>
-        /// Control HyperLink1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.TextBox Editar_Perfil_ID;
     }
 }
