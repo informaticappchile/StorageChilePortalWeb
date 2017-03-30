@@ -42,11 +42,26 @@ namespace Presentacion
             
         }
 
+        protected void clickCalcular(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void clickIngresarMovimiento(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void clickGuardar(object sender, EventArgs e)
+        {
+
+        }
+
         private void Llenar_GridView()
         {
             LogicaProducto ls = new LogicaProducto();
-            Responsive.DataSource = ls.MostrarProductos();
-            Responsive.DataBind();
+            //Responsive.DataSource = ls.MostrarProductos();
+            //Responsive.DataBind();
         }
     }
 }

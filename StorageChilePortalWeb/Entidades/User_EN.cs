@@ -101,9 +101,7 @@ namespace Entidades
             get { return fechaRegistro; }
             set { fechaRegistro = value; }
         }
-
-
-
+        
         //Declaramos la fecha del último ingreso del usuario
 
         private DateTime ultimoIngreso;
