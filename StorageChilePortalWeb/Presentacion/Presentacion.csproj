@@ -92,6 +92,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdministrarEmpresa.aspx" />
+    <Content Include="Almacen\js\jquery-1.10.2.min.js" />
+    <Content Include="Almacen\js\jquery.responsivetable.js" />
+    <Content Include="Almacen\js\jquery.responsivetable.min.js" />
+    <Content Include="Almacen\Movimientos.aspx" />
     <Content Include="Almacen\AdministrarProducto.aspx" />
     <Content Include="Almacen\AdministrarProveedor.aspx" />
     <Content Include="Almacen\Editar_Producto.aspx" />
@@ -176,6 +180,13 @@
     </Compile>
     <Compile Include="AdministrarEmpresa.aspx.designer.cs">
       <DependentUpon>AdministrarEmpresa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Almacen\Movimientos.aspx.cs">
+      <DependentUpon>Movimientos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Almacen\Movimientos.aspx.designer.cs">
+      <DependentUpon>Movimientos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Almacen\AdministrarProducto.aspx.cs">
       <DependentUpon>AdministrarProducto.aspx</DependentUpon>

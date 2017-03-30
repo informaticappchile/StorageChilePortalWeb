@@ -28,8 +28,8 @@ namespace Persistencia
 
             try
             {
-                string insert = "insert into Producto(Descripcion,CodProducto, CantMinStock, IdGrupoProducto, IdUnidadMedida) VALUES ('"
-                    + e.Descripcion + "','" + e.CodProducto + "'," + e.CantMinStock + "," + e.IdGrupo + "," + e.IdMedidad + ")";
+                string insert = "insert into Producto(Descripcion,CodProducto, CantMinStock, IdGrupoProducto, IdUnidadMedida,Stock) VALUES ('"
+                    + e.Descripcion + "','" + e.CodProducto + "'," + e.CantMinStock + "," + e.IdGrupo + "," + e.IdMedidad + "," + e.Stock +  ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
                 nueva_conexion.EjecutarQuery();
@@ -85,6 +85,7 @@ namespace Persistencia
                 producto.IdGrupo = Convert.ToInt16(dt.Rows[0]["IdGrupoProducto"].ToString());
                 producto.IdMedidad = Convert.ToInt16(dt.Rows[0]["IdUnidadMedida"].ToString());
                 producto.NombreProveedor = dt.Rows[0]["RazonSocial"].ToString();
+                producto.Stock = Convert.ToInt16(dt.Rows[0]["Stock"].ToString());
                 lista.Add(producto);
             }
 
@@ -114,6 +115,7 @@ namespace Persistencia
                 producto.UnidadMedida = dt.Rows[i]["NombreUnidadMedida"].ToString(); ;
                 producto.IdGrupo = Convert.ToInt16(dt.Rows[i]["IdGrupoProducto"].ToString());
                 producto.IdMedidad = Convert.ToInt16(dt.Rows[i]["IdUnidadMedida"].ToString());
+                producto.Stock = Convert.ToInt16(dt.Rows[0]["Stock"].ToString());
                 lista.Add(producto);
 
             }
@@ -169,6 +171,7 @@ namespace Persistencia
                     producto.UnidadMedida = dt.Rows[0]["NombreUnidadMedida"].ToString(); ;
                     producto.IdGrupo = Convert.ToInt16(dt.Rows[0]["IdGrupoProducto"].ToString());
                     producto.IdMedidad = Convert.ToInt16(dt.Rows[0]["IdUnidadMedida"].ToString());
+                    producto.Stock = Convert.ToInt16(dt.Rows[0]["Stock"].ToString());
                 }
             }
             catch (Exception ex) { ex.Message.ToString(); }

@@ -103,6 +103,17 @@ namespace Entidades
             set { idProveedor = value; }
         }
 
+        //Declaramos el id del user en private
+        private int stock;
+
+        //Declaramos el id del user en public para poder utilizarlo
+        public int Stock
+        {
+            get { return stock; }
+            set { stock = value; }
+        }
+
+
         //Declaramos el constructor de la clase User_EN
         public Producto_EN()
         {
@@ -116,6 +127,7 @@ namespace Entidades
             idMedidad = 0;
             idGrupo = 0;
             idProveedor = 0;
+            Stock = 0;
         }
 
     }

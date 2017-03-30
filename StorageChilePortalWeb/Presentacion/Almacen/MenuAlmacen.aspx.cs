@@ -42,15 +42,7 @@ namespace Presentacion
         }
         protected void clickMovimientosInventario(object sender, EventArgs e)
         {
-            //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-            StringBuilder sbMensaje = new StringBuilder();
-            //Aperturamos la escritura de Javascript
-            sbMensaje.Append("<script type='text/javascript'>");
-            //Cerramos el Script
-            sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Control_Usuarios/Login.aspx\";");
-            sbMensaje.Append("</script>");
-            //Registramos el Script escrito en el StringBuilder
-            ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            Response.Redirect("Movimientos.aspx");
         }
         protected void clickPagoProveedores(object sender, EventArgs e)
         {
