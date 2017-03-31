@@ -10,6 +10,7 @@ using System.Net;
 using System.Data.SqlClient;
 using Logica;
 using System.ComponentModel;
+using System.Text;
 
 namespace Presentacion
 {
@@ -124,12 +125,23 @@ namespace Presentacion
                                 } while (byteRead != 0) ;
                                 fileStream.Close();
                                 requestStream.Close();
+                                uploadResponse = (FtpWebResponse)uploadRequest.GetResponse();
+                                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                                StringBuilder sbMensaje = new StringBuilder();
+                                //Aperturamos la escritura de Javascript
+                                sbMensaje.Append("<script type='text/javascript'>");
+                                //Le indicamos al alert que mensaje va mostrar
+                                sbMensaje.AppendFormat("alert('{0}');", "Se ha subido el archivo correctamente");
+                                //Cerramos el Script
+                                sbMensaje.Append("</script>");
+                                //Registramos el Script escrito en el StringBuilder
+                                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                                 //fileStream.Read(buffer, 0, FileLength);
                                 //requestStream.Write(buffer, 0, FileLength);
                                 //requestStream.Close();
                                 //uploadResponse = (FtpWebResponse)uploadRequest.GetResponse();
                                 //uploadFile.SaveAs(MapPath(a));
-                                
+
                             }
                             catch (Exception ex)
                             {
@@ -146,6 +158,16 @@ namespace Presentacion
                                     requestStream.Write(buffer, 0, FileLength);
                                     requestStream.Close();
                                     uploadResponse = (FtpWebResponse)uploadRequest.GetResponse();
+                                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                                    StringBuilder sbMensaje = new StringBuilder();
+                                    //Aperturamos la escritura de Javascript
+                                    sbMensaje.Append("<script type='text/javascript'>");
+                                    //Le indicamos al alert que mensaje va mostrar
+                                    sbMensaje.AppendFormat("alert('{0}');", "Se ha subido el archivo correctamente");
+                                    //Cerramos el Script
+                                    sbMensaje.Append("</script>");
+                                    //Registramos el Script escrito en el StringBuilder
+                                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                                     //uploadFile.SaveAs(MapPath(a));
                                 }
                                 catch (Exception ex1)

@@ -42,6 +42,7 @@ namespace Persistencia
                         archivo.CarpetaAsociado = folder;
                         archivo.NombreAsociado = dt.Rows[i]["NombrePersonal"].ToString();
                         archivo.RutAsociado = dt.Rows[i]["RutPersonal"].ToString();
+                        archivo.Ubicacion = dt.Rows[i]["Ubicacion"].ToString();
                         lista.Add(archivo);
                     }
                     
@@ -90,6 +91,7 @@ namespace Persistencia
                         archivo.CarpetaAsociado = folder;
                         archivo.NombreAsociado = dt.Rows[i]["NombrePersonal"].ToString();
                         archivo.RutAsociado = dt.Rows[i]["RutPersonal"].ToString();
+                        archivo.Ubicacion = dt.Rows[i]["Ubicacion"].ToString();
                         lista.Add(archivo);
                     }
                 }
