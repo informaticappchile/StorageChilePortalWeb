@@ -158,7 +158,7 @@ namespace Persistencia
             {
                 string select = "Select *"+
                     " from Producto p, GrupoProducto gp, UnidadMedida um" +
-                    " where codProducto ='" + busqueda + "' AND p.IdGrupoProducto = gp.IdGrupoProducto AND p.IdUnidadMedida = um.IdUnidadMedida";
+                    " where p.codProducto ='" + busqueda + "' AND p.IdGrupoProducto = gp.IdGrupoProducto AND p.IdUnidadMedida = um.IdUnidadMedida";
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
                 if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
@@ -194,7 +194,7 @@ namespace Persistencia
                 
 
                 update = "Update Producto set Descripcion = '" + e.Descripcion + "',CantMinStock  = " + e.CantMinStock +
-                    ",IdGrupoProducto = "+e.IdGrupo +",IdUnidadMedida = " + e.IdMedidad + ",CodProducto = '" + e.CodProducto + "'"+ 
+                    ",IdGrupoProducto = "+e.IdGrupo +",IdUnidadMedida = " + e.IdMedidad + ",CodProducto = '" + e.CodProducto + "', Stock = " + e.Stock + 
                     " where Producto.IdProducto = " + e.ID;
                 nueva_conexion.SetQuery(update);
 
@@ -284,6 +284,37 @@ namespace Persistencia
             }
 
             return id;
+
+        }
+
+        /**
+         * Se encarga de mostrar todos los usuarios del sistema.
+         */
+
+        public ArrayList MostrarProductosPorProveedor(string razonSocial)
+        {
+            Conexion nueva_conexion = new Conexion();
+            nueva_conexion.SetQuery("Select *" +
+                                    " from Producto p, ProveedorProducto pp, Proveedor pr" +
+                                    " where p.IdProducto = pp.IdProducto AND pp.IdProveedor = pr.IdProveedor AND pr.RazonSocial ='"+
+                                    razonSocial +"'");
+            DataTable dt = nueva_conexion.QuerySeleccion();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Producto_EN producto = new Producto_EN();
+                producto.ID = Convert.ToInt16(dt.Rows[i]["IdProducto"]);
+                producto.Descripcion = dt.Rows[i]["Descripcion"].ToString();
+                producto.CodProducto = dt.Rows[i]["CodProducto"].ToString();
+                producto.CantMinStock = Convert.ToInt16(dt.Rows[i]["CantMinStock"].ToString());
+                producto.IdGrupo = Convert.ToInt16(dt.Rows[i]["IdGrupoProducto"].ToString());
+                producto.IdMedidad = Convert.ToInt16(dt.Rows[i]["IdUnidadMedida"].ToString());
+                producto.Stock = Convert.ToInt16(dt.Rows[i]["Stock"].ToString());
+                lista.Add(producto);
+
+            }
+
+            return lista;
 
         }
 

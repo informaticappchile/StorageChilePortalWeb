@@ -10,7 +10,7 @@
 namespace Presentacion {
     
     
-    public partial class Movimientos {
+    public partial class EditarMovimientos {
         
         /// <summary>
         /// Control NotResponsableError_Register.

@@ -31,8 +31,8 @@ namespace Persistencia
                 string parametro1 = "@fechaMovimiento";
                 string parametro2 = "@fechaDocumento";
 
-                string insert = "insert into Movimiento(Total,Responsable, FechaMovimiento, Area, FechaDocumento, NumeroDocumento, IdDocumento, IdTipoMovimento) VALUES ("
-                    + e.Total + ",'" + e.Responsable + "'," + parametro1 + ",'" + e.Area + "'," + parametro2 + "," + e.NumDocumento + "," + e.IdDocumento + "," + e.IdTipoMovimento + ")";
+                string insert = "insert into Movimiento(IdMovimiento,Total,Responsable, FechaMovimiento, Area, FechaDocumento, NumeroDocumento, IdDocumento, IdTipoMovimiento) VALUES ('"
+                    + e.ID + "'," + e.Total + ",'" + e.Responsable + "'," + parametro1 + ",'" + e.Area + "'," + parametro2 + "," + e.NumDocumento + "," + e.IdDocumento + "," + e.IdTipoMovimiento + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
                 nueva_conexion.addParameter(parametro1,e.FechaMovimiento);
@@ -47,18 +47,20 @@ namespace Persistencia
          * Se encarga de introducir un usuario en la base de datos 
          * 
          */
-        public void InsertarMovimientoProductoProveedor(Movimiento_EN m)
+        public void InsertarMovimientoProductoProveedor(List<Movimiento_EN> lm)
         {
 
             Conexion nueva_conexion = new Conexion();
 
             try
             {
-                string insert = "insert into MovimientoProductoProveedor(IdMovimiento,IdProducto, IdProveedor,PrecioUnitario,Observaciones,CantidadSolicitada) VALUES ("
-                    + m.ID + "," + m.IdProducto + "," + m.IdProveedor + "," + m.PrecioUnitario + ",'" + m.Observaciones + "'," + m.Cantidad + ")";
-                //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
-                nueva_conexion.SetQuery(insert);
-                nueva_conexion.EjecutarQuery();
+                foreach (Movimiento_EN m in lm) {
+                    string insert = "insert into MovimientoProductoProveedor(IdMovimiento,IdProducto, IdProveedor,PrecioUnitario,Observaciones,CantidadSolicitada) VALUES ('"
+                        + m.ID + "'," + m.IdProducto + "," + m.IdProveedor + "," + m.PrecioUnitario + ",'" + m.Observaciones + "'," + m.Cantidad + ")";
+                    //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
+                    nueva_conexion.SetQuery(insert);
+                    nueva_conexion.EjecutarQuery();
+                }
             }
             catch (Exception ex) { ex.Message.ToString(); }
             finally { nueva_conexion.Cerrar_Conexion(); }
@@ -74,14 +76,14 @@ namespace Persistencia
             nueva_conexion.SetQuery("Select *" +
                                     " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr" +
                                     " where m.IdProducto = p.IdProducto AND p.IdProducto = mpp.IdProducto AND" +
-                                    " mpp.IdMovimiento =" + p.ID + "AND pr.IdProveedor =" + p.IdProveedor);
+                                    " mpp.IdMovimiento ='" + p.ID + "' AND pr.IdProveedor =" + p.IdProveedor);
             DataTable dt = nueva_conexion.QuerySeleccion();
 
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 Movimiento_EN movimiento = new Movimiento_EN();
-                movimiento.ID = Convert.ToInt16(dt.Rows[i]["IdMovimiento"]);
+                movimiento.ID = dt.Rows[i]["IdMovimiento"].ToString();
                 movimiento.IdProveedor = Convert.ToInt16(dt.Rows[i]["IdProveedor"].ToString());
                 movimiento.IdTipoMovimiento = Convert.ToInt16(dt.Rows[i]["IdTipoMovimiento"].ToString());
                 movimiento.TipoMovimiento = dt.Rows[i]["TipoMovimiento"].ToString();
@@ -115,7 +117,7 @@ namespace Persistencia
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 Movimiento_EN movimiento = new Movimiento_EN();
-                movimiento.ID = Convert.ToInt16(dt.Rows[i]["IdMovimiento"]);
+                movimiento.ID = dt.Rows[i]["IdMovimiento"].ToString();
                 movimiento.IdProveedor = Convert.ToInt16(dt.Rows[i]["IdProveedor"].ToString());
                 movimiento.IdTipoMovimiento = Convert.ToInt16(dt.Rows[i]["IdTipoMovimiento"].ToString());
                 movimiento.TipoMovimiento = dt.Rows[i]["TipoMovimiento"].ToString();
@@ -136,7 +138,7 @@ namespace Persistencia
         /**
          * Se encarga de borrar el usuario, si existe en la base de datos, a través de su ID
          **/
-        public bool BorrarProducto(int idProducto)
+        public bool BorrarMovimiento(string idMovimiento)
         {
 
             Conexion nueva_conexion = new Conexion();
@@ -144,9 +146,8 @@ namespace Persistencia
             try
             {
                 string delete = "";
-                delete = "Delete from Producto where Producto.IdProducto = " + idProducto;
+                delete = "Delete from Movimiento where Movimiento.IdMovimiento = '" + idMovimiento + "'";
                 nueva_conexion.SetQuery(delete);
-
 
                 nueva_conexion.EjecutarQuery();
                 return true;
@@ -159,41 +160,38 @@ namespace Persistencia
          * Recibe un nombre de usuario o un correo electrónico y devuelve los datos del usuario al que pertenecen.
          * En caso de que no exista tal usuario/correo, devuelve NULL
          */
-        public Producto_EN BuscarProducto(string busqueda)
+        public Movimiento_EN BuscarMovimiento(string busqueda)
         {
-            Producto_EN producto = new Producto_EN();
+            Movimiento_EN movimiento = new Movimiento_EN();
             Conexion nueva_conexion = new Conexion();
             try
             {
                 string select = "Select *"+
-                    " from Producto p, GrupoProducto gp, UnidadMedida um" +
-                    " where codProducto ='" + busqueda + "' AND p.IdGrupoProducto = gp.IdGrupoProducto AND p.IdUnidadMedida = um.IdUnidadMedida";
+                    " from Movimiento" +
+                    " where IdMovimiento ='" + busqueda + "'";
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
                 if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
                 {
-                    producto.ID = Convert.ToInt16(dt.Rows[0]["IdProducto"]);
-                    producto.Descripcion = dt.Rows[0]["Descripcion"].ToString();
-                    producto.CodProducto = dt.Rows[0]["CodProducto"].ToString();
-                    producto.CantMinStock = Convert.ToInt16(dt.Rows[0]["CantMinStock"].ToString());
-                    producto.Grupo = dt.Rows[0]["NombreGrupoProducto"].ToString();
-                    producto.UnidadMedida = dt.Rows[0]["NombreUnidadMedida"].ToString(); ;
-                    producto.IdGrupo = Convert.ToInt16(dt.Rows[0]["IdGrupoProducto"].ToString());
-                    producto.IdMedidad = Convert.ToInt16(dt.Rows[0]["IdUnidadMedida"].ToString());
-                    producto.Stock = Convert.ToInt16(dt.Rows[0]["Stock"].ToString());
+                    movimiento.ID = dt.Rows[0]["IdMovimiento"].ToString();
+                    movimiento.IdTipoMovimiento = Convert.ToInt16(dt.Rows[0]["IdTipoMovimiento"].ToString());
+                    movimiento.IdDocumento = Convert.ToInt16(dt.Rows[0]["IdDocumento"].ToString());
+                    movimiento.Total = Convert.ToInt32(dt.Rows[0]["Total"].ToString());
+                    movimiento.NumDocumento = Convert.ToInt32(dt.Rows[0]["NumeroDocumento"].ToString());
+                    movimiento.Area = dt.Rows[0]["Area"].ToString();
                 }
             }
             catch (Exception ex) { ex.Message.ToString(); }
             finally { nueva_conexion.Cerrar_Conexion(); }
 
-            return producto;
+            return movimiento;
         }
 
         /**
          * Se encarga de actualizar el usuario si sufre alguna modificacion en alguno de sus campos
          **/ 
          
-        public void actualizarProducto(Producto_EN e)
+        public void actualizarMovimiento(Movimiento_EN e)
         {
             Conexion nueva_conexion = new Conexion();
 
@@ -202,9 +200,9 @@ namespace Persistencia
                 string update = "";
                 
 
-                update = "Update Producto set Descripcion = '" + e.Descripcion + "',CantMinStock  = " + e.CantMinStock +
-                    ",IdGrupoProducto = "+e.IdGrupo +",IdUnidadMedida = " + e.IdMedidad + ",CodProducto = '" + e.CodProducto + "'"+ 
-                    " where Producto.IdProducto = " + e.ID;
+                update = "Update Movimiento set Total = " + e.Total + ",NumeroDocumento  = " + e.NumDocumento +
+                    ",FechaDocumento = "+e.NumDocumento +",IdDocumento = " + e.IdDocumento +
+                    " where Movimiento.IdMovimiento = '" + e.ID + "'";
                 nueva_conexion.SetQuery(update);
 
 
@@ -215,19 +213,46 @@ namespace Persistencia
         }
 
         /**
+         * Se encarga de actualizar el usuario si sufre alguna modificacion en alguno de sus campos
+         **/
+
+        public void actualizarMovimientoProductoProveedor(List<Movimiento_EN> lm)
+        {
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+                string update = "";
+
+                foreach (Movimiento_EN e in lm) {
+                    update = "Update MovimientoProductoProveedor set Observaciones = '" + e.Observaciones + "',PrecioUnitario  = " + e.PrecioUnitario +
+                        ",CantidadSolicitada = " + e.Cantidad +
+                        " where MovimientoProductoProveedor.IdMovimiento = '" + e.ID + "' AND MovimientoProductoProveedor.IdProveedor = " + e.IdProveedor +
+                        " And MovimientoProductoProveedor.IdProducto = " + e.IdProducto;
+                    nueva_conexion.SetQuery(update);
+
+                    nueva_conexion.EjecutarQuery();
+                }
+
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+
+        /**
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public ArrayList MostrarGrupos()
+        public ArrayList MostrarDocumentos()
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    " from GrupoProducto");
+                                    " from Documento");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                lista.Add(dt.Rows[i]["NombreGrupoProducto"].ToString());
+                lista.Add(dt.Rows[i]["TipoDocumento"].ToString());
             }
 
             return lista;
@@ -238,16 +263,16 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public ArrayList MostrarUnidades()
+        public ArrayList MostrarTipoMovimientos()
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    " from UnidadMedida");
+                                    " from TipoMovimiento");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                lista.Add(dt.Rows[i]["NombreUnidadMedida"].ToString());
+                lista.Add(dt.Rows[i]["TipoMovimiento"].ToString());
             }
 
             return lista;
@@ -258,17 +283,17 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public int GetIdGrupo(string nombreGrupo)
+        public int GetIdDocumento(string tipoDocumento)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    " from GrupoProducto u" +
-                                    " where u.NombreGrupoProducto ='" + nombreGrupo+"'");
+                                    " from Documento u" +
+                                    " where u.TipoDocumento ='" + tipoDocumento+"'");
             DataTable dt = nueva_conexion.QuerySeleccion();
             int id = 0;
             if (dt != null)
             {
-                id = Convert.ToInt32(dt.Rows[0]["IdGrupoProducto"].ToString());
+                id = Convert.ToInt32(dt.Rows[0]["IdDocumento"].ToString());
             }
 
             return id;
@@ -279,17 +304,17 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public int GetIdUnidad(string nombreUnidad)
+        public int GetIdTipoMovimiento(string tipoMovimiento)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    " from UnidadMedida u" +
-                                    " where u.NombreUnidadMedida ='" + nombreUnidad + "'");
+                                    " from TipoMovimiento u" +
+                                    " where u.TipoMovimiento ='" + tipoMovimiento + "'");
             DataTable dt = nueva_conexion.QuerySeleccion();
             int id = 0;
             if (dt != null)
             {
-                id = Convert.ToInt32(dt.Rows[0]["IdUnidadMedida"].ToString());
+                id = Convert.ToInt32(dt.Rows[0]["IdTipoMovimiento"].ToString());
             }
 
             return id;

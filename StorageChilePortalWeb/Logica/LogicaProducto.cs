@@ -32,6 +32,15 @@ namespace Logica
 
             return a;
         }
+        //Declaramos la funcion mostrar usuario donde llama al cad correspondiente
+        public ArrayList MostrarProductosPorProveedor(string busqueda)
+        {
+            ArrayList a = new ArrayList();
+            Producto_CAD c = new Producto_CAD();
+            a = c.MostrarProductosPorProveedor(busqueda);
+
+            return a;
+        }
 
         //Declaramos la funcion borrar usuario donde llama al cad correspondiente
         public bool BorrarProducto(Producto_EN p)

@@ -8,10 +8,10 @@ namespace Entidades
     public class Movimiento_EN
     {
         //Declaramos el id del user en private
-        private int id;
+        private string id;
 
         //Declaramos el id del user en public para poder utilizarlo
-        public int ID
+        public string ID
         {
             get { return id; }
             set { id = value; }
@@ -175,7 +175,7 @@ namespace Entidades
         //Declaramos el constructor de la clase User_EN
         public Movimiento_EN()
         {
-            id = 0;
+            id = "";
             responsable = "";
             razonSocial = "";
             observaciones = "";

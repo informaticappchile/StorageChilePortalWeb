@@ -92,9 +92,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdministrarEmpresa.aspx" />
+    <Content Include="Almacen\calender.png" />
     <Content Include="Almacen\js\jquery-1.10.2.min.js" />
     <Content Include="Almacen\js\jquery.responsivetable.js" />
     <Content Include="Almacen\js\jquery.responsivetable.min.js" />
+    <Content Include="Almacen\EditarMovimientos.aspx" />
     <Content Include="Almacen\Movimientos.aspx" />
     <Content Include="Almacen\AdministrarProducto.aspx" />
     <Content Include="Almacen\AdministrarProveedor.aspx" />
@@ -132,7 +134,7 @@
     <Content Include="img\AcercaStorage.png" />
     <Content Include="Contactos.aspx" />
     <Content Include="img\alfa.png" />
-    <Content Include="img\calendar-icon.png" />
+    <Content Include="Almacen\img\calendar-icon.png" />
     <Content Include="img\Contactanos.png" />
     <Content Include="img\contactos.png" />
     <Content Include="img\loading2.gif" />
@@ -180,6 +182,13 @@
     </Compile>
     <Compile Include="AdministrarEmpresa.aspx.designer.cs">
       <DependentUpon>AdministrarEmpresa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Almacen\EditarMovimientos.aspx.cs">
+      <DependentUpon>EditarMovimientos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Almacen\EditarMovimientos.aspx.designer.cs">
+      <DependentUpon>EditarMovimientos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Almacen\Movimientos.aspx.cs">
       <DependentUpon>Movimientos.aspx</DependentUpon>
