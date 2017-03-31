@@ -21,9 +21,9 @@ namespace Presentacion
          */
         protected void Page_Load(object sender, EventArgs e)
         {
-            LogicaUsuario lu = new LogicaUsuario();
+            /*LogicaUsuario lu = new LogicaUsuario();
             User_EN userAutoLog = lu.BuscarUsuario("admin");
-            Session["user_session_data"] = userAutoLog;
+            Session["user_session_data"] = userAutoLog;*/
             if (Session["user_session_data"] == null)
             {//Valida que existe usuario logueado.
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
