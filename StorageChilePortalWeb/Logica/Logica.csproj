@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogicaPago.cs" />
     <Compile Include="LogicaMovimiento.cs" />
     <Compile Include="LogicaProveedor.cs" />
     <Compile Include="LogicaProducto.cs" />

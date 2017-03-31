@@ -13,7 +13,7 @@ using MySql.Data.MySqlClient;
 
 namespace Persistencia
 {
-    public class Movimiento_CAD
+    public class Pago_CAD
     {
         public ArrayList lista = new ArrayList();
 
@@ -21,46 +21,21 @@ namespace Persistencia
          * Se encarga de introducir un usuario en la base de datos 
          * 
          */
-        public void InsertarMovimiento(Movimiento_EN e)
+        public void InsertarPago(Pago_EN e)
         {
 
             Conexion nueva_conexion = new Conexion();
 
             try
             {
-                string parametro1 = "@fechaMovimiento";
-                string parametro2 = "@fechaDocumento";
+                string parametro1 = "@fechaPago";
 
-                string insert = "insert into Movimiento(IdMovimiento,Total,Responsable, FechaMovimiento, Area, FechaDocumento, NumeroDocumento, IdDocumento, IdTipoMovimiento) VALUES ('"
-                    + e.ID + "'," + e.Total + ",'" + e.Responsable + "'," + parametro1 + ",'" + e.Area + "'," + parametro2 + "," + e.NumDocumento + "," + e.IdDocumento + "," + e.IdTipoMovimiento + ")";
+                string insert = "insert into Pago(IdPago,EstadoComprobante,FechaComprobante, NumeroCheque, IdProveedor, IdTipoPago) VALUES ('"
+                    + e.ID + "'," + e.EstadoComprobante + "," + parametro1 + "," + e.NumCheque + "," + e.IdProveedor + "," + e.IdTipoPago  + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
-                nueva_conexion.addParameter(parametro1,e.FechaMovimiento);
-                nueva_conexion.addParameter(parametro2, e.FechaDocumento);
+                nueva_conexion.addParameter(parametro1,e.FechaComprobante);
                 nueva_conexion.EjecutarQuery();
-            }
-            catch (Exception ex) { ex.Message.ToString(); }
-            finally { nueva_conexion.Cerrar_Conexion(); }
-        }
-
-        /**
-         * Se encarga de introducir un usuario en la base de datos 
-         * 
-         */
-        public void InsertarMovimientoProductoProveedor(List<Movimiento_EN> lm)
-        {
-
-            Conexion nueva_conexion = new Conexion();
-
-            try
-            {
-                foreach (Movimiento_EN m in lm) {
-                    string insert = "insert into MovimientoProductoProveedor(IdMovimiento,IdProducto, IdProveedor,PrecioUnitario,Observaciones,CantidadSolicitada) VALUES ('"
-                        + m.ID + "'," + m.IdProducto + "," + m.IdProveedor + "," + m.PrecioUnitario + ",'" + m.Observaciones + "'," + m.Cantidad + ")";
-                    //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
-                    nueva_conexion.SetQuery(insert);
-                    nueva_conexion.EjecutarQuery();
-                }
             }
             catch (Exception ex) { ex.Message.ToString(); }
             finally { nueva_conexion.Cerrar_Conexion(); }
@@ -70,13 +45,13 @@ namespace Persistencia
          * Se encarga de mostrar el usuario que se quiere mostrar a través de su ID
          */
 
-        public ArrayList MostrarMovimientoProductoProveedor(Movimiento_EN p)
+        public ArrayList MostrarPagoProveedor(Proveedor_EN p)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
                                     " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr" +
                                     " where m.IdProducto = p.IdProducto AND p.IdProducto = mpp.IdProducto AND" +
-                                    " mpp.IdMovimiento ='" + p.ID + "' AND pr.IdProveedor =" + p.IdProveedor);
+                                    " mpp.IdMovimiento ='" + p.ID + "' AND pr.IdProveedor =" + p.ID);
             DataTable dt = nueva_conexion.QuerySeleccion();
 
 
@@ -104,7 +79,7 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public ArrayList MostrarMovimientosProductosProveedor()
+        public ArrayList MostrarPagos()
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
@@ -160,25 +135,25 @@ namespace Persistencia
          * Recibe un nombre de usuario o un correo electrónico y devuelve los datos del usuario al que pertenecen.
          * En caso de que no exista tal usuario/correo, devuelve NULL
          */
-        public Movimiento_EN BuscarMovimiento(string busqueda)
+        public Pago_EN BuscarPago(string busqueda)
         {
-            Movimiento_EN movimiento = new Movimiento_EN();
+            Pago_EN movimiento = new Pago_EN();
             Conexion nueva_conexion = new Conexion();
             try
             {
                 string select = "Select *"+
-                    " from Movimiento" +
-                    " where IdMovimiento ='" + busqueda + "'";
+                    " from Pago" +
+                    " where IdPago ='" + busqueda + "'";
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
                 if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
                 {
-                    movimiento.ID = dt.Rows[0]["IdMovimiento"].ToString();
-                    movimiento.IdTipoMovimiento = Convert.ToInt16(dt.Rows[0]["IdTipoMovimiento"].ToString());
-                    movimiento.IdDocumento = Convert.ToInt16(dt.Rows[0]["IdDocumento"].ToString());
-                    movimiento.Total = Convert.ToInt32(dt.Rows[0]["Total"].ToString());
-                    movimiento.NumDocumento = Convert.ToInt32(dt.Rows[0]["NumeroDocumento"].ToString());
-                    movimiento.Area = dt.Rows[0]["Area"].ToString();
+                    movimiento.ID = dt.Rows[0]["IdPago"].ToString();
+                    movimiento.FechaComprobante = Convert.ToDateTime(dt.Rows[0]["FechaComprobante"].ToString());
+                    movimiento.IdTipoPago = Convert.ToInt16(dt.Rows[0]["IdTipoPago"].ToString());
+                    movimiento.IdProveedor = Convert.ToInt32(dt.Rows[0]["IdProveedor"].ToString());
+                    movimiento.NumCheque = Convert.ToInt32(dt.Rows[0]["NumeroCheque"].ToString());
+                    movimiento.EstadoComprobante = Convert.ToBoolean(dt.Rows[0]["EstadoComprobante"].ToString());
                 }
             }
             catch (Exception ex) { ex.Message.ToString(); }
@@ -201,8 +176,8 @@ namespace Persistencia
                 
 
                 update = "Update Movimiento set Total = " + e.Total + ",NumeroDocumento  = " + e.NumDocumento +
-                    ",FechaDocumento = "+e.NumDocumento +",IdDocumento = " + e.IdDocumento + ", IdPago='" + e.IdPago +
-                    "' where Movimiento.IdMovimiento = '" + e.ID + "'";
+                    ",FechaDocumento = "+e.NumDocumento +",IdDocumento = " + e.IdDocumento +
+                    " where Movimiento.IdMovimiento = '" + e.ID + "'";
                 nueva_conexion.SetQuery(update);
 
 
@@ -263,16 +238,16 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public ArrayList MostrarTipoMovimientos()
+        public ArrayList MostrarTipoPagos()
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    " from TipoMovimiento");
+                                    " from TipoPago");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                lista.Add(dt.Rows[i]["TipoMovimiento"].ToString());
+                lista.Add(dt.Rows[i]["TipoPago"].ToString());
             }
 
             return lista;
@@ -304,82 +279,20 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public int GetIdTipoMovimiento(string tipoMovimiento)
+        public int GetIdTipoPago(string tipoPago)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    " from TipoMovimiento u" +
-                                    " where u.TipoMovimiento ='" + tipoMovimiento + "'");
+                                    " from TipoPago u" +
+                                    " where u.TipoPago ='" + tipoPago + "'");
             DataTable dt = nueva_conexion.QuerySeleccion();
             int id = 0;
             if (dt != null)
             {
-                id = Convert.ToInt32(dt.Rows[0]["IdTipoMovimiento"].ToString());
+                id = Convert.ToInt32(dt.Rows[0]["IdTipoPago"].ToString());
             }
 
             return id;
-
-        }
-
-        /**
-         * Se encarga de mostrar todos los usuarios del sistema.
-         */
-
-        public ArrayList MostrarMovimientosPorProveedor(string razon)
-        {
-            Conexion nueva_conexion = new Conexion();
-            nueva_conexion.SetQuery("Select *" +
-                                    " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr, TipoMovimiento tm, Documento d" +
-                                    " where p.IdProducto = mpp.IdProducto AND" +
-                                    " mpp.IdMovimiento = m.IdMovimiento AND pr.IdProveedor = mpp.IdProveedor AND" +
-                                    " pr.RazonSocial ='" + razon + "' AND m.IdPago ='" + 0 + "' AND tm.IdTipoMovimiento = m.IdTipoMovimiento" +
-                                    " AND tm.TipoMovimiento ='Compra' AND d.IdDocumento = m.IdDocumento" +
-                                    " group by m.IdMovimiento");
-            DataTable dt = nueva_conexion.QuerySeleccion();
-
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                Movimiento_EN movimiento = new Movimiento_EN();
-                movimiento.ID = dt.Rows[i]["IdMovimiento"].ToString();
-                movimiento.IdProveedor = Convert.ToInt16(dt.Rows[i]["IdProveedor"].ToString());
-                movimiento.IdTipoMovimiento = Convert.ToInt16(dt.Rows[i]["IdTipoMovimiento"].ToString());
-                movimiento.TipoMovimiento = dt.Rows[i]["TipoMovimiento"].ToString();
-                movimiento.RazonSocial = dt.Rows[i]["RazonSocial"].ToString();
-                movimiento.Documento = dt.Rows[i]["TipoDocumento"].ToString();
-                movimiento.NumDocumento = Convert.ToInt32(dt.Rows[i]["NumeroDocumento"].ToString());
-                movimiento.IdDocumento = Convert.ToInt16(dt.Rows[i]["IdDocumento"].ToString());
-                movimiento.Total = Convert.ToInt32(dt.Rows[i]["Total"].ToString());
-                movimiento.Observaciones = dt.Rows[i]["Observaciones"].ToString();
-                movimiento.FechaDocumento = Convert.ToDateTime(dt.Rows[i]["FechaDocumento"].ToString());
-                lista.Add(movimiento);
-
-            }
-
-            return lista;
-
-        }
-
-        /**
-         * Se encarga de mostrar todos los usuarios del sistema.
-         */
-
-        public ArrayList MostrarObservaciones(string razon, string idMovimiento)
-        {
-            Conexion nueva_conexion = new Conexion();
-            nueva_conexion.SetQuery("Select *" +
-                                    " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr, TipoMovimiento tm, Documento d" +
-                                    " where p.IdProducto = mpp.IdProducto AND" +
-                                    " mpp.IdMovimiento = m.IdMovimiento AND pr.IdProveedor = mpp.IdProveedor AND" +
-                                    " pr.RazonSocial ='" + razon + "' AND m.IdPago ='" + 0 + "' AND tm.IdTipoMovimiento = m.IdTipoMovimiento" +
-                                    " AND tm.TipoMovimiento ='Compra' AND d.IdDocumento = m.IdDocumento AND m.IdMovimiento = '" + idMovimiento + "'");
-            DataTable dt = nueva_conexion.QuerySeleccion();
-
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                lista.Add(dt.Rows[i]["Observaciones"].ToString());
-            }
-
-            return lista;
 
         }
 

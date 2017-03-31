@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Admin_EN.cs" />
     <Compile Include="Movimiento_EN.cs" />
+    <Compile Include="Pago_EN.cs" />
     <Compile Include="Proveedor_EN.cs" />
     <Compile Include="Producto_EN.cs" />
     <Compile Include="Personal_EN.cs" />

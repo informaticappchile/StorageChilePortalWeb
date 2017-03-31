@@ -8,14 +8,14 @@ using System.Collections;
 
 namespace Logica
 {
-    public class LogicaMovimiento
+    public class LogicaPago
     {
         //Declaramos la funcion insertar usuario donde llama al cad correspondiente
         
-        public void InsertarMovimiento(Movimiento_EN e)
+        public void InsertarPago(Pago_EN e)
         {
-            Movimiento_CAD userCad = new Movimiento_CAD();
-            userCad.InsertarMovimiento(e);
+            Pago_CAD userCad = new Pago_CAD();
+            userCad.InsertarPago(e);
         }
         public void InsertarMovimientoProductoProveedor(List<Movimiento_EN> e)
         {
@@ -41,11 +41,11 @@ namespace Logica
         }
 
         //Declaramos la funcion buscar usuario donde llama al cad correspondiente
-        public Movimiento_EN BuscarMovimiento(string producto)
+        public Pago_EN BuscarPago(string producto)
         {
-            Movimiento_CAD busqueda = new Movimiento_CAD();
-            Movimiento_EN movimientoBuscado = busqueda.BuscarMovimiento(producto);
-            return movimientoBuscado;
+            Pago_CAD busqueda = new Pago_CAD();
+            Pago_EN pagoBuscado = busqueda.BuscarPago(producto);
+            return pagoBuscado;
         }
 
         //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
@@ -70,11 +70,11 @@ namespace Logica
 
             return a;
         }
-        public ArrayList MostrarTipoMovimientos()
+        public ArrayList MostrarTipoPagos()
         {
             ArrayList a = new ArrayList();
-            Movimiento_CAD c = new Movimiento_CAD();
-            a = c.MostrarTipoMovimientos();
+            Pago_CAD c = new Pago_CAD();
+            a = c.MostrarTipoPagos();
 
             return a;
         }
@@ -88,29 +88,13 @@ namespace Logica
             return id;
         }
 
-        public int GetIdTipoMovimiento(string nombreTipoMovimiento)
+        public int GetIdTipoPago(string nombreTipoPago)
         {
             int id = 0;
-            Movimiento_CAD c = new Movimiento_CAD();
-            id = c.GetIdTipoMovimiento(nombreTipoMovimiento);
+            Pago_CAD c = new Pago_CAD();
+            id = c.GetIdTipoPago(nombreTipoPago);
 
             return id;
-        }
-        public ArrayList MostrarMovimientosPorProveedor(string razon)
-        {
-            ArrayList a = new ArrayList();
-            Movimiento_CAD c = new Movimiento_CAD();
-            a = c.MostrarMovimientosPorProveedor(razon);
-
-            return a;
-        }
-        public ArrayList MostrarObservaciones(string razon, string ID)
-        {
-            ArrayList a = new ArrayList();
-            Movimiento_CAD c = new Movimiento_CAD();
-            a = c.MostrarObservaciones(razon, ID);
-
-            return a;
         }
 
     }

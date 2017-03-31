@@ -83,6 +83,7 @@ namespace Entidades
             get { return idTipoMovimiento; }
             set { idTipoMovimiento = value; }
         }
+
         //Declaramos el id del user en private
         private int idDocumento;
 
@@ -91,6 +92,16 @@ namespace Entidades
         {
             get { return idDocumento; }
             set { idDocumento = value; }
+        }
+
+        //Declaramos el id del user en private
+        private string idPago;
+
+        //Declaramos el id del user en public para poder utilizarlo
+        public string IdPago
+        {
+            get { return idPago; }
+            set { idPago = value; }
         }
 
         //Declaramos el id del user en private
@@ -188,6 +199,7 @@ namespace Entidades
             idProveedor = 0;
             precioUnitario = 0;
             total = 0;
+            idPago = "0";
             FechaDocumento = DateTime.Now;
             fechaMovimiento = DateTime.Now;
         }

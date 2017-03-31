@@ -15,7 +15,7 @@ using System.Data;
 
 namespace Presentacion
 {
-    
+
     public partial class Movimientos : System.Web.UI.Page
     {
         ArrayList areas = new ArrayList();
@@ -59,7 +59,7 @@ namespace Presentacion
                 tipo_mov_register.DataSource = lista;
                 tipo_mov_register.DataBind();
             }
-            
+
         }
 
         protected void clickCalcular(object sender, EventArgs e)
@@ -68,13 +68,13 @@ namespace Presentacion
             if (Session["dataMovimiento"] != null)
             {
                 DataTable dt = (DataTable)Session["dataMovimiento"];
-                for (int i =0; i < dt.Rows.Count; i++)
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     totalSuma += Convert.ToDouble(dt.Rows[i]["Precio"]) * Convert.ToDouble(dt.Rows[i]["Cantidad"]);
                 }
                 neto_register.Text = totalSuma.ToString();
                 iva_register.Text = (totalSuma * 0.19).ToString();
-                totalSuma = totalSuma*1.19;
+                totalSuma = totalSuma * 1.19;
                 totalSuma += Convert.ToDouble(ila_register.Text);
                 totalSuma += Convert.ToDouble(flete_register.Text);
                 total_register.Text = totalSuma.ToString();
@@ -133,7 +133,7 @@ namespace Presentacion
 
             Movimiento_EN mov = lm.BuscarMovimiento(Id);
 
-            while(mov.ID !="")
+            while (mov.ID != "")
             {
                 Id = GenerarPass(5, 15);
                 mov = lm.BuscarMovimiento(Id);
@@ -145,7 +145,7 @@ namespace Presentacion
 
             mov = lm.BuscarMovimiento(Id);
 
-            if(mov.ID != "")
+            if (mov.ID != "")
             {
                 List<Movimiento_EN> listaMovimientos = new List<Movimiento_EN>();
                 DataTable dt = (DataTable)Session["dataMovimiento"];
@@ -180,6 +180,7 @@ namespace Presentacion
 
                     lp.actualizarProducto(p);
                     aux.ID = m.ID;
+                    aux.IdProveedor = pr.ID;
                     aux.IdProducto = p.ID;
                     aux.PrecioUnitario = Convert.ToInt32(dt.Rows[i]["Precio"].ToString());
                     aux.Observaciones = dt.Rows[i]["Observaciones"].ToString();
@@ -226,11 +227,13 @@ namespace Presentacion
             Responsive.DataBind();
             LogicaProducto lp = new LogicaProducto();
             ArrayList lista = new ArrayList();
-            if (!IsPostBack) {
+            if (!IsPostBack)
+            {
                 lista = (ArrayList)razon_social_register.DataSource;
                 string razon = ((Proveedor_EN)lista[0]).RazonSocial;
                 lista = lp.MostrarProductosPorProveedor(razon);
-            }else
+            }
+            else
             {
                 lista = lp.MostrarProductosPorProveedor(razon_social_register.Text);
             }
@@ -286,7 +289,7 @@ namespace Presentacion
         private void Llenar_GridView()
         {
             DataTable dt = new DataTable();
-            if(Session["dataMovimiento"] == null)
+            if (Session["dataMovimiento"] == null)
             {
                 dt.Columns.Add("CodProducto");
                 dt.Columns.Add("Descripcion");
@@ -317,7 +320,8 @@ namespace Presentacion
                 //enlazas datatable a griedview
                 Responsive.DataSource = dt;
                 Responsive.DataBind();
-            }else
+            }
+            else
             {
                 NotPositiveNumError.Visible = true;
             }
@@ -327,7 +331,8 @@ namespace Presentacion
         {
             LogicaProducto lp = new LogicaProducto();
             ArrayList lista = new ArrayList();
-            switch (caso){
+            switch (caso)
+            {
                 case "Compra":
                     responsable_register.ReadOnly = true;
                     razon_social_register.Enabled = true;
