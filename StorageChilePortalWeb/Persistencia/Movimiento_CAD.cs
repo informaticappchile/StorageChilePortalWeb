@@ -363,6 +363,44 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
+        public ArrayList MostrarMovimientosPorProveedor()
+        {
+            Conexion nueva_conexion = new Conexion();
+            nueva_conexion.SetQuery("Select *" +
+                                    " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr, TipoMovimiento tm, Documento d" +
+                                    " where p.IdProducto = mpp.IdProducto AND" +
+                                    " mpp.IdMovimiento = m.IdMovimiento AND pr.IdProveedor = mpp.IdProveedor" +
+                                    " AND tm.IdTipoMovimiento = m.IdTipoMovimiento" +
+                                    " AND (tm.TipoMovimiento ='Compra' OR tm.TipoMovimiento ='Devolucion') AND d.IdDocumento = m.IdDocumento" +
+                                    " group by m.IdMovimiento");
+            DataTable dt = nueva_conexion.QuerySeleccion();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Movimiento_EN movimiento = new Movimiento_EN();
+                movimiento.ID = dt.Rows[i]["IdMovimiento"].ToString();
+                movimiento.IdProveedor = Convert.ToInt16(dt.Rows[i]["IdProveedor"].ToString());
+                movimiento.IdTipoMovimiento = Convert.ToInt16(dt.Rows[i]["IdTipoMovimiento"].ToString());
+                movimiento.TipoMovimiento = dt.Rows[i]["TipoMovimiento"].ToString();
+                movimiento.RazonSocial = dt.Rows[i]["RazonSocial"].ToString();
+                movimiento.Documento = dt.Rows[i]["TipoDocumento"].ToString();
+                movimiento.NumDocumento = Convert.ToInt32(dt.Rows[i]["NumeroDocumento"].ToString());
+                movimiento.IdDocumento = Convert.ToInt16(dt.Rows[i]["IdDocumento"].ToString());
+                movimiento.Total = Convert.ToInt32(dt.Rows[i]["Total"].ToString());
+                movimiento.Observaciones = dt.Rows[i]["Observaciones"].ToString();
+                movimiento.FechaDocumento = Convert.ToDateTime(dt.Rows[i]["FechaDocumento"].ToString());
+                lista.Add(movimiento);
+
+            }
+
+            return lista;
+
+        }
+
+        /**
+         * Se encarga de mostrar todos los usuarios del sistema.
+         */
+
         public ArrayList MostrarObservaciones(string razon, string idMovimiento)
         {
             Conexion nueva_conexion = new Conexion();

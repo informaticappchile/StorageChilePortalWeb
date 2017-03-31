@@ -92,6 +92,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdministrarEmpresa.aspx" />
+    <Content Include="Almacen\InformeProveedor.aspx" />
+    <Content Include="Almacen\img\Bien.png" />
+    <Content Include="Almacen\img\Mal.png" />
+    <Content Include="Almacen\img\regular.png" />
     <Content Include="Almacen\InformeProducto.aspx" />
     <Content Include="Almacen\calender.png" />
     <Content Include="Almacen\js\jquery-1.10.2.min.js" />
@@ -184,6 +188,13 @@
     </Compile>
     <Compile Include="AdministrarEmpresa.aspx.designer.cs">
       <DependentUpon>AdministrarEmpresa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Almacen\InformeProveedor.aspx.cs">
+      <DependentUpon>InformeProveedor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Almacen\InformeProveedor.aspx.designer.cs">
+      <DependentUpon>InformeProveedor.aspx</DependentUpon>
     </Compile>
     <Compile Include="Almacen\InformeProducto.aspx.cs">
       <DependentUpon>InformeProducto.aspx</DependentUpon>

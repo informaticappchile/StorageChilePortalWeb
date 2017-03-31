@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="InformeProducto.aspx.cs" Inherits="Presentacion.InformeProducto" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="InformeProveedor.aspx.cs" Inherits="Presentacion.InformeProveedor" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -20,31 +20,24 @@
     </script>
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h1 class="mdl-card__title-text">Administración de Productos</h1>
+            <h1 class="mdl-card__title-text">Administración de Proveedores</h1>
         </div>
         <br />
         <div>
             <asp:GridView HorizontalAlign="Center" ID="Responsive" runat="server" ARowStyle-Wrap="false"
             CssClass="mdl-data-table mdl-js-data-table mdl-shadow--2dp" AutoGenerateColumns="false"
-            OnRowDataBound="GridViewMostrarArchivos_RowDataBound">
+                >
                 <EmptyDataTemplate>
                     No se han encontrado datos.
                 </EmptyDataTemplate>
                 <Columns>
-                    <asp:BoundField DataField="Descripcion" HeaderText="Descripción" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle" />
-                    <asp:BoundField DataField="CodProducto" HeaderText="Codigo Producto"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
-                    <asp:BoundField DataField="CantMinStock" HeaderText="Cantidad Minima"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
-                    <asp:BoundField DataField="Grupo" HeaderText="Grupo Producto"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
-                    <asp:BoundField DataField="UnidadMedida" HeaderText="Unidad de Medida"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
-                    <asp:BoundField DataField="Stock" HeaderText="Stock"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
-
-                    
-                    <asp:TemplateField HeaderText="Nivel de Stock">
-                        <ItemTemplate>
-                            <asp:Image ID="icono_fichero" runat="server" CssClass="icono-listado-archvios"/>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-
+                    <asp:BoundField DataField="RazonSocial" HeaderText="Razon Social" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle" />
+                    <asp:BoundField DataField="TipoDoc" HeaderText="Tipo Documento" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
+                    <asp:BoundField DataField="NumDoc" HeaderText="Número Documento" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
+                    <asp:BoundField DataField="FechaDocumento" HeaderText="Fecha Documento" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
+                    <asp:BoundField DataField="Total" HeaderText="Total"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
+                    <asp:BoundField DataField="Observaciones" HeaderText="Observaciones" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
+                    <asp:BoundField DataField="IdMovimiento" HeaderText="IdMovimiento" Visible="false" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                 </Columns>
                 <RowStyle CssClass="mdl-data-table__cell--non-numeric" />
                 <PagerSettings PageButtonCount="4" />
