@@ -113,20 +113,20 @@
         </div>
         <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:1500px;height:750px;overflow:hidden;">
             <div>
-                <img data-u="image" src="Slides/Slide1.png" />
+                <img data-u="image" src="Slides/foto 1.jpg" />
             </div>
             <div>
-                <img data-u="image" src="Slides/Slide2.jpg" />
+                <img data-u="image" src="Slides/foto 2.jpg" />
             </div>
             <a data-u="any" href="http://www.jssor.com" style="display:none">Simple Fade Slideshow</a>
             <div>
-                <img data-u="image" src="Slides/Slide3.jpg"/>
+                <img data-u="image" src="Slides/foto 3.jpg"/>
             </div>
             <div>
-                <img data-u="image" src="Slides/Slide2.jpg"/>
+                <img data-u="image" src="Slides/foto 1.jpg"/>
             </div>
             <div>
-                <img data-u="image" src="Slides/Slide3.jpg"/>
+                <img data-u="image" src="Slides/foto 2.jpg"/>
             </div>
         </div>
         <!-- Bullet Navigator -->
