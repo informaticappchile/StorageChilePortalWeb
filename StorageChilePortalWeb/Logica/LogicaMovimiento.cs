@@ -104,6 +104,14 @@ namespace Logica
 
             return a;
         }
+        public ArrayList MostrarMovimientosPorProveedor()
+        {
+            ArrayList a = new ArrayList();
+            Movimiento_CAD c = new Movimiento_CAD();
+            a = c.MostrarMovimientosPorProveedor();
+
+            return a;
+        }
         public ArrayList MostrarObservaciones(string razon, string ID)
         {
             ArrayList a = new ArrayList();
