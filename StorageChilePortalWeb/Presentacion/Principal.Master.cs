@@ -18,36 +18,33 @@ namespace Presentacion
             User_EN user = (User_EN)Session["user_session_data"];
             if (user != null)
             {
-                if (user.IdPerfil == 1)
-                {
-                    Link_Feed.Visible = false;
-                    Link_MyFiles.Visible = false;
-                    Link_Administrar_Empresa.Visible = true;
-                    Link_Registrar_Empresa.Visible = true;
-                    Link_Registrar_Usuario.Visible = true;
-                    Link_Administrar_Usuarios.Visible = true;
-                    Link_Arcivos_Usuario.Visible = true;
-                    Link_Cerrar_Sesion.Visible = true;
-                    Barra_Secundaria.Visible = false;
-                    LbBienvenido.Text = "Bienvenido: " + user.NombreUsu;
-                    LbBienvenido.Visible = true;
-                    LogoEmpresa.Visible = true;
-                    LogoEmpresa.ImageUrl = "~/logEmpresas/ico-storage.png";
-                }
-                else if (user.IdPerfil == 2)
-                {
-                    Link_Almacen.Visible = true;
-                    Link_Cerrar_Sesion.Visible = true;
-                    Barra_Secundaria.Visible = false;
-                    LbBienvenido.Text = "Bienvenido: " + user.NombreUsu;
-                    LbBienvenido.Visible = true;
-                    LogoEmpresa.Visible = true;
-                    LogicaEmpresa le = new LogicaEmpresa();
-                    Empresa_EN em = le.BuscarEmpresa(user.NombreEmp);
-                    System.Drawing.Image img = byte_a_Image(em.LogoEmpresa);
-                    img.Save(Server.MapPath("~/logEmpresas/") + "logoEmp.png", System.Drawing.Imaging.ImageFormat.Png);
-                    LogoEmpresa.ImageUrl = "~/logEmpresas/logoEmp.png";
-                }
+                Link_Almacen.Visible = true;
+                Link_Cerrar_Sesion.Visible = true;
+                Barra_Secundaria.Visible = false;
+                LbBienvenido.Text = "Bienvenido: " + user.NombreUsu;
+                LbBienvenido.Visible = true;
+                LogoEmpresa.Visible = true;
+                LogicaEmpresa le = new LogicaEmpresa();
+                Empresa_EN em = le.BuscarEmpresa(user.NombreEmp);
+                System.Drawing.Image img = byte_a_Image(em.LogoEmpresa);
+                img.Save(Server.MapPath("~/logEmpresas/") + "logoEmp.png", System.Drawing.Imaging.ImageFormat.Png);
+            }
+            user = (User_EN)Session["user_session_admin"];
+            if (user != null)
+            {
+                Link_Feed.Visible = false;
+                Link_MyFiles.Visible = false;
+                Link_Administrar_Empresa.Visible = true;
+                Link_Registrar_Empresa.Visible = true;
+                Link_Registrar_Usuario.Visible = true;
+                Link_Administrar_Usuarios.Visible = true;
+                Link_Arcivos_Usuario.Visible = true;
+                Link_Cerrar_Sesion.Visible = true;
+                Barra_Secundaria.Visible = false;
+                LbBienvenido.Text = "Bienvenido: " + user.NombreUsu;
+                LbBienvenido.Visible = true;
+                LogoEmpresa.Visible = true;
+                LogoEmpresa.ImageUrl = "~/logEmpresas/ico-storage.png";
             }
         }
 

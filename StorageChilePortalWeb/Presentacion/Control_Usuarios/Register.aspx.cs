@@ -71,11 +71,12 @@ namespace Presentacion
                 MailAddress toAddress = new MailAddress(correo_register.Text);//El destinatario
                 message.From = fromAddress;
                 message.To.Add(toAddress);
-                message.Subject = "Activacion de la cuenta";//El asunto del email
+                message.Subject = "Activación de la cuenta";//El asunto del email
 
                 string userActiviation = Request.Url.GetLeftPart(UriPartial.Authority) + "/Control_Usuarios/ConfirmacionRegistro.aspx?email=" + correo_register.Text;//La direccion url que debe ser recargada para la activacion de la cuenta
 
-                message.Body = "Estimado, " + user_name_register.Text + "<br> Bienvenido al portal wed de Storage Chile.<br>Haga click aquí para confirmar tu cuenta</br> <a href = " + userActiviation + "> click Here </a>";//Donde debe hacer click el nuevo usuario para activarla
+                message.Body = "Estimado, " + user_name_register.Text + "<br> Bienvenido al portal wed de Storage Chile.<br>Haga click aquí para confirmar tu cuenta</br> <a href = " +
+                    userActiviation + "> click Here </a> <br><br>En caso de presentar algún problema, póngase en contacto con nuestro equipo de soporte: informaticapp.soporte@gmail.com";//Donde debe hacer click el nuevo usuario para activarla
                 message.IsBodyHtml = true;//El mensaje esta en html
                 //smtpClient.UseDefaultCredentials = true;
 

@@ -61,7 +61,7 @@ namespace Presentacion
 
                 message.Body = "Estimado " + u.NombreUsu + ",<br> Se ha detectado una serie de intento de ingresos erróneos en tu cuenta con fecha " + u.FechaBloqueo + ".</br>"+
                     "<br> Si haz sido tú, haz click en el siguente enlace </br> <a href = "
-                    + userActiviation + "> click Aquí para restablecer tu cuenta </a>"+ "<br> En el caso contrario contáctese con nuestro equipo de soporte mediante el siguiente correo: aaa@aaa.com</br>";//Donde debe hacer click el nuevo usuario para activarla
+                    + userActiviation + "> click Aquí para restablecer tu cuenta </a>"+ "<br> En el caso contrario contáctese con nuestro equipo de soporte mediante el siguiente correo: informaticapp.soporte@gmail.com</br>";//Donde debe hacer click el nuevo usuario para activarla
                 message.IsBodyHtml = true;//El mensaje esta en html
                 //smtpClient.UseDefaultCredentials = true;
 

@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using Entidades;
 using Logica;
 using System.Text;
+using System.Net.Mail;
 
 namespace Presentacion
 {
@@ -28,6 +29,7 @@ namespace Presentacion
                     u = lu.BuscarUsuario(en.Correo, "Usuario");
                     if (ValidarConfirmacionCorreo(u))
                     {
+                        EnviarCorreoConfirmacion(u);
                         //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                         StringBuilder sbMensaje = new StringBuilder();
                         //Aperturamos la escritura de Javascript
@@ -89,7 +91,44 @@ namespace Presentacion
             else {
                 return false;
             }
-            
+
+        }
+
+        /*
+         * Una vez el usuario se ha introducido con éxito en la base de datos procedemos a 
+         * enviarle el email de confirmacion
+         */
+        protected void EnviarCorreoConfirmacion(User_EN u)
+        {
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");//Creamos el cliente
+            smtpClient.Port = 587;//El puerto
+            MailMessage message = new MailMessage();//Cremos el menaseje que ahora rellenamos
+            try
+            {
+                MailAddress fromAddress = new MailAddress("informaticapp.soporte@gmail.com");//Gmail, creado para el envio de correos
+                MailAddress toAddress = new MailAddress(u.Correo);//El destinatario
+                message.From = fromAddress;
+                message.To.Add(toAddress);
+                message.Subject = "Activación de la cuenta";//El asunto del email
+                
+                message.Body = "Estimado, " + u.NombreUsu + "<br> Bienvenido al portal wed de Storage Chile. Su cuenta se encuenta"+
+                    " activada felicitaciones.<br>Sus datos son: <br> Usuario: " + u.NombreUsu + "<br>Contraseña: " + u.Contraseña +
+                    "<br><br>Como recomendación de seguridad guarde sus datos y elimine este correo o cambie su contraseña por favor.";//Donde debe hacer click el nuevo usuario para activarla
+                message.IsBodyHtml = true;//El mensaje esta en html
+                //smtpClient.UseDefaultCredentials = true;
+
+                smtpClient.Credentials = new System.Net.NetworkCredential("informaticapp.soporte@gmail.com", "InfoChile2625");//Los credenciales del cliente
+                smtpClient.EnableSsl = true;//necesario para el envio
+                smtpClient.Send(message);//Lo enviamos
+                //Response.Write("Correcto email");
+            }
+            catch (Exception ex)
+            {
+                //Response.Write("Incorrecto email");
+                Response.Write(ex.GetBaseException());
+                //Label1.Text = "No se pudo enviar el mensaje!";
+                //e.GetBaseExceptio();
+            }
         }
     }
 }
