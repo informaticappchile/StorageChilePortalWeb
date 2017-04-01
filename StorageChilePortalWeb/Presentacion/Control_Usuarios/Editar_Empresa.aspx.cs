@@ -208,8 +208,8 @@ namespace Presentacion
             InitInputClasses();
             LogicaUsuario lu = new LogicaUsuario();
             LogicaEmpresa le = new LogicaEmpresa();
-            User_EN ad = (User_EN)Session["user_session_data"];
-            if (ad != null && ad.IdPerfil == 1)
+            User_EN ad = (User_EN)Session["user_session_admin"];
+            if (ad != null)
             {
                 if (!Page.IsPostBack)
                 {
@@ -230,7 +230,7 @@ namespace Presentacion
                 //Aperturamos la escritura de Javascript
                 sbMensaje.Append("<script type='text/javascript'>");
                 //Le indicamos al alert que mensaje va mostrar
-                sbMensaje.AppendFormat("alert('{0}');", "Debe iniciar sesión o usted no tiene privilegios para acceder aqui");
+                sbMensaje.AppendFormat("alert('{0}');", "Debe iniciar sesión, usted no tiene privilegios para acceder aqui");
                 //Cerramos el Script
                 sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Control_Usuarios/Login.aspx\";");
                 sbMensaje.Append("</script>");
