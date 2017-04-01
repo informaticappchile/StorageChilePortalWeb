@@ -82,6 +82,16 @@ namespace Entidades
             set { idPerfil = value; }
         }
 
+        //Declaramos la visibilidad del perfil del user en private
+        private int idEmpresa;
+
+        //Declaramos la visibilidad de perfil del user en public para poder utilizarlo
+        public int IdEmpresa
+        {
+            get { return idEmpresa; }
+            set { idEmpresa = value; }
+        }
+
         //Declaramos el verificado del user en private
         private string verified;
 
@@ -158,6 +168,7 @@ namespace Entidades
             contraseña = "";
             idPerfil = 0;
             verified = "";
+            idEmpresa = 0;
         }
 
     }

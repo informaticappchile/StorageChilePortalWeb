@@ -121,7 +121,7 @@
                         'callback': function (response) {
                             $.ajax({
                                 type: "POST",
-                                url: "RegisterEmpresa.aspx/VerifyCaptcha",
+                                url: "Register_Empresa.aspx/VerifyCaptcha",
                                 data: "{response: '" + response + "'}",
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",

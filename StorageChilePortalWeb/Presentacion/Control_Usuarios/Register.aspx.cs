@@ -63,6 +63,10 @@ namespace Presentacion
             DropDownList1.DataTextField = "NombreEmp";
             DropDownList1.DataValueField = "NombreEmp";
             DropDownList1.DataBind();
+            LogicaUsuario lu = new LogicaUsuario();
+            lista = lu.MostrarPerfiles();
+            DropDownList2.DataSource = lista;
+            DropDownList2.DataBind();
         }
 
         /*
@@ -76,7 +80,7 @@ namespace Presentacion
             MailMessage message = new MailMessage();//Cremos el menaseje que ahora rellenamos
             try
             {
-                MailAddress fromAddress = new MailAddress("informaticapp.chile@gmail.com");//Gmail, creado para el envio de correos
+                MailAddress fromAddress = new MailAddress("informaticapp.soporte@gmail.com");//Gmail, creado para el envio de correos
                 MailAddress toAddress = new MailAddress(correo_register.Text);//El destinatario
                 message.From = fromAddress;
                 message.To.Add(toAddress);
@@ -84,7 +88,7 @@ namespace Presentacion
 
                 string userActiviation = Request.Url.GetLeftPart(UriPartial.Authority) + "/Control_Usuarios/ConfirmacionRegistro.aspx?email=" + correo_register.Text;//La direccion url que debe ser recargada para la activacion de la cuenta
 
-                message.Body = "Hi " + user_name_register.Text + "<br> aqui para confirmar tu cuenta</br> <a href = " + userActiviation + "> click Here </a>";//Donde debe hacer click el nuevo usuario para activarla
+                message.Body = "Estimado, " + user_name_register.Text + "<br> Bienvenido al portal wed de Storage Chile.<br>Haga click aquí para confirmar tu cuenta</br> <a href = " + userActiviation + "> click Here </a>";//Donde debe hacer click el nuevo usuario para activarla
                 message.IsBodyHtml = true;//El mensaje esta en html
                 //smtpClient.UseDefaultCredentials = true;
 
@@ -116,10 +120,14 @@ namespace Presentacion
             {
                 if (lu.BuscarUsuario(correo_register.Text).Correo != correo_register.Text) //Comprobamos que ese correo ya este
                 {
+                    LogicaEmpresa le = new LogicaEmpresa();
+                    Empresa_EN em = le.BuscarEmpresa(DropDownList1.Text);
                     User_EN en = new User_EN();//Si lo cumple todo, creamos un nuevo usuario
                     en.NombreUsu = user_name_register.Text;//Con su nombre de usuario
                     en.Correo = correo_register.Text;//Con su correo
                     en.Contraseña = password_register1.Text;//Con su contrasenya
+                    en.IdEmpresa = em.ID;
+                    en.IdPerfil = lu.getIdPerfil(DropDownList2.Text);
                     lu.InsertarUsuario(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
                     EnviarCorreoConfirmacion();//Esto enviara un correo de confirmaacion al usuario
                     User_EN u = lu.BuscarUsuario(en.NombreUsu);

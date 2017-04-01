@@ -138,5 +138,24 @@ namespace Logica
 
             return miPerfil;
         }
+
+        //Declaramos la funcion listar amigos donde llama al cad correspondiente
+        public ArrayList MostrarPerfiles()
+        {
+            ArrayList a = new ArrayList();
+            User_CAD c = new User_CAD();
+            a = c.MostrarPerfiles();
+
+            return a;
+        }
+
+        public int getIdPerfil(string u)
+        {
+            int idPerfil = 0;
+            User_CAD actUser = new User_CAD();
+            idPerfil = actUser.getIdPerfil(u);
+
+            return idPerfil;
+        }
     }
 }

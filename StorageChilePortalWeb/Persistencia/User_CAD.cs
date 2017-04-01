@@ -29,9 +29,9 @@ namespace Persistencia
             try
             {
                 
-                string insert = "insert into Usuario(Email,NombreCompleto,UserName,Password,IdPerfil,Verificado) VALUES ('"
+                string insert = "insert into Usuario(Email,NombreCompleto,UserName,Password,IdPerfil,Verificado,IdEmpresa) VALUES ('"
                     + u.Correo + "','" + u.Nombre + "','" + u.NombreUsu + "','" + u.Contraseña + "'," + 
-                    2 + "," + 0 + ")";
+                    u.IdPerfil + "," + 0 + "," + u.IdEmpresa + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
                 nueva_conexion.EjecutarQuery();
@@ -429,6 +429,48 @@ namespace Persistencia
 
             return nomPerfil;
         }
+
+        /**
+         * Se encarga de mostrar el usuario que se quiere mostrar a través de su ID
+         */
+
+        public ArrayList MostrarPerfiles()
+        {
+            Conexion nueva_conexion = new Conexion();
+            nueva_conexion.SetQuery("Select * from Perfil");
+            DataTable dt = nueva_conexion.QuerySeleccion();
+
+            string nomPerfil = "";
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                nomPerfil = dt.Rows[i]["NombrePerfil"].ToString();
+
+                lista.Add(nomPerfil);
+            }
+
+            return lista;
+        }
+
+
+        /**
+         * Se encarga de mostrar el usuario que se quiere mostrar a través de su ID
+         */
+
+        public int getIdPerfil(string u)
+        {
+            Conexion nueva_conexion = new Conexion();
+            nueva_conexion.SetQuery("Select IdPerfil from Perfil where NombrePerfil='" + u + "'");
+            DataTable dt = nueva_conexion.QuerySeleccion();
+
+            int idPerfil = 0;
+            if (dt != null)
+            {
+                idPerfil = Convert.ToInt32(dt.Rows[0]["IdPerfil"].ToString());
+            }
+
+            return idPerfil;
+        }
+
 
     }
 }

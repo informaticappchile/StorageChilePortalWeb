@@ -68,6 +68,16 @@
                         </span>
                     </span>
                 </li>
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <i class="material-icons  mdl-list__item-avatar">assignment_ind</i>
+                        <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <asp:DropDownList id="DropDownList2" runat="server" CssClass="mdl-textfield__input">
+                                </asp:DropDownList>
+                            <label class="mdl-textfield__label" for="DropDownList2">Perfil</label>
+                        </span>
+                    </span>
+                </li>
             </ul>
             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
             <script type="text/javascript" src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
