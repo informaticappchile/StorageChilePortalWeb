@@ -14,35 +14,23 @@ namespace Presentacion
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["user_session_data"] == null)
+            if (Session["user_session_admin"] == null)
             {//Valida que existe usuario logueado.
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                 StringBuilder sbMensaje = new StringBuilder();
                 //Aperturamos la escritura de Javascript
                 sbMensaje.Append("<script type='text/javascript'>");
                 //Le indicamos al alert que mensaje va mostrar
-                sbMensaje.AppendFormat("alert('{0}');", "Debe iniciar sesión");
+                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene los privilegios para acceder aquí, Debe iniciar sesión");
                 //Cerramos el Script
                 sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Control_Usuarios/Login.aspx\";");
                 sbMensaje.Append("</script>");
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
-            User_EN en = (User_EN)Session["user_session_data"];
-            if(en.IdPerfil != 1)
-            {
-                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                StringBuilder sbMensaje = new StringBuilder();
-                //Aperturamos la escritura de Javascript
-                sbMensaje.Append("<script type='text/javascript'>");
-                //Le indicamos al alert que mensaje va mostrar
-                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene privilegios de administrador para acceder aqui.");
-                //Cerramos el Script
-                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
-                sbMensaje.Append("</script>");
-                //Registramos el Script escrito en el StringBuilder
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-            }
+            User_EN en = (User_EN)Session["user_session_admin"];
+
+            LogicaUsuario lu = new LogicaUsuario();
             LogicaEmpresa le = new LogicaEmpresa();
             ArrayList lista = le.MostrarEmpresas();
             if (lista.Count == 0)
@@ -63,7 +51,6 @@ namespace Presentacion
             DropDownList1.DataTextField = "NombreEmp";
             DropDownList1.DataValueField = "NombreEmp";
             DropDownList1.DataBind();
-            LogicaUsuario lu = new LogicaUsuario();
             lista = lu.MostrarPerfiles();
             DropDownList2.DataSource = lista;
             DropDownList2.DataBind();
@@ -92,7 +79,7 @@ namespace Presentacion
                 message.IsBodyHtml = true;//El mensaje esta en html
                 //smtpClient.UseDefaultCredentials = true;
 
-                smtpClient.Credentials = new System.Net.NetworkCredential("informaticapp.chile@gmail.com", "InfoChile2625");//Los credenciales del cliente
+                smtpClient.Credentials = new System.Net.NetworkCredential("informaticapp.soporte@gmail.com", "InfoChile2625");//Los credenciales del cliente
                 smtpClient.EnableSsl = true;//necesario para el envio
                 smtpClient.Send(message);//Lo enviamos
                 //Response.Write("Correcto email");
@@ -116,9 +103,9 @@ namespace Presentacion
             UsernameExistsError_Register.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
             User_EN busqueda = new User_EN();
             LogicaUsuario lu = new LogicaUsuario();
-            if (lu.BuscarUsuario(user_name_register.Text).NombreUsu != user_name_register.Text ) //Comprobamos que ese nombre de usuario ya este
+            if (lu.BuscarUsuario(user_name_register.Text, "Usuario").NombreUsu != user_name_register.Text ) //Comprobamos que ese nombre de usuario ya este
             {
-                if (lu.BuscarUsuario(correo_register.Text).Correo != correo_register.Text) //Comprobamos que ese correo ya este
+                if (lu.BuscarUsuario(correo_register.Text, "Usuario").Correo != correo_register.Text) //Comprobamos que ese correo ya este
                 {
                     LogicaEmpresa le = new LogicaEmpresa();
                     Empresa_EN em = le.BuscarEmpresa(DropDownList1.Text);
@@ -130,7 +117,7 @@ namespace Presentacion
                     en.IdPerfil = lu.getIdPerfil(DropDownList2.Text);
                     lu.InsertarUsuario(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
                     EnviarCorreoConfirmacion();//Esto enviara un correo de confirmaacion al usuario
-                    User_EN u = lu.BuscarUsuario(en.NombreUsu);
+                    User_EN u = lu.BuscarUsuario(en.NombreUsu, "Usuario");
                     if (validarRegistroUsuario(u))
                     {
                         //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -184,6 +171,25 @@ namespace Presentacion
         {
             string url = "https://www.google.com/recaptcha/api/siteverify?secret=" + ReCaptcha_Secret + "&response=" + response;
             return (new WebClient()).DownloadString(url);
+        }
+
+        private void mensajePermisoUsuarioError(bool verificado)
+        {
+            if (verificado)
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene privilegios de super administrador para acceder aqui.");
+                //Cerramos el Script
+                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+
+            }
         }
     }
 }

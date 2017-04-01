@@ -169,6 +169,8 @@ namespace Entidades
             idPerfil = 0;
             verified = "";
             idEmpresa = 0;
+            fechaBloqueo = DateTime.Now;
+            fechaRegistro = DateTime.Now;
         }
 
     }

@@ -37,10 +37,10 @@ namespace Logica
         }
 
         //Declaramos la funcion buscar usuario donde llama al cad correspondiente
-        public User_EN BuscarUsuario(string usuario)
+        public User_EN BuscarUsuario(string usuario, string tabla)
         {
             User_CAD busqueda = new User_CAD();
-            User_EN usuarioBuscado = busqueda.BuscarUser(usuario);
+            User_EN usuarioBuscado = busqueda.BuscarUser(usuario, tabla);
             return usuarioBuscado;
         }
 
@@ -48,7 +48,7 @@ namespace Logica
         public User_EN BuscarUsuarioAdmin(string usuario)
         {
             User_CAD busqueda = new User_CAD();
-            User_EN usuarioBuscado = busqueda.BuscarUser(usuario);
+            User_EN usuarioBuscado = busqueda.BuscarUserAdmin(usuario);
             return usuarioBuscado;
         }
 

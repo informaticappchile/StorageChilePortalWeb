@@ -13,6 +13,8 @@ namespace Presentacion
         protected void Page_Load(object sender, EventArgs e)
         {
             Session["user_session_data"] = null; //Cuando vas a iniciar sesion, si se habia iniciado sesion, ahora se cierra
+
+            Session["user_session_admin"] = null;
         }
 
         /*
@@ -25,42 +27,17 @@ namespace Presentacion
             UserNotExistsError_Login.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
             User_EN busqueda = new User_EN();
             LogicaUsuario lu = new LogicaUsuario();
-            User_EN usuario = lu.BuscarUsuario(username_login_input.Text);//Buscamos el usuario que introducimos para iniciar sesion
+            User_EN usuario = lu.BuscarUsuario(username_login_input.Text, "Usuario");//Buscamos el usuario que introducimos para iniciar sesion
             if (usuario != null && usuario.NombreUsu != "")
             {
-                if (usuario.Verified == "Verificado")
-                {
-                    if (usuario.Contraseña == password_login_input.Text)
-                    {
-                        Session["user_session_data"] = usuario; //Creamos una sesion del usuario
-                        Response.Redirect("~/Inicio.aspx"); //Vamos a la pagina de nuestros archivos
-                    }
-                    else
-                    {
-                        usuario.Intentos = usuario.Intentos + 1;
-                        lu.establecerIntento(usuario);
-                        if (usuario.Intentos == 3)
-                        {
-                            usuario.FechaBloqueo = DateTime.Now;
-                            usuario.Intentos = 0;
-                            lu.establecerIntento(usuario);
-                            BlockUser_Login.Visible = true;
-                            username_login_input.Enabled = false;
-                            password_login_input.Enabled = false;
-                            lu.bloquearUsuario(usuario);
-                            EnviarCorreoBloqueo(usuario);
-                        }
-                        else
-                        {
-                            WrongPasswordError_Login.Visible = true;
-                            WrongPasswordError_Login.Text = "Contraseña Incorrecta haz realizado " + usuario.Intentos
-                                + " de 3 intento(s). Si no recuerdas tu contraseña haz click en \"¿Olvidó su contraseña?\".";
-                        }
-                    }
-                }
-                else UserNotVerifiedError_Login.Visible = true;
+                ingresoUsuario(usuario, "Usuario");
             }
-            else  UserNotExistsError_Login.Visible = true;
+            else
+            {
+                usuario = lu.BuscarUsuario(username_login_input.Text, "Administrador");//Buscamos el usuario que introducimos para iniciar sesion
+                ingresoUsuario(usuario, "Administrador");
+                UserNotExistsError_Login.Visible = true;
+            }
         }
 
         /*
@@ -74,7 +51,7 @@ namespace Presentacion
             MailMessage message = new MailMessage();//Cremos el menaseje que ahora rellenamos
             try
             {
-                MailAddress fromAddress = new MailAddress("informaticapp.chile@gmail.com");//Gmail, creado para el envio de correos
+                MailAddress fromAddress = new MailAddress("informaticapp.soporte@gmail.com");//Gmail, creado para el envio de correos
                 MailAddress toAddress = new MailAddress(u.Correo);//El destinatario
                 message.From = fromAddress;
                 message.To.Add(toAddress);
@@ -88,7 +65,7 @@ namespace Presentacion
                 message.IsBodyHtml = true;//El mensaje esta en html
                 //smtpClient.UseDefaultCredentials = true;
 
-                smtpClient.Credentials = new System.Net.NetworkCredential("informaticapp.chile@gmail.com", "InfoChile2625");//Los credenciales del cliente
+                smtpClient.Credentials = new System.Net.NetworkCredential("informaticapp.soporte@gmail.com", "InfoChile2625");//Los credenciales del cliente
                 smtpClient.EnableSsl = true;//necesario para el envio
                 smtpClient.Send(message);//Lo enviamos
                 //Response.Write("Correcto email");
@@ -110,6 +87,49 @@ namespace Presentacion
         {
             string url = "https://www.google.com/recaptcha/api/siteverify?secret=" + ReCaptcha_Secret + "&response=" + response;
             return (new WebClient()).DownloadString(url);
+        }
+        private void ingresoUsuario(User_EN usuario, string tabla)
+        {
+            LogicaUsuario lu = new LogicaUsuario();
+            if (usuario.Verified == "Verificado")
+            {
+                if (usuario.Contraseña == password_login_input.Text)
+                {
+                    if (tabla == "Administrador")
+                    {
+                        Session["user_session_admin"] = usuario; //Creamos una sesion del usuario
+                        Response.Redirect("~/Inicio.aspx"); //Vamos a la pagina de nuestros archivos
+                    }
+                    else
+                    {
+                        Session["user_session_data"] = usuario; //Creamos una sesion del usuario
+                        Response.Redirect("~/Inicio.aspx"); //Vamos a la pagina de nuestros archivos
+                    }
+                }
+                else
+                {
+                    usuario.Intentos = usuario.Intentos + 1;
+                    lu.establecerIntento(usuario);
+                    if (usuario.Intentos == 3)
+                    {
+                        usuario.FechaBloqueo = DateTime.Now;
+                        usuario.Intentos = 0;
+                        lu.establecerIntento(usuario);
+                        BlockUser_Login.Visible = true;
+                        username_login_input.Enabled = false;
+                        password_login_input.Enabled = false;
+                        lu.bloquearUsuario(usuario);
+                        EnviarCorreoBloqueo(usuario);
+                    }
+                    else
+                    {
+                        WrongPasswordError_Login.Visible = true;
+                        WrongPasswordError_Login.Text = "Contraseña Incorrecta haz realizado " + usuario.Intentos
+                            + " de 3 intento(s). Si no recuerdas tu contraseña haz click en \"¿Olvidó su contraseña?\".";
+                    }
+                }
+            }
+            else UserNotVerifiedError_Login.Visible = true;
         }
     }
 }

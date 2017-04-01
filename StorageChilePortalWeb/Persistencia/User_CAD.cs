@@ -28,12 +28,14 @@ namespace Persistencia
 
             try
             {
-                
+                string parametro1 = "@fechaRegistro";
                 string insert = "insert into Usuario(Email,NombreCompleto,UserName,Password,IdPerfil,Verificado,IdEmpresa) VALUES ('"
                     + u.Correo + "','" + u.Nombre + "','" + u.NombreUsu + "','" + u.Contraseña + "'," + 
-                    u.IdPerfil + "," + 0 + "," + u.IdEmpresa + ")";
+                    u.IdPerfil + "," + 0 + "," + u.IdEmpresa + parametro1 + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
+                nueva_conexion.addParameter(parametro1, u.FechaRegistro);
+
                 nueva_conexion.EjecutarQuery();
             }
             catch (Exception ex) { ex.Message.ToString(); }
@@ -139,14 +141,21 @@ namespace Persistencia
          * Recibe un nombre de usuario o un correo electrónico y devuelve los datos del usuario al que pertenecen.
          * En caso de que no exista tal usuario/correo, devuelve NULL
          */
-        public User_EN BuscarUser(string busqueda)
+        public User_EN BuscarUser(string busqueda, string tabla)
         {
             User_EN usuario = null;
             Conexion nueva_conexion = new Conexion();
             try
             {
-                string select = "Select * from Usuario, Empresa where (UserName ='" + busqueda + "' or Email = '" + busqueda + 
-                    "') and Empresa.IdEmpresa = Usuario.IdEmpresa";
+                string empresa = "";
+                string condicion = "";
+                if (tabla != "Administrador")
+                {
+                    empresa = ", Empresa";
+                    condicion = "and Empresa.IdEmpresa = Usuario.IdEmpresa";
+                }
+                string select = "Select * from " + tabla + empresa + " where (UserName ='" + busqueda + "' or Email = '" + busqueda + 
+                    "') "+condicion;
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
                 if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
@@ -154,7 +163,6 @@ namespace Persistencia
                     usuario = new User_EN();
                     usuario.ID = Convert.ToInt16(dt.Rows[0]["IdUsuario"]);
                     usuario.Correo = dt.Rows[0]["Email"].ToString();
-                    usuario.Nombre = dt.Rows[0]["NombreCompleto"].ToString();
                     usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();
                     usuario.Contraseña = dt.Rows[0]["Password"].ToString();
                     usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["IdPerfil"].ToString());
@@ -166,8 +174,12 @@ namespace Persistencia
                     {
                         usuario.Verified = "No Verificado";
                     }
-                    usuario.Intentos = Convert.ToInt16(dt.Rows[0]["Intentos"]);
-                    usuario.NombreEmp = dt.Rows[0]["NombreEmpresa"].ToString();
+                    if (tabla != "Administrador")
+                    {
+                        usuario.Nombre = dt.Rows[0]["NombreCompleto"].ToString();
+                        usuario.Intentos = Convert.ToInt16(dt.Rows[0]["Intentos"]);
+                        usuario.NombreEmp = dt.Rows[0]["NombreEmpresa"].ToString();
+                    }
                 }
             }
             catch (Exception ex) { ex.Message.ToString(); }
@@ -437,7 +449,7 @@ namespace Persistencia
         public ArrayList MostrarPerfiles()
         {
             Conexion nueva_conexion = new Conexion();
-            nueva_conexion.SetQuery("Select * from Perfil");
+            nueva_conexion.SetQuery("Select * from Perfil WHERE NOT(NombrePerfil  = 'Super Administrador')");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             string nomPerfil = "";
