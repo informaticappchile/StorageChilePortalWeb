@@ -26,11 +26,11 @@ namespace Presentacion
             User_EN usuario = null;
             if (username_rp_input.Text != "") 
             {
-                usuario = lu.BuscarUsuario(username_rp_input.Text);//Buscamos el usuario que introducimos para restableser contraseña
+                usuario = lu.BuscarUsuario(username_rp_input.Text, "Usuario");//Buscamos el usuario que introducimos para restableser contraseña
             }
             else if (correo_rp_input.Text != "")
             {
-                usuario = lu.BuscarUsuario(correo_rp_input.Text);
+                usuario = lu.BuscarUsuario(correo_rp_input.Text, "Usuario");
             }
 
             if (usuario != null)

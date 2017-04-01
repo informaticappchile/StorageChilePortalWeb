@@ -41,26 +41,10 @@ namespace Logica
             return userDelete.BorrarUser(userName);
         }
 
-        //Declaramos la funcion buscar usuario donde llama al cad correspondiente
-        public User_EN BuscarUsuario(string usuario)
-        {
-            User_CAD busqueda = new User_CAD();
-            User_EN usuarioBuscado = busqueda.BuscarUser(usuario);
-            return usuarioBuscado;
-        }
-
         public Personal_EN BuscarPersonal(string rut)
         {
             Personal_CAD busqueda = new Personal_CAD();
             Personal_EN usuarioBuscado = busqueda.BuscarPersonal(rut);
-            return usuarioBuscado;
-        }
-
-        //Declaramos la funcion buscar usuario donde llama al cad correspondiente
-        public User_EN BuscarUsuarioAdmin(string usuario)
-        {
-            User_CAD busqueda = new User_CAD();
-            User_EN usuarioBuscado = busqueda.BuscarUser(usuario);
             return usuarioBuscado;
         }
 

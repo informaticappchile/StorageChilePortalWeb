@@ -89,16 +89,15 @@ namespace Presentacion
         /// <param name="localPath"></param>
         public byte[] DownloadFileFromFtp(string fileUrl)
         {
-
-            LogicaUsuario lu = new LogicaUsuario();
-            User_EN userAutoLog = lu.BuscarUsuario("cvaras");
+            
+            User_EN user = (User_EN)Session["user_session_data"];
 
             StringBuilder filesstring = new StringBuilder();
             WebResponse webResponse = null;
             try
             {
                 string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
-                string uri = userAutoLog.NombreEmp + "/" + Convert.ToString(Session["carpeta"]) + "/" + fileUrl;
+                string uri = user.NombreEmp + "/" + Convert.ToString(Session["carpeta"]) + "/" + fileUrl;
 
                 FtpWebRequest ftpRequest = ConnectToFtp(FileSaveUri + "/" + uri, WebRequestMethods.Ftp.DownloadFile);
                 ftpRequest.UseBinary = true;

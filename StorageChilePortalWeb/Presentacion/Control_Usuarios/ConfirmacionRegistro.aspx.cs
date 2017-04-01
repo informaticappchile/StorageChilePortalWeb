@@ -25,7 +25,7 @@ namespace Presentacion
                     User_EN en = new User_EN();//Creamos un nuevo usuario
                     string email = Request.QueryString["email"].ToString();//Gracias a la url, podemos ver el usuario que ha recargado la pagina
                     en.Correo = email;//Ahora que ese usuario sea el del email
-                    u = lu.BuscarUsuario(en.Correo);
+                    u = lu.BuscarUsuario(en.Correo, "Usuario");
                     if (ValidarConfirmacionCorreo(u))
                     {
                         //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -44,7 +44,7 @@ namespace Presentacion
                     else
                     {
                         lu.confirmacionUsuario(en);//Confirmacion 
-                        u = lu.BuscarUsuario(en.Correo);
+                        u = lu.BuscarUsuario(en.Correo, "Usuario");
                         if (ValidarConfirmacionCorreo(u))
                         {
                             //Declaramos un StringBuilder para almacenar el alert que queremos mostrar

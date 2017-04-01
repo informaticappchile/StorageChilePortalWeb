@@ -21,7 +21,7 @@ namespace Presentacion
                 //Aperturamos la escritura de Javascript
                 sbMensaje.Append("<script type='text/javascript'>");
                 //Le indicamos al alert que mensaje va mostrar
-                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene los privilegios para acceder aquí, Debe iniciar sesión");
+                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene los privilegios para acceder aquí. Debe iniciar sesión");
                 //Cerramos el Script
                 sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Control_Usuarios/Login.aspx\";");
                 sbMensaje.Append("</script>");

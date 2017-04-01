@@ -71,7 +71,7 @@ namespace Presentacion
             Stream fileStream = null;
             FtpWebResponse uploadResponse = null;
             string carpeta = contenedor_sa_inpu.Text + "/";
-            string empresa = lu.BuscarUsuario(en.NombreUsu).NombreEmp + "/";
+            string empresa = lu.BuscarUsuario(en.NombreUsu, "Usuario").NombreEmp + "/";
 
             if (FileUpload1.PostedFile != null)
             {

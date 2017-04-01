@@ -24,35 +24,21 @@ namespace Presentacion
             /*LogicaUsuario lu = new LogicaUsuario();
             User_EN userAutoLog = lu.BuscarUsuario("admin");
             Session["user_session_data"] = userAutoLog;*/
-            if (Session["user_session_data"] == null)
+            if (Session["user_session_admin"] == null)
             {//Valida que existe usuario logueado.
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                 StringBuilder sbMensaje = new StringBuilder();
                 //Aperturamos la escritura de Javascript
                 sbMensaje.Append("<script type='text/javascript'>");
                 //Le indicamos al alert que mensaje va mostrar
-                sbMensaje.AppendFormat("alert('{0}');", "Debe iniciar sesión");
+                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene los privilegios para acceder aquí. Debe iniciar sesión");
                 //Cerramos el Script
                 sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Control_Usuarios/Login.aspx\";");
                 sbMensaje.Append("</script>");
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
-            User_EN en = (User_EN)Session["user_session_data"];
-            if (en.IdPerfil != 1)
-            {
-                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                StringBuilder sbMensaje = new StringBuilder();
-                //Aperturamos la escritura de Javascript
-                sbMensaje.Append("<script type='text/javascript'>");
-                //Le indicamos al alert que mensaje va mostrar
-                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene privilegios de administrador para acceder aqui.");
-                //Cerramos el Script
-                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
-                sbMensaje.Append("</script>");
-                //Registramos el Script escrito en el StringBuilder
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-            }
+            User_EN en = (User_EN)Session["user_session_admin"];
             Llenar_GridView();
             
         }

@@ -112,11 +112,11 @@ namespace Presentacion
                 sbMensaje.Append("<script type='text/javascript'>");
                 //Le indicamos al alert que mensaje va mostrar
                 sbMensaje.AppendFormat("alert('{0}');", "Debe iniciar sesión");
+                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Control_Usuarios/Login.aspx\";");
                 //Cerramos el Script
                 sbMensaje.Append("</script>");
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                Response.AddHeader("REFRESH", "2;URL=Control_Usuarios/Login.aspx");
             }
             User_EN en = (User_EN)Session["user_session_data"];
             if (en != null)
@@ -136,7 +136,7 @@ namespace Presentacion
         protected bool ValidarCambios(User_EN u)
         {
             LogicaUsuario lu = new LogicaUsuario();
-            User_EN en = lu.BuscarUsuario(u.NombreUsu);
+            User_EN en = lu.BuscarUsuario(u.NombreUsu, "Usuario");
             if (en.Nombre != u.Nombre){return false;}
             if (en.Correo != u.Correo) { return false;}
             if (en.Contraseña != u.Contraseña) { return false;}
