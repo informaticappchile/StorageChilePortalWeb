@@ -67,7 +67,7 @@ namespace Presentacion
             Responsive.DataSource = lista;
             Responsive.DataBind();
             DataTable dt = new DataTable();
-            if (Session["dataMovimiento"] == null)
+            if (Session["dataProveedor"] == null)
             {
                 dt.Columns.Add("Descripcion");
                 dt.Columns.Add("Codigo Producto");

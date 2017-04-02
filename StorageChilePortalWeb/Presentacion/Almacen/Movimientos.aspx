@@ -456,6 +456,7 @@
                 Realizar Movimiento
             </asp:LinkButton>
             <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Almacen/AdministrarMovimientos.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">ADMINISTRAR</asp:HyperLink>
+            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Almacen/MenuAlmacen.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Volver a Menú Almacén</asp:HyperLink>
         </div>
     </div>
 </asp:Content>

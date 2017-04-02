@@ -12,6 +12,9 @@ using System.Text;
 using Logica;
 using System.Collections;
 using System.Data;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
 
 namespace Presentacion
 {
@@ -110,6 +113,63 @@ namespace Presentacion
             //enlazas datatable a griedview
             Responsive.DataSource = dt;
             Responsive.DataBind();
+        }
+
+        protected void ClickExportToExcel(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)Session["dataPago"];
+            string attachment = "attachment; filename=listadoProveedoresPagos.xls";
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", attachment);
+            Response.ContentType = "application/vnd.ms-excel";
+            string tab = "";
+            foreach (DataColumn dc in dt.Columns)
+            {
+                Response.Write(tab + dc.ColumnName);
+                tab = "\t";
+            }
+            Response.Write("\n");
+            int i;
+            foreach (DataRow dr in dt.Rows)
+            {
+                tab = "";
+                for (i = 0; i < dt.Columns.Count; i++)
+                {
+                    Response.Write(tab + dr[i].ToString());
+                    tab = "\t";
+                }
+                Response.Write("\n");
+            }
+            Response.End();
+        }
+
+        public void ClickExportToPdf(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)Session["dataPago"];
+
+            //Create a dummy GridView
+            GridView GridView1 = new GridView();
+            GridView1.AllowPaging = false;
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition",
+                "attachment;filename=listadoProveedoresPagos.pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(sw);
+            GridView1.RenderControl(hw);
+            StringReader sr = new StringReader(sw.ToString());
+            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            pdfDoc.Open();
+            htmlparser.Parse(sr);
+            pdfDoc.Close();
+            Response.Write(pdfDoc);
+            Response.End();
         }
     }
 }

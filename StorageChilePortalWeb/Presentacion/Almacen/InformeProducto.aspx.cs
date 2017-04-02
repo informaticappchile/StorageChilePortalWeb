@@ -11,6 +11,10 @@ using System.IO;
 using System.Text;
 using Logica;
 using System.Collections;
+using System.Data;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
 
 namespace Presentacion
 {
@@ -54,7 +58,10 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
-            Llenar_GridView();
+            if (IsPostBack)
+            {
+                Llenar_GridView();
+            }
 
         }
 
@@ -69,7 +76,7 @@ namespace Presentacion
                 /*
                  * Así buscamos y encontramos un icono de miniatura para el fichero en función de la extensión del archivo
                  */
-                Image icono = (Image)e.Row.FindControl("icono_fichero");
+                System.Web.UI.WebControls.Image icono = (System.Web.UI.WebControls.Image)e.Row.FindControl("icono_fichero");
                 double cantMin = Convert.ToDouble(e.Row.Cells[2].Text);
                 double stock = Convert.ToDouble(e.Row.Cells[5].Text);
                 if (cantMin*(1+Porcentage) < stock)
@@ -90,8 +97,120 @@ namespace Presentacion
         private void Llenar_GridView()
         {
             LogicaProducto ls = new LogicaProducto();
+            ArrayList lista = ls.MostrarProductos();
+            DataTable dt = new DataTable();
+            if (Session["dataStock"] == null)
+            {
+                dt.Columns.Add("Descripcion");
+                dt.Columns.Add("CodProducto");
+                dt.Columns.Add("CantMinStock");
+                dt.Columns.Add("Grupo");
+                dt.Columns.Add("UnidadMedida");
+                dt.Columns.Add("Stock");
+                dt.Columns.Add("NStock");
+            }
+            else
+            {
+                dt = (DataTable)Session["dataStock"];
+            }
+
+            if (lista.Count == 0)
+            {
+                Session["dataStock"] = null;
+                Responsive.DataSource = null;
+                Responsive.DataBind();
+            }
+
+            for (int i = 0; i < lista.Count; i++)
+            {
+                //Agregar Datos    
+                DataRow row = dt.NewRow();
+                double cantMin = Convert.ToDouble(((Producto_EN)lista[i]).CantMinStock);
+                double stock = Convert.ToDouble(((Producto_EN)lista[i]).Stock);
+                row["Descripcion"] = ((Producto_EN)lista[i]).Descripcion;
+                row["CodProducto"] = ((Producto_EN)lista[i]).CodProducto;
+                row["CantMinStock"] = ((Producto_EN)lista[i]).CantMinStock;
+                row["Grupo"] = ((Producto_EN)lista[i]).Grupo;
+                row["UnidadMedida"] = ((Producto_EN)lista[i]).UnidadMedida;
+                row["Stock"] = ((Producto_EN)lista[i]).Stock;
+                if (cantMin * (1 + Porcentage) < stock)
+                {
+                    row["NStock"] = "Excelente";
+                }
+                else if (cantMin * (1 + Porcentage) > stock && cantMin < stock)
+                {
+                    row["NStock"] = "Estable";
+                }
+                else
+                {
+                    row["NStock"] = "Mal";
+                }
+                dt.Rows.Add(row);
+            }
+            Session["dataStock"] = dt;
+            //enlazas datatable a griedview
+            Responsive.DataSource = dt;
+            Responsive.DataBind();
+
             Responsive.DataSource = ls.MostrarProductos();
             Responsive.DataBind();
+        }
+
+        protected void ClickExportToExcel(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)Session["dataStock"];
+            string attachment = "attachment; filename=listadoStockProductos.xls";
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", attachment);
+            Response.ContentType = "application/vnd.ms-excel";
+            string tab = "";
+            foreach (DataColumn dc in dt.Columns)
+            {
+                Response.Write(tab + dc.ColumnName);
+                tab = "\t";
+            }
+            Response.Write("\n");
+            int i;
+            foreach (DataRow dr in dt.Rows)
+            {
+                tab = "";
+                for (i = 0; i < dt.Columns.Count; i++)
+                {
+                    Response.Write(tab + dr[i].ToString());
+                    tab = "\t";
+                }
+                Response.Write("\n");
+            }
+            Response.End();
+        }
+
+        public void ClickExportToPdf(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)Session["dataStock"];
+
+            //Create a dummy GridView
+            GridView GridView1 = new GridView();
+            GridView1.AllowPaging = false;
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition",
+                "attachment;filename=listadoStockProductos.pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(sw);
+            GridView1.RenderControl(hw);
+            StringReader sr = new StringReader(sw.ToString());
+            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            pdfDoc.Open();
+            htmlparser.Parse(sr);
+            pdfDoc.Close();
+            Response.Write(pdfDoc);
+            Response.End();
         }
     }
 }

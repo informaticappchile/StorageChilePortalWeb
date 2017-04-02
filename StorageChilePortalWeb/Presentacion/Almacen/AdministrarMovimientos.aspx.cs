@@ -11,7 +11,6 @@ using System.IO;
 using System.Text;
 using Logica;
 using System.Collections;
-using System.Data;
 
 namespace Presentacion
 {
@@ -53,7 +52,10 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
-            Llenar_GridView();
+            if (IsPostBack)
+            {
+                Llenar_GridView();
+            }
             
         }
 
@@ -103,10 +105,13 @@ namespace Presentacion
                 }
             }
         }
+
         private void Llenar_GridView()
         {
             LogicaMovimiento lm = new LogicaMovimiento();
-            Responsive.DataSource = lm.MostrarMovimientosProductosProveedor();
+            ArrayList lista = new ArrayList();
+            lista = lm.MostrarMovimientosProductosProveedor();
+            Responsive.DataSource = lista;
             Responsive.DataBind();
         }
     }
