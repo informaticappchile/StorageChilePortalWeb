@@ -323,9 +323,11 @@ namespace Presentacion
 
         private void Llenar_GridView()
         {
+            int pos = 0;
             DataTable dt = new DataTable();
             if (Session["dataMovimiento"] == null)
             {
+                dt.Columns.Add("N");
                 dt.Columns.Add("CodProducto");
                 dt.Columns.Add("Descripcion");
                 dt.Columns.Add("Grupo");
@@ -333,14 +335,17 @@ namespace Presentacion
                 dt.Columns.Add("Cantidad");
                 dt.Columns.Add("Precio");
                 dt.Columns.Add("Observaciones");
+                pos++;
             }
             else
             {
                 dt = (DataTable)Session["dataMovimiento"];
+                pos = Convert.ToInt32(dt.Rows[dt.Rows.Count-1]["N"]) + 1;
             }
 
             //Agregar Datos    
             DataRow row = dt.NewRow();
+            row["N"] = pos;
             row["CodProducto"] = cod_prod_register.Text;
             row["Descripcion"] = descripcion_register.Text;
             row["Grupo"] = grupo_register.Text;
@@ -459,6 +464,39 @@ namespace Presentacion
             }
 
             return Password;
+        }
+
+        /// <summary>
+        /// Metodo para eliminar un usuario
+        /// No elimina cuando estan vinculados a un servicio,
+        /// a un ticket o a una respuesta a un ticket.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Responsive_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "DEL")
+            {
+                DataTable dt = (DataTable)Session["dataMovimiento"];
+                int a = Convert.ToInt32(e.CommandArgument.ToString()) - 1;
+                dt.Rows.RemoveAt(a);
+                for (int i = 1; i <= dt.Rows.Count; i++)
+                {
+                    dt.Rows[i-1]["N"] = i;
+                }
+                if (dt.Rows.Count == 0)
+                {
+                    Session["dataMovimiento"] = null;
+                    Responsive.DataSource = null;
+                    Responsive.DataBind();
+                }
+                else
+                {
+                    Session["dataMovimiento"] = dt;
+                    Responsive.DataSource = dt;
+                    Responsive.DataBind();
+                }
+            }
         }
 
         protected void limpiar()

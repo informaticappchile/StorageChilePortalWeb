@@ -57,6 +57,52 @@ namespace Presentacion
             
         }
 
+        /// <summary>
+        /// Metodo para eliminar un usuario
+        /// No elimina cuando estan vinculados a un servicio,
+        /// a un ticket o a una respuesta a un ticket.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Responsive_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            {
+                if (e.CommandName == "DEL")
+                {
+                    LogicaMovimiento lm = new LogicaMovimiento();
+                    Movimiento_EN m = new Movimiento_EN();
+                    m = lm.BuscarMovimiento(e.CommandArgument.ToString());
+                    m.Estado = false;
+                    if (lm.actualizarMovimiento(m))
+                    {
+                        Llenar_GridView();
+                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                        StringBuilder sbMensaje = new StringBuilder();
+                        //Aperturamos la escritura de Javascript
+                        sbMensaje.Append("<script type='text/javascript'>");
+                        //Le indicamos al alert que mensaje va mostrar
+                        sbMensaje.AppendFormat("alert('{0}');", "El movimiento ha sido dado de baja");
+                        //Cerramos el Script
+                        sbMensaje.Append("</script>");
+                        //Registramos el Script escrito en el StringBuilder
+                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                    }
+                    else
+                    {
+                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                        StringBuilder sbMensaje = new StringBuilder();
+                        //Aperturamos la escritura de Javascript
+                        sbMensaje.Append("<script type='text/javascript'>");
+                        //Le indicamos al alert que mensaje va mostrar
+                        sbMensaje.AppendFormat("alert('{0}');", "No se ha podido dar de baja al movimiento, intente más tarde o consulte a soporte técnico");
+                        //Cerramos el Script
+                        sbMensaje.Append("</script>");
+                        //Registramos el Script escrito en el StringBuilder
+                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                    }
+                }
+            }
+        }
         private void Llenar_GridView()
         {
             LogicaMovimiento lm = new LogicaMovimiento();

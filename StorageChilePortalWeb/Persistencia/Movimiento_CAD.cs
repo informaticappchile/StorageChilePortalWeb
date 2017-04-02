@@ -30,13 +30,15 @@ namespace Persistencia
             {
                 string parametro1 = "@fechaMovimiento";
                 string parametro2 = "@fechaDocumento";
+                string parametro3 = "@EstadoMovimiento";
 
-                string insert = "insert into Movimiento(IdMovimiento,Total,Responsable, FechaMovimiento, Area, FechaDocumento, NumeroDocumento, IdDocumento, IdTipoMovimiento) VALUES ('"
-                    + e.ID + "'," + e.Total + ",'" + e.Responsable + "'," + parametro1 + ",'" + e.Area + "'," + parametro2 + "," + e.NumDocumento + "," + e.IdDocumento + "," + e.IdTipoMovimiento + ")";
+                string insert = "insert into Movimiento(IdMovimiento,Total,Responsable, FechaMovimiento, Area, FechaDocumento, NumeroDocumento, IdDocumento, IdTipoMovimiento, EstadoMovimiento) VALUES ('"
+                    + e.ID + "'," + e.Total + ",'" + e.Responsable + "'," + parametro1 + ",'" + e.Area + "'," + parametro2 + "," + e.NumDocumento + "," + e.IdDocumento + "," + e.IdTipoMovimiento + "," + parametro3 + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
                 nueva_conexion.addParameter(parametro1,e.FechaMovimiento);
                 nueva_conexion.addParameter(parametro2, e.FechaDocumento);
+                nueva_conexion.addParameter(parametro3, e.Estado);
                 nueva_conexion.EjecutarQuery();
             }
             catch (Exception ex) { ex.Message.ToString(); }
@@ -110,7 +112,7 @@ namespace Persistencia
             nueva_conexion.SetQuery("Select *" +
                                     " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr, TipoMovimiento tm, Documento d" + 
                                     " where p.IdProducto = mpp.IdProducto AND tm.IdTipoMovimiento = m.IdTipoMovimiento AND" + 
-                                    " mpp.IdMovimiento = m.IdMovimiento AND pr.IdProveedor = mpp.IdProveedor" + 
+                                    " mpp.IdMovimiento = m.IdMovimiento AND pr.IdProveedor = mpp.IdProveedor AND m.EstadoMovimiento=1" + 
                                     " group by m.IdMovimiento");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
@@ -190,25 +192,30 @@ namespace Persistencia
          * Se encarga de actualizar el usuario si sufre alguna modificacion en alguno de sus campos
          **/ 
          
-        public void actualizarMovimiento(Movimiento_EN e)
+        public bool actualizarMovimiento(Movimiento_EN e)
         {
             Conexion nueva_conexion = new Conexion();
-
+            bool estado = false;
             try
             {
                 string update = "";
-                
+                string parametro = "@EstadoMovimiento";
 
                 update = "Update Movimiento set Total = " + e.Total + ",NumeroDocumento  = " + e.NumDocumento +
-                    ",FechaDocumento = "+e.NumDocumento +",IdDocumento = " + e.IdDocumento + ", IdPago='" + e.IdPago +
-                    "' where Movimiento.IdMovimiento = '" + e.ID + "'";
+                    ",FechaDocumento = "+e.NumDocumento +",IdDocumento = " + e.IdDocumento + ", IdPago='" + e.IdPago 
+                    + "', EstadoMovimiento = " + parametro +
+                    " where Movimiento.IdMovimiento = '" + e.ID + "'" ;
                 nueva_conexion.SetQuery(update);
+                nueva_conexion.addParameter(parametro,e.Estado);
 
 
                 nueva_conexion.EjecutarQuery();
+                estado = true;
+                return estado;
             }
             catch (Exception ex) { ex.Message.ToString(); }
             finally { nueva_conexion.Cerrar_Conexion(); }
+            return estado;
         }
 
         /**

@@ -164,6 +164,16 @@ namespace Entidades
             set { total = value; }
         }
 
+        //Declaramos el id del user en private
+        private bool estado;
+
+        //Declaramos el id del user en public para poder utilizarlo
+        public bool Estado
+        {
+            get { return estado; }
+            set { estado = value; }
+        }
+
         //Declaramos la fecha del último ingreso del usuario
 
         private DateTime fechaMovimiento;
@@ -202,6 +212,7 @@ namespace Entidades
             idPago = "0";
             FechaDocumento = DateTime.Now;
             fechaMovimiento = DateTime.Now;
+            estado = true;
         }
 
     }

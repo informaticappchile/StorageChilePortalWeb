@@ -341,11 +341,12 @@
         <div>
             <asp:GridView HorizontalAlign="Center" ID="Responsive" runat="server" ARowStyle-Wrap="false"
             CssClass="mdl-data-table mdl-js-data-table mdl-shadow--2dp" AutoGenerateColumns="false"
-                >
+            OnRowCommand="Responsive_RowCommand">
                 <EmptyDataTemplate>
                     No se han encontrado datos.
                 </EmptyDataTemplate>
                 <Columns>
+                    <asp:BoundField DataField="N" HeaderText="" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle" />
                     <asp:BoundField DataField="CodProducto" HeaderText="Codigo Producto" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle" />
                     <asp:BoundField DataField="Descripcion" HeaderText="Descripción"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:BoundField DataField="Grupo" HeaderText="Grupo Producto"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
@@ -353,6 +354,14 @@
                     <asp:BoundField DataField="Cantidad" HeaderText="Cantidad"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:BoundField DataField="Precio" HeaderText="Precio Unitario"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:BoundField DataField="Observaciones" HeaderText="Observaciones"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
+                    <asp:TemplateField HeaderText="Eliminar">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="Eliminar" runat="server" CssClass="mdl-button mdl-js-button mdl-button--icon"
+                                CommandArgument='<%#DataBinder.Eval(Container.DataItem,"N").ToString().TrimEnd()%>' CommandName="DEL">
+                                <i class="material-icons">delete</i>
+                            </asp:LinkButton>        
+                        </ItemTemplate>
+                    </asp:TemplateField>                
                 </Columns>
                 <RowStyle CssClass="mdl-data-table__cell--non-numeric" />
                 <PagerSettings PageButtonCount="4" />

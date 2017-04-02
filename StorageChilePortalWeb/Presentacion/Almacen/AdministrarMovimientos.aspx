@@ -26,7 +26,7 @@
         <div>
             <asp:GridView HorizontalAlign="Center" ID="Responsive" runat="server" ARowStyle-Wrap="false"
             CssClass="mdl-data-table mdl-js-data-table mdl-shadow--2dp" AutoGenerateColumns="false"
-                >
+            OnRowCommand="Responsive_RowCommand">
                 <EmptyDataTemplate>
                     No se han encontrado datos.
                 </EmptyDataTemplate>
@@ -37,14 +37,15 @@
                     <asp:BoundField DataField="FechaDocumento" HeaderText="Fecha Documento" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:BoundField DataField="Total" HeaderText="Total"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:BoundField DataField="ID" HeaderText="Id Movimiento" Visible="false" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
-                    <asp:TemplateField HeaderText="Modificar">
+                    <asp:TemplateField HeaderText="Eliminar">
                         <ItemTemplate>
-                            <a href="/Almacen/EditarMovimientos.aspx?ID=<%#Eval("ID") %>">
-                                <i class="material-icons" >update</i>
-                            </a>
+                            <asp:LinkButton ID="Eliminar" runat="server" CssClass="mdl-button mdl-js-button mdl-button--icon"
+                                 OnClientClick="return confirm('¿Está seguro que desea dar de baja los servicios de esta empresa?');" 
+                                CommandArgument='<%#DataBinder.Eval(Container.DataItem,"ID").ToString().TrimEnd()%>' CommandName="DEL">
+                                <i class="material-icons">delete</i>
+                            </asp:LinkButton>        
                         </ItemTemplate>
-                        <ItemStyle Width="24" />
-                    </asp:TemplateField>
+                    </asp:TemplateField> 
                 </Columns>
                 <RowStyle CssClass="mdl-data-table__cell--non-numeric" />
                 <PagerSettings PageButtonCount="4" />

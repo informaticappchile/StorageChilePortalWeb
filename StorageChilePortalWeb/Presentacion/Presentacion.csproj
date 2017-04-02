@@ -98,6 +98,7 @@
     <Content Include="AdministrarEmpresa.aspx" />
     <Content Include="Almacen\AdministrarMovimientos.aspx" />
     <Content Include="Almacen\img\excelv2.png" />
+    <Content Include="Almacen\img\excelv1.png" />
     <Content Include="Almacen\img\PDF-48.png" />
     <Content Include="Almacen\InformeProveedor.aspx" />
     <Content Include="Almacen\img\Bien.png" />

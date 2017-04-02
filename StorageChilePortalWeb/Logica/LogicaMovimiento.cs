@@ -49,10 +49,10 @@ namespace Logica
         }
 
         //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
-        public void actualizarMovimiento(Movimiento_EN e)
+        public bool actualizarMovimiento(Movimiento_EN e)
         {
             Movimiento_CAD actUser = new Movimiento_CAD();
-            actUser.actualizarMovimiento(e);
+            return actUser.actualizarMovimiento(e);
         }
 
         //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
