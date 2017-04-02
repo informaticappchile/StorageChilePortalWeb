@@ -7,6 +7,8 @@ using System.Net;
 using System.Text;
 using System.Data;
 using System.Collections;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Presentacion
 {
@@ -29,20 +31,6 @@ namespace Presentacion
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
             User_EN en = (User_EN)Session["user_session_data"];
-            if(en.IdPerfil != 2)
-            {
-                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                StringBuilder sbMensaje = new StringBuilder();
-                //Aperturamos la escritura de Javascript
-                sbMensaje.Append("<script type='text/javascript'>");
-                //Le indicamos al alert que mensaje va mostrar
-                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene privilegios de administrador para acceder aqui.");
-                //Cerramos el Script
-                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
-                sbMensaje.Append("</script>");
-                //Registramos el Script escrito en el StringBuilder
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-            }
             LogicaProveedor le = new LogicaProveedor();
             ArrayList lista = le.MostrarProveedores();
             if (lista.Count == 0)
@@ -88,7 +76,7 @@ namespace Presentacion
             {
                 Producto_EN en = new Producto_EN();//Si lo cumple todo, creamos un nuevo usuario
                 en.CodProducto = codigo_producto_register.Text;//Con su nombre de usuario
-                en.Descripcion = descripcion_register.Text;//Con su correo
+                en.Descripcion = descripcion_register.Text.Replace('\'', '´').Trim();//Con su correo
                 en.CantMinStock = Convert.ToInt32(cant_min_stock_register.Text);//Con su contrasenya
                 en.IdGrupo = lu.GetIdGrupo(grupo_register.Text);
                 en.IdMedidad = lu.GetIdUnidad(unidad_register.Text);
@@ -99,6 +87,7 @@ namespace Presentacion
                     LogicaProveedor lp = new LogicaProveedor();
                     u.IdProveedor = lp.BuscarProveedor(proveedor_register.Text).ID;
                     lu.InsertarProductoProveedor(u);
+                    limpiar(this.Controls);
                     //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                     StringBuilder sbMensaje = new StringBuilder();
                     //Aperturamos la escritura de Javascript
@@ -148,6 +137,22 @@ namespace Presentacion
         {
             string url = "https://www.google.com/recaptcha/api/siteverify?secret=" + ReCaptcha_Secret + "&response=" + response;
             return (new WebClient()).DownloadString(url);
+        }
+
+        private void limpiar(ControlCollection controles)
+        {
+            foreach (Control ctrl in controles)
+            {
+                if (ctrl is TextBox)
+                {
+                    TextBox text = ctrl as TextBox;
+                    text.Text = "";
+                }
+                else if (ctrl.HasControls())
+                    //Esta linea detécta un Control que contenga otros Controles
+                    //Así ningún control se quedará sin ser limpiado.
+                    limpiar(ctrl.Controls);
+            }
         }
     }
 }

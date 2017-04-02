@@ -7,6 +7,8 @@ using System.Net;
 using System.Text;
 using System.Data;
 using System.Collections;
+using System.Web.UI.WebControls;
+using System.Web.UI;
 
 namespace Presentacion
 {
@@ -67,10 +69,11 @@ namespace Presentacion
             if (lu.BuscarProveedor(razon_social_register.Text).RazonSocial != razon_social_register.Text) //Comprobamos que ese nombre de usuario ya este
             {
                 Proveedor_EN en = new Proveedor_EN();//Si lo cumple todo, creamos un nuevo usuario
-                en.Vendedor = vendedor_name_register.Text;
-                en.RazonSocial = razon_social_register.Text;//Con su nombre de usuario
+                en.Vendedor = vendedor_name_register.Text.Replace('\'', '´').Trim();
+                en.RazonSocial = razon_social_register.Text.Replace('\'', '´').Trim();//Con su nombre de usuario
                 en.Rut = rut_empresa_register.Text;//Con su correo
-                en.Direccion = direccion_register.Text;//Con su contrasenya
+                en.Direccion = direccion_register.Text.Replace('\'', '´').Trim();//Con su contrasenya
+                direccion_register.Text = en.Direccion.Replace('\'', '´').Trim();
                 en.Ciudad = ciudad_register.Text;
                 en.IdCiudad = lu.GetIdCiudad(ciudad_register.Text);
                 en.Fono = fono_register.Text;
@@ -78,6 +81,7 @@ namespace Presentacion
                 Proveedor_EN u = lu.BuscarProveedor(en.RazonSocial);
                 if (validarRegistroProveedor(u))
                 {
+                    limpiar(this.Controls);
                     //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                     StringBuilder sbMensaje = new StringBuilder();
                     //Aperturamos la escritura de Javascript
@@ -127,6 +131,29 @@ namespace Presentacion
         {
             string url = "https://www.google.com/recaptcha/api/siteverify?secret=" + ReCaptcha_Secret + "&response=" + response;
             return (new WebClient()).DownloadString(url);
+        }
+
+        private void limpiar(ControlCollection controles)
+        {
+            foreach (Control ctrl in controles)
+            {
+                if (ctrl is TextBox)
+                {
+                    TextBox text = ctrl as TextBox;
+                    if (text.ID == fono_register.ID)
+                    {
+                        text.Text = "+56";
+                    }
+                    else
+                    {
+                        text.Text = "";
+                    }
+                }
+                else if (ctrl.HasControls())
+                    //Esta linea detécta un Control que contenga otros Controles
+                    //Así ningún control se quedará sin ser limpiado.
+                    limpiar(ctrl.Controls);
+            }
         }
 
     }

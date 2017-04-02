@@ -10,6 +10,11 @@ using System.Web.ClientServices;
 using System.IO;
 using System.Text;
 using Logica;
+using System.Collections;
+using System.Data;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
 
 namespace Presentacion
 {
@@ -35,6 +40,21 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
+            LogicaProducto le = new LogicaProducto();
+            ArrayList lista = le.MostrarProductos(); if (lista.Count == 0)
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene productos disponibles en el sistema. Por favor registre uno.");
+                //Cerramos el Script
+                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/RegisterInventario.aspx\";");
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
             Llenar_GridView();
             
         }
@@ -42,8 +62,93 @@ namespace Presentacion
         private void Llenar_GridView()
         {
             LogicaProducto ls = new LogicaProducto();
-            Responsive.DataSource = ls.MostrarProductos();
+            ArrayList lista = new ArrayList();
+            lista = ls.MostrarProductos();
+            Responsive.DataSource = lista;
             Responsive.DataBind();
+            DataTable dt = new DataTable();
+            if (Session["dataMovimiento"] == null)
+            {
+                dt.Columns.Add("Descripcion");
+                dt.Columns.Add("Codigo Producto");
+                dt.Columns.Add("Cantidad Minima Stock");
+                dt.Columns.Add("Grupo Producto");
+                dt.Columns.Add("Unidad de Medida");
+            }
+            else
+            {
+                dt = (DataTable)Session["dataMovimiento"];
+            }
+
+            for (int i = 0; i < lista.Count; i++)
+            {
+                //Agregar Datos    
+                DataRow row = dt.NewRow();
+                row["Descripcion"] = ((Producto_EN)lista[i]).Descripcion;
+                row["Codigo Producto"] = ((Producto_EN)lista[i]).CodProducto;
+                row["Cantidad Minima Stock"] = ((Producto_EN)lista[i]).CantMinStock;
+                row["Grupo Producto"] = ((Producto_EN)lista[i]).Grupo;
+                row["Unidad de Medida"] = ((Producto_EN)lista[i]).UnidadMedida;
+                dt.Rows.Add(row);
+            }
+            Session["dataProveedor"] = dt;
+        }
+
+        protected void ClickExportToExcel(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt = (DataTable)Session["dataProveedor"];
+            string attachment = "attachment; filename=listadoproductos.xls";
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", attachment);
+            Response.ContentType = "application/vnd.ms-excel";
+            string tab = "";
+            foreach (DataColumn dc in dt.Columns)
+            {
+                Response.Write(tab + dc.ColumnName);
+                tab = "\t";
+            }
+            Response.Write("\n");
+            int i;
+            foreach (DataRow dr in dt.Rows)
+            {
+                tab = "";
+                for (i = 0; i < dt.Columns.Count; i++)
+                {
+                    Response.Write(tab + dr[i].ToString());
+                    tab = "\t";
+                }
+                Response.Write("\n");
+            }
+            Response.End();
+        }
+
+        public void ClickExportToPdf(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)Session["dataProveedor"];
+
+            //Create a dummy GridView
+            GridView GridView1 = new GridView();
+            GridView1.AllowPaging = false;
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition",
+                "attachment;filename=listadoproductos.pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(sw);
+            GridView1.RenderControl(hw);
+            StringReader sr = new StringReader(sw.ToString());
+            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            pdfDoc.Open();
+            htmlparser.Parse(sr);
+            pdfDoc.Close();
+            Response.Write(pdfDoc);
+            Response.End();
         }
     }
 }

@@ -33,7 +33,7 @@
                 <Columns>
                     <asp:BoundField DataField="Descripcion" HeaderText="Descripción" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle" />
                     <asp:BoundField DataField="CodProducto" HeaderText="Codigo Producto"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
-                    <asp:BoundField DataField="CantMinStock" HeaderText="Email"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
+                    <asp:BoundField DataField="CantMinStock" HeaderText="Cantidad Minima"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:BoundField DataField="Grupo" HeaderText="Grupo Producto"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:BoundField DataField="UnidadMedida" HeaderText="Unidad de Medida"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:TemplateField HeaderText="Modificar">
@@ -50,8 +50,18 @@
             </asp:GridView>
         </div>
         <br />
-        <div>
-            
+        
+         <div class="mdl-card__actions mdl-card--border">
+            <asp:LinkButton ID="ExportarExcel" runat="server" visible="true" OnClick="ClickExportToExcel" CssClass="mdl-button mdl-js-button mdl-button--primary">
+                <img data-u="image" src="img/excelv2.png" class="icono-web"/>
+                Exportar a Excel
+            </asp:LinkButton>
+            <asp:LinkButton ID="ExportarPdf" runat="server" visible="true" OnClick="ClickExportToPdf" CssClass="mdl-button mdl-js-button mdl-button--primary">
+                <img data-u="image" src="img/PDF-48.png" class="icono-web"/>
+                Exportar a Pdf
+            </asp:LinkButton>
+            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Almacen/RegisterInventario.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Volver a Registrar</asp:HyperLink>
+            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Almacen/MenuAlmacen.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Volver a Menú Almacén</asp:HyperLink>
         </div>
         
     </div>

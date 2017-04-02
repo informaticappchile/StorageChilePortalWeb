@@ -38,26 +38,51 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
+            User_EN en = (User_EN)Session["user_session_data"];
+            LogicaProducto lp = new LogicaProducto();
+            ArrayList lista = lp.MostrarProductos();
+            if (lista.Count == 0)
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene productos disponibles en el sistema. Por favor registre uno.");
+                //Cerramos el Script
+                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/RegisterInventario.aspx\";");
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
             if (!IsPostBack)
             {
-                fecha_actual_register.Text = DateTime.Now.ToShortDateString();
-                LogicaProveedor lpr = new LogicaProveedor();
-                LogicaMovimiento lm = new LogicaMovimiento();
-                ArrayList lista = lm.MostrarDocumentos();
-                tipo_doc_register.DataSource = lista;
-                tipo_doc_register.DataBind();
-                lista = lpr.MostrarProveedores();
-                razon_social_register.DataSource = lista;
-                razon_social_register.DataTextField = "RazonSocial";
-                razon_social_register.DataValueField = "RazonSocial";
-                razon_social_register.DataBind();
-                areas.Add("Cocina");
-                areas.Add("Bar");
-                area_register.DataSource = areas;
-                area_register.DataBind();
-                lista = lm.MostrarTipoMovimientos();
-                tipo_mov_register.DataSource = lista;
-                tipo_mov_register.DataBind();
+                try
+                {
+
+                    fecha_actual_register.Text = DateTime.Now.ToShortDateString();
+                    LogicaProveedor lpr = new LogicaProveedor();
+                    LogicaMovimiento lm = new LogicaMovimiento();
+                    lista = lm.MostrarDocumentos();
+                    tipo_doc_register.DataSource = lista;
+                    tipo_doc_register.DataBind();
+                    lista = lpr.MostrarProveedores();
+                    razon_social_register.DataSource = lista;
+                    razon_social_register.DataTextField = "RazonSocial";
+                    razon_social_register.DataValueField = "RazonSocial";
+                    razon_social_register.DataBind();
+                    areas.Add("Cocina");
+                    areas.Add("Bar");
+                    area_register.DataSource = areas;
+                    area_register.DataBind();
+                    lista = lm.MostrarTipoMovimientos();
+                    tipo_mov_register.DataSource = lista;
+                    tipo_mov_register.DataBind();
+                }
+                catch (Exception ex)
+                {
+                    //No hay producto o proveedor
+                }
             }
 
         }
@@ -314,7 +339,7 @@ namespace Presentacion
             row["Precio"] = precio_register.Text;
             row["Observaciones"] = obs_register.Text;
             dt.Rows.Add(row);
-            if (Convert.ToInt32(precio_register.Text) > 0 && Convert.ToInt32(cant_register.Text) > 0)
+            if (Convert.ToInt32(precio_register.Text) >= 0 && Convert.ToInt32(cant_register.Text) > 0)
             {
                 Session["dataMovimiento"] = dt;
                 //enlazas datatable a griedview

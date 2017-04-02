@@ -37,11 +37,11 @@ namespace Presentacion
             LogicaProveedor lu = new LogicaProveedor();
             this.user = Request["ID"].ToString();
             this.en = lu.BuscarProveedor(user);
-            this.en.RazonSocial = razon_social_editar.Text;
+            this.en.RazonSocial = razon_social_editar.Text.Replace('\'', '´').Trim();
             this.en.Rut = rut_empresa_editar.Text;
-            this.en.Vendedor = vendedor_name_editar.Text;
+            this.en.Vendedor = vendedor_name_editar.Text.Replace('\'', '´').Trim();
             this.en.Ciudad = ciudad_editar.Text;
-            this.en.Direccion = direccion_editar.Text;
+            this.en.Direccion = direccion_editar.Text.Replace('\'', '´').Trim();
             this.en.Fono = fono_editar.Text;
             this.en.IdCiudad = lu.GetIdCiudad(ciudad_editar.Text);
             LogicaServicio lse = new LogicaServicio();
@@ -93,10 +93,25 @@ namespace Presentacion
                 {
                     if (Request["ID"] != null)
                     {
+                        ArrayList lista = le.MostrarProveedores();
+                        if (lista.Count == 0)
+                        {
+                            //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                            StringBuilder sbMensaje = new StringBuilder();
+                            //Aperturamos la escritura de Javascript
+                            sbMensaje.Append("<script type='text/javascript'>");
+                            //Le indicamos al alert que mensaje va mostrar
+                            sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene proveedores disponibles en el sistema. Por favor registre uno.");
+                            //Cerramos el Script
+                            sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/RegisterProveedor.aspx\";");
+                            sbMensaje.Append("</script>");
+                            //Registramos el Script escrito en el StringBuilder
+                            ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                        }
                         this.user = Request["ID"].ToString();
                         this.en = le.BuscarProveedor(user);
                         LogicaProveedor lp = new LogicaProveedor();
-                        ArrayList lista = lp.MostrarCiudades();
+                        lista = lp.MostrarCiudades();
                         ciudad_editar.DataSource = lista;
                         ciudad_editar.DataTextField = "Nombre";
                         ciudad_editar.DataValueField = "Nombre";

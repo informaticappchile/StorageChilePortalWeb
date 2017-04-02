@@ -16,7 +16,6 @@
                             <asp:TextBox ID="vendedor_name_editar" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
                             <label class="mdl-textfield__label" for="vendedor_name_editar">Vendedor</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidatorUserName" runat="server" ControlToValidate="vendedor_name_editar" ErrorMessage="Introduce el nombre de usuario" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegExUsuario" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="vendedor_name_editar" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                         </span>
                     </span>
                 </li>
@@ -27,7 +26,6 @@
                             <asp:TextBox ID="razon_social_editar" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
                             <label class="mdl-textfield__label" for="razon_social_editar">Razón Social</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="razon_social_editar" ErrorMessage="Introduce una razón social" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="razon_social_editar" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                         </span>
                     </span>
                 </li>
@@ -49,7 +47,6 @@
                             <asp:TextBox ID="direccion_editar" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
                             <label class="mdl-textfield__label" for="direccion_editar">Dirección</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="direccion_editar" ErrorMessage="Introduce una dirección" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="direccion_editar" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                         </span>
                     </span>
                 </li>
@@ -81,7 +78,8 @@
                 <i class="material-icons">save</i>
                 Guardar Cambios
             </asp:LinkButton>
-            <asp:TextBox ID="Editar_Perfil_ID" runat="server" visible="true"></asp:TextBox>
+            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Almacen/AdministrarProveedor.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Volver a Administrar</asp:HyperLink>
+            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Almacen/MenuAlmacen.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Volver a Menú Almacén</asp:HyperLink>
         </div>
     </div>
 </asp:Content>

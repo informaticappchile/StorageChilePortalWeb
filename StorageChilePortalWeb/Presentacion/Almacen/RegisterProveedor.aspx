@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h1 class="mdl-card__title-text">Registrar Nuevo Usuario</h1>
+            <h1 class="mdl-card__title-text">Registrar Nuevo Proveedor</h1>
         </div>
         <div class="mdl-card__supporting-text">
             <asp:Label ID="UsernameExistsError_Register" runat="server" Text="Nombre de usuario ya registrado" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
@@ -17,8 +17,7 @@
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <asp:TextBox ID="vendedor_name_register" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
                             <label class="mdl-textfield__label" for="vendedor_name_register">Vendedor</label>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidatorUserName" runat="server" ControlToValidate="vendedor_name_register" ErrorMessage="Introduce el nombre de usuario" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegExUsuario" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="vendedor_name_register" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidatorUserName" runat="server" ControlToValidate="vendedor_name_register" ErrorMessage="Introduce el nombre del vendedor" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                         </span>
                     </span>
                 </li>
@@ -29,7 +28,6 @@
                             <asp:TextBox ID="razon_social_register" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
                             <label class="mdl-textfield__label" for="razon_social_register">Razón Social</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="razon_social_register" ErrorMessage="Introduce una razón social" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="razon_social_register" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                         </span>
                     </span>
                 </li>
@@ -51,7 +49,6 @@
                             <asp:TextBox ID="direccion_register" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
                             <label class="mdl-textfield__label" for="direccion_register">Dirección</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="direccion_register" ErrorMessage="Introduce una dirección" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="direccion_register" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                         </span>
                     </span>
                 </li>
@@ -69,7 +66,7 @@
                     <span class="mdl-list__item-primary-content">
                         <i class="material-icons  mdl-list__item-avatar">local_phone</i>
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <asp:TextBox ID="fono_register" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
+                            <asp:TextBox ID="fono_register" runat="server" CssClass="mdl-textfield__input">+56</asp:TextBox>
                             <label class="mdl-textfield__label" for="fono_register">Fono</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="fono_register" ErrorMessage="Introduce un fono por favor" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ErrorMessage="Formato de fono no valido. Ejemplo: +56988888888" ControlToValidate="fono_register" ValidationExpression="^(0056|\+56)?(\d\d\d)-? ?(\d\d)-? ?(\d)-? ?(\d)-? ?(\d\d)$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
@@ -117,6 +114,7 @@
         <div class="mdl-card__actions mdl-card--border">
             <asp:Button ID="Button_Register" runat="server" Text="Registrar" OnClick="Button_Register_Click" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" />
             <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Almacen/AdministrarProveedor.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">ADMINISTRAR</asp:HyperLink>
+            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Almacen/MenuAlmacen.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Volver a Menú Almacén</asp:HyperLink>
             
             <!--<button type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="Button_Register" onclick="Button_Register_Click">
                 <b>Registrar</b>

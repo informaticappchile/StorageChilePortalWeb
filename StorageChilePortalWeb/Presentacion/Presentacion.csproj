@@ -43,6 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Desktop\AjaxControlToolkit.Binary.NET35\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=4.1.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net40\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
@@ -93,6 +97,8 @@
   <ItemGroup>
     <Content Include="AdministrarEmpresa.aspx" />
     <Content Include="Almacen\AdministrarMovimientos.aspx" />
+    <Content Include="Almacen\img\excelv2.png" />
+    <Content Include="Almacen\img\PDF-48.png" />
     <Content Include="Almacen\InformeProveedor.aspx" />
     <Content Include="Almacen\img\Bien.png" />
     <Content Include="Almacen\img\Mal.png" />
@@ -101,7 +107,6 @@
     <Content Include="Almacen\js\jquery-1.10.2.min.js" />
     <Content Include="Almacen\js\jquery.responsivetable.js" />
     <Content Include="Almacen\js\jquery.responsivetable.min.js" />
-    <Content Include="Almacen\EditarMovimientos.aspx" />
     <Content Include="Almacen\Movimientos.aspx" />
     <Content Include="Almacen\Pagos.aspx" />
     <Content Include="Almacen\AdministrarProducto.aspx" />
@@ -209,13 +214,6 @@
     </Compile>
     <Compile Include="Almacen\InformeProducto.aspx.designer.cs">
       <DependentUpon>InformeProducto.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Almacen\EditarMovimientos.aspx.cs">
-      <DependentUpon>EditarMovimientos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Almacen\EditarMovimientos.aspx.designer.cs">
-      <DependentUpon>EditarMovimientos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Almacen\Movimientos.aspx.cs">
       <DependentUpon>Movimientos.aspx</DependentUpon>

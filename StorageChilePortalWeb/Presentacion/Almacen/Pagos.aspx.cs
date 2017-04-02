@@ -37,19 +37,41 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
+            LogicaMovimiento lm = new LogicaMovimiento();
+            ArrayList lista = lm.MostrarMovimientosProductosProveedor();
+            if (lista.Count == 0)
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene movimientos realizados en el sistema. Por favor registre uno.");
+                //Cerramos el Script
+                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/Movimientos.aspx\";");
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
             if (!IsPostBack)
             {
-                fecha_pago_register.Text = DateTime.Now.ToShortDateString();
-                LogicaProveedor lpr = new LogicaProveedor();
-                LogicaPago lp = new LogicaPago();
-                ArrayList lista = lp.MostrarTipoPagos();
-                tipo_pago_register.DataSource = lista;
-                tipo_pago_register.DataBind();
-                lista = lpr.MostrarProveedores();
-                razon_social_register.DataSource = lista;
-                razon_social_register.DataTextField = "RazonSocial";
-                razon_social_register.DataValueField = "RazonSocial";
-                razon_social_register.DataBind();
+                try
+                {
+
+                }catch (Exception ex)
+                {
+                    fecha_pago_register.Text = DateTime.Now.ToShortDateString();
+                    LogicaProveedor lpr = new LogicaProveedor();
+                    LogicaPago lpa = new LogicaPago();
+                    lista = lpa.MostrarTipoPagos();
+                    tipo_pago_register.DataSource = lista;
+                    tipo_pago_register.DataBind();
+                    lista = lpr.MostrarProveedores();
+                    razon_social_register.DataSource = lista;
+                    razon_social_register.DataTextField = "RazonSocial";
+                    razon_social_register.DataValueField = "RazonSocial";
+                    razon_social_register.DataBind();
+                }
             }
             
         }

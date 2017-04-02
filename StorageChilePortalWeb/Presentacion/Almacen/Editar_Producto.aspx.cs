@@ -39,7 +39,7 @@ namespace Presentacion
             this.en = lu.BuscarProducto(user);
             this.en.CodProducto = codigo_producto_editar.Text;
             this.en.CantMinStock = Convert.ToInt32(cant_min_stock_editar.Text);
-            this.en.Descripcion = descripcion_editar.Text;
+            this.en.Descripcion = descripcion_editar.Text.Replace('\'', '´').Trim();
             this.en.IdGrupo = lu.GetIdGrupo(grupo_editar.Text);
             this.en.IdMedidad = lu.GetIdUnidad(unidad_editar.Text);
 
@@ -89,9 +89,23 @@ namespace Presentacion
                 {
                     if (Request["ID"] != null)
                     {
+                        ArrayList lista = le.MostrarProductos(); if (lista.Count == 0)
+                        {
+                            //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                            StringBuilder sbMensaje = new StringBuilder();
+                            //Aperturamos la escritura de Javascript
+                            sbMensaje.Append("<script type='text/javascript'>");
+                            //Le indicamos al alert que mensaje va mostrar
+                            sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene productos disponibles en el sistema. Por favor registre uno.");
+                            //Cerramos el Script
+                            sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/RegisterInventario.aspx\";");
+                            sbMensaje.Append("</script>");
+                            //Registramos el Script escrito en el StringBuilder
+                            ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                        }
                         this.user = Request["ID"].ToString();
                         this.en = le.BuscarProducto(user);
-                        ArrayList lista = le.MostrarGrupos();
+                        lista = le.MostrarGrupos();
                         grupo_editar.DataSource = lista;
                         grupo_editar.DataBind();
                         lista = le.MostrarUnidades();
