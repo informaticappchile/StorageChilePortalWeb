@@ -58,7 +58,7 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
-            if (IsPostBack)
+            if (!IsPostBack)
             {
                 Llenar_GridView();
             }

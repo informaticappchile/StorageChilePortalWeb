@@ -112,7 +112,7 @@ namespace Presentacion
                 totalSuma = totalSuma * 1.19;
                 totalSuma += Convert.ToDouble(ila_register.Text);
                 totalSuma += Convert.ToDouble(flete_register.Text);
-                total_register.Text = totalSuma.ToString();
+                total_register.Text =  (Convert.ToInt32(totalSuma).ToString());
             }
         }
 

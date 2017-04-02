@@ -109,11 +109,12 @@ namespace Persistencia
         public ArrayList MostrarMovimientosProductosProveedor()
         {
             Conexion nueva_conexion = new Conexion();
-            nueva_conexion.SetQuery("Select *" +
-                                    " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr, TipoMovimiento tm, Documento d" + 
-                                    " where p.IdProducto = mpp.IdProducto AND tm.IdTipoMovimiento = m.IdTipoMovimiento AND" + 
-                                    " mpp.IdMovimiento = m.IdMovimiento AND pr.IdProveedor = mpp.IdProveedor AND m.EstadoMovimiento=1" + 
-                                    " group by m.IdMovimiento");
+            nueva_conexion.SetQuery(" select mpp.IdMovimiento, pr.IdProveedor, m.IdTipoMovimiento, tm.TipoMovimiento, pr.RazonSocial, d.TipoDocumento, m.NumeroDocumento, m.IdDocumento, m.Total" +
+                                    " from movimiento m, movimientoproductoproveedor mpp, proveedor pr, producto p, proveedorproducto pp, documento d, tipomovimiento tm "+
+                                    " where m.IdMovimiento = mpp.IdMovimiento and mpp.IdProducto = pp.IdProducto and mpp.IdProveedor = pp.IdProveedor "+
+                                    " and pp.IdProveedor = pr.IdProveedor and pp.IdProducto = p.IdProducto and m.IdDocumento = d.IdDocumento AND "+
+                                    " m.IdTipoMovimiento = tm.IdTipoMovimiento and m.EstadoMovimiento = 1"+
+                                    " ");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -128,7 +129,6 @@ namespace Persistencia
                 movimiento.NumDocumento = Convert.ToInt32(dt.Rows[i]["NumeroDocumento"].ToString());
                 movimiento.IdDocumento = Convert.ToInt16(dt.Rows[i]["IdDocumento"].ToString());
                 movimiento.Total = Convert.ToInt32(dt.Rows[i]["Total"].ToString());
-                movimiento.Cantidad = Convert.ToInt32(dt.Rows[i]["CantidadSolicitada"].ToString());
                 lista.Add(movimiento);
             }
 
