@@ -158,7 +158,7 @@ namespace Persistencia
             {
                 string select = "Select *"+
                     " from Producto p, GrupoProducto gp, UnidadMedida um" +
-                    " where p.codProducto ='" + busqueda + "' AND p.IdGrupoProducto = gp.IdGrupoProducto AND p.IdUnidadMedida = um.IdUnidadMedida";
+                    " where (p.codProducto ='" + busqueda + "' OR p.Descripcion = '"+ busqueda +"')AND p.IdGrupoProducto = gp.IdGrupoProducto AND p.IdUnidadMedida = um.IdUnidadMedida";
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
                 if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)

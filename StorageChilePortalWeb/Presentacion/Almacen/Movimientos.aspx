@@ -149,7 +149,7 @@
                                             <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                 <asp:TextBox ID="fecha_doc_register" runat="server" CssClass="mdl-textfield__input" ReadOnly="false"></asp:TextBox>
                                                 <label class="mdl-textfield__label" for="fecha_doc_register">Fecha Documento</label>
-                            <asp:RegularExpressionValidator ID="RegExUsuario" runat="server" ErrorMessage="Solo se admiten fechas con formato: dd-mm-yyyy. Ejemplo: 22-01-2017" ControlToValidate="fecha_doc_register" ValidationExpression="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                                                <asp:RegularExpressionValidator ID="RegExUsuario" runat="server" ErrorMessage="Solo se admiten fechas con formato: dd-mm-yyyy. Ejemplo: 22-01-2017" ControlToValidate="fecha_doc_register" ValidationExpression="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                                             </span>
                                         </span>
                                     </li>
@@ -184,9 +184,9 @@
                                         <span class="mdl-list__item-primary-content">
                                             <i class="material-icons  mdl-list__item-avatar">fingerprint</i>
                                             <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                    <asp:DropDownList id="cod_prod_register" runat="server" CssClass="mdl-textfield__input" AutoPostBack="true" OnDataBinding="codProductoChangeIndex" OnTextChanged="codProductoChangeIndex">
+                                                    <asp:DropDownList id="descripcion_register" runat="server" CssClass="mdl-textfield__input" AutoPostBack="true" OnDataBinding="descripcionChangeIndex" OnTextChanged="descripcionChangeIndex">
                                                     </asp:DropDownList>
-                                                <label class="mdl-textfield__label" for="cod_prod_register">Código Producto</label>
+                                                <label class="mdl-textfield__label" for="descripcion_register">Descripción</label>
                                             </span>
                                         </span>
                                     </li>
@@ -194,8 +194,8 @@
                                         <span class="mdl-list__item-primary-content">
                                             <i class="material-icons  mdl-list__item-avatar">description</i>
                                             <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                <asp:TextBox ID="descripcion_register" runat="server" CssClass="mdl-textfield__input" ReadOnly="true"></asp:TextBox>
-                                                <label class="mdl-textfield__label" for="descripcion_register">Descripción</label>
+                                                <asp:TextBox ID="cod_prod_register" runat="server" CssClass="mdl-textfield__input" ReadOnly="true"></asp:TextBox>
+                                                <label class="mdl-textfield__label" for="descripcion_register">Código Producto</label>
                                             </span>
                                         </span>
                                     </li>
@@ -267,7 +267,76 @@
                 </tr>
             </table>
         </div>
-        
+        <!--Convertidor de Unidades Inicio-->
+         <div style="overflow-x:auto;">
+            <table align="center">
+                <tr>
+                    <td >
+                        <div class="panelIzq">
+                           <div class="mdl-card__supporting-text">
+                                <asp:Label ID="Label6" runat="server" Text="Convertidor de Unidades" Visible="true" CssClass="mdl-card__subtitle-text mdl-color-text--black"></asp:Label>
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <i class="material-icons  mdl-list__item-avatar">shopping_basket</i>
+                                            <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <asp:TextBox ID="unidadtxt" ReadOnly="true" runat="server" CssClass="mdl-textfield__input">1</asp:TextBox>
+                                                <label class="mdl-textfield__label" for="cant_register">Unidad</label>
+                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="cant_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                                            </span>
+                                        </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <i class="material-icons  mdl-list__item-avatar">shopping_basket</i>
+                                            <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <asp:TextBox ID="equivalenciatxt" runat="server" CssClass="mdl-textfield__input">0</asp:TextBox>
+                                                <label class="mdl-textfield__label" for="cant_register">Equivalencia</label>
+                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="cant_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                                            </span>
+                                        </span>
+                                    </li>
+                                </ul>
+                                </div>
+                            <div class="box"></div>
+                        </div>
+                    </td>
+                    <td >
+                        <div class="panelDer">
+                           <div class="mdl-card__supporting-text">
+                                <ul class="demo-list-control mdl-list">
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <i class="material-icons  mdl-list__item-avatar">shopping_basket</i>
+                                            <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <asp:TextBox ID="unidadestxt" runat="server" CssClass="mdl-textfield__input">0</asp:TextBox>
+                                                <label class="mdl-textfield__label" for="cant_register">Unidades</label>
+                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="cant_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                                            </span>
+                                        </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <i class="material-icons  mdl-list__item-avatar">monetization_on</i>
+                                            <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                <asp:TextBox ID="preciotxt" runat="server" CssClass="mdl-textfield__input">0</asp:TextBox>
+                                                <label class="mdl-textfield__label" for="precio_register">Precio Por Unidad</label>
+                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="precio_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                                            </span>
+                                        </span>
+                                    </li>
+                                    <li class="mdl-list__item">
+                                        <button runat="server" class="bttn-unite bttn-md bttn-danger" onserverclick="clickConvertir">Calcular</button>
+                                    </li>
+                                </ul>
+                                </div>
+                            <div class="box"></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!--Convertidor de Unidades Fin-->
         <br />
         <div>
             <asp:GridView HorizontalAlign="Center" ID="Responsive" runat="server" ARowStyle-Wrap="false"
@@ -375,10 +444,9 @@
         <div class="mdl-card__actions mdl-card--border">
             <asp:LinkButton ID="Editar_Perfil_Guardar" runat="server" visible="true" OnClientClick="return confirm('¿Está seguro que desea realizar este movimiento?');" OnClick="clickGuardar" CssClass="mdl-button mdl-js-button mdl-button--primary">
                 <i class="material-icons">save</i>
-                Guardar Cambios
+                Realizar Movimiento
             </asp:LinkButton>
             <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Almacen/AdministrarMovimientos.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">ADMINISTRAR</asp:HyperLink>
         </div>
-        
     </div>
 </asp:Content>

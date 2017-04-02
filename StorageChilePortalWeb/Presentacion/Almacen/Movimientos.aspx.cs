@@ -87,6 +87,16 @@ namespace Presentacion
 
         }
 
+        protected void clickConvertir(object sender, EventArgs e)
+        {
+            double conversion = 0;
+            double precio = 0;
+            conversion = (Convert.ToDouble(equivalenciatxt.Text) * Convert.ToDouble(unidadestxt.Text));
+            precio = (Convert.ToDouble(preciotxt.Text) / Convert.ToDouble(equivalenciatxt.Text));
+            cant_register.Text = ((int)conversion).ToString();
+            precio_register.Text = ((int)precio).ToString();
+        }
+
         protected void clickCalcular(object sender, EventArgs e)
         {
             double totalSuma = 0;
@@ -263,31 +273,31 @@ namespace Presentacion
                 lista = lp.MostrarProductosPorProveedor(razon_social_register.Text);
             }
             Session["EstadoCod"] = true;
-            cod_prod_register.DataSource = lista;
-            cod_prod_register.DataTextField = "CodProducto";
-            cod_prod_register.DataValueField = "CodProducto";
-            cod_prod_register.DataBind();
+            descripcion_register.DataSource = lista;
+            descripcion_register.DataTextField = "Descripcion";
+            descripcion_register.DataValueField = "Descripcion";
+            descripcion_register.DataBind();
 
         }
 
-        protected void codProductoChangeIndex(object sender, EventArgs e)
+        protected void descripcionChangeIndex(object sender, EventArgs e)
         {
             LogicaProducto lp = new LogicaProducto();
             ArrayList lista = new ArrayList();
             Producto_EN producto = new Producto_EN();
             if ((bool)Session["EstadoCod"])
             {
-                lista = (ArrayList)cod_prod_register.DataSource;
+                lista = (ArrayList)descripcion_register.DataSource;
                 string codigo = ((Producto_EN)lista[0]).CodProducto;
                 producto = lp.BuscarProducto(codigo);
             }
             else
             {
-                producto = lp.BuscarProducto(cod_prod_register.Text);
+                producto = lp.BuscarProducto(descripcion_register.Text);
             }
             grupo_register.Text = producto.Grupo;
             unidad_register.Text = producto.UnidadMedida;
-            descripcion_register.Text = producto.Descripcion;
+            cod_prod_register.Text = producto.CodProducto;
             Session["EstadoCod"] = false;
         }
 
@@ -365,9 +375,9 @@ namespace Presentacion
                     num_doc_register.ReadOnly = false;
                     fecha_doc_register.ReadOnly = false;
                     lista = lp.MostrarProductosPorProveedor(razon_social_register.Text);
-                    cod_prod_register.DataSource = lista;
-                    cod_prod_register.DataTextField = "CodProducto";
-                    cod_prod_register.DataValueField = "CodProducto";
+                    descripcion_register.DataSource = lista;
+                    descripcion_register.DataTextField = "Descripcion";
+                    descripcion_register.DataValueField = "Descripcion";
                     cod_prod_register.DataBind();
                     break;
 
@@ -378,9 +388,9 @@ namespace Presentacion
                     num_doc_register.ReadOnly = false;
                     fecha_doc_register.ReadOnly = false;
                     lista = lp.MostrarProductosPorProveedor(razon_social_register.Text);
-                    cod_prod_register.DataSource = lista;
-                    cod_prod_register.DataTextField = "CodProducto";
-                    cod_prod_register.DataValueField = "CodProducto";
+                    descripcion_register.DataSource = lista;
+                    descripcion_register.DataTextField = "Descripcion";
+                    descripcion_register.DataValueField = "Descripcion";
                     cod_prod_register.DataBind();
                     break;
 
@@ -392,9 +402,9 @@ namespace Presentacion
                     fecha_doc_register.ReadOnly = true;
                     Session["EstadoCod"] = true;
                     lista = lp.MostrarProductos();
-                    cod_prod_register.DataSource = lista;
-                    cod_prod_register.DataTextField = "CodProducto";
-                    cod_prod_register.DataValueField = "CodProducto";
+                    descripcion_register.DataSource = lista;
+                    descripcion_register.DataTextField = "Descripcion";
+                    descripcion_register.DataValueField = "Descripcion";
                     cod_prod_register.DataBind();
                     break;
 
@@ -408,9 +418,9 @@ namespace Presentacion
                     lp = new LogicaProducto();
                     lista = new ArrayList();
                     lista = lp.MostrarProductos();
-                    cod_prod_register.DataSource = lista;
-                    cod_prod_register.DataTextField = "CodProducto";
-                    cod_prod_register.DataValueField = "CodProducto";
+                    descripcion_register.DataSource = lista;
+                    descripcion_register.DataTextField = "Descripcion";
+                    descripcion_register.DataValueField = "Descripcion";
                     cod_prod_register.DataBind();
                     break;
 

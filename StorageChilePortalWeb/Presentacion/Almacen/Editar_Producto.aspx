@@ -15,7 +15,7 @@
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <asp:TextBox ID="codigo_producto_editar" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
                             <label class="mdl-textfield__label" for="codigo_producto_editar">Código Producto</label>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidatorUserName" runat="server" ControlToValidate="codigo_producto_editar" ErrorMessage="Introduce el nombre de usuario" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidatorUserName" runat="server" ControlToValidate="codigo_producto_editar" ErrorMessage="Introduce el codigo de producto" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="RegExUsuario" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="codigo_producto_editar" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                         </span>
                     </span>
@@ -36,7 +36,7 @@
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <asp:TextBox ID="descripcion_editar" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
                             <label class="mdl-textfield__label" for="descripcion_editar">Decripción</label>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="descripcion_editar" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="codigo_producto_editar" ErrorMessage="Introduce la descripción" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                         </span>
                     </span>
                 </li>
@@ -68,7 +68,8 @@
                 <i class="material-icons">save</i>
                 Guardar Cambios
             </asp:LinkButton>
-            <asp:TextBox ID="Editar_Perfil_ID" runat="server" visible="false"></asp:TextBox>
+            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Almacen/AdministrarProducto.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Volver a Administrar</asp:HyperLink>
+            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Almacen/MenuAlmacen.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Volver a Menú Almacén</asp:HyperLink>
         </div>
     </div>
 </asp:Content>
