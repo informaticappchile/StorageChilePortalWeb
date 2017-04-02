@@ -47,13 +47,17 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
-            DropDownList1.DataSource = lista;
-            DropDownList1.DataTextField = "NombreEmp";
-            DropDownList1.DataValueField = "NombreEmp";
-            DropDownList1.DataBind();
-            lista = lu.MostrarPerfiles();
-            DropDownList2.DataSource = lista;
-            DropDownList2.DataBind();
+            if (!IsPostBack)
+            {
+                DropDownList1.DataSource = lista;
+                DropDownList1.DataTextField = "NombreEmp";
+                DropDownList1.DataValueField = "NombreEmp";
+                DropDownList1.DataBind();
+                lista = lu.MostrarPerfiles();
+                DropDownList2.DataSource = lista;
+                DropDownList2.DataBind();
+            }
+            
         }
 
         /*
@@ -75,7 +79,7 @@ namespace Presentacion
 
                 string userActiviation = Request.Url.GetLeftPart(UriPartial.Authority) + "/Control_Usuarios/ConfirmacionRegistro.aspx?email=" + correo_register.Text;//La direccion url que debe ser recargada para la activacion de la cuenta
 
-                message.Body = "Estimado, " + user_name_register.Text + "<br> Bienvenido al portal wed de Storage Chile.<br>Haga click aquí para confirmar tu cuenta</br> <a href = " +
+                message.Body = "Estimado, " + user_name_register.Text + "<br> Bienvenido al portal web de Storage Chile.<br>Haga click aquí para confirmar tu cuenta</br> <a href = " +
                     userActiviation + "> click Here </a> <br><br>En caso de presentar algún problema, póngase en contacto con nuestro equipo de soporte: informaticapp.soporte@gmail.com";//Donde debe hacer click el nuevo usuario para activarla
                 message.IsBodyHtml = true;//El mensaje esta en html
                 //smtpClient.UseDefaultCredentials = true;

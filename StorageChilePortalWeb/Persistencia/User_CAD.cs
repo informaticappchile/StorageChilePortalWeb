@@ -29,9 +29,9 @@ namespace Persistencia
             try
             {
                 string parametro1 = "@fechaRegistro";
-                string insert = "insert into Usuario(Email,NombreCompleto,UserName,Password,IdPerfil,Verificado,IdEmpresa) VALUES ('"
+                string insert = "insert into Usuario(Email,NombreCompleto,UserName,Password,IdPerfil,Verificado,IdEmpresa,FechaRegistro) VALUES ('"
                     + u.Correo + "','" + u.Nombre + "','" + u.NombreUsu + "','" + u.Contraseña + "'," + 
-                    u.IdPerfil + "," + 0 + "," + u.IdEmpresa + parametro1 + ")";
+                    u.IdPerfil + "," + 0 + "," + u.IdEmpresa + "," + parametro1 + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
                 nueva_conexion.addParameter(parametro1, u.FechaRegistro);
@@ -149,6 +149,8 @@ namespace Persistencia
             {
                 string empresa = "";
                 string condicion = "";
+                usuario = new User_EN();
+
                 if (tabla != "Administrador")
                 {
                     empresa = ", Empresa";
@@ -158,9 +160,9 @@ namespace Persistencia
                     "') "+condicion;
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
-                if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
+                if (dt != null && dt.Rows.Count > 0) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
                 {
-                    usuario = new User_EN();
+                    
                     usuario.ID = Convert.ToInt16(dt.Rows[0]["IdUsuario"]);
                     usuario.Correo = dt.Rows[0]["Email"].ToString();
                     usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();

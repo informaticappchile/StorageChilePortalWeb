@@ -29,7 +29,7 @@ namespace Presentacion
                     u = lu.BuscarUsuario(en.Correo, "Usuario");
                     if (ValidarConfirmacionCorreo(u))
                     {
-                        EnviarCorreoConfirmacion(u);
+                        
                         //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                         StringBuilder sbMensaje = new StringBuilder();
                         //Aperturamos la escritura de Javascript
@@ -49,6 +49,7 @@ namespace Presentacion
                         u = lu.BuscarUsuario(en.Correo, "Usuario");
                         if (ValidarConfirmacionCorreo(u))
                         {
+                            EnviarCorreoConfirmacion(u);
                             //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                             StringBuilder sbMensaje = new StringBuilder();
                             //Aperturamos la escritura de Javascript
@@ -111,7 +112,7 @@ namespace Presentacion
                 message.To.Add(toAddress);
                 message.Subject = "Activación de la cuenta";//El asunto del email
                 
-                message.Body = "Estimado, " + u.NombreUsu + "<br> Bienvenido al portal wed de Storage Chile. Su cuenta se encuenta"+
+                message.Body = "Estimado, " + u.NombreUsu + "<br> Bienvenido al portal web de Storage Chile. Su cuenta se encuentra"+
                     " activada felicitaciones.<br>Sus datos son: <br> Usuario: " + u.NombreUsu + "<br>Contraseña: " + u.Contraseña +
                     "<br><br>Como recomendación de seguridad guarde sus datos y elimine este correo o cambie su contraseña por favor.";//Donde debe hacer click el nuevo usuario para activarla
                 message.IsBodyHtml = true;//El mensaje esta en html
