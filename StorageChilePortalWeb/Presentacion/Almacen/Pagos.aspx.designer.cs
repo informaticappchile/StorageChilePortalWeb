@@ -13,13 +13,13 @@ namespace Presentacion {
     public partial class Pagos {
         
         /// <summary>
-        /// Control NotResponsableError_Register.
+        /// Control NotNumChequeError_Register.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NotResponsableError_Register;
+        protected global::System.Web.UI.WebControls.Label NotNumChequeError_Register;
         
         /// <summary>
         /// Control fecha_pago_register.
@@ -58,6 +58,15 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
         
         /// <summary>
+        /// Control RegExUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegExUsuario;
+        
+        /// <summary>
         /// Control razon_social_register.
         /// </summary>
         /// <remarks>
@@ -83,5 +92,14 @@ namespace Presentacion {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton Editar_Perfil_Guardar;
+        
+        /// <summary>
+        /// Control HyperLink2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink2;
     }
 }

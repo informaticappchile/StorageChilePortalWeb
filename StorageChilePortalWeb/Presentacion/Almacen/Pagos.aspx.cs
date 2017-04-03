@@ -79,9 +79,6 @@ namespace Presentacion
             {
                 try
                 {
-
-                }catch (Exception ex)
-                {
                     fecha_pago_register.Text = DateTime.Now.ToShortDateString();
                     LogicaProveedor lpr = new LogicaProveedor();
                     LogicaPago lpa = new LogicaPago();
@@ -93,6 +90,9 @@ namespace Presentacion
                     razon_social_register.DataTextField = "RazonSocial";
                     razon_social_register.DataValueField = "RazonSocial";
                     razon_social_register.DataBind();
+                }
+                catch (Exception ex)
+                {
                 }
             }
             
@@ -146,6 +146,7 @@ namespace Presentacion
                         contador++;
                     }
                 }
+                Llenar_GridView(razon_social_register.Text);
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                 StringBuilder sbMensaje = new StringBuilder();
                 //Aperturamos la escritura de Javascript
@@ -244,23 +245,26 @@ namespace Presentacion
 
             for (int i = 0; i < lista.Count; i++)
             {
-                //Agregar Datos    
-                DataRow row = dt.NewRow();
-                row["RazonSocial"] = ((Movimiento_EN)lista[i]).RazonSocial;
-                row["TipoDoc"] = ((Movimiento_EN)lista[i]).Documento;
-                row["NumDoc"] = ((Movimiento_EN)lista[i]).NumDocumento;
-                row["FechaDocumento"] = ((Movimiento_EN)lista[i]).FechaDocumento;
-                row["Total"] = ((Movimiento_EN)lista[i]).Total;
-                ArrayList obs = new ArrayList();
-                obs = lm.MostrarObservaciones(razon, ((Movimiento_EN)lista[i]).ID);
-                string observaciones = "";
-                for (int j = 0; j < obs.Count; j++)
+                if (((Movimiento_EN)lista[i]).IdPago == "0")
                 {
-                    observaciones += "- " + (string)obs[j] + "\n";
+                    //Agregar Datos    
+                    DataRow row = dt.NewRow();
+                    row["RazonSocial"] = ((Movimiento_EN)lista[i]).RazonSocial;
+                    row["TipoDoc"] = ((Movimiento_EN)lista[i]).Documento;
+                    row["NumDoc"] = ((Movimiento_EN)lista[i]).NumDocumento;
+                    row["FechaDocumento"] = ((Movimiento_EN)lista[i]).FechaDocumento;
+                    row["Total"] = ((Movimiento_EN)lista[i]).Total;
+                    ArrayList obs = new ArrayList();
+                    obs = lm.MostrarObservaciones(razon, ((Movimiento_EN)lista[i]).ID);
+                    string observaciones = "";
+                    for (int j = 0; j < obs.Count; j++)
+                    {
+                        observaciones += "- " + (string)obs[j] + "\n";
+                    }
+                    row["Observaciones"] = observaciones;
+                    row["IdMovimiento"] = ((Movimiento_EN)lista[i]).ID;
+                    dt.Rows.Add(row);
                 }
-                row["Observaciones"] = observaciones;
-                row["IdMovimiento"] = ((Movimiento_EN)lista[i]).ID;
-                dt.Rows.Add(row);
             }
             Session["dataPago"] = dt;
             //enlazas datatable a griedview

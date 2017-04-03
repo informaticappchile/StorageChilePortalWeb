@@ -105,7 +105,7 @@ namespace Presentacion
                 {
                     icono.ImageUrl = "img/Bien.png";
                 }
-                else if (cantMin * (1 + Porcentage) > stock && cantMin < stock)
+                else if (cantMin * (1 + Porcentage) >= stock && cantMin <= stock)
                 {
                     icono.ImageUrl = "img/regular.png";
                 }
@@ -159,7 +159,7 @@ namespace Presentacion
                 {
                     row["NStock"] = "Excelente";
                 }
-                else if (cantMin * (1 + Porcentage) > stock && cantMin < stock)
+                else if (cantMin * (1 + Porcentage) >= stock && cantMin <= stock)
                 {
                     row["NStock"] = "Estable";
                 }

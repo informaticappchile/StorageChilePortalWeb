@@ -179,6 +179,7 @@ namespace Persistencia
                     movimiento.IdDocumento = Convert.ToInt16(dt.Rows[0]["IdDocumento"].ToString());
                     movimiento.Total = Convert.ToInt32(dt.Rows[0]["Total"].ToString());
                     movimiento.NumDocumento = Convert.ToInt32(dt.Rows[0]["NumeroDocumento"].ToString());
+                    movimiento.FechaDocumento = Convert.ToDateTime(dt.Rows[0]["FechaDocumento"].ToString());
                     movimiento.Area = dt.Rows[0]["Area"].ToString();
                 }
             }
@@ -200,13 +201,15 @@ namespace Persistencia
             {
                 string update = "";
                 string parametro = "@EstadoMovimiento";
+                string parametro1 = "@FechaDocumento";
 
                 update = "Update Movimiento set Total = " + e.Total + ",NumeroDocumento  = " + e.NumDocumento +
-                    ",FechaDocumento = "+e.NumDocumento +",IdDocumento = " + e.IdDocumento + ", IdPago='" + e.IdPago 
+                    ", FechaDocumento = " + parametro1 + ", IdDocumento = " + e.IdDocumento + ", IdPago='" + e.IdPago 
                     + "', EstadoMovimiento = " + parametro +
                     " where Movimiento.IdMovimiento = '" + e.ID + "'" ;
                 nueva_conexion.SetQuery(update);
                 nueva_conexion.addParameter(parametro,e.Estado);
+                nueva_conexion.addParameter(parametro1, e.FechaDocumento);
 
 
                 nueva_conexion.EjecutarQuery();
@@ -357,6 +360,7 @@ namespace Persistencia
                 movimiento.Total = Convert.ToInt32(dt.Rows[i]["Total"].ToString());
                 movimiento.Observaciones = dt.Rows[i]["Observaciones"].ToString();
                 movimiento.FechaDocumento = Convert.ToDateTime(dt.Rows[i]["FechaDocumento"].ToString());
+                movimiento.IdPago = dt.Rows[i]["IdPago"].ToString();
                 lista.Add(movimiento);
 
             }
@@ -372,7 +376,7 @@ namespace Persistencia
         public ArrayList MostrarMovimientosPorProveedor()
         {
             Conexion nueva_conexion = new Conexion();
-            nueva_conexion.SetQuery("Select m.IdMovimiento, pr.IdProveedor, m.IdTipoMovimiento, tm.TipoMovimiento, pr.RazonSocial, d.TipoDocumento, m.NumeroDocumento, m.IdDocumento, m.Total, mpp.Observaciones, m.FechaDocumento" +
+            nueva_conexion.SetQuery("Select m.IdMovimiento, pr.IdProveedor, m.IdTipoMovimiento, tm.TipoMovimiento, pr.RazonSocial, d.TipoDocumento, m.NumeroDocumento, m.IdDocumento, m.Total, mpp.Observaciones, m.FechaDocumento, m.IdPago" +
                                     " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr, TipoMovimiento tm, Documento d, ProveedorProducto pp" +
                                     " where p.IdProducto = pp.IdProducto and pp.IdProducto = mpp.IdProducto AND pp.IdProveedor = mpp.IdProveedor AND pp.IdProveedor = pr.IdProveedor and" +
                                     " mpp.IdMovimiento = m.IdMovimiento AND m.EstadoMovimiento=1" +
@@ -395,6 +399,7 @@ namespace Persistencia
                 movimiento.Total = Convert.ToInt32(dt.Rows[i]["Total"].ToString());
                 movimiento.Observaciones = dt.Rows[i]["Observaciones"].ToString();
                 movimiento.FechaDocumento = Convert.ToDateTime(dt.Rows[i]["FechaDocumento"].ToString());
+                movimiento.IdPago = dt.Rows[i]["IdPago"].ToString();
                 lista.Add(movimiento);
 
             }

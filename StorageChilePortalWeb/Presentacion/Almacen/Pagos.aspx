@@ -63,7 +63,7 @@
          </style>
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h1 class="mdl-card__title-text">Movimientos</h1>
+            <h1 class="mdl-card__title-text">Pagos Proveedores</h1>
         </div>
         
         <div style="overflow-x:auto">
@@ -72,7 +72,7 @@
                     <td >
                         <div class="panelIzq">
                             <div class="mdl-card__supporting-text">
-                                <asp:Label ID="NotResponsableError_Register" runat="server" Text="No se ha ingresado un Responsable" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
+                                <asp:Label ID="NotNumChequeError_Register" runat="server" Text="No se ha ingresado un número de cheque" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
                                 <ul class="demo-list-control mdl-list">
                                     <li class="mdl-list__item">
                                         <span class="mdl-list__item-primary-content">
@@ -100,6 +100,7 @@
                                                 <asp:TextBox ID="num_cheque_register" runat="server" CssClass="mdl-textfield__input" ReadOnly="false">0</asp:TextBox>
                                                 <label class="mdl-textfield__label" for="num_cheque_register">N° Cheque</label>
                                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="num_cheque_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                                                <asp:RegularExpressionValidator ID="RegExUsuario" runat="server" ErrorMessage="No se admiten más de 10 digitos" ControlToValidate="num_cheque_register" ValidationExpression="^[\s\S]{0,10}$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                                             </span>
                                         </span>
                                     </li>
@@ -154,10 +155,11 @@
         </div>
         <br />
         <div class="mdl-card__actions mdl-card--border">
-            <asp:LinkButton ID="Editar_Perfil_Guardar" runat="server" visible="true" OnClientClick="return confirm('¿Está seguro que desea realizar este movimiento?');" OnClick="clickGuardar" CssClass="mdl-button mdl-js-button mdl-button--primary">
+            <asp:LinkButton ID="Editar_Perfil_Guardar" runat="server" visible="true" OnClientClick="return confirm('¿Está seguro que desea realizar este pago?');" OnClick="clickGuardar" CssClass="mdl-button mdl-js-button mdl-button--primary">
                 <i class="material-icons">save</i>
                 Guardar Cambios
             </asp:LinkButton>
+            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Almacen/MenuAlmacen.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Volver a Menú Almacén</asp:HyperLink>
         </div>
         
     </div>

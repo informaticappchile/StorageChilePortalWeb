@@ -310,9 +310,9 @@ namespace Presentacion
             LogicaProducto lp = new LogicaProducto();
             ArrayList lista = new ArrayList();
             Producto_EN producto = new Producto_EN();
-            if ((bool)Session["EstadoCod"])
+            lista = (ArrayList)descripcion_register.DataSource;
+            if ((bool)Session["EstadoCod"] && lista != null)
             {
-                lista = (ArrayList)descripcion_register.DataSource;
                 string codigo = ((Producto_EN)lista[0]).CodProducto;
                 producto = lp.BuscarProducto(codigo);
             }
