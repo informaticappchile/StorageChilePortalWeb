@@ -86,7 +86,7 @@ namespace Presentacion
                     lista = lm.MostrarDocumentos();
                     tipo_doc_register.DataSource = lista;
                     tipo_doc_register.DataBind();
-                    lista = lpr.MostrarProveedores();
+                    lista = lpr.MostrarProveedoresConProductos();
                     razon_social_register.DataSource = lista;
                     razon_social_register.DataTextField = "RazonSocial";
                     razon_social_register.DataValueField = "RazonSocial";
@@ -311,7 +311,7 @@ namespace Presentacion
             ArrayList lista = new ArrayList();
             Producto_EN producto = new Producto_EN();
             lista = (ArrayList)descripcion_register.DataSource;
-            if ((bool)Session["EstadoCod"] && lista != null)
+            if ((bool)Session["EstadoCod"] && lista != null && lista.Count > 0)
             {
                 string codigo = ((Producto_EN)lista[0]).CodProducto;
                 producto = lp.BuscarProducto(codigo);

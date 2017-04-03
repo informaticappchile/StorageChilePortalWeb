@@ -95,9 +95,40 @@ namespace Persistencia
             }
 
             return lista;
-            
+
         }
-        
+
+        /**
+         * Se encarga de mostrar todos los usuarios del sistema.
+         */
+
+        public ArrayList MostrarProveedoresConProductos()
+        {
+            Conexion nueva_conexion = new Conexion();
+            nueva_conexion.SetQuery("Select *" +
+                                    " from Proveedor p, Ciudad c, ProveedorProducto pp" +
+                                    " where p.IdCiudad = c.IdCiudad AND pp.IdProveedor = p.IdProveedor Group by p.IdProveedor");
+            DataTable dt = nueva_conexion.QuerySeleccion();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Proveedor_EN proveedor = new Proveedor_EN();
+                proveedor.ID = Convert.ToInt16(dt.Rows[i]["IdProveedor"]);
+                proveedor.IdCiudad = Convert.ToInt16(dt.Rows[i]["IdCiudad"]);
+                proveedor.Direccion = dt.Rows[i]["Direccion"].ToString();
+                proveedor.Ciudad = dt.Rows[i]["NombreCiudad"].ToString();
+                proveedor.Fono = dt.Rows[i]["Fono"].ToString();
+                proveedor.Rut = dt.Rows[i]["RutProveedor"].ToString();
+                proveedor.RazonSocial = dt.Rows[i]["RazonSocial"].ToString();
+                proveedor.Vendedor = dt.Rows[i]["Vendedor"].ToString();
+                lista.Add(proveedor);
+
+            }
+
+            return lista;
+
+        }
+
         /**
          * Se encarga de borrar el usuario, si existe en la base de datos, a través de su ID
          **/
