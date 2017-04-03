@@ -31,8 +31,29 @@ namespace Presentacion
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
             User_EN en = (User_EN)Session["user_session_data"];
-            LogicaProveedor le = new LogicaProveedor();
-            ArrayList lista = le.MostrarProveedores();
+            LogicaEmpresa le = new LogicaEmpresa();
+            Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
+            LogicaServicio ls = new LogicaServicio();
+            em.ListaServicio = ls.MostrarServiciosEmpresas(em);
+            for (int i = 0; i < em.ListaServicio.Count; i++)
+            {
+                if (!((Servicio_EN)em.ListaServicio[i]).Verified && ((Servicio_EN)em.ListaServicio[i]).Nombre == "Almacen")
+                {
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Usted no dispone de estos servicios.");
+                    //Cerramos el Script
+                    sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                }
+            }
+            LogicaProveedor l = new LogicaProveedor();
+            ArrayList lista = l.MostrarProveedores();
             if (lista.Count == 0)
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -60,6 +81,18 @@ namespace Presentacion
                 lista = lp.MostrarUnidades();
                 unidad_register.DataSource = lista;
                 unidad_register.DataBind();
+                lista = lp.MostrarProductos();
+                if (lista.Count > 0)
+                {
+                    ArrayList aux = new ArrayList();
+                    aux.Add("Limpiar");
+                    for (int i = 0; i < lista.Count; i++)
+                    {
+                        aux.Add(((Producto_EN)lista[i]).Descripcion);
+                    }
+                    productos_registrados.DataSource = aux;
+                    productos_registrados.DataBind();
+                }
             }
         }
         /* Una vez el usuario ha rellenado todos los campos solicitados en el apartado del registro
@@ -126,6 +159,29 @@ namespace Presentacion
             else
             {
                 return false;
+            }
+        }
+
+        protected void clickRellenar(object sender, EventArgs e)
+        {
+            if (productos_registrados.Text == "Limpiar")
+            {
+                grupo_register.Enabled = true;
+                codigo_producto_register.Enabled = true;
+                descripcion_register.Enabled = true;
+                unidad_register.Enabled = true;
+                cant_min_stock_register.Enabled = true;
+                limpiar(this.Controls);
+            }
+            else
+            {
+                LogicaProducto lp = new LogicaProducto();
+                Producto_EN p = lp.BuscarProducto(productos_registrados.Text);
+                grupo_register.Text = p.Grupo;
+                codigo_producto_register.Text = p.CodProducto;
+                descripcion_register.Text = p.Descripcion;
+                unidad_register.Text = p.UnidadMedida;
+                cant_min_stock_register.Text = p.CantMinStock.ToString();
             }
         }
 

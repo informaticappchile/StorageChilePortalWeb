@@ -60,5 +60,13 @@ namespace Logica
             return a;
         }
 
+        //Declaramos la funcion buscar usuario donde llama al cad correspondiente
+        public bool servicioAlmacen(string empresa)
+        {
+            Empresa_CAD busqueda = new Empresa_CAD();
+            bool empresaBuscado = busqueda.servicioAlmacen(empresa);
+            return empresaBuscado;
+        }
+
     }
 }

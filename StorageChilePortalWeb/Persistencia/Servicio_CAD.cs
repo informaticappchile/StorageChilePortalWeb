@@ -100,8 +100,8 @@ namespace Persistencia
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    "from Servicio s, ServicioEmpresa se"+
-                                    "where se.IdEmpresa =" + e.ID);
+                                    " from Servicio s, ServicioEmpresa se"+
+                                    " where se.IdEmpresa =" + e.ID + " AND se.IdServicio = s.IdServicio");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)

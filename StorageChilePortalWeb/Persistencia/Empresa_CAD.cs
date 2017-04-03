@@ -173,5 +173,33 @@ namespace Persistencia
             finally { nueva_conexion.Cerrar_Conexion(); }
         }
 
+        /**
+         * Recibe un nombre de usuario o un correo electrónico y devuelve los datos del usuario al que pertenecen.
+         * En caso de que no exista tal usuario/correo, devuelve NULL
+         */
+        public bool servicioAlmacen(string busqueda)
+        {
+            Empresa_EN empresa = null;
+            Conexion nueva_conexion = new Conexion();
+            bool resultado = false;
+            try
+            {
+                string select = "Select *"+
+                    " from Empresa e, Servicio s, ServicioEmpresa se" +
+                    " where (e.NombreEmpresa ='" + busqueda + "' or e.CorreoEmpresa = '" + busqueda + "') AND e.IdEmpresa = se.IdEmpresa AND" + 
+                    " s.IdServicio = se.IdServiocio AND s.NombreServicio='Almacen'";
+                nueva_conexion.SetQuery(select);
+                DataTable dt = nueva_conexion.QuerySeleccion();
+                if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
+                {
+                    resultado = Convert.ToBoolean(dt.Rows[0]["EstadoServicio"]);
+                }
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+
+            return resultado;
+        }
+
     }
 }

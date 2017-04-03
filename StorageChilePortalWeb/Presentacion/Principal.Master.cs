@@ -18,14 +18,39 @@ namespace Presentacion
             User_EN user = (User_EN)Session["user_session_data"];
             if (user != null)
             {
-                Link_Almacen.Visible = true;
+                Link_Feed.Visible = false;
+                Link_MyFiles.Visible = false;
+                LogicaEmpresa le = new LogicaEmpresa();
+                Empresa_EN em = le.BuscarEmpresa(user.NombreEmp);
+                LogicaServicio ls = new LogicaServicio();
+                em.ListaServicio = ls.MostrarServiciosEmpresas(em);
+                for (int i = 0; i < em.ListaServicio.Count; i++)
+                {
+                    if (((Servicio_EN)em.ListaServicio[i]).Verified)
+                    {
+                        switch (((Servicio_EN)em.ListaServicio[i]).Nombre)
+                        {
+                            case "Almacen":
+                                Link_Almacen.Visible = true;
+                                break;
+                            case "Bodega":
+                                Link_MyFiles.Visible = true;
+                                Link_Feed.Visible = true;
+                                break;
+                            case "Digitalizacion":
+                                Link_MyFiles.Visible = true;
+                                Link_Feed.Visible = true;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
                 Link_Cerrar_Sesion.Visible = true;
                 Barra_Secundaria.Visible = false;
                 LbBienvenido.Text = "Bienvenido: " + user.NombreUsu;
                 LbBienvenido.Visible = true;
                 LogoEmpresa.Visible = true;
-                LogicaEmpresa le = new LogicaEmpresa();
-                Empresa_EN em = le.BuscarEmpresa(user.NombreEmp);
                 System.Drawing.Image img = byte_a_Image(em.LogoEmpresa);
                 img.Save(Server.MapPath("~/logEmpresas/") + "logoEmp.png", System.Drawing.Imaging.ImageFormat.Png);
             }

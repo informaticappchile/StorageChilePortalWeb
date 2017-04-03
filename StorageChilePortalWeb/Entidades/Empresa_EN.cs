@@ -72,6 +72,14 @@ namespace Entidades
             set { logoEmpresa = value; }
         }
 
+        ArrayList listaServicio;
+        public ArrayList ListaServicio
+        {
+            get { return listaServicio; }
+            set { listaServicio = value; }
+        }
+
+
         //Declaramos el constructor de la clase User_EN
         public Empresa_EN()
         {
@@ -80,6 +88,7 @@ namespace Entidades
             rut = "";
             correo = "";
             fechaRegistro = DateTime.Now;
+            listaServicio = new ArrayList();
         }
 
     }

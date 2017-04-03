@@ -87,12 +87,35 @@ namespace Presentacion
             LogicaUsuario lu = new LogicaUsuario();
             LogicaProveedor le = new LogicaProveedor();
             User_EN ad = (User_EN)Session["user_session_data"];
-            if (ad != null && ad.IdPerfil != 1)
+            if (ad != null)
             {
                 if (!Page.IsPostBack)
                 {
                     if (Request["ID"] != null)
                     {
+
+                        User_EN en = (User_EN)Session["user_session_data"];
+                        LogicaEmpresa l = new LogicaEmpresa();
+                        Empresa_EN em = l.BuscarEmpresa(en.NombreEmp);
+                        LogicaServicio ls = new LogicaServicio();
+                        em.ListaServicio = ls.MostrarServiciosEmpresas(em);
+                        for (int i = 0; i < em.ListaServicio.Count; i++)
+                        {
+                            if (!((Servicio_EN)em.ListaServicio[i]).Verified && ((Servicio_EN)em.ListaServicio[i]).Nombre == "Almacen")
+                            {
+                                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                                StringBuilder sbMensaje = new StringBuilder();
+                                //Aperturamos la escritura de Javascript
+                                sbMensaje.Append("<script type='text/javascript'>");
+                                //Le indicamos al alert que mensaje va mostrar
+                                sbMensaje.AppendFormat("alert('{0}');", "Usted no dispone de estos servicios.");
+                                //Cerramos el Script
+                                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
+                                sbMensaje.Append("</script>");
+                                //Registramos el Script escrito en el StringBuilder
+                                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                            }
+                        }
                         ArrayList lista = le.MostrarProveedores();
                         if (lista.Count == 0)
                         {

@@ -11,6 +11,17 @@
             <asp:Label ID="UsernameExistsError_Register" runat="server" Text="Nombre de usuario ya registrado" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
             <asp:Label ID="EmailExistsError_Register" runat="server" Text="Correo electrónico ya registrado" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
             <ul class="demo-list-control mdl-list">
+                <!--<li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <i class="material-icons  mdl-list__item-avatar">search</i>
+                        <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <asp:DropDownList id="productos_registrados" runat="server" CssClass="mdl-textfield__input">
+                            </asp:DropDownList>
+                            <label class="mdl-textfield__label" for="productos_registrados">Productos Resgistrados</label>
+                            <button runat="server" class="bttn-unite bttn-md bttn-danger" onserverclick="clickRellenar">Desplegar</button>
+                        </span>
+                    </span>
+                </li>-->
                 <li class="mdl-list__item">
                     <span class="mdl-list__item-primary-content">
                         <i class="material-icons  mdl-list__item-avatar">fingerprint</i>

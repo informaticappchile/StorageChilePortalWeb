@@ -31,6 +31,15 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.Label EmailExistsError_Register;
         
         /// <summary>
+        /// Control productos_registrados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList productos_registrados;
+        
+        /// <summary>
         /// Control codigo_producto_register.
         /// </summary>
         /// <remarks>

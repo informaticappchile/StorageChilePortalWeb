@@ -39,6 +39,27 @@ namespace Presentacion
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
             User_EN en = (User_EN)Session["user_session_data"];
+            LogicaEmpresa le = new LogicaEmpresa();
+            Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
+            LogicaServicio ls = new LogicaServicio();
+            em.ListaServicio = ls.MostrarServiciosEmpresas(em);
+            for (int i = 0; i < em.ListaServicio.Count; i++)
+            {
+                if (!((Servicio_EN)em.ListaServicio[i]).Verified && ((Servicio_EN)em.ListaServicio[i]).Nombre == "Almacen")
+                {
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Usted no dispone de estos servicios.");
+                    //Cerramos el Script
+                    sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                }
+            }
             LogicaProducto lp = new LogicaProducto();
             ArrayList lista = lp.MostrarProductos();
             if (lista.Count == 0)
@@ -59,7 +80,6 @@ namespace Presentacion
             {
                 try
                 {
-
                     fecha_actual_register.Text = DateTime.Now.ToShortDateString();
                     LogicaProveedor lpr = new LogicaProveedor();
                     LogicaMovimiento lm = new LogicaMovimiento();
@@ -95,6 +115,9 @@ namespace Presentacion
             precio = (Convert.ToDouble(preciotxt.Text) / Convert.ToDouble(equivalenciatxt.Text));
             cant_register.Text = ((int)conversion).ToString();
             precio_register.Text = ((int)precio).ToString();
+            unidadestxt.Text = "0";
+            equivalenciatxt.Text = "0";
+            preciotxt.Text = "0";
         }
 
         protected void clickCalcular(object sender, EventArgs e)
@@ -132,7 +155,7 @@ namespace Presentacion
             Proveedor_EN pr = new Proveedor_EN();
 
             m.IdTipoMovimiento = lm.GetIdTipoMovimiento(tipo_mov_register.Text);
-            m.Area = area_register.Text;
+            m.Area = "Sin Area";
 
             switch (tipo_mov_register.Text)
             {
@@ -158,6 +181,7 @@ namespace Presentacion
 
                 case "Producción":
                     m.Responsable = responsable_register.Text;
+                    m.Area = area_register.Text;
                     break;
 
                 default:
@@ -225,6 +249,7 @@ namespace Presentacion
                 }
 
                 lm.InsertarMovimientoProductoProveedor(listaMovimientos);
+                limpiar(this.Controls);
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                 StringBuilder sbMensaje = new StringBuilder();
                 //Aperturamos la escritura de Javascript
@@ -379,6 +404,7 @@ namespace Presentacion
                     tipo_doc_register.Enabled = true;
                     num_doc_register.ReadOnly = false;
                     fecha_doc_register.ReadOnly = false;
+                    area_register.Enabled = false;
                     lista = lp.MostrarProductosPorProveedor(razon_social_register.Text);
                     descripcion_register.DataSource = lista;
                     descripcion_register.DataTextField = "Descripcion";
@@ -392,6 +418,7 @@ namespace Presentacion
                     tipo_doc_register.Enabled = true;
                     num_doc_register.ReadOnly = false;
                     fecha_doc_register.ReadOnly = false;
+                    area_register.Enabled = false;
                     lista = lp.MostrarProductosPorProveedor(razon_social_register.Text);
                     descripcion_register.DataSource = lista;
                     descripcion_register.DataTextField = "Descripcion";
@@ -419,6 +446,7 @@ namespace Presentacion
                     tipo_doc_register.Enabled = false;
                     num_doc_register.ReadOnly = true;
                     fecha_doc_register.ReadOnly = true;
+                    area_register.Enabled = true;
                     Session["EstadoCod"] = true;
                     lp = new LogicaProducto();
                     lista = new ArrayList();
@@ -499,9 +527,47 @@ namespace Presentacion
             }
         }
 
-        protected void limpiar()
+        private void limpiar(ControlCollection controles)
         {
-
+            foreach (Control ctrl in controles)
+            {
+                if (ctrl is TextBox)
+                {
+                    TextBox text = ctrl as TextBox;
+                    if (text.ID == responsable_register.ID)
+                    {
+                        text.Text = "";
+                    }
+                    else if (text.ID == num_doc_register.ID)
+                    {
+                        text.Text = "";
+                    }
+                    else if (text.ID == obs_register.ID)
+                    {
+                        text.Text = "";
+                    }
+                    else if (text.ID == fecha_doc_register.ID)
+                    {
+                        text.Text = "";
+                    }
+                    else if (text.ID == fecha_actual_register.ID || text.ID == cod_prod_register.Text
+                        || text.ID == unidad_register.Text || text.ID == grupo_register.Text)
+                    {
+                    }
+                    else if (text.ID == unidadtxt.ID)
+                    {
+                        text.Text = "1";
+                    }
+                    else
+                    {
+                        text.Text = "0";
+                    }
+                }
+                else if (ctrl.HasControls())
+                    //Esta linea detécta un Control que contenga otros Controles
+                    //Así ningún control se quedará sin ser limpiado.
+                    limpiar(ctrl.Controls);
+            }
         }
     }
 }
