@@ -89,7 +89,7 @@ namespace Presentacion
             Responsive.DataSource = lista;
             Responsive.DataBind();
             DataTable dt = new DataTable();
-            if (Session["dataProveedor"] == null)
+            if (Session["dataProducto"] == null)
             {
                 dt.Columns.Add("Descripcion");
                 dt.Columns.Add("Codigo Producto");
@@ -99,7 +99,7 @@ namespace Presentacion
             }
             else
             {
-                dt = (DataTable)Session["dataMovimiento"];
+                dt = (DataTable)Session["dataProducto"];
             }
 
             for (int i = 0; i < lista.Count; i++)
@@ -113,13 +113,13 @@ namespace Presentacion
                 row["Unidad de Medida"] = ((Producto_EN)lista[i]).UnidadMedida;
                 dt.Rows.Add(row);
             }
-            Session["dataProveedor"] = dt;
+            Session["dataProducto"] = dt;
         }
 
         protected void ClickExportToExcel(object sender, EventArgs e)
         {
             DataTable dt = new DataTable();
-            dt = (DataTable)Session["dataProveedor"];
+            dt = (DataTable)Session["dataProducto"];
             string attachment = "attachment; filename=listadoproductos.xls";
             Response.ClearContent();
             Response.AddHeader("content-disposition", attachment);
@@ -147,7 +147,7 @@ namespace Presentacion
 
         public void ClickExportToPdf(object sender, EventArgs e)
         {
-            DataTable dt = (DataTable)Session["dataProveedor"];
+            DataTable dt = (DataTable)Session["dataProducto"];
 
             //Create a dummy GridView
             GridView GridView1 = new GridView();

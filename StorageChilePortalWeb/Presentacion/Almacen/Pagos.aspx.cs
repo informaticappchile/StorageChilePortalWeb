@@ -146,6 +146,7 @@ namespace Presentacion
                         contador++;
                     }
                 }
+                Session["dataPago"] = null;
                 Llenar_GridView(razon_social_register.Text);
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                 StringBuilder sbMensaje = new StringBuilder();
