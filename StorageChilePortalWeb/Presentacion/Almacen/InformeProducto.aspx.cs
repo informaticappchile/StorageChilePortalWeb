@@ -60,6 +60,7 @@ namespace Presentacion
             }
             if (!IsPostBack)
             {
+                Session["dataStock"] = null;
                 Llenar_GridView();
             }
 

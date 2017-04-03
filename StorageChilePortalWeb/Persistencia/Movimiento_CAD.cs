@@ -334,13 +334,13 @@ namespace Persistencia
         public ArrayList MostrarMovimientosPorProveedor(string razon)
         {
             Conexion nueva_conexion = new Conexion();
-            nueva_conexion.SetQuery("Select *" +
-                                    " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr, TipoMovimiento tm, Documento d" +
-                                    " where p.IdProducto = mpp.IdProducto AND" +
-                                    " mpp.IdMovimiento = m.IdMovimiento AND pr.IdProveedor = mpp.IdProveedor AND" +
-                                    " pr.RazonSocial ='" + razon + "' AND m.IdPago ='" + 0 + "' AND tm.IdTipoMovimiento = m.IdTipoMovimiento" +
-                                    " AND tm.TipoMovimiento ='Compra' AND d.IdDocumento = m.IdDocumento" +
-                                    " group by m.IdMovimiento");
+            nueva_conexion.SetQuery("Select m.IdMovimiento, pr.IdProveedor, m.IdTipoMovimiento, pr.RazonSocial, d.TipoDocumento, tm.TipoMovimiento, m.NumeroDocumento, m.IdDocumento, m.Total, mpp.Observaciones, m.FechaDocumento, m.IdPago" +
+                                    " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr, TipoMovimiento tm, Documento d, ProveedorProducto pp" +
+                                    " where p.IdProducto = pp.IdProducto and pp.IdProducto = mpp.IdProducto AND pp.IdProveedor = mpp.IdProveedor AND pp.IdProveedor = pr.IdProveedor and" +
+                                    " mpp.IdMovimiento = m.IdMovimiento AND" +
+                                    " pr.RazonSocial ='" + razon + "' AND tm.IdTipoMovimiento = m.IdTipoMovimiento" +
+                                    " AND (tm.TipoMovimiento ='Compra' OR tm.TipoMovimiento ='Devolucion') AND d.IdDocumento = m.IdDocumento AND m.EstadoMovimiento=1" +
+                                    " ");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -372,13 +372,13 @@ namespace Persistencia
         public ArrayList MostrarMovimientosPorProveedor()
         {
             Conexion nueva_conexion = new Conexion();
-            nueva_conexion.SetQuery("Select *" +
-                                    " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr, TipoMovimiento tm, Documento d" +
-                                    " where p.IdProducto = mpp.IdProducto AND" +
-                                    " mpp.IdMovimiento = m.IdMovimiento AND pr.IdProveedor = mpp.IdProveedor" +
+            nueva_conexion.SetQuery("Select m.IdMovimiento, pr.IdProveedor, m.IdTipoMovimiento, tm.TipoMovimiento, pr.RazonSocial, d.TipoDocumento, m.NumeroDocumento, m.IdDocumento, m.Total, mpp.Observaciones, m.FechaDocumento" +
+                                    " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr, TipoMovimiento tm, Documento d, ProveedorProducto pp" +
+                                    " where p.IdProducto = pp.IdProducto and pp.IdProducto = mpp.IdProducto AND pp.IdProveedor = mpp.IdProveedor AND pp.IdProveedor = pr.IdProveedor and" +
+                                    " mpp.IdMovimiento = m.IdMovimiento AND m.EstadoMovimiento=1" +
                                     " AND tm.IdTipoMovimiento = m.IdTipoMovimiento" +
                                     " AND (tm.TipoMovimiento ='Compra' OR tm.TipoMovimiento ='Devolucion') AND d.IdDocumento = m.IdDocumento" +
-                                    " group by m.IdMovimiento");
+                                    " ");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)

@@ -57,7 +57,28 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
-            Llenar_GridView();
+            if (!IsPostBack)
+            {
+                Session["dataPago"] = null;
+                Llenar_GridView();
+                try
+                {
+                    LogicaProveedor lpr = new LogicaProveedor();
+                    lista = lpr.MostrarProveedores();
+                    ArrayList aux = new ArrayList();
+                    aux.Add("Mostrar Todos");
+                    for (int i = 0; i < lista.Count; i++)
+                    {
+                        aux.Add(((Proveedor_EN)lista[i]).RazonSocial);
+                    }
+                    buscar_razon_social.DataSource = aux;
+                    buscar_razon_social.DataBind();
+                }
+                catch (Exception ex)
+                {
+                    //No hay producto o proveedor
+                }
+            }
             
         }
 
@@ -67,20 +88,67 @@ namespace Presentacion
             ArrayList lista = new ArrayList();
             lista = lm.MostrarMovimientosPorProveedor();
             DataTable dt = new DataTable();
-            if (Session["dataPago"] == null)
+            dt.Columns.Add("RazonSocial");
+            dt.Columns.Add("TipoDoc");
+            dt.Columns.Add("NumDoc");
+            dt.Columns.Add("FechaDocumento");
+            dt.Columns.Add("Total");
+            dt.Columns.Add("Observaciones");
+            dt.Columns.Add("EstadoPago");
+            if (lista.Count == 0)
             {
-                dt.Columns.Add("RazonSocial");
-                dt.Columns.Add("TipoDoc");
-                dt.Columns.Add("NumDoc");
-                dt.Columns.Add("FechaDocumento");
-                dt.Columns.Add("Total");
-                dt.Columns.Add("Observaciones");
-                dt.Columns.Add("IdMovimiento");
+                Session["dataPago"] = null;
+                Responsive.DataSource = null;
+                Responsive.DataBind();
             }
-            else
+
+            for (int i = 0; i < lista.Count; i++)
             {
-                dt = (DataTable)Session["dataPago"];
+                //Agregar Datos    
+                DataRow row = dt.NewRow();
+                row["RazonSocial"] = ((Movimiento_EN)lista[i]).RazonSocial;
+                row["TipoDoc"] = ((Movimiento_EN)lista[i]).Documento;
+                row["NumDoc"] = ((Movimiento_EN)lista[i]).NumDocumento;
+                row["FechaDocumento"] = ((Movimiento_EN)lista[i]).FechaDocumento;
+                row["Total"] = ((Movimiento_EN)lista[i]).Total;
+                ArrayList obs = new ArrayList();
+                obs = lm.MostrarObservaciones(((Movimiento_EN)lista[i]).RazonSocial, ((Movimiento_EN)lista[i]).ID);
+                string observaciones = "";
+                for (int j = 0; j < obs.Count; j++)
+                {
+                    observaciones += "' " + (string)obs[j] + "' ";
+                }
+                row["Observaciones"] = observaciones;
+                if (((Movimiento_EN)lista[i]).IdPago == "0")
+                {
+                    row["EstadoPago"] = "No Pagado";
+                }
+                else
+                {
+                    row["EstadoPago"] = "Pagado";
+
+                }
+                dt.Rows.Add(row);
             }
+            Session["dataPago"] = dt;
+            //enlazas datatable a griedview
+            Responsive.DataSource = dt;
+            Responsive.DataBind();
+        }
+
+        private void Llenar_GridView(string razon)
+        {
+            LogicaMovimiento lm = new LogicaMovimiento();
+            ArrayList lista = new ArrayList();
+            lista = lm.MostrarMovimientosPorProveedor(razon);
+            DataTable dt = new DataTable();
+            dt.Columns.Add("RazonSocial");
+            dt.Columns.Add("TipoDoc");
+            dt.Columns.Add("NumDoc");
+            dt.Columns.Add("FechaDocumento");
+            dt.Columns.Add("Total");
+            dt.Columns.Add("Observaciones");
+            dt.Columns.Add("EstadoPago");
 
             if (lista.Count == 0)
             {
@@ -103,10 +171,18 @@ namespace Presentacion
                 string observaciones = "";
                 for (int j = 0; j < obs.Count; j++)
                 {
-                    observaciones += "- " + (string)obs[j] + "\n";
+                    observaciones += "' " + (string)obs[j] + "' ";
                 }
                 row["Observaciones"] = observaciones;
-                row["IdMovimiento"] = ((Movimiento_EN)lista[i]).ID;
+                if (((Movimiento_EN)lista[i]).IdPago == "0")
+                {
+                    row["EstadoPago"] = "No Pagado";
+                }
+                else
+                {
+                    row["EstadoPago"] = "Pagado";
+
+                }
                 dt.Rows.Add(row);
             }
             Session["dataPago"] = dt;
@@ -114,6 +190,7 @@ namespace Presentacion
             Responsive.DataSource = dt;
             Responsive.DataBind();
         }
+
 
         protected void ClickExportToExcel(object sender, EventArgs e)
         {
@@ -170,6 +247,17 @@ namespace Presentacion
             pdfDoc.Close();
             Response.Write(pdfDoc);
             Response.End();
+        }
+        protected void Button_Buscar_Click(object sender, EventArgs e)
+        {
+            if (buscar_razon_social.Text == "Mostrar Todos")
+            {
+                Llenar_GridView();
+            }
+            else
+            {
+                Llenar_GridView(buscar_razon_social.Text);
+            }
         }
     }
 }
