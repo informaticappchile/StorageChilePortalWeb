@@ -107,6 +107,11 @@ namespace Presentacion
 
         }
 
+        protected void Calendar1_SelectionChanged(object sender, EventArgs e)
+        {
+            fecha_doc_register.Text = Calendar1.SelectedDate.ToShortDateString();
+        }
+
         protected void clickConvertir(object sender, EventArgs e)
         {
             double conversion = 0;
