@@ -83,7 +83,7 @@ namespace Presentacion
         {
             if (!(logo == null) || logo.Length > 0)
             {
-                byte[] arr = File.ReadAllBytes(Server.MapPath("~/logEmpresas/") + "logoEmp.png");
+                //byte[] arr = File.ReadAllBytes(Server.MapPath("~/logEmpresas/") + "logoEmp.png");
                 MemoryStream ms = new MemoryStream(logo);
                 System.Drawing.Image resultado = System.Drawing.Image.FromStream(ms);
                 return resultado;
