@@ -171,56 +171,46 @@ namespace Presentacion
 
                 m.IdTipoMovimiento = lm.GetIdTipoMovimiento(tipo_mov_register.Text);
                 m.Area = "Sin Area";
-                try
-                {
+               
                     switch (tipo_mov_register.Text)
                     {
-                        case "Compra":
-                            m.FechaMovimiento = Convert.ToDateTime(fecha_actual_register.Text);
-                            m.FechaDocumento = Convert.ToDateTime(fecha_doc_register.Text);
-                            m.IdDocumento = lm.GetIdDocumento(tipo_doc_register.Text);
-                            m.NumDocumento = Convert.ToInt32(num_doc_register.Text);
-                            m.Total = Convert.ToInt32(total_register.Text);
-                            break;
+                       
 
                         case "Devolución Proveedor":
-                            m.FechaMovimiento = Convert.ToDateTime(fecha_actual_register.Text);
-                            m.FechaDocumento = Convert.ToDateTime(fecha_doc_register.Text);
-                            m.IdDocumento = lm.GetIdDocumento(tipo_doc_register.Text);
-                            m.NumDocumento = Convert.ToInt32(num_doc_register.Text);
-                            m.Total = Convert.ToInt32(total_register.Text);
+                            
+                                m.FechaMovimiento = Convert.ToDateTime(fecha_actual_register.Text);
+                                m.FechaDocumento = Convert.ToDateTime(fecha_doc_register.Text);
+                                m.IdDocumento = lm.GetIdDocumento(tipo_doc_register.Text);
+                                m.NumDocumento = Convert.ToInt32(num_doc_register.Text);
+                                m.Total = Convert.ToInt32(total_register.Text);
+   
+                            break;
+
+                        case "Compra":
+                          
+                                m.FechaMovimiento = Convert.ToDateTime(fecha_actual_register.Text);
+                                m.FechaDocumento = Convert.ToDateTime(fecha_doc_register.Text);
+                                m.IdDocumento = lm.GetIdDocumento(tipo_doc_register.Text);
+                                m.NumDocumento = Convert.ToInt32(num_doc_register.Text);
+                                m.Total = Convert.ToInt32(total_register.Text);
+
                             break;
 
                         case "Merma":
-                            m.Responsable = responsable_register.Text;
+                           
+                                m.Responsable = responsable_register.Text;
+
                             break;
 
                         case "Producción":
-                            m.Responsable = responsable_register.Text;
-                            m.Area = area_register.Text;
+                           
+                                m.Responsable = responsable_register.Text;
+                          
                             break;
-
                         default:
                             break;
                     }
-                }
-                catch
-                {
-                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                    StringBuilder sbMensaje = new StringBuilder();
-                    //Aperturamos la escritura de Javascript
-                    sbMensaje.Append("<script type='text/javascript'>");
-                    //Le indicamos al alert que mensaje va mostrar
-                    sbMensaje.AppendFormat("alert('{0}');", "A ocurrido un error switch critico al ingresar los datos. Reintente más tarde " +
-                        "o pongase en contacto con el servicio de soporte.");
-                    sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/MenuAlmacen.aspx\";");
-                    //Cerramos el Script
-                    sbMensaje.Append("</script>");
-                    //Registramos el Script escrito en el StringBuilder
-                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                }
-                try
-                {
+               
                     string Id = GenerarPass(5, 15);
 
                     Movimiento_EN mov = lm.BuscarMovimiento(Id);
@@ -310,24 +300,7 @@ namespace Presentacion
                         //Registramos el Script escrito en el StringBuilder
                         ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                     }
-                }
-                catch
-                {
-                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                    StringBuilder sbMensaje = new StringBuilder();
-                    //Aperturamos la escritura de Javascript
-                    sbMensaje.Append("<script type='text/javascript'>");
-                    //Le indicamos al alert que mensaje va mostrar
-                    sbMensaje.AppendFormat("alert('{0}');", "A ocurrido un error ID critico al ingresar los datos. Reintente más tarde " +
-                        "o pongase en contacto con el servicio de soporte.");
-                    sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/MenuAlmacen.aspx\";");
-                    //Cerramos el Script
-                    sbMensaje.Append("</script>");
-                    //Registramos el Script escrito en el StringBuilder
-                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                }
-                
-
+ 
             }
             catch (Exception ex)
             {
