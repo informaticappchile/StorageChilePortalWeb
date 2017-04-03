@@ -73,6 +73,7 @@
                         <div class="panelIzq">
                             <div class="mdl-card__supporting-text">
                                 <asp:Label ID="NotResponsableError_Register" runat="server" Text="No se ha ingresado un Responsable" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
+                                <asp:Label ID="Label7" runat="server" Text="No se ha ingresado un Responsable" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
                                 <ul class="demo-list-control mdl-list">
                                     <li class="mdl-list__item">
                                         <span class="mdl-list__item-primary-content">

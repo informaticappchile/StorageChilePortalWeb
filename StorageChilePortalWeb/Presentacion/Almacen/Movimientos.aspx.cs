@@ -147,9 +147,21 @@ namespace Presentacion
 
         protected void clickGuardar(object sender, EventArgs e)
         {
+            NotFechaDocError_Register.Visible =
+            NotNumDocError_Register.Visible = false;
+
+            if (fecha_doc_register.Text == "")
+            {
+                NotFechaDocError_Register.Visible = true;
+                return;
+            }
+            if (num_doc_register.Text == "")
+            {
+                NotNumDocError_Register.Visible = true;
+                return;
+            }
             try
             {
-
                 LogicaProducto lp = new LogicaProducto();
                 LogicaProveedor lpr = new LogicaProveedor();
                 LogicaMovimiento lm = new LogicaMovimiento();
@@ -569,8 +581,8 @@ namespace Presentacion
                     {
                         text.Text = "";
                     }
-                    else if (text.ID == fecha_actual_register.ID || text.ID == cod_prod_register.Text
-                        || text.ID == unidad_register.Text || text.ID == grupo_register.Text)
+                    else if (text.ID == fecha_actual_register.ID || text.ID == cod_prod_register.ID
+                        || text.ID == unidad_register.ID || text.ID == "Busqueda" || text.ID == grupo_register.ID)
                     {
                     }
                     else if (text.ID == unidadtxt.ID)
