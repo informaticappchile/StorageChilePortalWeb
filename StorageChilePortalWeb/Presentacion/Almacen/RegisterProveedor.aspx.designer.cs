@@ -22,6 +22,15 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.Label UsernameExistsError_Register;
         
         /// <summary>
+        /// Control DigiVerifacadorInValidError_Register.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label DigiVerifacadorInValidError_Register;
+        
+        /// <summary>
         /// Control EmailExistsError_Register.
         /// </summary>
         /// <remarks>

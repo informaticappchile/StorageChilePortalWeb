@@ -132,7 +132,7 @@ namespace Persistencia
             {
                 string select = "Select *"+
                     " from Proveedor p, Ciudad c" +
-                    " where RazonSocial ='" + busqueda + "' AND  p.IdCiudad = c.IdCiudad";
+                    " where (RazonSocial ='" + busqueda + "' OR RutProveedor ='" + busqueda + "') AND  p.IdCiudad = c.IdCiudad";
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
                 if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)

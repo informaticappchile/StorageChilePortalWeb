@@ -100,6 +100,12 @@ namespace Presentacion
 
         protected void clickGuardar(object sender, EventArgs e)
         {
+            NotNumChequeError_Register.Visible = false;
+            if (num_cheque_register.Text == "0")
+            {
+                NotNumChequeError_Register.Visible = true;
+                return;
+            }
             LogicaPago lp = new LogicaPago();
             LogicaProveedor lpr = new LogicaProveedor();
             LogicaMovimiento lm = new LogicaMovimiento();

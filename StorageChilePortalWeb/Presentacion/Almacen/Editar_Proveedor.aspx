@@ -23,7 +23,7 @@
                     <span class="mdl-list__item-primary-content">
                         <i class="material-icons  mdl-list__item-avatar">work</i>
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <asp:TextBox ID="razon_social_editar" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
+                            <asp:TextBox ID="razon_social_editar" runat="server" CssClass="mdl-textfield__input" ReadOnly="true"></asp:TextBox>
                             <label class="mdl-textfield__label" for="razon_social_editar">Razón Social</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="razon_social_editar" ErrorMessage="Introduce una razón social" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                         </span>
@@ -33,7 +33,7 @@
                     <span class="mdl-list__item-primary-content">
                         <i class="material-icons  mdl-list__item-avatar">art_track</i>
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <asp:TextBox ID="rut_empresa_editar" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
+                            <asp:TextBox ID="rut_empresa_editar" runat="server" CssClass="mdl-textfield__input" ReadOnly="true"></asp:TextBox>
                             <label class="mdl-textfield__label" for="rut_empresa_editar">Rut Empresa</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="rut_empresa_editar" ErrorMessage="Introduce un rut por favor" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Formato de rut no valido. Ejemplo: 11222333-9" ControlToValidate="rut_empresa_editar" ValidationExpression="\b\d{1,8}\-[K|k|0-9]" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
