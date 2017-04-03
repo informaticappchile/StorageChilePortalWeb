@@ -47,6 +47,8 @@ namespace Presentacion
                     {
                         lu.confirmacionUsuario(en);//Confirmacion 
                         u = lu.BuscarUsuario(en.Correo, "Usuario");
+                        Session["user_session_data"] = u;
+                        tbValidacion.Text = "1";
                         if (ValidarConfirmacionCorreo(u))
                         {
                             EnviarCorreoConfirmacion(u);
@@ -61,8 +63,7 @@ namespace Presentacion
                             sbMensaje.Append("</script>");
                             //Registramos el Script escrito en el StringBuilder
                             ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                            tbValidacion.Text = "1";
-                            Session["user_session_data"] = u; //Creamos una sesion del usuario
+                            //Creamos una sesion del usuario
                         }
                         else
                         {
