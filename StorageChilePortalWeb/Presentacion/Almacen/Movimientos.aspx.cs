@@ -448,7 +448,6 @@ namespace Presentacion
                     razon_social_register.Enabled = true;
                     tipo_doc_register.Enabled = true;
                     num_doc_register.ReadOnly = false;
-                    fecha_doc_register.ReadOnly = false;
                     area_register.Enabled = false;
                     lista = lp.MostrarProductosPorProveedor(razon_social_register.Text);
                     descripcion_register.DataSource = lista;
@@ -462,7 +461,6 @@ namespace Presentacion
                     razon_social_register.Enabled = true;
                     tipo_doc_register.Enabled = true;
                     num_doc_register.ReadOnly = false;
-                    fecha_doc_register.ReadOnly = false;
                     area_register.Enabled = false;
                     lista = lp.MostrarProductosPorProveedor(razon_social_register.Text);
                     descripcion_register.DataSource = lista;

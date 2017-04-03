@@ -109,7 +109,7 @@ namespace Persistencia
         public ArrayList MostrarMovimientosProductosProveedor()
         {
             Conexion nueva_conexion = new Conexion();
-            nueva_conexion.SetQuery(" select mpp.IdMovimiento, pr.IdProveedor, m.IdTipoMovimiento, tm.TipoMovimiento, pr.RazonSocial, d.TipoDocumento, m.NumeroDocumento, m.IdDocumento, m.Total" +
+            nueva_conexion.SetQuery(" select mpp.IdMovimiento, m.FechaDocumento, pr.IdProveedor, m.IdTipoMovimiento, tm.TipoMovimiento, pr.RazonSocial, d.TipoDocumento, m.NumeroDocumento, m.IdDocumento, m.Total" +
                                     " from movimiento m, movimientoproductoproveedor mpp, proveedor pr, producto p, proveedorproducto pp, documento d, tipomovimiento tm "+
                                     " where m.IdMovimiento = mpp.IdMovimiento and mpp.IdProducto = pp.IdProducto and mpp.IdProveedor = pp.IdProveedor "+
                                     " and pp.IdProveedor = pr.IdProveedor and pp.IdProducto = p.IdProducto and m.IdDocumento = d.IdDocumento AND "+
@@ -129,6 +129,7 @@ namespace Persistencia
                 movimiento.NumDocumento = Convert.ToInt32(dt.Rows[i]["NumeroDocumento"].ToString());
                 movimiento.IdDocumento = Convert.ToInt16(dt.Rows[i]["IdDocumento"].ToString());
                 movimiento.Total = Convert.ToInt32(dt.Rows[i]["Total"].ToString());
+                movimiento.FechaDocumento = Convert.ToDateTime((dt.Rows[i]["FechaDocumento"].ToString()));
                 lista.Add(movimiento);
             }
 
