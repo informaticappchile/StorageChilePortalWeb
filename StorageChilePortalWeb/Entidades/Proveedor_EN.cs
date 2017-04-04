@@ -83,6 +83,15 @@ namespace Entidades
             set { vendedor = value; }
         }
 
+        //Declaramos el nombre de la empresa del user en private
+        private string idVendedor;
+        //Declaramos el nombre de la empresa del user en public para poder utilizarlo
+        public string IdVendedor
+        {
+            get { return idVendedor; }
+            set { idVendedor = value; }
+        }
+
         //Declaramos el constructor de la clase User_EN
         public Proveedor_EN()
         {
@@ -94,6 +103,7 @@ namespace Entidades
             ciudad = "";
             vendedor = "";
             idCiudad = 0;
+            idVendedor = "";
         }
 
     }

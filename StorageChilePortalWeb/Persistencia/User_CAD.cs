@@ -153,8 +153,8 @@ namespace Persistencia
 
                 if (tabla != "Administrador")
                 {
-                    empresa = ", Empresa";
-                    condicion = "and Empresa.IdEmpresa = Usuario.IdEmpresa";
+                    empresa = ", Empresa,Perfil ";
+                    condicion = "and Empresa.IdEmpresa = Usuario.IdEmpresa AND Usuario.IdPerfil = Perfil.IdPerfil";
                 }
                 string select = "Select * from " + tabla + empresa + " where (UserName ='" + busqueda + "' or Email = '" + busqueda + 
                     "') "+condicion;
@@ -181,6 +181,7 @@ namespace Persistencia
                         usuario.Nombre = dt.Rows[0]["NombreCompleto"].ToString();
                         usuario.Intentos = Convert.ToInt16(dt.Rows[0]["Intentos"]);
                         usuario.NombreEmp = dt.Rows[0]["NombreEmpresa"].ToString();
+                        usuario.NombrePerfil = dt.Rows[0]["NombrePerfil"].ToString();
                     }
                 }
             }

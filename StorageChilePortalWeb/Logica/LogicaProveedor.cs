@@ -17,6 +17,21 @@ namespace Logica
             Proveedor_CAD userCad = new Proveedor_CAD();
             userCad.InsertarProveedor(e);
         }
+        //Declaramos la funcion insertar usuario donde llama al cad correspondiente
+        
+        public void InsertarVendedorEmpresa(Proveedor_EN e,Empresa_EN em)
+        {
+            Proveedor_CAD userCad = new Proveedor_CAD();
+            userCad.InsertarVendedorEmpresa(e,em);
+        }
+
+        //Declaramos la funcion insertar usuario donde llama al cad correspondiente
+
+        public void InsertarVendedor(Proveedor_EN e)
+        {
+            Proveedor_CAD userCad = new Proveedor_CAD();
+            userCad.InsertarVendedor(e);
+        }
 
         //Declaramos la funcion mostrar usuario donde llama al cad correspondiente
         public ArrayList MostrarProveedor(Proveedor_EN p)
@@ -53,6 +68,14 @@ namespace Logica
             return proveedorBuscado;
         }
 
+        //Declaramos la funcion buscar usuario donde llama al cad correspondiente
+        public Proveedor_EN BuscarVendedor(Proveedor_EN p, string proveedor)
+        {
+            Proveedor_CAD busqueda = new Proveedor_CAD();
+            Proveedor_EN proveedorBuscado = busqueda.BuscarVendedor(p, proveedor);
+            return proveedorBuscado;
+        }
+
         //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
         public void actualizarProveedor(Proveedor_EN e)
         {
@@ -68,6 +91,16 @@ namespace Logica
 
             return a;
         }
+
+        public ArrayList MostrarProveedorVendedorEmpresa(Proveedor_EN p, Empresa_EN em)
+        {
+            ArrayList a = new ArrayList();
+            Proveedor_CAD c = new Proveedor_CAD();
+            a = c.MostrarProveedorVendedorEmpresa(p,em);
+
+            return a;
+        }
+
         public ArrayList MostrarCiudades()
         {
             ArrayList a = new ArrayList();

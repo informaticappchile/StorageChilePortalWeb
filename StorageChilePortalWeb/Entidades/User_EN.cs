@@ -158,6 +158,15 @@ namespace Entidades
             set { nombreEmp = value; }
         }
 
+        //Declaramos el nombre de la empresa del user en private
+        private string nombrePerfil;
+        //Declaramos el nombre de la empresa del user en public para poder utilizarlo
+        public string NombrePerfil
+        {
+            get { return nombrePerfil; }
+            set { nombrePerfil = value; }
+        }
+
         //Declaramos el constructor de la clase User_EN
         public User_EN()
         {
@@ -171,6 +180,7 @@ namespace Entidades
             idEmpresa = 0;
             fechaBloqueo = DateTime.Now;
             fechaRegistro = DateTime.Now;
+            nombrePerfil = "";
         }
 
     }

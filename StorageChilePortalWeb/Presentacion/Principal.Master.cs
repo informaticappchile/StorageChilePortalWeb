@@ -52,7 +52,14 @@ namespace Presentacion
                 LbBienvenido.Visible = true;
                 LogoEmpresa.Visible = true;
                 System.Drawing.Image img = byte_a_Image(em.LogoEmpresa);
-                img.Save(Server.MapPath("~/logEmpresas/") + "logoEmp.png", System.Drawing.Imaging.ImageFormat.Png);
+                try
+                {
+                    img.Save(Server.MapPath("~/logEmpresas/") + "logoEmp.png", System.Drawing.Imaging.ImageFormat.Png);
+                }
+                catch(Exception ex)
+                {
+                    //error
+                }
             }
             user = (User_EN)Session["user_session_admin"];
             if (user != null)
@@ -81,12 +88,20 @@ namespace Presentacion
 
         private System.Drawing.Image byte_a_Image(byte [] logo)
         {
-            if (!(logo == null) || logo.Length > 0)
+            if (!(logo == null) || logo.Length > 1)
             {
-                //byte[] arr = File.ReadAllBytes(Server.MapPath("~/logEmpresas/") + "logoEmp.png");
-                MemoryStream ms = new MemoryStream(logo);
-                System.Drawing.Image resultado = System.Drawing.Image.FromStream(ms);
-                return resultado;
+                try
+                {
+                    //byte[] arr = File.ReadAllBytes(Server.MapPath("~/logEmpresas/") + "logoEmp.png");
+                    MemoryStream ms = new MemoryStream(logo);
+                    System.Drawing.Image resultado = System.Drawing.Image.FromStream(ms);
+                    return resultado;
+                }
+                catch(Exception ex)
+                {
+                    //error
+                    return null;
+                }
             }
             else
             {
