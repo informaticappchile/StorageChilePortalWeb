@@ -34,7 +34,15 @@ namespace Presentacion
          */
         protected void Editar_Perfil_Guardar_Click(object sender, EventArgs e)
         {
+            UsernameExistsError_Register.Visible = false;
+            
             LogicaProveedor lu = new LogicaProveedor();
+            if (lu.BuscarProveedor(razon_social_editar.Text.Replace('\'', '´').Trim()).RazonSocial == razon_social_editar.Text.Replace('\'', '´').Trim() &&
+                lu.BuscarProveedor(rut_empresa_editar.Text).RazonSocial != razon_social_editar.Text.Replace('\'', '´').Trim())
+            {
+                UsernameExistsError_Register.Visible = true;
+                return;
+            }
             this.user = Request["ID"].ToString();
             this.en = lu.BuscarProveedor(user);
             this.en.RazonSocial = razon_social_editar.Text.Replace('\'', '´').Trim();

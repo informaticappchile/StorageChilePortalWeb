@@ -49,7 +49,7 @@ namespace Persistencia
          * Se encarga de introducir un usuario en la base de datos 
          * 
          */
-        public void InsertarMovimientoProductoProveedor(List<Movimiento_EN> lm)
+        public void InsertarMovimientoProductoProveedorEmpresa(List<Movimiento_EN> lm, Empresa_EN e)
         {
 
             Conexion nueva_conexion = new Conexion();
@@ -57,8 +57,8 @@ namespace Persistencia
             try
             {
                 foreach (Movimiento_EN m in lm) {
-                    string insert = "insert into MovimientoProductoProveedor(IdMovimiento,IdProducto, IdProveedor,PrecioUnitario,Observaciones,CantidadSolicitada) VALUES ('"
-                        + m.ID + "'," + m.IdProducto + "," + m.IdProveedor + "," + m.PrecioUnitario + ",'" + m.Observaciones + "'," + m.Cantidad + ")";
+                    string insert = "insert into MovimientoProductoProveedorEmpresa(IdMovimiento,IdProducto,IdProveedor,IdEmpresa,PrecioUnitario,Observaciones,CantidadSolicitada) VALUES ('"
+                        + m.ID + "'," + m.IdProducto + "," + m.IdProveedor + "," + e.ID + "," + m.PrecioUnitario + ",'" + m.Observaciones + "'," + m.Cantidad + ")";
                     //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                     nueva_conexion.SetQuery(insert);
                     nueva_conexion.EjecutarQuery();
@@ -72,13 +72,14 @@ namespace Persistencia
          * Se encarga de mostrar el usuario que se quiere mostrar a través de su ID
          */
 
-        public ArrayList MostrarMovimientoProductoProveedor(Movimiento_EN p)
+        public ArrayList MostrarMovimientoProductoProveedorEmpresa(Movimiento_EN p, Empresa_EN e)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr" +
+                                    " from Producto p, Movimiento m, MovimientoProductoProveedorEmpresa mpp, Proveedor pr" +
                                     " where m.IdProducto = p.IdProducto AND p.IdProducto = mpp.IdProducto AND" +
-                                    " mpp.IdMovimiento ='" + p.ID + "' AND pr.IdProveedor =" + p.IdProveedor);
+                                    " mpp.IdMovimiento ='" + p.ID + "' AND pr.IdProveedor =" + p.IdProveedor +
+                                    " AND mpp.IdEmpresa =" + e.ID);
             DataTable dt = nueva_conexion.QuerySeleccion();
 
 
@@ -106,14 +107,14 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public ArrayList MostrarMovimientosProductosProveedor()
+        public ArrayList MostrarMovimientosProductosProveedorEmpresa(int IdEmpresa)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery(" select mpp.IdMovimiento, m.FechaDocumento, pr.IdProveedor, m.IdTipoMovimiento, tm.TipoMovimiento, pr.RazonSocial, d.TipoDocumento, m.NumeroDocumento, m.IdDocumento, m.Total" +
-                                    " from movimiento m, movimientoproductoproveedor mpp, proveedor pr, producto p, proveedorproducto pp, documento d, tipomovimiento tm "+
+                                    " from movimiento m, movimientoproductoproveedorempresa mpp, proveedor pr, producto p, proveedorproducto pp, documento d, tipomovimiento tm "+
                                     " where m.IdMovimiento = mpp.IdMovimiento and mpp.IdProducto = pp.IdProducto and mpp.IdProveedor = pp.IdProveedor "+
-                                    " and pp.IdProveedor = pr.IdProveedor and pp.IdProducto = p.IdProducto and m.IdDocumento = d.IdDocumento AND "+
-                                    " m.IdTipoMovimiento = tm.IdTipoMovimiento and m.EstadoMovimiento = 1"+
+                                    " and pp.IdProveedor = pr.IdProveedor and pp.IdProducto = p.IdProducto and m.IdDocumento = d.IdDocumento AND mpp.IdEmpresa =" + IdEmpresa +
+                                    " AND m.IdTipoMovimiento = tm.IdTipoMovimiento and m.EstadoMovimiento = 1"+
                                     " ");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
@@ -226,7 +227,7 @@ namespace Persistencia
          * Se encarga de actualizar el usuario si sufre alguna modificacion en alguno de sus campos
          **/
 
-        public void actualizarMovimientoProductoProveedor(List<Movimiento_EN> lm)
+        public void actualizarMovimientoProductoProveedorEmpresa(List<Movimiento_EN> lm, Empresa_EN em)
         {
             Conexion nueva_conexion = new Conexion();
 
@@ -235,10 +236,10 @@ namespace Persistencia
                 string update = "";
 
                 foreach (Movimiento_EN e in lm) {
-                    update = "Update MovimientoProductoProveedor set Observaciones = '" + e.Observaciones + "',PrecioUnitario  = " + e.PrecioUnitario +
+                    update = "Update MovimientoProductoProveedorEmpresa set Observaciones = '" + e.Observaciones + "',PrecioUnitario  = " + e.PrecioUnitario +
                         ",CantidadSolicitada = " + e.Cantidad +
-                        " where MovimientoProductoProveedor.IdMovimiento = '" + e.ID + "' AND MovimientoProductoProveedor.IdProveedor = " + e.IdProveedor +
-                        " And MovimientoProductoProveedor.IdProducto = " + e.IdProducto;
+                        " where MovimientoProductoProveedorEmpresa.IdMovimiento = '" + e.ID + "' AND MovimientoProductoProveedorEmpresa.IdProveedor = " + e.IdProveedor +
+                        " And MovimientoProductoProveedorEmpresa.IdProducto = " + e.IdProducto + " AND MovimientoProductoProveedorEmpresa.IdEmpresa = " + em.ID;
                     nueva_conexion.SetQuery(update);
 
                     nueva_conexion.EjecutarQuery();
@@ -335,14 +336,14 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public ArrayList MostrarMovimientosPorProveedor(string razon)
+        public ArrayList MostrarMovimientosPorProveedorEmpresa(string razon, int idEmpresa)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select m.IdMovimiento, pr.IdProveedor, m.IdTipoMovimiento, pr.RazonSocial, d.TipoDocumento, tm.TipoMovimiento, m.NumeroDocumento, m.IdDocumento, m.Total, mpp.Observaciones, m.FechaDocumento, m.IdPago" +
-                                    " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr, TipoMovimiento tm, Documento d, ProveedorProducto pp" +
+                                    " from Producto p, Movimiento m, MovimientoProductoProveedorEmpresa mpp, Proveedor pr, TipoMovimiento tm, Documento d, ProveedorProducto pp" +
                                     " where p.IdProducto = pp.IdProducto and pp.IdProducto = mpp.IdProducto AND pp.IdProveedor = mpp.IdProveedor AND pp.IdProveedor = pr.IdProveedor and" +
                                     " mpp.IdMovimiento = m.IdMovimiento AND" +
-                                    " pr.RazonSocial ='" + razon + "' AND tm.IdTipoMovimiento = m.IdTipoMovimiento" +
+                                    " pr.RazonSocial ='" + razon + "' AND tm.IdTipoMovimiento = m.IdTipoMovimiento AND mpp.IdEmpresa = " + idEmpresa +
                                     " AND (tm.TipoMovimiento ='Compra' OR tm.TipoMovimiento ='Devolucion') AND d.IdDocumento = m.IdDocumento AND m.EstadoMovimiento=1" +
                                     " ");
             DataTable dt = nueva_conexion.QuerySeleccion();
@@ -374,14 +375,14 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public ArrayList MostrarMovimientosPorProveedor()
+        public ArrayList MostrarMovimientosPorProveedorEmpresa(int idEmpresa)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select m.IdMovimiento, pr.IdProveedor, m.IdTipoMovimiento, tm.TipoMovimiento, pr.RazonSocial, d.TipoDocumento, m.NumeroDocumento, m.IdDocumento, m.Total, mpp.Observaciones, m.FechaDocumento, m.IdPago" +
-                                    " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr, TipoMovimiento tm, Documento d, ProveedorProducto pp" +
+                                    " from Producto p, Movimiento m, MovimientoProductoProveedorEmpresa mpp, Proveedor pr, TipoMovimiento tm, Documento d, ProveedorProducto pp" +
                                     " where p.IdProducto = pp.IdProducto and pp.IdProducto = mpp.IdProducto AND pp.IdProveedor = mpp.IdProveedor AND pp.IdProveedor = pr.IdProveedor and" +
                                     " mpp.IdMovimiento = m.IdMovimiento AND m.EstadoMovimiento=1" +
-                                    " AND tm.IdTipoMovimiento = m.IdTipoMovimiento" +
+                                    " AND tm.IdTipoMovimiento = m.IdTipoMovimiento AND mpp.IdEmpresa = " + idEmpresa +
                                     " AND (tm.TipoMovimiento ='Compra' OR tm.TipoMovimiento ='Devolucion') AND d.IdDocumento = m.IdDocumento" +
                                     " ");
             DataTable dt = nueva_conexion.QuerySeleccion();
@@ -413,14 +414,14 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public ArrayList MostrarObservaciones(string razon, string idMovimiento)
+        public ArrayList MostrarObservaciones(string razon, string idMovimiento, int idEmpresa)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    " from Producto p, Movimiento m, MovimientoProductoProveedor mpp, Proveedor pr, TipoMovimiento tm, Documento d" +
+                                    " from Producto p, Movimiento m, MovimientoProductoProveedorEmpresa mpp, Proveedor pr, TipoMovimiento tm, Documento d" +
                                     " where p.IdProducto = mpp.IdProducto AND" +
-                                    " mpp.IdMovimiento = m.IdMovimiento AND pr.IdProveedor = mpp.IdProveedor AND" +
-                                    " pr.RazonSocial ='" + razon + "' AND m.IdPago ='" + 0 + "' AND tm.IdTipoMovimiento = m.IdTipoMovimiento" +
+                                    " mpp.IdMovimiento = m.IdMovimiento AND pr.IdProveedor = mpp.IdProveedor AND mpp.IdEmpresa = " + idEmpresa +
+                                    " AND pr.RazonSocial ='" + razon + "' AND m.IdPago ='" + 0 + "' AND tm.IdTipoMovimiento = m.IdTipoMovimiento" +
                                     " AND tm.TipoMovimiento ='Compra' AND d.IdDocumento = m.IdDocumento AND m.IdMovimiento = '" + idMovimiento + "'");
             DataTable dt = nueva_conexion.QuerySeleccion();
 

@@ -127,7 +127,7 @@ namespace Persistencia
             Conexion nueva_conexion = new Conexion();
             try
             {
-                string select = "Select * from Empresa where NombreEmpresa ='" + busqueda + "' or CorreoEmpresa = '" + busqueda + "'";
+                string select = "Select * from Empresa where NombreEmpresa ='" + busqueda + "' or CorreoEmpresa = '" + busqueda + "' or RutEmpresa='" + busqueda + "'";
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
                 if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)

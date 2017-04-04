@@ -52,30 +52,42 @@ namespace Presentacion
                     ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                 }
             }
-            LogicaProveedor l = new LogicaProveedor();
-            ArrayList lista = l.MostrarProveedores();
-            if (lista.Count == 0)
+            if (Request["ID"] != null  && Session["proveedor_reparto"] != null && Request["ID"].ToString() == ((Proveedor_EN)Session["proveedor_reparto"]).RazonSocial)
             {
-                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                StringBuilder sbMensaje = new StringBuilder();
-                //Aperturamos la escritura de Javascript
-                sbMensaje.Append("<script type='text/javascript'>");
-                //Le indicamos al alert que mensaje va mostrar
-                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene proveedores disponibles en el sistema. Por favor registre uno.");
-                //Cerramos el Script
-                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/RegisterProveedor.aspx\";");
-                sbMensaje.Append("</script>");
-                //Registramos el Script escrito en el StringBuilder
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                razon_social_register.Visible = true;
+                proveedor_register.Visible = false;
             }
+            else
+            {
+                LogicaProveedor l = new LogicaProveedor();
+                ArrayList lista = l.MostrarProveedores();//ProveedoresPorEmpresa;
+                if (lista.Count == 0)
+                {
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene proveedores disponibles en el sistema. Por favor registre uno.");
+                    //Cerramos el Script
+                    sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/RegisterProveedor.aspx\";");
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                }
+                if (Page.IsPostBack == false)
+                {
+                    proveedor_register.DataSource = lista;
+                    proveedor_register.DataTextField = "RazonSocial";
+                    proveedor_register.DataValueField = "RazonSocial";
+                    proveedor_register.DataBind();
+                }
+            }
+
             if (Page.IsPostBack == false)
             {
-                proveedor_register.DataSource = lista;
-                proveedor_register.DataTextField = "RazonSocial";
-                proveedor_register.DataValueField = "RazonSocial";
-                proveedor_register.DataBind();
                 LogicaProducto lp = new LogicaProducto();
-                lista = lp.MostrarGrupos();
+                ArrayList lista = lp.MostrarGrupos();
                 grupo_register.DataSource = lista;
                 grupo_register.DataBind();
                 lista = lp.MostrarUnidades();
@@ -117,9 +129,12 @@ namespace Presentacion
                 Producto_EN u = lu.BuscarProducto(en.CodProducto);
                 if (validarRegistroProducto(u))
                 {
+                    LogicaEmpresa le = new LogicaEmpresa();
+                    User_EN us = (User_EN)Session["user_session_data"];
+                    Empresa_EN em = le.BuscarEmpresa(us.NombreEmp);
                     LogicaProveedor lp = new LogicaProveedor();
                     u.IdProveedor = lp.BuscarProveedor(proveedor_register.Text).ID;
-                    lu.InsertarProductoProveedor(u);
+                    lu.InsertarProductoProveedor(u, em);
                     limpiar(this.Controls);
                     //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                     StringBuilder sbMensaje = new StringBuilder();

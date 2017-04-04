@@ -52,6 +52,8 @@ namespace Presentacion
         protected void Button_Register_Click(object sender, EventArgs e)
         {
             EmailExistsError_Register.Visible = 
+            RutExistsError_Register.Visible =
+            DigiVerifacadorInValidError_Register.Visible =
             UsernameExistsError_Register.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
             Empresa_EN busqueda = new Empresa_EN();
             LogicaEmpresa le = new LogicaEmpresa();
@@ -59,101 +61,109 @@ namespace Presentacion
             {
                 if (le.BuscarEmpresa(correo_empresa_register.Text).Correo != correo_empresa_register.Text) //Comprobamos que ese correo ya este
                 {
-                    Empresa_EN en = new Empresa_EN();//Si lo cumple todo, creamos un nuevo usuario
-                    LogicaServicio lse = new LogicaServicio();
-                    List<Servicio_EN> ls = lse.MostrarServicios();
-                    en.NombreEmp = nombre_empresa_register.Text;//Con su nombre de usuario
-                    en.Correo = correo_empresa_register.Text;//Con su correo
-                    en.Rut = rut_empresa_register.Text;//Con su contrasenya
-                    foreach (Servicio_EN s in ls)
+                    if (!validarRut(rut_empresa_register.Text))
                     {
-                        if (s.Nombre == "Almacen")
-                        {
-                            s.Verified = Registro_Empresa_ServicioAlmacen_Switch.Checked;
-                        }
-                        if (s.Nombre == "Bodega")
-                        {
-                            s.Verified = Registro_Empresa_ServicioBodega_Switch.Checked;
-                        }
-                        if (s.Nombre == "Digitalización")
-                        {
-                            s.Verified = Registro_Empresa_ServicioDigitalizacion_Switch.Checked;
-                        }
+                        DigiVerifacadorInValidError_Register.Visible = true;
                     }
-                    en.LogoEmpresa = FileUpload1.FileBytes;
-                    le.InsertarEmpresa(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
-                    Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
-                    if (validarRegistroEmpresa(em))
+                    if (le.BuscarEmpresa(rut_empresa_register.Text).Rut != rut_empresa_register.Text) //Comprobamos que ese correo ya este
                     {
-                        lse.InsertarServicioEmpresa(em, ls);
-                        string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
+                        Empresa_EN en = new Empresa_EN();//Si lo cumple todo, creamos un nuevo usuario
+                        LogicaServicio lse = new LogicaServicio();
+                        List<Servicio_EN> ls = lse.MostrarServicios();
+                        en.NombreEmp = nombre_empresa_register.Text;//Con su nombre de usuario
+                        en.Correo = correo_empresa_register.Text;//Con su correo
+                        en.Rut = rut_empresa_register.Text;//Con su contrasenya
+                        foreach (Servicio_EN s in ls)
+                        {
+                            if (s.Nombre == "Almacen")
+                            {
+                                s.Verified = Registro_Empresa_ServicioAlmacen_Switch.Checked;
+                            }
+                            if (s.Nombre == "Bodega")
+                            {
+                                s.Verified = Registro_Empresa_ServicioBodega_Switch.Checked;
+                            }
+                            if (s.Nombre == "Digitalización")
+                            {
+                                s.Verified = Registro_Empresa_ServicioDigitalizacion_Switch.Checked;
+                            }
+                        }
+                        en.LogoEmpresa = FileUpload1.FileBytes;
+                        le.InsertarEmpresa(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
+                        Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
+                        if (validarRegistroEmpresa(em))
+                        {
+                            lse.InsertarServicioEmpresa(em, ls);
+                            string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
 
-                        string ftpUser = "cvaras";
-                        string ftpPassWord = "cvaras1234";
-                        if (Registro_Empresa_ServicioBodega_Switch.Checked) { 
-                            try
+                            string ftpUser = "cvaras";
+                            string ftpPassWord = "cvaras1234";
+                            if (Registro_Empresa_ServicioBodega_Switch.Checked)
                             {
-                                crearCarpeta(em.NombreEmp, FileSaveUri, ftpUser, ftpPassWord);
+                                try
+                                {
+                                    crearCarpeta(em.NombreEmp, FileSaveUri, ftpUser, ftpPassWord);
+                                }
+                                catch (Exception ex)
+                                {
+                                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                                    StringBuilder sbMensaje1 = new StringBuilder();
+                                    //Aperturamos la escritura de Javascript
+                                    sbMensaje1.Append("<script type='text/javascript'>");
+                                    //Le indicamos al alert que mensaje va mostrar
+                                    sbMensaje1.AppendFormat("alert('{0}');", "Ha ocurrido un error al reservar su espacio,comuníquese con el servicio de soporte para poder habilitarlo.");
+                                    //Cerramos el Script
+                                    sbMensaje1.Append("</script>");
+                                    //Registramos el Script escrito en el StringBuilder
+                                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje1.ToString());
+                                }
                             }
-                            catch(Exception ex)
+                            if (Registro_Empresa_ServicioDigitalizacion_Switch.Checked && !Registro_Empresa_ServicioBodega_Switch.Checked)
                             {
-                                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                                StringBuilder sbMensaje1 = new StringBuilder();
-                                //Aperturamos la escritura de Javascript
-                                sbMensaje1.Append("<script type='text/javascript'>");
-                                //Le indicamos al alert que mensaje va mostrar
-                                sbMensaje1.AppendFormat("alert('{0}');", "Ha ocurrido un error al reservar su espacio,comuníquese con el servicio de soporte para poder habilitarlo.");
-                                //Cerramos el Script
-                                sbMensaje1.Append("</script>");
-                                //Registramos el Script escrito en el StringBuilder
-                                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje1.ToString());
+                                try
+                                {
+                                    crearCarpeta(em.NombreEmp, FileSaveUri, ftpUser, ftpPassWord);
+                                    crearCarpeta("Documentos", FileSaveUri + em.NombreEmp + "/", ftpUser, ftpPassWord);
+                                }
+                                catch (Exception ex)
+                                {
+                                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                                    StringBuilder sbMensaje1 = new StringBuilder();
+                                    //Aperturamos la escritura de Javascript
+                                    sbMensaje1.Append("<script type='text/javascript'>");
+                                    //Le indicamos al alert que mensaje va mostrar
+                                    sbMensaje1.AppendFormat("alert('{0}');", "Ha ocurrido un error al reservar su espacio,comuníquese con el servicio de soporte para poder habilitarlo.");
+                                    //Cerramos el Script
+                                    sbMensaje1.Append("</script>");
+                                    //Registramos el Script escrito en el StringBuilder
+                                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje1.ToString());
+                                }
                             }
+                            //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                            StringBuilder sbMensaje = new StringBuilder();
+                            //Aperturamos la escritura de Javascript
+                            sbMensaje.Append("<script type='text/javascript'>");
+                            //Le indicamos al alert que mensaje va mostrar
+                            sbMensaje.AppendFormat("alert('{0}');", "Se ha registrado a la empresa: " + en.NombreEmp);
+                            //Cerramos el Script
+                            sbMensaje.Append("</script>");
+                            //Registramos el Script escrito en el StringBuilder
+                            ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                         }
-                        if (Registro_Empresa_ServicioDigitalizacion_Switch.Checked && !Registro_Empresa_ServicioBodega_Switch.Checked)
+                        else
                         {
-                            try
-                            {
-                                crearCarpeta(em.NombreEmp, FileSaveUri, ftpUser, ftpPassWord);
-                                crearCarpeta("Documentos", FileSaveUri+ em.NombreEmp +"/", ftpUser, ftpPassWord);
-                            }
-                            catch (Exception ex)
-                            {
-                                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                                StringBuilder sbMensaje1 = new StringBuilder();
-                                //Aperturamos la escritura de Javascript
-                                sbMensaje1.Append("<script type='text/javascript'>");
-                                //Le indicamos al alert que mensaje va mostrar
-                                sbMensaje1.AppendFormat("alert('{0}');", "Ha ocurrido un error al reservar su espacio,comuníquese con el servicio de soporte para poder habilitarlo.");
-                                //Cerramos el Script
-                                sbMensaje1.Append("</script>");
-                                //Registramos el Script escrito en el StringBuilder
-                                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje1.ToString());
-                            }
+                            //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                            StringBuilder sbMensaje = new StringBuilder();
+                            //Aperturamos la escritura de Javascript
+                            sbMensaje.Append("<script type='text/javascript'>");
+                            //Le indicamos al alert que mensaje va mostrar
+                            sbMensaje.AppendFormat("alert('{0}');", "Ha ocurrido un error al registrar a la empresa, reintente mas tarde o comuníquese con el servicio de soporte.");
+                            //Cerramos el Script
+                            sbMensaje.Append("</script>");
+                            //Registramos el Script escrito en el StringBuilder
+                            ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                         }
-                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                        StringBuilder sbMensaje = new StringBuilder();
-                        //Aperturamos la escritura de Javascript
-                        sbMensaje.Append("<script type='text/javascript'>");
-                        //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje.AppendFormat("alert('{0}');", "Se ha registrado a la empresa: "+ en.NombreEmp);
-                        //Cerramos el Script
-                        sbMensaje.Append("</script>");
-                        //Registramos el Script escrito en el StringBuilder
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                    }
-                    else
-                    {
-                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                        StringBuilder sbMensaje = new StringBuilder();
-                        //Aperturamos la escritura de Javascript
-                        sbMensaje.Append("<script type='text/javascript'>");
-                        //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje.AppendFormat("alert('{0}');", "Ha ocurrido un error al registrar a la empresa, reintente mas tarde o comuníquese con el servicio de soporte.");
-                        //Cerramos el Script
-                        sbMensaje.Append("</script>");
-                        //Registramos el Script escrito en el StringBuilder
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                    }
+                    }else RutExistsError_Register.Visible = true;
                 }
                 else EmailExistsError_Register.Visible = true;
             }
@@ -196,6 +206,34 @@ namespace Presentacion
             {
                 Console.WriteLine(resp.StatusCode);
             }
+        }
+        public bool validarRut(string rut)
+        {
+
+            bool validacion = false;
+            try
+            {
+                rut = rut.ToUpper();
+                rut = rut.Replace(".", "");
+                rut = rut.Replace("-", "");
+                int rutAux = int.Parse(rut.Substring(0, rut.Length - 1));
+
+                char dv = char.Parse(rut.Substring(rut.Length - 1, 1));
+
+                int m = 0, s = 1;
+                for (; rutAux != 0; rutAux /= 10)
+                {
+                    s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
+                }
+                if (dv == (char)(s != 0 ? s + 47 : 75))
+                {
+                    validacion = true;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return validacion;
         }
     }
 }

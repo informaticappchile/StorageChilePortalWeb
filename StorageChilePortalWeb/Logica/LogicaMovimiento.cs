@@ -17,18 +17,18 @@ namespace Logica
             Movimiento_CAD userCad = new Movimiento_CAD();
             userCad.InsertarMovimiento(e);
         }
-        public void InsertarMovimientoProductoProveedor(List<Movimiento_EN> e)
+        public void InsertarMovimientoProductoProveedor(List<Movimiento_EN> e, Empresa_EN em)
         {
             Movimiento_CAD userCad = new Movimiento_CAD();
-            userCad.InsertarMovimientoProductoProveedor(e);
+            userCad.InsertarMovimientoProductoProveedorEmpresa(e, em);
         }
 
         //Declaramos la funcion mostrar usuario donde llama al cad correspondiente
-        public ArrayList MostrarMovimientosProductosProveedor()
+        public ArrayList MostrarMovimientosProductosProveedor(int IdEmpresa)
         {
             ArrayList a = new ArrayList();
             Movimiento_CAD c = new Movimiento_CAD();
-            a = c.MostrarMovimientosProductosProveedor();
+            a = c.MostrarMovimientosProductosProveedorEmpresa(IdEmpresa);
 
             return a;
         }
@@ -56,10 +56,10 @@ namespace Logica
         }
 
         //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
-        public void actualizarMovimientoProductoProveedor(List<Movimiento_EN> e)
+        public void actualizarMovimientoProductoProveedor(List<Movimiento_EN> e, Empresa_EN em)
         {
             Movimiento_CAD actUser = new Movimiento_CAD();
-            actUser.actualizarMovimientoProductoProveedor(e);
+            actUser.actualizarMovimientoProductoProveedorEmpresa(e,em);
         }
 
         public ArrayList MostrarDocumentos()
@@ -96,27 +96,27 @@ namespace Logica
 
             return id;
         }
-        public ArrayList MostrarMovimientosPorProveedor(string razon)
+        public ArrayList MostrarMovimientosPorProveedor(string razon, int idEmpresa)
         {
             ArrayList a = new ArrayList();
             Movimiento_CAD c = new Movimiento_CAD();
-            a = c.MostrarMovimientosPorProveedor(razon);
+            a = c.MostrarMovimientosPorProveedorEmpresa(razon, idEmpresa);
 
             return a;
         }
-        public ArrayList MostrarMovimientosPorProveedor()
+        public ArrayList MostrarMovimientosPorProveedor(int idEmpresa)
         {
             ArrayList a = new ArrayList();
             Movimiento_CAD c = new Movimiento_CAD();
-            a = c.MostrarMovimientosPorProveedor();
+            a = c.MostrarMovimientosPorProveedorEmpresa(idEmpresa);
 
             return a;
         }
-        public ArrayList MostrarObservaciones(string razon, string ID)
+        public ArrayList MostrarObservaciones(string razon, string ID, int idEmpresa)
         {
             ArrayList a = new ArrayList();
             Movimiento_CAD c = new Movimiento_CAD();
-            a = c.MostrarObservaciones(razon, ID);
+            a = c.MostrarObservaciones(razon, ID, idEmpresa);
 
             return a;
         }

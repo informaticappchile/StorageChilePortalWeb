@@ -17,27 +17,27 @@ namespace Logica
             Producto_CAD userCad = new Producto_CAD();
             userCad.InsertarProducto(e);
         }
-        public void InsertarProductoProveedor(Producto_EN e)
+        public void InsertarProductoProveedor(Producto_EN e, Empresa_EN em)
         {
             Producto_CAD userCad = new Producto_CAD();
-            userCad.InsertarProductoProveedor(e);
+            userCad.InsertarProductoProveedorEmpresa(e, em);
         }
 
         //Declaramos la funcion mostrar usuario donde llama al cad correspondiente
-        public ArrayList MostrarProductoProveedo(Producto_EN e, Proveedor_EN p)
+        public ArrayList MostrarProductoProveedo(Producto_EN e, Proveedor_EN p, Empresa_EN em)
         {
             ArrayList a = new ArrayList();
             Producto_CAD c = new Producto_CAD();
-            a = c.MostrarProductoProveedor(e,p);
+            a = c.MostrarProductoProveedorEmpresa(e,p,em);
 
             return a;
         }
         //Declaramos la funcion mostrar usuario donde llama al cad correspondiente
-        public ArrayList MostrarProductosPorProveedor(string busqueda)
+        public ArrayList MostrarProductosPorProveedor(string busqueda, int id)
         {
             ArrayList a = new ArrayList();
             Producto_CAD c = new Producto_CAD();
-            a = c.MostrarProductosPorProveedor(busqueda);
+            a = c.MostrarProductosPorProveedorEmpresa(busqueda, id);
 
             return a;
         }

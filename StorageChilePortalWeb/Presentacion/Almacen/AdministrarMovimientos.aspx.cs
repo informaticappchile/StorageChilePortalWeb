@@ -59,7 +59,7 @@ namespace Presentacion
                 }
             }
             LogicaMovimiento lm = new LogicaMovimiento();
-            ArrayList lista = lm.MostrarMovimientosProductosProveedor();
+            ArrayList lista = lm.MostrarMovimientosProductosProveedor(em.ID);
             if (lista.Count == 0)
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -130,9 +130,10 @@ namespace Presentacion
 
         private void Llenar_GridView()
         {
+            User_EN u = (User_EN)Session["user_session_data"];
             LogicaMovimiento lm = new LogicaMovimiento();
             ArrayList lista = new ArrayList();
-            lista = lm.MostrarMovimientosProductosProveedor();
+            lista = lm.MostrarMovimientosProductosProveedor(u.IdEmpresa);
             Responsive.DataSource = lista;
             Responsive.DataBind();
         }

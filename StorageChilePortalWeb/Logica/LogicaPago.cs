@@ -17,21 +17,6 @@ namespace Logica
             Pago_CAD userCad = new Pago_CAD();
             userCad.InsertarPago(e);
         }
-        public void InsertarMovimientoProductoProveedor(List<Movimiento_EN> e)
-        {
-            Movimiento_CAD userCad = new Movimiento_CAD();
-            userCad.InsertarMovimientoProductoProveedor(e);
-        }
-
-        //Declaramos la funcion mostrar usuario donde llama al cad correspondiente
-        public ArrayList MostrarMovimientosProductosProveedor()
-        {
-            ArrayList a = new ArrayList();
-            Movimiento_CAD c = new Movimiento_CAD();
-            a = c.MostrarMovimientosProductosProveedor();
-
-            return a;
-        }
 
         //Declaramos la funcion borrar usuario donde llama al cad correspondiente
         public bool BorrarMovimiento(Movimiento_EN p)
@@ -54,14 +39,7 @@ namespace Logica
             Movimiento_CAD actUser = new Movimiento_CAD();
             actUser.actualizarMovimiento(e);
         }
-
-        //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
-        public void actualizarMovimientoProductoProveedor(List<Movimiento_EN> e)
-        {
-            Movimiento_CAD actUser = new Movimiento_CAD();
-            actUser.actualizarMovimientoProductoProveedor(e);
-        }
-
+        
         public ArrayList MostrarDocumentos()
         {
             ArrayList a = new ArrayList();

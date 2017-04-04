@@ -13,6 +13,15 @@ namespace Presentacion {
     public partial class Editar_Proveedor {
         
         /// <summary>
+        /// Control UsernameExistsError_Register.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label UsernameExistsError_Register;
+        
+        /// <summary>
         /// Control vendedor_name_editar.
         /// </summary>
         /// <remarks>

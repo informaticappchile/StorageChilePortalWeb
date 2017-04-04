@@ -12,6 +12,8 @@
         <div class="mdl-card__supporting-text">
             <asp:Label ID="UsernameExistsError_Register" runat="server" Text="Nombre de empresa ya registrado" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
             <asp:Label ID="EmailExistsError_Register" runat="server" Text="Correo electrónico ya registrado" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
+            <asp:Label ID="RutExistsError_Register" runat="server" Text="Rut empresa ya registrado" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
+            <asp:Label ID="DigiVerifacadorInValidError_Register" runat="server" Text="El dígito verificador no es válido" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
             <ul class="demo-list-control mdl-list">
                 <li class="mdl-list__item">
                     <span class="mdl-list__item-primary-content">

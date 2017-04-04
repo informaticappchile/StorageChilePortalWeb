@@ -118,7 +118,7 @@
                 <i class="material-icons">save</i>
                 Guardar Cambios
             </asp:LinkButton>
-            <asp:TextBox ID="Editar_Perfil_ID" runat="server" visible="true"></asp:TextBox>
+            <asp:TextBox ID="Editar_Perfil_ID" runat="server" visible="false"></asp:TextBox>
         </div>
     </div>
     <script>

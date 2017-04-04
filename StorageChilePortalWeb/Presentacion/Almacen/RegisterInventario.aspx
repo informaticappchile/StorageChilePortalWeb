@@ -65,6 +65,15 @@
                 </li>
                 <li class="mdl-list__item">
                     <span class="mdl-list__item-primary-content">
+                        <i class="material-icons  mdl-list__item-avatar">work</i>
+                        <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <asp:TextBox ID="razon_social_register" runat="server" CssClass="mdl-textfield__input" Visible="false" ReadOnly="true"></asp:TextBox>
+                            <label class="mdl-textfield__label" for="razon_social_register">Razón Social</label>
+                        </span>
+                    </span>
+                </li>
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
                         <i class="material-icons  mdl-list__item-avatar">shopping_basket</i>
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <asp:TextBox ID="cant_min_stock_register" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>

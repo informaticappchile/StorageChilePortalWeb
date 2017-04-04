@@ -15,7 +15,7 @@ namespace Logica
         public void InsertarProveedor(Proveedor_EN e)
         {
             Proveedor_CAD userCad = new Proveedor_CAD();
-            userCad.InsertarProducto(e);
+            userCad.InsertarProveedor(e);
         }
 
         //Declaramos la funcion mostrar usuario donde llama al cad correspondiente
@@ -29,11 +29,11 @@ namespace Logica
         }
 
         //Declaramos la funcion mostrar usuario donde llama al cad correspondiente
-        public ArrayList MostrarProveedoresConProductos()
+        public ArrayList MostrarProveedoresConProductos(int idEmpresa)
         {
             ArrayList a = new ArrayList();
             Proveedor_CAD c = new Proveedor_CAD();
-            a = c.MostrarProveedoresConProductos();
+            a = c.MostrarProveedoresConProductosEmpresa(idEmpresa);
 
             return a;
         }

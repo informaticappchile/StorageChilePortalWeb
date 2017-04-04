@@ -31,6 +31,24 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.Label EmailExistsError_Register;
         
         /// <summary>
+        /// Control RutExistsError_Register.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label RutExistsError_Register;
+        
+        /// <summary>
+        /// Control DigiVerifacadorInValidError_Register.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label DigiVerifacadorInValidError_Register;
+        
+        /// <summary>
         /// Control nombre_empresa_register.
         /// </summary>
         /// <remarks>

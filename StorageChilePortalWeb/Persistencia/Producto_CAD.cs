@@ -42,15 +42,15 @@ namespace Persistencia
          * Se encarga de introducir un usuario en la base de datos 
          * 
          */
-        public void InsertarProductoProveedor(Producto_EN e)
+        public void InsertarProductoProveedorEmpresa(Producto_EN e, Empresa_EN em)
         {
 
             Conexion nueva_conexion = new Conexion();
 
             try
             {
-                string insert = "insert into ProveedorProducto(IdProducto, IdProveedor) VALUES ("
-                    + e.ID + "," + e.IdProveedor + ")";
+                string insert = "insert into ProductoProveedorEmpresa(IdProducto, IdProveedor, IdEmpresa) VALUES ("
+                    + e.ID + "," + e.IdProveedor + "," + em.ID + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
                 nueva_conexion.EjecutarQuery();
@@ -63,13 +63,14 @@ namespace Persistencia
          * Se encarga de mostrar el usuario que se quiere mostrar a través de su ID
          */
 
-        public ArrayList MostrarProductoProveedor(Producto_EN e, Proveedor_EN p)
+        public ArrayList MostrarProductoProveedorEmpresa(Producto_EN e, Proveedor_EN p, Empresa_EN em)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *"+
-                " from Proveedor pr, Producto p, GrupoProducto g, UnidadMedida um, ProveedorProducto pp" +
+                " from Proveedor pr, Producto p, GrupoProducto g, UnidadMedida um, ProductoProveedorEmpresa pp" +
                 " where p.IdProducto=" + e.ID +"AND g.IdGrupoProducto = p.IdGrupoProducto AND pr.IdProveedor = " + p.ID +
-                " um.IdUnidadMedida = p.IdUnidadMedida AND pr.IdProveedor = pp.IdProveedor AND pp.IdProducto O p.IdProducto");
+                " um.IdUnidadMedida = p.IdUnidadMedida AND pr.IdProveedor = pp.IdProveedor AND pp.IdProducto = p.IdProducto" +
+                " AND pp.IdEmpresa = " + em.ID);
             DataTable dt = nueva_conexion.QuerySeleccion();
 
 
@@ -291,13 +292,13 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public ArrayList MostrarProductosPorProveedor(string razonSocial)
+        public ArrayList MostrarProductosPorProveedorEmpresa(string razonSocial, int id)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    " from Producto p, ProveedorProducto pp, Proveedor pr" +
+                                    " from Producto p, ProductoProveedorEmpresa pp, Proveedor pr" +
                                     " where p.IdProducto = pp.IdProducto AND pp.IdProveedor = pr.IdProveedor AND pr.RazonSocial ='"+
-                                    razonSocial +"'");
+                                    razonSocial +"' AND pp.IdEmpresa = "+ id);
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)

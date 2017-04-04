@@ -63,7 +63,7 @@ namespace Presentacion
                 }
             }
             LogicaMovimiento lm = new LogicaMovimiento();
-            ArrayList lista = lm.MostrarMovimientosProductosProveedor();
+            ArrayList lista = lm.MostrarMovimientosProductosProveedor(en.IdEmpresa);
             if (lista.Count == 0)
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -105,9 +105,10 @@ namespace Presentacion
 
         private void Llenar_GridView()
         {
+            User_EN u = (User_EN)Session["user_session_data"];
             LogicaMovimiento lm = new LogicaMovimiento();
             ArrayList lista = new ArrayList();
-            lista = lm.MostrarMovimientosPorProveedor();
+            lista = lm.MostrarMovimientosPorProveedor(u.IdEmpresa);
             DataTable dt = new DataTable();
             dt.Columns.Add("RazonSocial");
             dt.Columns.Add("TipoDoc");
@@ -133,7 +134,7 @@ namespace Presentacion
                 row["FechaDocumento"] = ((Movimiento_EN)lista[i]).FechaDocumento;
                 row["Total"] = ((Movimiento_EN)lista[i]).Total;
                 ArrayList obs = new ArrayList();
-                obs = lm.MostrarObservaciones(((Movimiento_EN)lista[i]).RazonSocial, ((Movimiento_EN)lista[i]).ID);
+                obs = lm.MostrarObservaciones(((Movimiento_EN)lista[i]).RazonSocial, ((Movimiento_EN)lista[i]).ID, u.IdEmpresa);
                 string observaciones = "";
                 for (int j = 0; j < obs.Count; j++)
                 {
@@ -159,9 +160,10 @@ namespace Presentacion
 
         private void Llenar_GridView(string razon)
         {
+            User_EN u = (User_EN)Session["user_session_data"];
             LogicaMovimiento lm = new LogicaMovimiento();
             ArrayList lista = new ArrayList();
-            lista = lm.MostrarMovimientosPorProveedor(razon);
+            lista = lm.MostrarMovimientosPorProveedor(razon, u.IdEmpresa);
             DataTable dt = new DataTable();
             dt.Columns.Add("RazonSocial");
             dt.Columns.Add("TipoDoc");
@@ -188,7 +190,7 @@ namespace Presentacion
                 row["FechaDocumento"] = ((Movimiento_EN)lista[i]).FechaDocumento;
                 row["Total"] = ((Movimiento_EN)lista[i]).Total;
                 ArrayList obs = new ArrayList();
-                obs = lm.MostrarObservaciones(((Movimiento_EN)lista[i]).RazonSocial, ((Movimiento_EN)lista[i]).ID);
+                obs = lm.MostrarObservaciones(((Movimiento_EN)lista[i]).RazonSocial, ((Movimiento_EN)lista[i]).ID,u.IdEmpresa);
                 string observaciones = "";
                 for (int j = 0; j < obs.Count; j++)
                 {

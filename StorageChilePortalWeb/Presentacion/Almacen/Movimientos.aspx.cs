@@ -86,7 +86,7 @@ namespace Presentacion
                     lista = lm.MostrarDocumentos();
                     tipo_doc_register.DataSource = lista;
                     tipo_doc_register.DataBind();
-                    lista = lpr.MostrarProveedoresConProductos();
+                    lista = lpr.MostrarProveedoresConProductos(en.IdEmpresa);
                     razon_social_register.DataSource = lista;
                     razon_social_register.DataTextField = "RazonSocial";
                     razon_social_register.DataValueField = "RazonSocial";
@@ -177,134 +177,137 @@ namespace Presentacion
                 m.IdTipoMovimiento = lm.GetIdTipoMovimiento(tipo_mov_register.Text);
                 m.Area = "Sin Area";
                
-                    switch (tipo_mov_register.Text)
-                    {
+                switch (tipo_mov_register.Text)
+                {
                        
 
-                        case "Devolución Proveedor":
+                    case "Devolución Proveedor":
                             
-                                m.FechaMovimiento = Convert.ToDateTime(fecha_actual_register.Text);
-                                m.FechaDocumento = Convert.ToDateTime(fecha_doc_register.Text);
-                                m.IdDocumento = lm.GetIdDocumento(tipo_doc_register.Text);
-                                m.NumDocumento = Convert.ToInt32(num_doc_register.Text);
-                                m.Total = Convert.ToInt32(total_register.Text);
+                            m.FechaMovimiento = Convert.ToDateTime(fecha_actual_register.Text);
+                            m.FechaDocumento = Convert.ToDateTime(fecha_doc_register.Text);
+                            m.IdDocumento = lm.GetIdDocumento(tipo_doc_register.Text);
+                            m.NumDocumento = Convert.ToInt32(num_doc_register.Text);
+                            m.Total = Convert.ToInt32(total_register.Text);
    
-                            break;
+                        break;
 
-                        case "Compra":
+                    case "Compra":
                           
-                                m.FechaMovimiento = Convert.ToDateTime(fecha_actual_register.Text);
-                                m.FechaDocumento = Convert.ToDateTime(fecha_doc_register.Text);
-                                m.IdDocumento = lm.GetIdDocumento(tipo_doc_register.Text);
-                                m.NumDocumento = Convert.ToInt32(num_doc_register.Text);
-                                m.Total = Convert.ToInt32(total_register.Text);
+                            m.FechaMovimiento = Convert.ToDateTime(fecha_actual_register.Text);
+                            m.FechaDocumento = Convert.ToDateTime(fecha_doc_register.Text);
+                            m.IdDocumento = lm.GetIdDocumento(tipo_doc_register.Text);
+                            m.NumDocumento = Convert.ToInt32(num_doc_register.Text);
+                            m.Total = Convert.ToInt32(total_register.Text);
 
-                            break;
+                        break;
 
-                        case "Merma":
+                    case "Merma":
                            
-                                m.Responsable = responsable_register.Text;
+                            m.Responsable = responsable_register.Text;
 
-                            break;
+                        break;
 
-                        case "Producción":
+                    case "Producción":
                            
-                                m.Responsable = responsable_register.Text;
+                            m.Responsable = responsable_register.Text;
                           
-                            break;
-                        default:
-                            break;
-                    }
+                        break;
+                    default:
+                        break;
+                }
                
-                    string Id = GenerarPass(5, 15);
+                string Id = GenerarPass(5, 15);
 
-                    Movimiento_EN mov = lm.BuscarMovimiento(Id);
+                Movimiento_EN mov = lm.BuscarMovimiento(Id);
 
-                    while (mov.ID != "")
-                    {
-                        Id = GenerarPass(5, 15);
-                        mov = lm.BuscarMovimiento(Id);
-                    }
-
-                    m.ID = Id;
-
-                    lm.InsertarMovimiento(m);
-
+                while (mov.ID != "")
+                {
+                    Id = GenerarPass(5, 15);
                     mov = lm.BuscarMovimiento(Id);
+                }
 
-                    if (mov.ID != "")
+                m.ID = Id;
+
+                lm.InsertarMovimiento(m);
+
+                mov = lm.BuscarMovimiento(Id);
+
+                if (mov.ID != "")
+                {
+                    List<Movimiento_EN> listaMovimientos = new List<Movimiento_EN>();
+                    DataTable dt = (DataTable)Session["dataMovimiento"];
+                    pr = lpr.BuscarProveedor(razon_social_register.Text);
+                    m.IdProveedor = pr.ID;
+                    for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        List<Movimiento_EN> listaMovimientos = new List<Movimiento_EN>();
-                        DataTable dt = (DataTable)Session["dataMovimiento"];
-                        pr = lpr.BuscarProveedor(razon_social_register.Text);
-                        m.IdProveedor = pr.ID;
-                        for (int i = 0; i < dt.Rows.Count; i++)
+                        Movimiento_EN aux = new Movimiento_EN();
+                        p = lp.BuscarProducto(dt.Rows[i]["CodProducto"].ToString());
+
+                        switch (tipo_mov_register.Text)
                         {
-                            Movimiento_EN aux = new Movimiento_EN();
-                            p = lp.BuscarProducto(dt.Rows[i]["CodProducto"].ToString());
+                            case "Compra":
+                                p.Stock += Convert.ToInt32(dt.Rows[i]["Cantidad"].ToString());
+                                break;
 
-                            switch (tipo_mov_register.Text)
-                            {
-                                case "Compra":
-                                    p.Stock += Convert.ToInt32(dt.Rows[i]["Cantidad"].ToString());
-                                    break;
+                            case "Devolución Proveedor":
+                                p.Stock -= Convert.ToInt32(dt.Rows[i]["Cantidad"].ToString());
+                                break;
 
-                                case "Devolución Proveedor":
-                                    p.Stock -= Convert.ToInt32(dt.Rows[i]["Cantidad"].ToString());
-                                    break;
+                            case "Merma":
+                                p.Stock -= Convert.ToInt32(dt.Rows[i]["Cantidad"].ToString());
+                                break;
 
-                                case "Merma":
-                                    p.Stock -= Convert.ToInt32(dt.Rows[i]["Cantidad"].ToString());
-                                    break;
+                            case "Producción":
+                                p.Stock -= Convert.ToInt32(dt.Rows[i]["Cantidad"].ToString());
+                                break;
 
-                                case "Producción":
-                                    p.Stock -= Convert.ToInt32(dt.Rows[i]["Cantidad"].ToString());
-                                    break;
-
-                                default:
-                                    break;
-                            }
-
-                            lp.actualizarProducto(p);
-                            aux.ID = m.ID;
-                            aux.IdProveedor = pr.ID;
-                            aux.IdProducto = p.ID;
-                            aux.PrecioUnitario = Convert.ToInt32(dt.Rows[i]["Precio"].ToString());
-                            aux.Observaciones = dt.Rows[i]["Observaciones"].ToString();
-                            aux.Cantidad = Convert.ToInt32(dt.Rows[i]["Cantidad"].ToString());
-
-                            listaMovimientos.Add(aux);
+                            default:
+                                break;
                         }
 
-                        lm.InsertarMovimientoProductoProveedor(listaMovimientos);
-                        limpiar(this.Controls);
-                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                        StringBuilder sbMensaje = new StringBuilder();
-                        //Aperturamos la escritura de Javascript
-                        sbMensaje.Append("<script type='text/javascript'>");
-                        //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje.AppendFormat("alert('{0}');", "Se han ingresado los datos exitosamente");
-                        //Cerramos el Script
-                        sbMensaje.Append("</script>");
-                        //Registramos el Script escrito en el StringBuilder
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                        lp.actualizarProducto(p);
+                        aux.ID = m.ID;
+                        aux.IdProveedor = pr.ID;
+                        aux.IdProducto = p.ID;
+                        aux.PrecioUnitario = Convert.ToInt32(dt.Rows[i]["Precio"].ToString());
+                        aux.Observaciones = dt.Rows[i]["Observaciones"].ToString();
+                        aux.Cantidad = Convert.ToInt32(dt.Rows[i]["Cantidad"].ToString());
 
+                        listaMovimientos.Add(aux);
                     }
-                    else
-                    {
-                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                        StringBuilder sbMensaje = new StringBuilder();
-                        //Aperturamos la escritura de Javascript
-                        sbMensaje.Append("<script type='text/javascript'>");
-                        //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje.AppendFormat("alert('{0}');", "A ocurrido un error al ingresar los datos. Reintente más tarde " +
-                            "o pongase en contacto con el servicio de soporte.");
-                        sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/MenuAlmacen.aspx\";");
-                        //Cerramos el Script
-                        sbMensaje.Append("</script>");
-                        //Registramos el Script escrito en el StringBuilder
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                    }
+
+                    User_EN u = (User_EN)Session["user_session_data"];
+                    LogicaEmpresa le = new LogicaEmpresa();
+                    Empresa_EN em = le.BuscarEmpresa(u.NombreEmp);
+                    lm.InsertarMovimientoProductoProveedor(listaMovimientos, em);
+                    limpiar(this.Controls);
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Se han ingresado los datos exitosamente");
+                    //Cerramos el Script
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+
+                }
+                else
+                {
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "A ocurrido un error al ingresar los datos. Reintente más tarde " +
+                        "o pongase en contacto con el servicio de soporte.");
+                    sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/MenuAlmacen.aspx\";");
+                    //Cerramos el Script
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                }
  
             }
             catch (Exception ex)
@@ -327,6 +330,7 @@ namespace Presentacion
 
         protected void razonSocialChangeIndex(object sender, EventArgs e)
         {
+            User_EN u = (User_EN)Session["user_session_data"];
             Session["dataMovimiento"] = null;
             Responsive.DataSource = null;
             Responsive.DataBind();
@@ -336,11 +340,11 @@ namespace Presentacion
             {
                 lista = (ArrayList)razon_social_register.DataSource;
                 string razon = ((Proveedor_EN)lista[0]).RazonSocial;
-                lista = lp.MostrarProductosPorProveedor(razon);
+                lista = lp.MostrarProductosPorProveedor(razon, u.IdEmpresa);
             }
             else
             {
-                lista = lp.MostrarProductosPorProveedor(razon_social_register.Text);
+                lista = lp.MostrarProductosPorProveedor(razon_social_register.Text, u.IdEmpresa);
             }
             Session["EstadoCod"] = true;
             descripcion_register.DataSource = lista;
@@ -439,6 +443,7 @@ namespace Presentacion
 
         protected void activarDesactivarControles(string caso)
         {
+            User_EN u = (User_EN)Session["user_session_data"];
             LogicaProducto lp = new LogicaProducto();
             ArrayList lista = new ArrayList();
             switch (caso)
@@ -449,7 +454,7 @@ namespace Presentacion
                     tipo_doc_register.Enabled = true;
                     num_doc_register.ReadOnly = false;
                     area_register.Enabled = false;
-                    lista = lp.MostrarProductosPorProveedor(razon_social_register.Text);
+                    lista = lp.MostrarProductosPorProveedor(razon_social_register.Text, u.IdEmpresa);
                     descripcion_register.DataSource = lista;
                     descripcion_register.DataTextField = "Descripcion";
                     descripcion_register.DataValueField = "Descripcion";
@@ -462,7 +467,7 @@ namespace Presentacion
                     tipo_doc_register.Enabled = true;
                     num_doc_register.ReadOnly = false;
                     area_register.Enabled = false;
-                    lista = lp.MostrarProductosPorProveedor(razon_social_register.Text);
+                    lista = lp.MostrarProductosPorProveedor(razon_social_register.Text, u.IdEmpresa);
                     descripcion_register.DataSource = lista;
                     descripcion_register.DataTextField = "Descripcion";
                     descripcion_register.DataValueField = "Descripcion";

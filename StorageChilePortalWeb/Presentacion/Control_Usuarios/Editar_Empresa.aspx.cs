@@ -153,7 +153,7 @@ namespace Presentacion
                     try
                     {
                         modificarCarpeta(en.NombreEmp, FileSaveUri, ftpUser, ftpPassWord);
-                        modificarCarpeta("Documentos", FileSaveUri + en.NombreEmp + "/", ftpUser, ftpPassWord);
+                        crearCarpeta("Documentos", FileSaveUri + en.NombreEmp + "/", ftpUser, ftpPassWord);
                     }
                     catch (Exception ex)
                     {
@@ -261,6 +261,16 @@ namespace Presentacion
             else
             {
                 return null;
+            }
+        }
+        protected void crearCarpeta(string carpeta, string uri, string ftpUser, string ftpPassWord)
+        {
+            WebRequest request = WebRequest.Create(uri + carpeta);
+            request.Method = WebRequestMethods.Ftp.MakeDirectory;
+            request.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+            using (var resp = (FtpWebResponse)request.GetResponse())
+            {
+                Console.WriteLine(resp.StatusCode);
             }
         }
 

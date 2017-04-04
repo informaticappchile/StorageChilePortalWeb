@@ -21,7 +21,7 @@ namespace Persistencia
          * Se encarga de introducir un usuario en la base de datos 
          * 
          */
-        public void InsertarProducto(Proveedor_EN e)
+        public void InsertarProveedor(Proveedor_EN e)
         {
 
             Conexion nueva_conexion = new Conexion();
@@ -102,12 +102,13 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public ArrayList MostrarProveedoresConProductos()
+        public ArrayList MostrarProveedoresConProductosEmpresa(int IdEmpresa)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    " from Proveedor p, Ciudad c, ProveedorProducto pp" +
-                                    " where p.IdCiudad = c.IdCiudad AND pp.IdProveedor = p.IdProveedor Group by p.IdProveedor");
+                                    " from Proveedor p, Ciudad c, ProductoProveedorEmpresa pp" +
+                                    " where p.IdCiudad = c.IdCiudad AND pp.IdProveedor = p.IdProveedor AND pp.IdEmpresa = " + IdEmpresa +
+                                    " Group by p.IdProveedor");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)

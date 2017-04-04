@@ -70,6 +70,7 @@ namespace Presentacion
         protected void Button_Register_Click(object sender, EventArgs e)
         {
             EmailExistsError_Register.Visible =
+            DigiVerifacadorInValidError_Register.Visible =
             UsernameExistsError_Register.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
             Proveedor_EN busqueda = new Proveedor_EN();
             LogicaProveedor lu = new LogicaProveedor();

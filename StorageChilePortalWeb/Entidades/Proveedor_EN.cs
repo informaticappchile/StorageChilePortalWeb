@@ -93,6 +93,7 @@ namespace Entidades
             fono = "";
             ciudad = "";
             vendedor = "";
+            idCiudad = 0;
         }
 
     }

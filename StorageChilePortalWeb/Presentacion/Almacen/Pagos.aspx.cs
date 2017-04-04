@@ -60,7 +60,7 @@ namespace Presentacion
                 }
             }
             LogicaMovimiento lm = new LogicaMovimiento();
-            ArrayList lista = lm.MostrarMovimientosProductosProveedor();
+            ArrayList lista = lm.MostrarMovimientosProductosProveedor(en.IdEmpresa);
             if (lista.Count == 0)
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -101,7 +101,7 @@ namespace Presentacion
         protected void clickGuardar(object sender, EventArgs e)
         {
             NotNumChequeError_Register.Visible = false;
-            if (num_cheque_register.Text == "0")
+            if (num_cheque_register.Text == "0" && tipo_pago_register.Text == "Cheque")
             {
                 NotNumChequeError_Register.Visible = true;
                 return;
@@ -224,9 +224,10 @@ namespace Presentacion
 
         private void Llenar_GridView(string razon)
         {
+            User_EN us = (User_EN)Session["user_session_data"];
             LogicaMovimiento lm = new LogicaMovimiento();
             ArrayList lista = new ArrayList();
-            lista = lm.MostrarMovimientosPorProveedor(razon);
+            lista = lm.MostrarMovimientosPorProveedor(razon, us.IdEmpresa);
             DataTable dt = new DataTable();
             if(Session["dataPago"] == null)
             {
@@ -262,7 +263,7 @@ namespace Presentacion
                     row["FechaDocumento"] = ((Movimiento_EN)lista[i]).FechaDocumento;
                     row["Total"] = ((Movimiento_EN)lista[i]).Total;
                     ArrayList obs = new ArrayList();
-                    obs = lm.MostrarObservaciones(razon, ((Movimiento_EN)lista[i]).ID);
+                    obs = lm.MostrarObservaciones(razon, ((Movimiento_EN)lista[i]).ID, us.IdEmpresa);
                     string observaciones = "";
                     for (int j = 0; j < obs.Count; j++)
                     {

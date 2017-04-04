@@ -8,6 +8,7 @@
             <h1 class="mdl-card__title-text">Editar datos de Proveedor</h1>
         </div>
         <div class="mdl-card__supporting-text">
+            <asp:Label ID="UsernameExistsError_Register" runat="server" Text="Proveedor ya registrado" Visible="false" CssClass="mdl-card__subtitle-text mdl-color-text--red"></asp:Label>
             <ul class="demo-list-control mdl-list">
                 <li class="mdl-list__item">
                     <span class="mdl-list__item-primary-content">
@@ -23,7 +24,7 @@
                     <span class="mdl-list__item-primary-content">
                         <i class="material-icons  mdl-list__item-avatar">work</i>
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <asp:TextBox ID="razon_social_editar" runat="server" CssClass="mdl-textfield__input" ReadOnly="true"></asp:TextBox>
+                            <asp:TextBox ID="razon_social_editar" runat="server" CssClass="mdl-textfield__input" ReadOnly="false"></asp:TextBox>
                             <label class="mdl-textfield__label" for="razon_social_editar">Razón Social</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="razon_social_editar" ErrorMessage="Introduce una razón social" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                         </span>
