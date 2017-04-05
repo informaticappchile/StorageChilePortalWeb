@@ -12,6 +12,9 @@ using System.Text;
 using Logica;
 using System.Collections;
 using System.Data;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace Presentacion
 {
@@ -152,6 +155,7 @@ namespace Presentacion
                         contador++;
                     }
                 }
+                ClickExportToPdf();
                 Session["dataPago"] = null;
                 Llenar_GridView(razon_social_register.Text);
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -297,7 +301,35 @@ namespace Presentacion
                     break;
             }
         }
-        
+
+        public void ClickExportToPdf()
+        {
+            DataTable dt = (DataTable)Session["dataPago"];
+
+            //Create a dummy GridView
+            GridView GridView1 = new GridView();
+            GridView1.AllowPaging = false;
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition",
+                "attachment;filename=listadoproveedores.pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(sw);
+            GridView1.RenderControl(hw);
+            StringReader sr = new StringReader(sw.ToString());
+            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            pdfDoc.Open();
+            htmlparser.Parse(sr);
+            pdfDoc.Close();
+            Response.Write(pdfDoc);
+            Response.End();
+        }
+
         /// <summary>
         /// 
         /// </summary>
