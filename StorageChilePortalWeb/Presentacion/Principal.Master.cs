@@ -55,6 +55,7 @@ namespace Presentacion
                 try
                 {
                     img.Save(Server.MapPath("~/logEmpresas/") + "logoEmp.png", System.Drawing.Imaging.ImageFormat.Png);
+                    LogoEmpresa.ImageUrl = "~/logEmpresas/logoEmp.png";
                 }
                 catch(Exception ex)
                 {
