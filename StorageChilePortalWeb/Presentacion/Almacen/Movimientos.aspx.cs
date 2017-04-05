@@ -376,6 +376,7 @@ namespace Presentacion
             unidad_register.Text = producto.UnidadMedida;
             cod_prod_register.Text = producto.CodProducto;
             Session["EstadoCod"] = false;
+
         }
 
         protected void tipoMovChangeIndex(object sender, EventArgs e)
