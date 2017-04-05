@@ -86,7 +86,7 @@ namespace Presentacion
                     lista = lm.MostrarDocumentos();
                     tipo_doc_register.DataSource = lista;
                     tipo_doc_register.DataBind();
-                    lista = lpr.MostrarProveedoresConProductos(en.IdEmpresa);
+                    lista = lpr.MostrarProveedoresConProductos(em.ID);
                     razon_social_register.DataSource = lista;
                     razon_social_register.DataTextField = "RazonSocial";
                     razon_social_register.DataValueField = "RazonSocial";
@@ -338,12 +338,14 @@ namespace Presentacion
             Responsive.DataSource = null;
             Responsive.DataBind();
             LogicaProducto lp = new LogicaProducto();
+            LogicaEmpresa le = new LogicaEmpresa();
+            Empresa_EN em = le.BuscarEmpresa(u.NombreEmp);
             ArrayList lista = new ArrayList();
             if (!IsPostBack)
             {
                 lista = (ArrayList)razon_social_register.DataSource;
                 string razon = ((Proveedor_EN)lista[0]).RazonSocial;
-                lista = lp.MostrarProductosPorProveedor(razon, u.IdEmpresa);
+                lista = lp.MostrarProductosPorProveedor(razon, em.ID);
             }
             else
             {
@@ -368,8 +370,11 @@ namespace Presentacion
             lista = (ArrayList)descripcion_register.DataSource;
             if ((bool)Session["EstadoCod"] && lista != null && lista.Count > 0)
             {
+                
                 string codigo = ((Producto_EN)lista[0]).CodProducto;
-                producto = lp.BuscarProductoPorCodigo(codigo,em,razon_social_register.Text);
+                lista = (ArrayList)razon_social_register.DataSource;
+                string razon = ((Proveedor_EN)lista[0]).RazonSocial;
+                producto = lp.BuscarProductoPorCodigo(codigo,em,razon);
             }
             else
             {

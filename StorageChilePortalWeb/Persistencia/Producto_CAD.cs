@@ -289,7 +289,7 @@ namespace Persistencia
             {
                 string select = "Select *" +
                     " from Producto p, GrupoProducto gp, UnidadMedida um, ProductoGrupoProducto pgp, ProductoUnidadMedida pum, ProductoProveedorEmpresa ppe" +
-                    " where p.CodigoProducto ='" + busqueda + "' AND pgp.IdGrupoProducto = gp.IdGrupoProducto AND pum.IdUnidadMedida = um.IdUnidadMedida AND" +
+                    " where p.CodProducto ='" + busqueda + "' AND pgp.IdGrupoProducto = gp.IdGrupoProducto AND pum.IdUnidadMedida = um.IdUnidadMedida AND" +
                     " pgp.IdProducto = p.IdProducto AND pum.IdProducto = p.IdProducto AND ppe.IdProducto = p.IdProducto AND ppe.IdEmpresa ="+ em.ID;
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
