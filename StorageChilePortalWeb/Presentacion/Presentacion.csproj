@@ -109,6 +109,7 @@
     <Content Include="Almacen\js\jquery.responsivetable.js" />
     <Content Include="Almacen\js\jquery.responsivetable.min.js" />
     <Content Include="Almacen\Movimientos.aspx" />
+    <Content Include="Almacen\PagosComprobante.aspx" />
     <Content Include="Almacen\Pagos.aspx" />
     <Content Include="Almacen\AdministrarProducto.aspx" />
     <Content Include="Almacen\AdministrarProveedor.aspx" />
@@ -222,6 +223,13 @@
     </Compile>
     <Compile Include="Almacen\Movimientos.aspx.designer.cs">
       <DependentUpon>Movimientos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Almacen\PagosComprobante.aspx.cs">
+      <DependentUpon>PagosComprobante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Almacen\PagosComprobante.aspx.designer.cs">
+      <DependentUpon>PagosComprobante.aspx</DependentUpon>
     </Compile>
     <Compile Include="Almacen\Pagos.aspx.cs">
       <DependentUpon>Pagos.aspx</DependentUpon>

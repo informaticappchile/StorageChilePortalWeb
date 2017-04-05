@@ -161,15 +161,15 @@ namespace Presentacion
                 row["Stock"] = ((Producto_EN)lista[i]).Stock;
                 if (cantMin * (1 + Porcentage) < stock)
                 {
-                    row["NStock"] = "Excelente";
+                    row["NStock"] = "Stock Optimo";
                 }
                 else if (cantMin * (1 + Porcentage) >= stock && cantMin <= stock)
                 {
-                    row["NStock"] = "Estable";
+                    row["NStock"] = "Stock Estable";
                 }
                 else
                 {
-                    row["NStock"] = "Mal";
+                    row["NStock"] = "Quiebre de Stock";
                 }
                 dt.Rows.Add(row);
             }

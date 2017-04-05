@@ -98,7 +98,6 @@ namespace Presentacion
                 {
                 }
             }
-            
         }
 
         protected void clickGuardar(object sender, EventArgs e)
@@ -137,9 +136,19 @@ namespace Presentacion
             lp.InsertarPago(p);
 
             pag = lp.BuscarPago(Id);
-            if(pag.ID != "")
+            User_EN en = (User_EN)Session["user_session_data"];
+            LogicaEmpresa le = new LogicaEmpresa();
+            Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
+            if (pag.ID != "")
             {
                 DataTable dt = (DataTable)Session["dataPago"];
+                DataTable imprimir = new DataTable();
+                imprimir.Columns.Add("RazonSocial");
+                imprimir.Columns.Add("TipoDoc");
+                imprimir.Columns.Add("NumDoc");
+                imprimir.Columns.Add("FechaDocumento");
+                imprimir.Columns.Add("Total");
+                imprimir.Columns.Add("Observaciones");
                 int contador = 0;
                 foreach (GridViewRow row in Responsive.Rows)
                 {
@@ -148,6 +157,22 @@ namespace Presentacion
                         CheckBox chkRow = (row.Cells[0].FindControl("chkRow") as CheckBox);
                         if (chkRow.Checked)
                         {
+                            //Agregar Datos    
+                            DataRow row1 = imprimir.NewRow();
+                            row1["RazonSocial"] = dt.Rows[contador]["RazonSocial"].ToString();
+                            row1["TipoDoc"] = dt.Rows[contador]["TipoDoc"].ToString();
+                            row1["NumDoc"] = dt.Rows[contador]["NumDoc"].ToString();
+                            row1["FechaDocumento"] = dt.Rows[contador]["FechaDocumento"].ToString();
+                            row1["Total"] = dt.Rows[contador]["Total"].ToString();
+                            ArrayList obs = new ArrayList();
+                            obs = lm.MostrarObservaciones(razon_social_register.Text, dt.Rows[contador]["IdMovimiento"].ToString(), em.ID);
+                            string observaciones = "";
+                            for (int j = 0; j < obs.Count; j++)
+                            {
+                                observaciones += "- " + (string)obs[j] + "\n";
+                            }
+                            row1["Observaciones"] = observaciones;
+                            imprimir.Rows.Add(row1);
                             m = lm.BuscarMovimiento(dt.Rows[contador]["IdMovimiento"].ToString());
                             m.IdPago = Id;
                             lm.actualizarMovimiento(m);
@@ -155,7 +180,7 @@ namespace Presentacion
                         contador++;
                     }
                 }
-                ClickExportToPdf();
+                Session["imprimirPago"] = imprimir;
                 Session["dataPago"] = null;
                 Llenar_GridView(razon_social_register.Text);
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -164,6 +189,15 @@ namespace Presentacion
                 sbMensaje.Append("<script type='text/javascript'>");
                 //Le indicamos al alert que mensaje va mostrar
                 sbMensaje.AppendFormat("alert('{0}');", "Se han ingresado los datos exitosamente");
+                if(tipo_pago_register.Text == "Cheque")
+                {
+                    sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/PagosComprobante.aspx?fecha=" + fecha_pago_register.Text +
+                        "&Proveedor=" + razon_social_register.Text + "&TipoPago=" + tipo_pago_register.Text + "&numCheque=" + num_cheque_register.Text + "\";");
+                }else
+                {
+                    sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/PagosComprobante.aspx?fecha=" + fecha_pago_register.Text +
+                        "&Proveedor=" + razon_social_register.Text + "&TipoPago=" + tipo_pago_register.Text + "\";");
+                }
                 //Cerramos el Script
                 sbMensaje.Append("</script>");
                 //Registramos el Script escrito en el StringBuilder
@@ -300,34 +334,6 @@ namespace Presentacion
                     num_cheque_register.ReadOnly = true;
                     break;
             }
-        }
-
-        public void ClickExportToPdf()
-        {
-            DataTable dt = (DataTable)Session["dataPago"];
-
-            //Create a dummy GridView
-            GridView GridView1 = new GridView();
-            GridView1.AllowPaging = false;
-            GridView1.DataSource = dt;
-            GridView1.DataBind();
-
-            Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition",
-                "attachment;filename=listadoproveedores.pdf");
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            StringWriter sw = new StringWriter();
-            HtmlTextWriter hw = new HtmlTextWriter(sw);
-            GridView1.RenderControl(hw);
-            StringReader sr = new StringReader(sw.ToString());
-            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-            pdfDoc.Open();
-            htmlparser.Parse(sr);
-            pdfDoc.Close();
-            Response.Write(pdfDoc);
-            Response.End();
         }
 
         /// <summary>
