@@ -150,7 +150,7 @@
                                             <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                 <asp:TextBox ID="fecha_doc_register" runat="server" CssClass="mdl-textfield__input" ReadOnly="true"></asp:TextBox>
                                                 <label class="mdl-textfield__label" for="fecha_doc_register">Fecha Documento</label>
-                                                <asp:RegularExpressionValidator ID="RegExUsuario" runat="server" ErrorMessage="Solo se admiten fechas con formato: dd-mm-yyyy. Ejemplo: 22-01-2017" ControlToValidate="fecha_doc_register" ValidationExpression="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                                                <asp:RegularExpressionValidator ID="RegExUsuario" runat="server" ErrorMessage="Solo se admiten fechas con formato: dd-mm-yyyy. Ejemplo: 22-01-2017" ControlToValidate="fecha_doc_register"  CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                                             </span>
                                         </span>
                                     </li>
