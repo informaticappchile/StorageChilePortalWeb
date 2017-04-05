@@ -121,15 +121,6 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.TextBox fecha_doc_register;
         
         /// <summary>
-        /// RegExUsuario control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegExUsuario;
-        
-        /// <summary>
         /// Calendar1 control.
         /// </summary>
         /// <remarks>
