@@ -116,13 +116,16 @@ namespace Presentacion
         {
             double conversion = 0;
             double precio = 0;
-            conversion = (Convert.ToDouble(equivalenciatxt.Text) * Convert.ToDouble(unidadestxt.Text));
-            precio = (Convert.ToDouble(preciotxt.Text) / Convert.ToDouble(equivalenciatxt.Text));
-            cant_register.Text = ((int)conversion).ToString();
-            precio_register.Text = ((int)precio).ToString();
-            unidadestxt.Text = "0";
-            equivalenciatxt.Text = "0";
-            preciotxt.Text = "0";
+            if (Convert.ToDouble(unidadestxt.Text) > 0 && Convert.ToDouble(equivalenciatxt.Text) > 0)
+            {
+                conversion = (Convert.ToDouble(equivalenciatxt.Text) * Convert.ToDouble(unidadestxt.Text));
+                precio = (Convert.ToDouble(preciotxt.Text) / Convert.ToDouble(equivalenciatxt.Text));
+                cant_register.Text = ((int)conversion).ToString();
+                precio_register.Text = ((int)precio).ToString();
+                unidadestxt.Text = "0";
+                equivalenciatxt.Text = "0";
+                preciotxt.Text = "0";
+            }
         }
 
         protected void clickCalcular(object sender, EventArgs e)
@@ -192,7 +195,7 @@ namespace Presentacion
                         break;
 
                     case "Compra":
-                          
+
                             m.FechaMovimiento = Convert.ToDateTime(fecha_actual_register.Text);
                             m.FechaDocumento = Convert.ToDateTime(fecha_doc_register.Text);
                             m.IdDocumento = lm.GetIdDocumento(tipo_doc_register.Text);

@@ -206,9 +206,9 @@ namespace Persistencia
         public ArrayList MostrarProveedoresConProductosEmpresa(int IdEmpresa)
         {
             Conexion nueva_conexion = new Conexion();
-            nueva_conexion.SetQuery("Select *" +
+            nueva_conexion.SetQuery("Select  p.IdProveedor, c.IdCiudad, v.Direccion, c.NombreCiudad, v.Fono, p.RazonSocial, p.RutProveedor, v.NombreVendedor" +
                                     " from Proveedor p, Ciudad c, ProductoProveedorEmpresa pp, Vendedor v" +
-                                    " where p.IdCiudad = c.IdCiudad AND pp.IdProveedor = p.IdProveedor AND v.IdProveedor = p.IdProveedor AND pp.IdEmpresa = " + IdEmpresa +
+                                    " where v.IdCiudad = c.IdCiudad AND pp.IdProveedor = p.IdProveedor AND v.IdProveedor = p.IdProveedor AND pp.IdEmpresa = " + IdEmpresa +
                                     " Group by p.IdProveedor");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
@@ -222,7 +222,7 @@ namespace Persistencia
                 proveedor.Fono = dt.Rows[i]["Fono"].ToString();
                 proveedor.Rut = dt.Rows[i]["RutProveedor"].ToString();
                 proveedor.RazonSocial = dt.Rows[i]["RazonSocial"].ToString();
-                proveedor.Vendedor = dt.Rows[i]["Vendedor"].ToString();
+                proveedor.Vendedor = dt.Rows[i]["NombreVendedor"].ToString();
                 lista.Add(proveedor);
 
             }
