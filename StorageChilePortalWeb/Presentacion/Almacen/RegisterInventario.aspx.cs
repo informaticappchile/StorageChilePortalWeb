@@ -52,48 +52,36 @@ namespace Presentacion
                     ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                 }
             }
-            if (Request["ID"] != null  && Session["proveedor_reparto"] != null && Request["ID"].ToString() == ((Proveedor_EN)Session["proveedor_reparto"]).RazonSocial)
+            LogicaProveedor l = new LogicaProveedor();
+            ArrayList lista = l.MostrarProveedoresVendedorEmpresa(em);//ProveedoresPorEmpresa;
+            if (lista.Count == 0)
             {
-                razon_social_register.Visible = true;
-                proveedor_register.Visible = false;
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene proveedores disponibles en el sistema. Por favor registre uno.");
+                //Cerramos el Script
+                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/RegisterProveedor.aspx\";");
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
-            else
-            {
-                LogicaProveedor l = new LogicaProveedor();
-                ArrayList lista = l.MostrarProveedores();//ProveedoresPorEmpresa;
-                if (lista.Count == 0)
-                {
-                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                    StringBuilder sbMensaje = new StringBuilder();
-                    //Aperturamos la escritura de Javascript
-                    sbMensaje.Append("<script type='text/javascript'>");
-                    //Le indicamos al alert que mensaje va mostrar
-                    sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene proveedores disponibles en el sistema. Por favor registre uno.");
-                    //Cerramos el Script
-                    sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/RegisterProveedor.aspx\";");
-                    sbMensaje.Append("</script>");
-                    //Registramos el Script escrito en el StringBuilder
-                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                }
-                if (Page.IsPostBack == false)
-                {
-                    proveedor_register.DataSource = lista;
-                    proveedor_register.DataTextField = "RazonSocial";
-                    proveedor_register.DataValueField = "RazonSocial";
-                    proveedor_register.DataBind();
-                }
-            }
-
             if (Page.IsPostBack == false)
             {
+                proveedor_register.DataSource = lista;
+                proveedor_register.DataTextField = "RazonSocial";
+                proveedor_register.DataValueField = "RazonSocial";
+                proveedor_register.DataBind();
                 LogicaProducto lp = new LogicaProducto();
-                ArrayList lista = lp.MostrarGrupos();
+                lista = lp.MostrarGrupos();
                 grupo_register.DataSource = lista;
                 grupo_register.DataBind();
                 lista = lp.MostrarUnidades();
                 unidad_register.DataSource = lista;
                 unidad_register.DataBind();
-                lista = lp.MostrarProductos();
+                lista = lp.MostrarProductosPorEmpresa(em);
                 if (lista.Count > 0)
                 {
                     ArrayList aux = new ArrayList();
@@ -117,24 +105,54 @@ namespace Presentacion
             UsernameExistsError_Register.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
             Producto_EN busqueda = new Producto_EN();
             LogicaProducto lu = new LogicaProducto();
-            if (lu.BuscarProducto(codigo_producto_register.Text).CodProducto != codigo_producto_register.Text ) //Comprobamos que ese nombre de usuario ya este
+            LogicaEmpresa lem = new LogicaEmpresa();
+            Empresa_EN emp = lem.BuscarEmpresa(((User_EN)Session["user_session_data"]).NombreEmp);
+            LogicaProveedor lp = new LogicaProveedor();
+            Proveedor_EN p = lp.BuscarProveedor(proveedor_register.Text);
+
+            Producto_EN aux = lu.BuscarProductoEmpresa(emp,codigo_producto_register.Text);
+
+            if (aux.ID != "")
             {
+                lu.InsertarProductoProveedorEmpresa(aux,p,emp);
+                limpiar(this.Controls);
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Se ha registrado el producto: " + aux.Descripcion);
+                //Cerramos el Script
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
+            else
+            {
+                string Id = GenerarPass(5, 15);
+
+                Producto_EN pag = lu.BuscarProducto(Id);
+
+                while (pag.ID != "")
+                {
+                    Id = GenerarPass(5, 15);
+                    pag = lu.BuscarProducto(Id);
+                }
+
                 Producto_EN en = new Producto_EN();//Si lo cumple todo, creamos un nuevo usuario
+                en.ID = Id;
                 en.CodProducto = codigo_producto_register.Text;//Con su nombre de usuario
                 en.Descripcion = descripcion_register.Text.Replace('\'', '´').Trim();//Con su correo
                 en.CantMinStock = Convert.ToInt32(cant_min_stock_register.Text);//Con su contrasenya
                 en.IdGrupo = lu.GetIdGrupo(grupo_register.Text);
                 en.IdMedidad = lu.GetIdUnidad(unidad_register.Text);
                 lu.InsertarProducto(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
-                Producto_EN u = lu.BuscarProducto(en.CodProducto);
+                Producto_EN u = lu.BuscarProductoEmpresa(emp, codigo_producto_register.Text);
                 if (validarRegistroProducto(u))
                 {
-                    LogicaEmpresa le = new LogicaEmpresa();
-                    User_EN us = (User_EN)Session["user_session_data"];
-                    Empresa_EN em = le.BuscarEmpresa(us.NombreEmp);
-                    LogicaProveedor lp = new LogicaProveedor();
-                    u.IdProveedor = lp.BuscarProveedor(proveedor_register.Text).ID;
-                    lu.InsertarProductoProveedor(u, em);
+                    lu.InsertarProductoGrupoProducto(en);
+                    lu.InsertarProductoUnidadMedida(en);
+                    lu.InsertarProductoProveedorEmpresa(en, p, emp);
                     limpiar(this.Controls);
                     //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                     StringBuilder sbMensaje = new StringBuilder();
@@ -161,7 +179,6 @@ namespace Presentacion
                     ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                 }
             }
-            else UsernameExistsError_Register.Visible = true;
 
         }
 
@@ -214,6 +231,36 @@ namespace Presentacion
                     //Así ningún control se quedará sin ser limpiado.
                     limpiar(ctrl.Controls);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="LongPassMin"></param>
+        /// <param name="LongPassMax"></param>
+        /// <returns></returns>
+        protected string GenerarPass(int LongPassMin, int LongPassMax)
+        {
+            char[] ValueAfanumeric = { 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '!', '#', '$', '%', '&', '?', '¿' };
+            Random ram = new Random();
+            int LogitudPass = ram.Next(LongPassMin, LongPassMax);
+            string Password = String.Empty;
+
+            for (int i = 0; i < LogitudPass; i++)
+            {
+                int rm = ram.Next(0, 2);
+
+                if (rm == 0)
+                {
+                    Password += ram.Next(0, 10);
+                }
+                else
+                {
+                    Password += ValueAfanumeric[ram.Next(0, 59)];
+                }
+            }
+
+            return Password;
         }
     }
 }

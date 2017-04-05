@@ -68,7 +68,7 @@ namespace Persistencia
                 movimiento.IdDocumento = Convert.ToInt16(dt.Rows[i]["IdDocumento"].ToString());
                 movimiento.Total = Convert.ToInt32(dt.Rows[i]["Total"].ToString());
                 movimiento.Cantidad = Convert.ToInt32(dt.Rows[i]["CantidadSolicitada"].ToString());
-                movimiento.IdProducto = Convert.ToInt32(dt.Rows[i]["CantidadSolicitada"].ToString());
+                movimiento.IdProducto = dt.Rows[i]["CantidadSolicitada"].ToString();
                 lista.Add(movimiento);
             }
 

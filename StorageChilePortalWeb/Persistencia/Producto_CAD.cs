@@ -28,8 +28,71 @@ namespace Persistencia
 
             try
             {
-                string insert = "insert into Producto(Descripcion,CodProducto, CantMinStock, IdGrupoProducto, IdUnidadMedida,Stock) VALUES ('"
-                    + e.Descripcion + "','" + e.CodProducto + "'," + e.CantMinStock + "," + e.IdGrupo + "," + e.IdMedidad + "," + e.Stock +  ")";
+                string insert = "insert into Producto(IdProducto, Descripcion,CodProducto, CantMinStock,Stock) VALUES ('"
+                    + e.ID + "','" + e.Descripcion + "','" + e.CodProducto + "'," + e.CantMinStock + "," + e.Stock + ")";
+                //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
+                nueva_conexion.SetQuery(insert);
+                nueva_conexion.EjecutarQuery();
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+
+        /**
+         * Se encarga de introducir un usuario en la base de datos 
+         * 
+         */
+        public void InsertarProductoUnidadMedida(Producto_EN e)
+        {
+
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+                string insert = "insert into ProductoUnidadMedida(IdProducto, IdUnidadMedida) VALUES ('"
+                    + e.ID + "'," + e.IdMedidad + ")";
+                //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
+                nueva_conexion.SetQuery(insert);
+                nueva_conexion.EjecutarQuery();
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+
+        /**
+         * Se encarga de introducir un usuario en la base de datos 
+         * 
+         */
+        public void InsertarProductoGrupoProducto(Producto_EN e)
+        {
+
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+                string insert = "insert into ProductoGrupoProducto(IdProducto,IdGrupoProducto) VALUES ('"
+                    + e.ID + "'," + e.IdGrupo + ")";
+                //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
+                nueva_conexion.SetQuery(insert);
+                nueva_conexion.EjecutarQuery();
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+
+        /**
+         * Se encarga de introducir un usuario en la base de datos 
+         * 
+         */
+        public void InsertarProductoProveedorEmpresa(Producto_EN e, Proveedor_EN pr, Empresa_EN em)
+        {
+
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+                string insert = "insert into ProductoProveedorEmpresa(IdProducto,IdProveedor,IdEmpresa) VALUES ('"
+                    + e.ID + "'," + pr.ID + "," + em.ID + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
                 nueva_conexion.EjecutarQuery();
@@ -77,7 +140,7 @@ namespace Persistencia
             if (dt != null)
             {
                 Producto_EN producto = new Producto_EN();
-                producto.ID = Convert.ToInt16(dt.Rows[0]["IdProducto"]);
+                producto.ID = dt.Rows[0]["IdProducto"].ToString();
                 producto.Descripcion = dt.Rows[0]["Descripcion"].ToString();
                 producto.CodProducto = dt.Rows[0]["CodProducto"].ToString();
                 producto.CantMinStock = Convert.ToInt16(dt.Rows[0]["CantMinStock"].ToString());
@@ -108,7 +171,7 @@ namespace Persistencia
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 Producto_EN producto = new Producto_EN();
-                producto.ID = Convert.ToInt16(dt.Rows[i]["IdProducto"]);
+                producto.ID = dt.Rows[i]["IdProducto"].ToString();
                 producto.Descripcion = dt.Rows[i]["Descripcion"].ToString();
                 producto.CodProducto = dt.Rows[i]["CodProducto"].ToString();
                 producto.CantMinStock = Convert.ToInt16(dt.Rows[i]["CantMinStock"].ToString());
@@ -128,7 +191,7 @@ namespace Persistencia
         /**
          * Se encarga de borrar el usuario, si existe en la base de datos, a través de su ID
          **/
-        public bool BorrarProducto(int idProducto)
+        public bool BorrarProducto(string idProducto)
         {
 
             Conexion nueva_conexion = new Conexion();
@@ -136,7 +199,7 @@ namespace Persistencia
             try
             {
                 string delete = "";
-                delete = "Delete from Producto where Producto.IdProducto = " + idProducto;
+                delete = "Delete from Producto where Producto.IdProducto = '" + idProducto + "'";
                 nueva_conexion.SetQuery(delete);
 
 
@@ -158,13 +221,49 @@ namespace Persistencia
             try
             {
                 string select = "Select *"+
-                    " from Producto p, GrupoProducto gp, UnidadMedida um" +
-                    " where (p.codProducto ='" + busqueda + "' OR p.Descripcion = '"+ busqueda +"')AND p.IdGrupoProducto = gp.IdGrupoProducto AND p.IdUnidadMedida = um.IdUnidadMedida";
+                    " from Producto p, GrupoProducto gp, UnidadMedida um, ProductoGrupoProducto pgp, ProductoUnidadMedida pum" +
+                    " where p.IdProducto ='" + busqueda + "' AND pgp.IdGrupoProducto = gp.IdGrupoProducto AND pum.IdUnidadMedida = um.IdUnidadMedida AND"+
+                    " pgp.IdProducto = p.IdProducto AND pum.IdProducto = p.IdProducto";
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
                 if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
                 {
-                    producto.ID = Convert.ToInt16(dt.Rows[0]["IdProducto"]);
+                    producto.ID = dt.Rows[0]["IdProducto"].ToString();
+                    producto.Descripcion = dt.Rows[0]["Descripcion"].ToString();
+                    producto.CodProducto = dt.Rows[0]["CodProducto"].ToString();
+                    producto.CantMinStock = Convert.ToInt16(dt.Rows[0]["CantMinStock"].ToString());
+                    producto.Grupo = dt.Rows[0]["NombreGrupoProducto"].ToString();
+                    producto.UnidadMedida = dt.Rows[0]["NombreUnidadMedida"].ToString(); ;
+                    producto.IdGrupo = Convert.ToInt16(dt.Rows[0]["IdGrupoProducto"].ToString());
+                    producto.IdMedidad = Convert.ToInt16(dt.Rows[0]["IdUnidadMedida"].ToString());
+                    producto.Stock = Convert.ToInt16(dt.Rows[0]["Stock"].ToString());
+                }
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+
+            return producto;
+        }
+
+        /**
+         * Recibe un nombre de usuario o un correo electrónico y devuelve los datos del usuario al que pertenecen.
+         * En caso de que no exista tal usuario/correo, devuelve NULL
+         */
+        public Producto_EN BuscarProductoEmpresa(Empresa_EN em, string busqueda)
+        {
+            Producto_EN producto = new Producto_EN();
+            Conexion nueva_conexion = new Conexion();
+            try
+            {
+                string select = "Select *" +
+                    " from Producto p, GrupoProducto gp, UnidadMedida um, ProductoGrupoProducto pgp, ProductoUnidadMedida pum, ProductoProveedorEmpresa ppe" +
+                    " where p.CodigoProducto ='" + busqueda + "' AND pgp.IdGrupoProducto = gp.IdGrupoProducto AND pum.IdUnidadMedida = um.IdUnidadMedida AND" +
+                    " pgp.IdProducto = p.IdProducto AND pum.IdProducto = p.IdProducto AND ppe.IdProducto = p.IdProducto AND ppe.IdEmpresa ="+ em.ID;
+                nueva_conexion.SetQuery(select);
+                DataTable dt = nueva_conexion.QuerySeleccion();
+                if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
+                {
+                    producto.ID = dt.Rows[0]["IdProducto"].ToString();
                     producto.Descripcion = dt.Rows[0]["Descripcion"].ToString();
                     producto.CodProducto = dt.Rows[0]["CodProducto"].ToString();
                     producto.CantMinStock = Convert.ToInt16(dt.Rows[0]["CantMinStock"].ToString());
@@ -183,8 +282,8 @@ namespace Persistencia
 
         /**
          * Se encarga de actualizar el usuario si sufre alguna modificacion en alguno de sus campos
-         **/ 
-         
+         **/
+
         public void actualizarProducto(Producto_EN e)
         {
             Conexion nueva_conexion = new Conexion();
@@ -195,8 +294,56 @@ namespace Persistencia
                 
 
                 update = "Update Producto set Descripcion = '" + e.Descripcion + "',CantMinStock  = " + e.CantMinStock +
-                    ",IdGrupoProducto = "+e.IdGrupo +",IdUnidadMedida = " + e.IdMedidad + ",CodProducto = '" + e.CodProducto + "', Stock = " + e.Stock + 
-                    " where Producto.IdProducto = " + e.ID;
+                    ",CodProducto = '" + e.CodProducto + "', Stock = " + e.Stock + 
+                    " where Producto.IdProducto = '" + e.ID +"'";
+                nueva_conexion.SetQuery(update);
+
+
+                nueva_conexion.EjecutarQuery();
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+
+        /**
+         * Se encarga de actualizar el usuario si sufre alguna modificacion en alguno de sus campos
+         **/
+
+        public void actualizarProductoGrupoProducto(Producto_EN e, int oldIdGrupo)
+        {
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+                string update = "";
+
+
+                update = "Update ProductoGrupoProducto set IdGrupoProducto = " + e.IdGrupo +
+                    " where ProductoGrupoProducto.IdProducto = '" + e.ID + "' AND ProductoGrupoProducto.IdGrupoProducto = " + oldIdGrupo;
+                nueva_conexion.SetQuery(update);
+
+
+                nueva_conexion.EjecutarQuery();
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+
+        /**
+         * Se encarga de actualizar el usuario si sufre alguna modificacion en alguno de sus campos
+         **/
+
+        public void actualizarProductoUnidadMedida(Producto_EN e, int oldIdUnidad)
+        {
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+                string update = "";
+
+
+                update = "Update ProductoUnidadMedida set IdUnidadMedida = " + e.IdMedidad +
+                    " where ProductoUnidadMedida.IdProducto = '" + e.ID + "' AND ProductoUnidadMedida.IdUnidadMedida = " + oldIdUnidad;
                 nueva_conexion.SetQuery(update);
 
 
@@ -292,6 +439,39 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
+        public ArrayList MostrarProductosPorEmpresa(int id)
+        {
+            Conexion nueva_conexion = new Conexion();
+            nueva_conexion.SetQuery("Select *" +
+                                    " from Producto p, ProductoProveedorEmpresa ppe, GrupoProducto gp, UnidadMedida um, ProductoGrupoProducto pgp, ProductoUnidadMedida pum" +
+                                    " where p.IdProducto = ppe.IdProducto AND pgp.IdGrupoProducto = gp.IdGrupoProducto AND pum.IdUnidadMedida = um.IdUnidadMedida AND" +
+                                    " pgp.IdProducto = p.IdProducto AND pum.IdProducto = p.IdProducto AND ppe.IdEmpresa = " + id);
+            DataTable dt = nueva_conexion.QuerySeleccion();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Producto_EN producto = new Producto_EN();
+                producto.ID = dt.Rows[i]["IdProducto"].ToString();
+                producto.Descripcion = dt.Rows[i]["Descripcion"].ToString();
+                producto.CodProducto = dt.Rows[i]["CodProducto"].ToString();
+                producto.CantMinStock = Convert.ToInt16(dt.Rows[i]["CantMinStock"].ToString());
+                producto.Grupo = dt.Rows[i]["NombreGrupoProducto"].ToString();
+                producto.UnidadMedida = dt.Rows[i]["NombreUnidadMedida"].ToString(); ;
+                producto.IdGrupo = Convert.ToInt16(dt.Rows[i]["IdGrupoProducto"].ToString());
+                producto.IdMedidad = Convert.ToInt16(dt.Rows[i]["IdUnidadMedida"].ToString());
+                producto.Stock = Convert.ToInt16(dt.Rows[i]["Stock"].ToString());
+                lista.Add(producto);
+
+            }
+
+            return lista;
+
+        }
+
+        /**
+         * Se encarga de mostrar todos los usuarios del sistema.
+         */
+
         public ArrayList MostrarProductosPorProveedorEmpresa(string razonSocial, int id)
         {
             Conexion nueva_conexion = new Conexion();
@@ -304,7 +484,7 @@ namespace Persistencia
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 Producto_EN producto = new Producto_EN();
-                producto.ID = Convert.ToInt16(dt.Rows[i]["IdProducto"]);
+                producto.ID = dt.Rows[i]["IdProducto"].ToString();
                 producto.Descripcion = dt.Rows[i]["Descripcion"].ToString();
                 producto.CodProducto = dt.Rows[i]["CodProducto"].ToString();
                 producto.CantMinStock = Convert.ToInt16(dt.Rows[i]["CantMinStock"].ToString());

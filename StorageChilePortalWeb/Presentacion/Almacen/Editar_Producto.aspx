@@ -13,7 +13,7 @@
                     <span class="mdl-list__item-primary-content">
                         <i class="material-icons  mdl-list__item-avatar">fingerprint</i>
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <asp:TextBox ID="codigo_producto_editar" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
+                            <asp:TextBox ID="codigo_producto_editar" runat="server" CssClass="mdl-textfield__input" ReadOnly="true"></asp:TextBox>
                             <label class="mdl-textfield__label" for="codigo_producto_editar">Código Producto</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidatorUserName" runat="server" ControlToValidate="codigo_producto_editar" ErrorMessage="Introduce el codigo de producto" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="RegExUsuario" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="codigo_producto_editar" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>

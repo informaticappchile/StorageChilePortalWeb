@@ -115,10 +115,10 @@ namespace Entidades
         }
 
         //Declaramos el id del user en private
-        private int idProducto;
+        private string idProducto;
 
         //Declaramos el id del user en public para poder utilizarlo
-        public int IdProducto
+        public string IdProducto
         {
             get { return idProducto; }
             set { idProducto = value; }
@@ -207,6 +207,7 @@ namespace Entidades
             idTipoMovimiento = 0;
             idDocumento = 0;
             idProveedor = 0;
+            idProducto = "";
             precioUnitario = 0;
             total = 0;
             idPago = "0";

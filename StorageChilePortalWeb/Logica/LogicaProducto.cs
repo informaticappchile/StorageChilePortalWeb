@@ -17,6 +17,28 @@ namespace Logica
             Producto_CAD userCad = new Producto_CAD();
             userCad.InsertarProducto(e);
         }
+        //Declaramos la funcion insertar usuario donde llama al cad correspondiente
+
+        public void InsertarProductoGrupoProducto(Producto_EN e)
+        {
+            Producto_CAD userCad = new Producto_CAD();
+            userCad.InsertarProductoGrupoProducto(e);
+        }
+        //Declaramos la funcion insertar usuario donde llama al cad correspondiente
+
+        public void InsertarProductoUnidadMedida(Producto_EN e)
+        {
+            Producto_CAD userCad = new Producto_CAD();
+            userCad.InsertarProductoUnidadMedida(e);
+        }
+        //Declaramos la funcion insertar usuario donde llama al cad correspondiente
+
+        public void InsertarProductoProveedorEmpresa(Producto_EN e, Proveedor_EN pr, Empresa_EN em)
+        {
+            Producto_CAD userCad = new Producto_CAD();
+            userCad.InsertarProductoProveedorEmpresa(e,pr,em);
+        }
+
         public void InsertarProductoProveedor(Producto_EN e, Empresa_EN em)
         {
             Producto_CAD userCad = new Producto_CAD();
@@ -57,6 +79,14 @@ namespace Logica
             return productoBuscado;
         }
 
+        //Declaramos la funcion buscar usuario donde llama al cad correspondiente
+        public Producto_EN BuscarProductoEmpresa(Empresa_EN em, string producto)
+        {
+            Producto_CAD busqueda = new Producto_CAD();
+            Producto_EN productoBuscado = busqueda.BuscarProductoEmpresa(em,producto);
+            return productoBuscado;
+        }
+
         //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
         public void actualizarProducto(Producto_EN e)
         {
@@ -64,11 +94,34 @@ namespace Logica
             actUser.actualizarProducto(e);
         }
 
+        //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
+        public void actualizarProductoGrupoProducto(Producto_EN e, int oldIdGrupo)
+        {
+            Producto_CAD actUser = new Producto_CAD();
+            actUser.actualizarProductoGrupoProducto(e, oldIdGrupo);
+        }
+
+        //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
+        public void actualizarProductoUnidadMedida(Producto_EN e, int oldIdUnidad)
+        {
+            Producto_CAD actUser = new Producto_CAD();
+            actUser.actualizarProductoUnidadMedida(e, oldIdUnidad);
+        }
+
         public ArrayList MostrarProductos()
         {
             ArrayList a = new ArrayList();
             Producto_CAD c = new Producto_CAD();
             a = c.MostrarProductos();
+
+            return a;
+        }
+
+        public ArrayList MostrarProductosPorEmpresa(Empresa_EN em)
+        {
+            ArrayList a = new ArrayList();
+            Producto_CAD c = new Producto_CAD();
+            a = c.MostrarProductosPorEmpresa(em.ID);
 
             return a;
         }

@@ -37,6 +37,8 @@ namespace Presentacion
             LogicaProducto lu = new LogicaProducto();
             this.user = Request["ID"].ToString();
             this.en = lu.BuscarProducto(user);
+            int oldIdGrupo = this.en.IdGrupo;
+            int oldIdUnidad = this.en.IdMedidad;
             this.en.CodProducto = codigo_producto_editar.Text;
             this.en.CantMinStock = Convert.ToInt32(cant_min_stock_editar.Text);
             this.en.Descripcion = descripcion_editar.Text.Replace('\'', '´').Trim();
@@ -44,6 +46,8 @@ namespace Presentacion
             this.en.IdMedidad = lu.GetIdUnidad(unidad_editar.Text);
 
             lu.actualizarProducto(en);
+            lu.actualizarProductoGrupoProducto(en,oldIdGrupo);
+            lu.actualizarProductoUnidadMedida(en,oldIdUnidad);
             if (ValidarCambios(en))
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -111,7 +115,8 @@ namespace Presentacion
                                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                             }
                         }
-                        ArrayList lista = le.MostrarProductos(); if (lista.Count == 0)
+                        ArrayList lista = le.MostrarProductosPorEmpresa(em);
+                        if (lista.Count == 0)
                         {
                             //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                             StringBuilder sbMensaje = new StringBuilder();
@@ -158,7 +163,7 @@ namespace Presentacion
         protected bool ValidarCambios(Producto_EN u)
         {
             LogicaProducto lu = new LogicaProducto();
-            Producto_EN en = lu.BuscarProducto(u.CodProducto);
+            Producto_EN en = lu.BuscarProducto(u.ID);
             if (en.CodProducto != u.CodProducto) { return false; }
             if (en.CantMinStock != u.CantMinStock){return false; }
             if (en.Descripcion != u.Descripcion) { return false; }

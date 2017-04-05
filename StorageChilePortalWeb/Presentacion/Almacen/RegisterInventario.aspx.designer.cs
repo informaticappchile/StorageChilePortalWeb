@@ -103,15 +103,6 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.DropDownList proveedor_register;
         
         /// <summary>
-        /// Control razon_social_register.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox razon_social_register;
-        
-        /// <summary>
         /// Control cant_min_stock_register.
         /// </summary>
         /// <remarks>
