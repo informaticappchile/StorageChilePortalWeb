@@ -76,11 +76,26 @@ namespace Logica
             return proveedorBuscado;
         }
 
+        //Declaramos la funcion buscar usuario donde llama al cad correspondiente
+        public Proveedor_EN BuscarProveedorVendedorEmpresa(Empresa_EN p, string proveedor)
+        {
+            Proveedor_CAD busqueda = new Proveedor_CAD();
+            Proveedor_EN proveedorBuscado = busqueda.BuscarProveedorVendedorEmpresa(p, proveedor);
+            return proveedorBuscado;
+        }
+
         //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
         public void actualizarProveedor(Proveedor_EN e)
         {
             Proveedor_CAD actUser = new Proveedor_CAD();
             actUser.actualizarProveedor(e);
+        }
+
+        //Declaramos la funcion actualizar usuario donde llama al cad correspondiente
+        public void actualizarVendedor(Proveedor_EN e)
+        {
+            Proveedor_CAD actUser = new Proveedor_CAD();
+            actUser.actualizarVendedor(e);
         }
 
         public ArrayList MostrarProveedores()
@@ -97,6 +112,15 @@ namespace Logica
             ArrayList a = new ArrayList();
             Proveedor_CAD c = new Proveedor_CAD();
             a = c.MostrarProveedorVendedorEmpresa(p,em);
+
+            return a;
+        }
+
+        public ArrayList MostrarProveedoresVendedorEmpresa(Empresa_EN em)
+        {
+            ArrayList a = new ArrayList();
+            Proveedor_CAD c = new Proveedor_CAD();
+            a = c.MostrarProveedoresVendedorEmpresa(em);
 
             return a;
         }

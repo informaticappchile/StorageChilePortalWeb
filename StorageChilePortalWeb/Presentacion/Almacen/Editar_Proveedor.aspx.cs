@@ -44,7 +44,10 @@ namespace Presentacion
                 return;
             }
             this.user = Request["ID"].ToString();
-            this.en = lu.BuscarProveedor(user);
+            User_EN en = (User_EN)Session["user_session_data"];
+            LogicaEmpresa le = new LogicaEmpresa();
+            Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
+            this.en = lu.BuscarProveedorVendedorEmpresa(em,user);
             this.en.RazonSocial = razon_social_editar.Text.Replace('\'', '´').Trim();
             this.en.Rut = rut_empresa_editar.Text;
             this.en.Vendedor = vendedor_name_editar.Text.Replace('\'', '´').Trim();
@@ -55,8 +58,9 @@ namespace Presentacion
             LogicaServicio lse = new LogicaServicio();
             List<Servicio_EN> ls = lse.MostrarServicios();
 
-            lu.actualizarProveedor(en);
-            if (ValidarCambios(en))
+            lu.actualizarProveedor(this.en);
+            lu.actualizarVendedor(this.en);
+            if (ValidarCambios(this.en))
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                 StringBuilder sbMensaje = new StringBuilder();
@@ -124,7 +128,7 @@ namespace Presentacion
                                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                             }
                         }
-                        ArrayList lista = le.MostrarProveedores();
+                        ArrayList lista = le.MostrarProveedoresVendedorEmpresa(em);
                         if (lista.Count == 0)
                         {
                             //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -140,7 +144,7 @@ namespace Presentacion
                             ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                         }
                         this.user = Request["ID"].ToString();
-                        this.en = le.BuscarProveedor(user);
+                        this.en = le.BuscarProveedorVendedorEmpresa(em,user);
                         LogicaProveedor lp = new LogicaProveedor();
                         lista = lp.MostrarCiudades();
                         ciudad_editar.DataSource = lista;
@@ -175,9 +179,9 @@ namespace Presentacion
             Proveedor_EN en = lu.BuscarProveedor(u.RazonSocial);
             if (en.RazonSocial != u.RazonSocial) { return false; }
             if (en.Rut != u.Rut){return false; }
-            if (en.IdCiudad != u.IdCiudad) { return false; }
             return true;
         }
+
         public bool validarRut(string rut)
         {
 

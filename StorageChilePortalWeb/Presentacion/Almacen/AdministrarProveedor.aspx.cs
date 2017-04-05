@@ -63,7 +63,7 @@ namespace Presentacion
                 }
             }
             LogicaProveedor lp = new LogicaProveedor();
-            ArrayList lista = lp.MostrarProveedores();
+            ArrayList lista = lp.MostrarProveedoresVendedorEmpresa(em);
             if (lista.Count == 0)
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -84,9 +84,12 @@ namespace Presentacion
 
         private void Llenar_GridView()
         {
+            User_EN en = (User_EN)Session["user_session_data"];
+            LogicaEmpresa le = new LogicaEmpresa();
+            Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
             LogicaProveedor ls = new LogicaProveedor();
             ArrayList lista = new ArrayList();
-            lista = ls.MostrarProveedores();
+            lista = ls.MostrarProveedoresVendedorEmpresa(em);
             Responsive.DataSource = lista;
             Responsive.DataBind();
             DataTable dt = new DataTable();

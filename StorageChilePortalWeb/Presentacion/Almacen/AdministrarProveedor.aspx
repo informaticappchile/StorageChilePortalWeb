@@ -37,9 +37,10 @@
                     <asp:BoundField DataField="Direccion" HeaderText="Dirección"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:BoundField DataField="Ciudad" HeaderText="Ciudad"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:BoundField DataField="Fono" HeaderText="Fono"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
+                    <asp:BoundField DataField="IdVendedor" HeaderText="IdVendedor" Visible="false"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:TemplateField HeaderText="Modificar">
                         <ItemTemplate>
-                            <a href="/Almacen/Editar_Proveedor.aspx?ID=<%#Eval("RazonSocial") %>">
+                            <a href="/Almacen/Editar_Proveedor.aspx?ID=<%#Eval("IdVendedor") %>">
                                 <i class="material-icons" >update</i>
                             </a>
                         </ItemTemplate>

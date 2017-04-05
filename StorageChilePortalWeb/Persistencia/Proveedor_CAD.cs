@@ -144,12 +144,13 @@ namespace Persistencia
          * Se encarga de mostrar todos los usuarios del sistema.
          */
 
-        public ArrayList MostrarProveedores()
+        public ArrayList MostrarProveedoresVendedorEmpresa(Empresa_EN em)
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    " from Proveedor p, Ciudad c"+
-                                    " where p.IdCiudad = c.IdCiudad");
+                " from Proveedor pr, Ciudad c, Vendedor v, VendedorEmpresa ve" +
+                " where v.IdCiudad = c.IdCiudad AND pr.IdProveedor = v.IdProveedor AND ve.IdVendedor = v.IdVendedor" +
+                " AND ve.IdEmpresa =" + em.ID);
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -162,7 +163,34 @@ namespace Persistencia
                 proveedor.Fono = dt.Rows[i]["Fono"].ToString();
                 proveedor.Rut = dt.Rows[i]["RutProveedor"].ToString();
                 proveedor.RazonSocial = dt.Rows[i]["RazonSocial"].ToString();
-                proveedor.Vendedor = dt.Rows[i]["Vendedor"].ToString();
+                proveedor.Vendedor = dt.Rows[i]["NombreVendedor"].ToString();
+                proveedor.IdVendedor = dt.Rows[i]["IdVendedor"].ToString();
+                lista.Add(proveedor);
+
+            }
+
+            return lista;
+
+        }
+
+        /**
+         * Se encarga de mostrar todos los usuarios del sistema.
+         */
+
+        public ArrayList MostrarProveedores()
+        {
+            Conexion nueva_conexion = new Conexion();
+            nueva_conexion.SetQuery("Select *" +
+                                    " from Proveedor p" +
+                                    " ");
+            DataTable dt = nueva_conexion.QuerySeleccion();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Proveedor_EN proveedor = new Proveedor_EN();
+                proveedor.ID = Convert.ToInt16(dt.Rows[i]["IdProveedor"]);
+                proveedor.Rut = dt.Rows[i]["RutProveedor"].ToString();
+                proveedor.RazonSocial = dt.Rows[i]["RazonSocial"].ToString();
                 lista.Add(proveedor);
 
             }
@@ -289,6 +317,41 @@ namespace Persistencia
         }
 
         /**
+         * Recibe un nombre de usuario o un correo electrónico y devuelve los datos del usuario al que pertenecen.
+         * En caso de que no exista tal usuario/correo, devuelve NULL
+         */
+        public Proveedor_EN BuscarProveedorVendedorEmpresa(Empresa_EN busqueda, string idVendedor)
+        {
+            Proveedor_EN proveedor = new Proveedor_EN();
+            Conexion nueva_conexion = new Conexion();
+            try
+            {
+                string select = "Select *" +
+                    " from Proveedor p, Ciudad c, Vendedor v, VendedorEmpresa ve" +
+                    " where v.IdCiudad = c.IdCiudad AND v.IdProveedor = p.IdProveedor AND v.IdVendedor = ve.IdVendedor" +
+                    " AND ve.IdEmpresa ='" + busqueda.ID + "' AND v.IdVendedor ='" + idVendedor + "'";
+                nueva_conexion.SetQuery(select);
+                DataTable dt = nueva_conexion.QuerySeleccion();
+                if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
+                {
+                    proveedor.ID = Convert.ToInt16(dt.Rows[0]["IdProveedor"]);
+                    proveedor.IdCiudad = Convert.ToInt16(dt.Rows[0]["IdCiudad"]);
+                    proveedor.Direccion = dt.Rows[0]["Direccion"].ToString();
+                    proveedor.Ciudad = dt.Rows[0]["NombreCiudad"].ToString();
+                    proveedor.Fono = dt.Rows[0]["Fono"].ToString();
+                    proveedor.Rut = dt.Rows[0]["RutProveedor"].ToString();
+                    proveedor.RazonSocial = dt.Rows[0]["RazonSocial"].ToString();
+                    proveedor.Vendedor = dt.Rows[0]["NombreVendedor"].ToString();
+                    proveedor.IdVendedor = dt.Rows[0]["IdVendedor"].ToString();
+                }
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+
+            return proveedor;
+        }
+
+        /**
          * Se encarga de actualizar el usuario si sufre alguna modificacion en alguno de sus campos
          **/
 
@@ -301,9 +364,32 @@ namespace Persistencia
                 string update = "";
                 
 
-                update = "Update Proveedor set Direccion = '" + e.Direccion + "',IdCiudad  = " + e.IdCiudad +
-                    ",RutProveedor='" + e.Rut + "',RazonSocial='" + e.RazonSocial +"',Vendedor='" + e.Vendedor + "',Fono='" + e.Fono + 
+                update = "Update Proveedor set RazonSocial='" + e.RazonSocial + 
                     "' where Proveedor.IdProveedor =" + e.ID;
+                nueva_conexion.SetQuery(update);
+
+                nueva_conexion.EjecutarQuery();
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+
+        /**
+         * Se encarga de actualizar el usuario si sufre alguna modificacion en alguno de sus campos
+         **/
+
+        public void actualizarVendedor(Proveedor_EN e)
+        {
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+                string update = "";
+
+
+                update = "Update Vendedor set Direccion = '" + e.Direccion + "',IdCiudad  = " + e.IdCiudad +
+                    ",NombreVendedor='" + e.Vendedor + "',Fono='" + e.Fono +
+                    "' where Vendedor.IdVendedor ='" + e.IdVendedor + "'";
                 nueva_conexion.SetQuery(update);
 
                 nueva_conexion.EjecutarQuery();
