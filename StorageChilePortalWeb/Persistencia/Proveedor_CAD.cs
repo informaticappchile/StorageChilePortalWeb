@@ -207,8 +207,8 @@ namespace Persistencia
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select *" +
-                                    " from Proveedor p, Ciudad c, ProductoProveedorEmpresa pp" +
-                                    " where p.IdCiudad = c.IdCiudad AND pp.IdProveedor = p.IdProveedor AND pp.IdEmpresa = " + IdEmpresa +
+                                    " from Proveedor p, Ciudad c, ProductoProveedorEmpresa pp, Vendedor v" +
+                                    " where p.IdCiudad = c.IdCiudad AND pp.IdProveedor = p.IdProveedor AND v.IdProveedor = p.IdProveedor AND pp.IdEmpresa = " + IdEmpresa +
                                     " Group by p.IdProveedor");
             DataTable dt = nueva_conexion.QuerySeleccion();
 

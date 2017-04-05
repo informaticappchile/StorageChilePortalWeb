@@ -61,7 +61,7 @@ namespace Presentacion
                 }
             }
             LogicaProducto lp = new LogicaProducto();
-            ArrayList lista = lp.MostrarProductos();
+            ArrayList lista = lp.MostrarProductosPorEmpresa(em);
             if (lista.Count == 0)
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -236,12 +236,15 @@ namespace Presentacion
                 {
                     List<Movimiento_EN> listaMovimientos = new List<Movimiento_EN>();
                     DataTable dt = (DataTable)Session["dataMovimiento"];
-                    pr = lpr.BuscarProveedor(razon_social_register.Text);
+                    User_EN en = (User_EN)Session["user_session_data"];
+                    LogicaEmpresa le = new LogicaEmpresa();
+                    Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
+                    pr = lpr.BuscarProveedorVendedorEmpresa(em,razon_social_register.Text);
                     m.IdProveedor = pr.ID;
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         Movimiento_EN aux = new Movimiento_EN();
-                        p = lp.BuscarProducto(dt.Rows[i]["CodProducto"].ToString());
+                        p = lp.BuscarProducto(dt.Rows[i]["IdProducto"].ToString());
 
                         switch (tipo_mov_register.Text)
                         {
@@ -276,9 +279,6 @@ namespace Presentacion
                         listaMovimientos.Add(aux);
                     }
 
-                    User_EN u = (User_EN)Session["user_session_data"];
-                    LogicaEmpresa le = new LogicaEmpresa();
-                    Empresa_EN em = le.BuscarEmpresa(u.NombreEmp);
                     lm.InsertarMovimientoProductoProveedor(listaMovimientos, em);
                     limpiar(this.Controls);
                     //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -358,16 +358,19 @@ namespace Presentacion
         {
             LogicaProducto lp = new LogicaProducto();
             ArrayList lista = new ArrayList();
+            User_EN u = (User_EN)Session["user_session_data"];
+            LogicaEmpresa le = new LogicaEmpresa();
+            Empresa_EN em = le.BuscarEmpresa(u.NombreEmp);
             Producto_EN producto = new Producto_EN();
             lista = (ArrayList)descripcion_register.DataSource;
             if ((bool)Session["EstadoCod"] && lista != null && lista.Count > 0)
             {
                 string codigo = ((Producto_EN)lista[0]).CodProducto;
-                producto = lp.BuscarProducto(codigo);
+                producto = lp.BuscarProductoPorCodigo(codigo,em,razon_social_register.Text);
             }
             else
             {
-                producto = lp.BuscarProducto(descripcion_register.Text);
+                producto = lp.BuscarProductoPorCodigo(descripcion_register.Text, em, razon_social_register.Text);
             }
             grupo_register.Text = producto.Grupo;
             unidad_register.Text = producto.UnidadMedida;
