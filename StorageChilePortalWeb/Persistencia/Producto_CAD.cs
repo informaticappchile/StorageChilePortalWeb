@@ -254,7 +254,39 @@ namespace Persistencia
                 string select = "Select *" +
                     " from Producto p, GrupoProducto gp, UnidadMedida um, ProductoGrupoProducto pgp, ProductoUnidadMedida pum, ProductoProveedorEmpresa ppe, Proveedor pr " +
                     " where (p.CodProducto ='" + busqueda + "' or p.Descripcion ='" + busqueda + "' ) AND pgp.IdGrupoProducto = gp.IdGrupoProducto AND pum.IdUnidadMedida = um.IdUnidadMedida AND" +
-                    " pr.IdProveedor = ppe.IdProveedor AND ppe.IdEmpresa = "+ en.ID +" AND ppe.IdProducto = p.IdProducto AND"+
+                    " pr.IdProveedor = ppe.IdProveedor AND ppe.IdEmpresa = "+ en.ID +" AND ppe.IdProducto = p.IdProducto AND pr.RazonSocial ='"+ razon + "' AND" +
+                    " pgp.IdProducto = p.IdProducto AND pum.IdProducto = p.IdProducto";
+                nueva_conexion.SetQuery(select);
+                DataTable dt = nueva_conexion.QuerySeleccion();
+                if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
+                {
+                    producto.ID = dt.Rows[0]["IdProducto"].ToString();
+                    producto.Descripcion = dt.Rows[0]["Descripcion"].ToString();
+                    producto.CodProducto = dt.Rows[0]["CodProducto"].ToString();
+                    producto.CantMinStock = Convert.ToInt16(dt.Rows[0]["CantMinStock"].ToString());
+                    producto.Grupo = dt.Rows[0]["NombreGrupoProducto"].ToString();
+                    producto.UnidadMedida = dt.Rows[0]["NombreUnidadMedida"].ToString(); ;
+                    producto.IdGrupo = Convert.ToInt16(dt.Rows[0]["IdGrupoProducto"].ToString());
+                    producto.IdMedidad = Convert.ToInt16(dt.Rows[0]["IdUnidadMedida"].ToString());
+                    producto.Stock = Convert.ToInt16(dt.Rows[0]["Stock"].ToString());
+                }
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+
+            return producto;
+        }
+
+        public Producto_EN BuscarProductoPorCodigo(string busqueda, Empresa_EN en)
+        {
+            Producto_EN producto = new Producto_EN();
+            Conexion nueva_conexion = new Conexion();
+            try
+            {
+                string select = "Select *" +
+                    " from Producto p, GrupoProducto gp, UnidadMedida um, ProductoGrupoProducto pgp, ProductoUnidadMedida pum, ProductoProveedorEmpresa ppe, Proveedor pr " +
+                    " where (p.CodProducto ='" + busqueda + "' or p.Descripcion ='" + busqueda + "' ) AND pgp.IdGrupoProducto = gp.IdGrupoProducto AND pum.IdUnidadMedida = um.IdUnidadMedida AND" +
+                    " pr.IdProveedor = ppe.IdProveedor AND ppe.IdEmpresa = " + en.ID + " AND ppe.IdProducto = p.IdProducto AND" +
                     " pgp.IdProducto = p.IdProducto AND pum.IdProducto = p.IdProducto";
                 nueva_conexion.SetQuery(select);
                 DataTable dt = nueva_conexion.QuerySeleccion();
@@ -477,7 +509,8 @@ namespace Persistencia
             nueva_conexion.SetQuery("Select *" +
                                     " from Producto p, ProductoProveedorEmpresa ppe, GrupoProducto gp, UnidadMedida um, ProductoGrupoProducto pgp, ProductoUnidadMedida pum" +
                                     " where p.IdProducto = ppe.IdProducto AND pgp.IdGrupoProducto = gp.IdGrupoProducto AND pum.IdUnidadMedida = um.IdUnidadMedida AND" +
-                                    " pgp.IdProducto = p.IdProducto AND pum.IdProducto = p.IdProducto AND ppe.IdEmpresa = " + id);
+                                    " pgp.IdProducto = p.IdProducto AND pum.IdProducto = p.IdProducto AND ppe.IdEmpresa = " + id +
+                                    " Group by p.IdProducto");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)

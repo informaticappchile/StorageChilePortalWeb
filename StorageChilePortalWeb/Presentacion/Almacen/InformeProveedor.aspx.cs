@@ -63,7 +63,7 @@ namespace Presentacion
                 }
             }
             LogicaMovimiento lm = new LogicaMovimiento();
-            ArrayList lista = lm.MostrarMovimientosProductosProveedor(en.IdEmpresa);
+            ArrayList lista = lm.MostrarMovimientosProductosProveedor(em.ID);
             if (lista.Count == 0)
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -106,9 +106,11 @@ namespace Presentacion
         private void Llenar_GridView()
         {
             User_EN u = (User_EN)Session["user_session_data"];
+            LogicaEmpresa le = new LogicaEmpresa();
+            Empresa_EN em = le.BuscarEmpresa(u.NombreEmp);
             LogicaMovimiento lm = new LogicaMovimiento();
             ArrayList lista = new ArrayList();
-            lista = lm.MostrarMovimientosPorProveedor(u.IdEmpresa);
+            lista = lm.MostrarMovimientosPorProveedor(em.ID);
             DataTable dt = new DataTable();
             dt.Columns.Add("RazonSocial");
             dt.Columns.Add("TipoDoc");
@@ -134,7 +136,7 @@ namespace Presentacion
                 row["FechaDocumento"] = ((Movimiento_EN)lista[i]).FechaDocumento;
                 row["Total"] = ((Movimiento_EN)lista[i]).Total;
                 ArrayList obs = new ArrayList();
-                obs = lm.MostrarObservaciones(((Movimiento_EN)lista[i]).RazonSocial, ((Movimiento_EN)lista[i]).ID, u.IdEmpresa);
+                obs = lm.MostrarObservaciones(((Movimiento_EN)lista[i]).RazonSocial, ((Movimiento_EN)lista[i]).ID, em.ID);
                 string observaciones = "";
                 for (int j = 0; j < obs.Count; j++)
                 {
@@ -161,9 +163,11 @@ namespace Presentacion
         private void Llenar_GridView(string razon)
         {
             User_EN u = (User_EN)Session["user_session_data"];
+            LogicaEmpresa le = new LogicaEmpresa();
+            Empresa_EN em = le.BuscarEmpresa(u.NombreEmp);
             LogicaMovimiento lm = new LogicaMovimiento();
             ArrayList lista = new ArrayList();
-            lista = lm.MostrarMovimientosPorProveedor(razon, u.IdEmpresa);
+            lista = lm.MostrarMovimientosPorProveedor(razon, em.ID);
             DataTable dt = new DataTable();
             dt.Columns.Add("RazonSocial");
             dt.Columns.Add("TipoDoc");

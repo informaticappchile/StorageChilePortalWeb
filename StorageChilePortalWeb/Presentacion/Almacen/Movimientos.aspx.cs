@@ -247,7 +247,7 @@ namespace Presentacion
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         Movimiento_EN aux = new Movimiento_EN();
-                        p = lp.BuscarProducto(dt.Rows[i]["IdProducto"].ToString());
+                        p = lp.BuscarProductoPorCodigo(dt.Rows[i]["CodProducto"].ToString(), em);
 
                         switch (tipo_mov_register.Text)
                         {
@@ -346,12 +346,12 @@ namespace Presentacion
                 lista = (ArrayList)razon_social_register.DataSource;
                 string razon = ((Proveedor_EN)lista[0]).RazonSocial;
                 lista = lp.MostrarProductosPorProveedor(razon, em.ID);
+                Session["EstadoCod"] = true;
             }
             else
             {
-                lista = lp.MostrarProductosPorProveedor(razon_social_register.Text, u.IdEmpresa);
+                lista = lp.MostrarProductosPorProveedor(razon_social_register.Text, em.ID);
             }
-            Session["EstadoCod"] = true;
             descripcion_register.DataSource = lista;
             descripcion_register.DataTextField = "Descripcion";
             descripcion_register.DataValueField = "Descripcion";
@@ -368,13 +368,16 @@ namespace Presentacion
             Empresa_EN em = le.BuscarEmpresa(u.NombreEmp);
             Producto_EN producto = new Producto_EN();
             lista = (ArrayList)descripcion_register.DataSource;
-            if ((bool)Session["EstadoCod"] && lista != null && lista.Count > 0)
+            if ((bool)Session["EstadoCod"])
             {
-                
                 string codigo = ((Producto_EN)lista[0]).CodProducto;
                 lista = (ArrayList)razon_social_register.DataSource;
                 string razon = ((Proveedor_EN)lista[0]).RazonSocial;
-                producto = lp.BuscarProductoPorCodigo(codigo,em,razon);
+                producto = lp.BuscarProductoPorCodigo(codigo, em, razon);
+            }
+            else if ((bool)Session["EstadoCodPM"])
+            {
+                producto = lp.BuscarProductoPorCodigo(descripcion_register.Text, em);
             }
             else
             {
@@ -458,6 +461,8 @@ namespace Presentacion
             User_EN u = (User_EN)Session["user_session_data"];
             LogicaProducto lp = new LogicaProducto();
             ArrayList lista = new ArrayList();
+            LogicaEmpresa le = new LogicaEmpresa();
+            Empresa_EN em = le.BuscarEmpresa(u.NombreEmp);
             switch (caso)
             {
                 case "Compra":
@@ -466,11 +471,12 @@ namespace Presentacion
                     tipo_doc_register.Enabled = true;
                     num_doc_register.ReadOnly = false;
                     area_register.Enabled = false;
-                    lista = lp.MostrarProductosPorProveedor(razon_social_register.Text, u.IdEmpresa);
+                    Session["EstadoCodPM"] = false;
+                    lista = lp.MostrarProductosPorProveedor(razon_social_register.Text, em.ID);
                     descripcion_register.DataSource = lista;
                     descripcion_register.DataTextField = "Descripcion";
                     descripcion_register.DataValueField = "Descripcion";
-                    cod_prod_register.DataBind();
+                    descripcion_register.DataBind();
                     break;
 
                 case "Devolución Proveedor":
@@ -479,11 +485,12 @@ namespace Presentacion
                     tipo_doc_register.Enabled = true;
                     num_doc_register.ReadOnly = false;
                     area_register.Enabled = false;
-                    lista = lp.MostrarProductosPorProveedor(razon_social_register.Text, u.IdEmpresa);
+                    Session["EstadoCodPM"] = false;
+                    lista = lp.MostrarProductosPorProveedor(razon_social_register.Text, em.ID);
                     descripcion_register.DataSource = lista;
                     descripcion_register.DataTextField = "Descripcion";
                     descripcion_register.DataValueField = "Descripcion";
-                    cod_prod_register.DataBind();
+                    descripcion_register.DataBind();
                     break;
 
                 case "Merma":
@@ -492,12 +499,12 @@ namespace Presentacion
                     tipo_doc_register.Enabled = false;
                     num_doc_register.ReadOnly = true;
                     fecha_doc_register.ReadOnly = true;
-                    Session["EstadoCod"] = true;
-                    lista = lp.MostrarProductos();
+                    Session["EstadoCodPM"] = true;
+                    lista = lp.MostrarProductosPorEmpresa(em);
                     descripcion_register.DataSource = lista;
                     descripcion_register.DataTextField = "Descripcion";
                     descripcion_register.DataValueField = "Descripcion";
-                    cod_prod_register.DataBind();
+                    descripcion_register.DataBind();
                     break;
 
                 case "Producción":
@@ -507,14 +514,14 @@ namespace Presentacion
                     num_doc_register.ReadOnly = true;
                     fecha_doc_register.ReadOnly = true;
                     area_register.Enabled = true;
-                    Session["EstadoCod"] = true;
+                    Session["EstadoCodPM"] = true;
                     lp = new LogicaProducto();
                     lista = new ArrayList();
-                    lista = lp.MostrarProductos();
+                    lista = lp.MostrarProductosPorEmpresa(em);
                     descripcion_register.DataSource = lista;
                     descripcion_register.DataTextField = "Descripcion";
                     descripcion_register.DataValueField = "Descripcion";
-                    cod_prod_register.DataBind();
+                    descripcion_register.DataBind();
                     break;
 
                 default:
@@ -589,6 +596,8 @@ namespace Presentacion
 
         private void limpiar(ControlCollection controles)
         {
+            Responsive.DataSource = null;
+            Responsive.DataBind();
             foreach (Control ctrl in controles)
             {
                 if (ctrl is TextBox)

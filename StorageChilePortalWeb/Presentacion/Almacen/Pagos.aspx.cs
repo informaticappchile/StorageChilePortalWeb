@@ -60,7 +60,7 @@ namespace Presentacion
                 }
             }
             LogicaMovimiento lm = new LogicaMovimiento();
-            ArrayList lista = lm.MostrarMovimientosProductosProveedor(en.IdEmpresa);
+            ArrayList lista = lm.MostrarMovimientosProductosProveedor(em.ID);
             if (lista.Count == 0)
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
@@ -85,7 +85,7 @@ namespace Presentacion
                     lista = lpa.MostrarTipoPagos();
                     tipo_pago_register.DataSource = lista;
                     tipo_pago_register.DataBind();
-                    lista = lpr.MostrarProveedores();
+                    lista = lpr.MostrarProveedoresVendedorEmpresa(em);
                     razon_social_register.DataSource = lista;
                     razon_social_register.DataTextField = "RazonSocial";
                     razon_social_register.DataValueField = "RazonSocial";
@@ -225,9 +225,12 @@ namespace Presentacion
         private void Llenar_GridView(string razon)
         {
             User_EN us = (User_EN)Session["user_session_data"];
+            LogicaEmpresa le = new LogicaEmpresa();
+            Empresa_EN em = le.BuscarEmpresa(us.NombreEmp);
+            LogicaServicio ls = new LogicaServicio();
             LogicaMovimiento lm = new LogicaMovimiento();
             ArrayList lista = new ArrayList();
-            lista = lm.MostrarMovimientosPorProveedor(razon, us.IdEmpresa);
+            lista = lm.MostrarMovimientosPorProveedor(razon, em.ID);
             DataTable dt = new DataTable();
             if(Session["dataPago"] == null)
             {

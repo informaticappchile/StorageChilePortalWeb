@@ -58,7 +58,7 @@ namespace Persistencia
             {
                 foreach (Movimiento_EN m in lm) {
                     string insert = "insert into MovimientoProductoProveedorEmpresa(IdMovimiento,IdProducto,IdProveedor,IdEmpresa,PrecioUnitario,Observaciones,CantidadSolicitada) VALUES ('"
-                        + m.ID + "'," + m.IdProducto + "," + m.IdProveedor + "," + e.ID + "," + m.PrecioUnitario + ",'" + m.Observaciones + "'," + m.Cantidad + ")";
+                        + m.ID + "','" + m.IdProducto + "'," + m.IdProveedor + "," + e.ID + "," + m.PrecioUnitario + ",'" + m.Observaciones + "'," + m.Cantidad + ")";
                     //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                     nueva_conexion.SetQuery(insert);
                     nueva_conexion.EjecutarQuery();
@@ -111,10 +111,10 @@ namespace Persistencia
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery(" select mpp.IdMovimiento, m.FechaDocumento, pr.IdProveedor, m.IdTipoMovimiento, tm.TipoMovimiento, pr.RazonSocial, d.TipoDocumento, m.NumeroDocumento, m.IdDocumento, m.Total" +
-                                    " from movimiento m, movimientoproductoproveedorempresa mpp, proveedor pr, producto p, proveedorproducto pp, documento d, tipomovimiento tm "+
+                                    " from movimiento m, movimientoproductoproveedorempresa mpp, proveedor pr, producto p, productoproveedorempresa pp, documento d, tipomovimiento tm " +
                                     " where m.IdMovimiento = mpp.IdMovimiento and mpp.IdProducto = pp.IdProducto and mpp.IdProveedor = pp.IdProveedor "+
                                     " and pp.IdProveedor = pr.IdProveedor and pp.IdProducto = p.IdProducto and m.IdDocumento = d.IdDocumento AND mpp.IdEmpresa =" + IdEmpresa +
-                                    " AND m.IdTipoMovimiento = tm.IdTipoMovimiento and m.EstadoMovimiento = 1"+
+                                    " AND m.IdTipoMovimiento = tm.IdTipoMovimiento and m.EstadoMovimiento = 1 AND mpp.IdEmpresa = pp.IdEmpresa"+
                                     " ");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
@@ -340,12 +340,10 @@ namespace Persistencia
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select m.IdMovimiento, pr.IdProveedor, m.IdTipoMovimiento, pr.RazonSocial, d.TipoDocumento, tm.TipoMovimiento, m.NumeroDocumento, m.IdDocumento, m.Total, mpp.Observaciones, m.FechaDocumento, m.IdPago" +
-                                    " from Producto p, Movimiento m, MovimientoProductoProveedorEmpresa mpp, Proveedor pr, TipoMovimiento tm, Documento d, ProveedorProducto pp" +
-                                    " where p.IdProducto = pp.IdProducto and pp.IdProducto = mpp.IdProducto AND pp.IdProveedor = mpp.IdProveedor AND pp.IdProveedor = pr.IdProveedor and" +
-                                    " mpp.IdMovimiento = m.IdMovimiento AND" +
-                                    " pr.RazonSocial ='" + razon + "' AND tm.IdTipoMovimiento = m.IdTipoMovimiento AND mpp.IdEmpresa = " + idEmpresa +
-                                    " AND (tm.TipoMovimiento ='Compra' OR tm.TipoMovimiento ='Devolucion') AND d.IdDocumento = m.IdDocumento AND m.EstadoMovimiento=1" +
-                                    " ");
+                                    " from Movimiento m, Producto p, MovimientoProductoProveedorEmpresa mpp, Proveedor pr, TipoMovimiento tm, Documento d, ProductoProveedorEmpresa pp"+
+                                    " where d.IdDocumento = m.IdDocumento AND m.EstadoMovimiento = 1 AND pp.IdEmpresa = mpp.IdEmpresa and pp.IdEmpresa = " + idEmpresa +
+                                    "  and pr.RazonSocial ='" + razon + "' AND(tm.TipoMovimiento = 'Compra' OR tm.TipoMovimiento = 'Devolución Proveedor') and m.IdMovimiento = mpp.IdMovimiento and pr.IdProveedor = pp.IdProveedor and mpp.IdProveedor= pp.IdProveedor" +
+                                    " GROUP by m.IdMovimiento");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -379,11 +377,11 @@ namespace Persistencia
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery("Select m.IdMovimiento, pr.IdProveedor, m.IdTipoMovimiento, tm.TipoMovimiento, pr.RazonSocial, d.TipoDocumento, m.NumeroDocumento, m.IdDocumento, m.Total, mpp.Observaciones, m.FechaDocumento, m.IdPago" +
-                                    " from Producto p, Movimiento m, MovimientoProductoProveedorEmpresa mpp, Proveedor pr, TipoMovimiento tm, Documento d, ProveedorProducto pp" +
+                                    " from Producto p, Movimiento m, MovimientoProductoProveedorEmpresa mpp, Proveedor pr, TipoMovimiento tm, Documento d, ProductoProveedorEmpresa pp" +
                                     " where p.IdProducto = pp.IdProducto and pp.IdProducto = mpp.IdProducto AND pp.IdProveedor = mpp.IdProveedor AND pp.IdProveedor = pr.IdProveedor and" +
                                     " mpp.IdMovimiento = m.IdMovimiento AND m.EstadoMovimiento=1" +
                                     " AND tm.IdTipoMovimiento = m.IdTipoMovimiento AND mpp.IdEmpresa = " + idEmpresa +
-                                    " AND (tm.TipoMovimiento ='Compra' OR tm.TipoMovimiento ='Devolucion') AND d.IdDocumento = m.IdDocumento" +
+                                    " AND (tm.TipoMovimiento ='Compra' OR tm.TipoMovimiento ='Devolucion') AND d.IdDocumento = m.IdDocumento AND mpp.IdEmpresa = pp.IdEmpresa" +
                                     " ");
             DataTable dt = nueva_conexion.QuerySeleccion();
 

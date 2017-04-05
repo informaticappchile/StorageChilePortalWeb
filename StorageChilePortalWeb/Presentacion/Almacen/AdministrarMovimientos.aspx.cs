@@ -131,9 +131,11 @@ namespace Presentacion
         private void Llenar_GridView()
         {
             User_EN u = (User_EN)Session["user_session_data"];
+            LogicaEmpresa le = new LogicaEmpresa();
+            Empresa_EN em = le.BuscarEmpresa(u.NombreEmp);
             LogicaMovimiento lm = new LogicaMovimiento();
             ArrayList lista = new ArrayList();
-            lista = lm.MostrarMovimientosProductosProveedor(u.IdEmpresa);
+            lista = lm.MostrarMovimientosProductosProveedor(em.ID);
             Responsive.DataSource = lista;
             Responsive.DataBind();
         }

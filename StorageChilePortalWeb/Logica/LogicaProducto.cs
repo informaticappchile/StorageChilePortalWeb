@@ -86,6 +86,13 @@ namespace Logica
             return productoBuscado;
         }
 
+        public Producto_EN BuscarProductoPorCodigo(string producto, Empresa_EN en)
+        {
+            Producto_CAD busqueda = new Producto_CAD();
+            Producto_EN productoBuscado = busqueda.BuscarProductoPorCodigo(producto, en);
+            return productoBuscado;
+        }
+
         //Declaramos la funcion buscar usuario donde llama al cad correspondiente
         public Producto_EN BuscarProductoEmpresa(Empresa_EN em, string producto)
         {

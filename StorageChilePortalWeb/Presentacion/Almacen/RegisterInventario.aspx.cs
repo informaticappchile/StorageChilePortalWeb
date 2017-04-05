@@ -114,18 +114,40 @@ namespace Presentacion
 
             if (aux.ID != "")
             {
-                lu.InsertarProductoProveedorEmpresa(aux,p,emp);
-                limpiar(this.Controls);
-                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                StringBuilder sbMensaje = new StringBuilder();
-                //Aperturamos la escritura de Javascript
-                sbMensaje.Append("<script type='text/javascript'>");
-                //Le indicamos al alert que mensaje va mostrar
-                sbMensaje.AppendFormat("alert('{0}');", "Se ha registrado el producto: " + aux.Descripcion);
-                //Cerramos el Script
-                sbMensaje.Append("</script>");
-                //Registramos el Script escrito en el StringBuilder
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                if (descripcion_register.Text != aux.Descripcion || cant_min_stock_register.Text != aux.CantMinStock.ToString()
+                    || unidad_register.Text != aux.UnidadMedida || grupo_register.Text != aux.Grupo)
+                {
+
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje1 = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje1.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje1.AppendFormat("alert('{0}');", "Los datos enviados no coinciden con los ya registrados: \n" + 
+                        "Descripcion: "+aux.Descripcion + " | " + descripcion_register.Text +
+                        "Cantidad Minima: " + aux.CantMinStock + " | " + cant_min_stock_register.Text +
+                        "Grupo Producto: " + aux.Grupo + " | " + grupo_register.Text +
+                        "Unidad Medida: " + aux.UnidadMedida + " | " + unidad_register.Text);
+                    //Cerramos el Script
+                    sbMensaje1.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje1.ToString());
+                }
+                else
+                {
+                    lu.InsertarProductoProveedorEmpresa(aux, p, emp);
+                    limpiar(this.Controls);
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Se ha registrado el producto: " + aux.Descripcion);
+                    //Cerramos el Script
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                }
             }
             else
             {
