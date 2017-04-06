@@ -10,6 +10,6 @@
 namespace Presentacion {
     
     
-    public partial class Inicio {
+    public partial class Default {
     }
 }

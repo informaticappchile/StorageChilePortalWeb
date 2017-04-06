@@ -157,6 +157,8 @@
     <Content Include="Contactanos.aspx" />
     <Content Include="InfoEmpresa.aspx" />
     <Content Include="AdministrarUsuario.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Soporte.aspx" />
     <Content Include="Inicio.aspx" />
     <Content Include="js\basic.css" />
     <Content Include="js\calendar-en.min.js" />
@@ -175,7 +177,6 @@
     <Content Include="Slides\foto 1.jpg" />
     <Content Include="Slides\foto 2.jpg" />
     <Content Include="Slides\foto 3.jpg" />
-    <Content Include="Soporte.aspx" />
     <Content Include="img\a12.png" />
     <Content Include="img\b05.png" />
     <Content Include="CSS\cloud_background.png" />
@@ -393,6 +394,20 @@
     <Compile Include="AdministrarUsuario.aspx.designer.cs">
       <DependentUpon>AdministrarUsuario.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Soporte.aspx.cs">
+      <DependentUpon>Soporte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Soporte.aspx.designer.cs">
+      <DependentUpon>Soporte.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -418,10 +433,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ProgressBar.cs" />
-    <Compile Include="Soporte.aspx.cs">
-      <DependentUpon>Soporte.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Subir-archivo.aspx.cs">
       <DependentUpon>Subir-archivo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

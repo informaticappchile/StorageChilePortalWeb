@@ -9,6 +9,7 @@ using Entidades;
 using Logica;
 using System.Text;
 using System.Net.Mail;
+using System.Configuration;
 
 namespace Presentacion
 {
@@ -151,7 +152,7 @@ namespace Presentacion
             {
                 LogicaOpciones lo = new LogicaOpciones();
                 byte[] salt = lo.getCrypto();
-                MailAddress fromAddress = new MailAddress("informaticapp.soporte@gmail.com");//Gmail, creado para el envio de correos
+                MailAddress fromAddress = new MailAddress(ConfigurationManager.AppSettings["correo_soporte"]);//Gmail, creado para el envio de correos
                 MailAddress toAddress = new MailAddress(u.Correo);//El destinatario
                 message.From = fromAddress;
                 message.To.Add(toAddress);
@@ -163,7 +164,7 @@ namespace Presentacion
                 message.IsBodyHtml = true;//El mensaje esta en html
                 //smtpClient.UseDefaultCredentials = true;
 
-                smtpClient.Credentials = new System.Net.NetworkCredential("informaticapp.soporte@gmail.com", "InfoChile2625");//Los credenciales del cliente
+                smtpClient.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["correo_soporte"], ConfigurationManager.AppSettings["clave_soporte"]);//Los credenciales del cliente
                 smtpClient.EnableSsl = true;//necesario para el envio
                 smtpClient.Send(message);//Lo enviamos
                 //Response.Write("Correcto email");

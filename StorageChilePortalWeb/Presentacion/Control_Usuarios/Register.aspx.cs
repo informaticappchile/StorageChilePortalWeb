@@ -72,7 +72,7 @@ namespace Presentacion
             MailMessage message = new MailMessage();//Cremos el menaseje que ahora rellenamos
             try
             {
-                MailAddress fromAddress = new MailAddress("informaticapp.soporte@gmail.com");//Gmail, creado para el envio de correos
+                MailAddress fromAddress = new MailAddress(ConfigurationManager.AppSettings["correo_soporte"]);//Gmail, creado para el envio de correos
                 MailAddress toAddress = new MailAddress(correo_register.Text);//El destinatario
                 message.From = fromAddress;
                 message.To.Add(toAddress);
@@ -81,11 +81,12 @@ namespace Presentacion
                 string userActiviation = Request.Url.GetLeftPart(UriPartial.Authority) + "/Control_Usuarios/ConfirmacionRegistro.aspx?email=" + correo_register.Text;//La direccion url que debe ser recargada para la activacion de la cuenta
 
                 message.Body = "Estimado, " + user_name_register.Text + "<br> Bienvenido al portal web de Storage Chile.<br>Haga click aquí para confirmar tu cuenta</br> <a href = " +
-                    userActiviation + "> click Here </a> <br><br>En caso de presentar algún problema, póngase en contacto con nuestro equipo de soporte: informaticapp.soporte@gmail.com";//Donde debe hacer click el nuevo usuario para activarla
+                    userActiviation + "> click Here </a> <br>. Una vez confirmada su cuenta, se le enviará un correo" +
+                    " con sus datos.<br>En caso de presentar algún problema, póngase en contacto con nuestro equipo de soporte: informaticapp.soporte@gmail.com";//Donde debe hacer click el nuevo usuario para activarla
                 message.IsBodyHtml = true;//El mensaje esta en html
                 //smtpClient.UseDefaultCredentials = true;
 
-                smtpClient.Credentials = new System.Net.NetworkCredential("informaticapp.soporte@gmail.com", "InfoChile2625");//Los credenciales del cliente
+                smtpClient.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["correo_soporte"], ConfigurationManager.AppSettings["clave_soporte"]);//Los credenciales del cliente
                 smtpClient.EnableSsl = true;//necesario para el envio
                 smtpClient.Send(message);//Lo enviamos
                 //Response.Write("Correcto email");
