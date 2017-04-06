@@ -82,6 +82,7 @@ namespace Presentacion
             {
                 try
                 {
+                    Session["imprimirPago"] = null;
                     fecha_pago_register.Text = DateTime.Now.ToShortDateString();
                     LogicaProveedor lpr = new LogicaProveedor();
                     LogicaPago lpa = new LogicaPago();
@@ -224,7 +225,7 @@ namespace Presentacion
 
         protected void razonSocialChangeIndex(object sender, EventArgs e)
         {
-
+            NotNumChequeError_Register.Visible = false;
             Session["dataPago"] = null;
             Responsive.DataSource = null;
             Responsive.DataBind();
@@ -245,6 +246,7 @@ namespace Presentacion
 
         protected void tipoPagoChangeIndex(object sender, EventArgs e)
         {
+            NotNumChequeError_Register.Visible = false;
             ArrayList lista = new ArrayList();
             if (!IsPostBack)
             {

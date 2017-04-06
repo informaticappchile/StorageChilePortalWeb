@@ -95,7 +95,6 @@ namespace Presentacion
         protected void clickGuardar(object sender, EventArgs e)
         {
             DataTable dt = (DataTable)Session["imprimirPago"];
-            Session["imprimirPago"] = null;
             //Create a dummy GridView
             GridView GridView1 = new GridView();
             GridView1.AllowPaging = false;
@@ -112,10 +111,67 @@ namespace Presentacion
             StringReader sr = new StringReader(sw.ToString());
             Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
             HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            PdfWriter wri = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
             pdfDoc.Open();
+            //Obtiene imagen y lo inserta en el PDF
+            var logo = iTextSharp.text.Image.GetInstance(Server.MapPath("~/logEmpresas/logoEmp.png"));
+            logo.SetAbsolutePosition(430, 700);
+            logo.ScaleAbsoluteHeight(70);
+            logo.ScaleAbsoluteWidth(140);
+            pdfDoc.Add(logo);
+            //fin
+            //Agrega Titulo
+
+            var titleFont = FontFactory.GetFont("Arial", 18, Font.BOLD);
+            var subTitleFont = FontFactory.GetFont("Arial", 14, Font.BOLD);
+            var boldTableFont = FontFactory.GetFont("Arial", 12, Font.BOLD);
+            var endingMessageFont = FontFactory.GetFont("Arial", 10, Font.ITALIC);
+            var bodyFont = FontFactory.GetFont("Arial", 12, Font.NORMAL);
+            pdfDoc.Add(new iTextSharp.text.Paragraph(" \n \n \n \n"));
+            pdfDoc.Add(new iTextSharp.text.Paragraph("Comprobante de Pago", titleFont));
+            pdfDoc.Add(new iTextSharp.text.Paragraph(" \n"));
+            pdfDoc.Add(new Paragraph("Información del pago:", subTitleFont));
+            //fin
+            //Parte 2
+            var orderInfoTable = new PdfPTable(2);
+            orderInfoTable.HorizontalAlignment = 0;
+            orderInfoTable.SpacingBefore = 10;
+            orderInfoTable.SpacingAfter = 10;
+            orderInfoTable.DefaultCell.Border = 0;
+            if(tipo_pago_register.Text == "Cheque")
+            {
+                orderInfoTable.SetWidths(new int[] { 1, 8 });
+
+                orderInfoTable.AddCell(new Phrase("Fecha:", boldTableFont));
+                orderInfoTable.AddCell(fecha_pago_register.Text);
+                orderInfoTable.AddCell(new Phrase("Forma de Pago:", boldTableFont));
+                orderInfoTable.AddCell(tipo_pago_register.Text);
+                orderInfoTable.AddCell(new Phrase("N° Cheque:", boldTableFont));
+                orderInfoTable.AddCell(num_cheque_register.Text);
+                orderInfoTable.AddCell(new Phrase("Total:", boldTableFont));
+                orderInfoTable.AddCell(CalcularTotal(dt) + "");
+
+            }
+            else
+            {
+                orderInfoTable.SetWidths(new int[] { 1, 6 });
+
+                orderInfoTable.AddCell(new Phrase("Fecha:", boldTableFont));
+                orderInfoTable.AddCell(fecha_pago_register.Text);
+                orderInfoTable.AddCell(new Phrase("Forma de Pago:", boldTableFont));
+                orderInfoTable.AddCell(tipo_pago_register.Text);
+                orderInfoTable.AddCell(new Phrase("Total:", boldTableFont));
+                orderInfoTable.AddCell(CalcularTotal(dt) + "");
+
+            }
+
+            pdfDoc.Add(orderInfoTable);
+
+            //AgregaTabla
             htmlparser.Parse(sr);
+            //fin
             pdfDoc.Close();
+            //
             Response.Write(pdfDoc);
             Response.End();
 
@@ -171,11 +227,43 @@ namespace Presentacion
             StringReader sr = new StringReader(sw.ToString());
             Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
             HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            PdfWriter wri = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
             Session["imprimirPago"] = null;
             pdfDoc.Open();
+            //Obtiene imagen y lo inserta en el PDF
+            var logo = iTextSharp.text.Image.GetInstance(Server.MapPath("~/img/logo.png"));
+            logo.SetAbsolutePosition(430, 700);
+            logo.ScaleAbsoluteHeight(70);
+            logo.ScaleAbsoluteWidth(140);
+            pdfDoc.Add(logo);
+            //fin
+            //Agrega Titulo
+
+            var titleFont = FontFactory.GetFont("Arial", 18, Font.BOLD);
+            var subTitleFont = FontFactory.GetFont("Arial", 14, Font.BOLD);
+            var boldTableFont = FontFactory.GetFont("Arial", 12, Font.BOLD);
+            var endingMessageFont = FontFactory.GetFont("Arial", 10, Font.ITALIC);
+            var bodyFont = FontFactory.GetFont("Arial", 12, Font.NORMAL);
+            pdfDoc.Add(new iTextSharp.text.Paragraph("Comprobante de Pago", titleFont));
+            //fin
+            //Parte 2
+            var orderInfoTable = new PdfPTable(2);
+            orderInfoTable.HorizontalAlignment = 0;
+            orderInfoTable.SpacingBefore = 10;
+            orderInfoTable.SpacingAfter = 10;
+            orderInfoTable.DefaultCell.Border = 0;
+            orderInfoTable.SetWidths(new int[] { 1, 2 });
+
+            orderInfoTable.AddCell(new Phrase("Total:", boldTableFont));
+            orderInfoTable.AddCell(CalcularTotal(dt)+"");
+
+            pdfDoc.Add(orderInfoTable);
+
+            //AgregaTabla
             htmlparser.Parse(sr);
+            //fin
             pdfDoc.Close();
+            //
             Response.Write(pdfDoc);
             Response.End();
         }
@@ -210,9 +298,14 @@ namespace Presentacion
             return Password;
         }
 
-        protected void limpiar()
+        protected int CalcularTotal(DataTable dt)
         {
-
+            int Total = 0;
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Total += Convert.ToInt32(dt.Rows[i]["Total"]);
+            }
+            return Total;
         }
     }
 }
