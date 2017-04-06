@@ -308,6 +308,7 @@
     <Compile Include="BusquedaUsuario.aspx.designer.cs">
       <DependentUpon>BusquedaUsuario.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Crypto.cs" />
     <Compile Include="Control_Usuarios\Editar_Empresa.aspx.cs">
       <DependentUpon>Editar_Empresa.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

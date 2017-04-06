@@ -18,8 +18,8 @@ namespace Persistencia
         //Instancia la conexion a la base de datos SQL-Server
         public Conexion()
         {
-            conexion = new MySqlConnection(); 
-            conexion.ConnectionString = "server=mysql5018.smarterasp.net;Convert Zero Datetime=True;user id=a18d3c_storage;database=db_a18d3c_storage;port=3306;password=InfoChile2625";
+            conexion = new MySqlConnection();
+            conexion.ConnectionString = ConfigurationManager.ConnectionStrings["ConexionStorage"].ToString();
             //Registra la cadena de conexión SQL-Server
             ds = new MySqlCommand();
             ds.Connection = conexion;

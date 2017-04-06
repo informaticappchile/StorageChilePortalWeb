@@ -149,6 +149,8 @@ namespace Presentacion
             MailMessage message = new MailMessage();//Cremos el menaseje que ahora rellenamos
             try
             {
+                LogicaOpciones lo = new LogicaOpciones();
+                byte[] salt = lo.getCrypto();
                 MailAddress fromAddress = new MailAddress("informaticapp.soporte@gmail.com");//Gmail, creado para el envio de correos
                 MailAddress toAddress = new MailAddress(u.Correo);//El destinatario
                 message.From = fromAddress;
@@ -156,7 +158,7 @@ namespace Presentacion
                 message.Subject = "Activación de la cuenta";//El asunto del email
                 
                 message.Body = "Estimado, " + u.NombreUsu + "<br> Bienvenido al portal web de Storage Chile. Su cuenta se encuentra"+
-                    " activada felicitaciones.<br>Sus datos son: <br> Usuario: " + u.NombreUsu + "<br>Contraseña: " + u.Contraseña +
+                    " activada felicitaciones.<br>Sus datos son: <br> Usuario: " + u.NombreUsu + "<br>Contraseña: " + Crypto.DecrytedPassword(salt, u.Contraseña) +
                     "<br><br>Como recomendación de seguridad guarde sus datos y elimine este correo o cambie su contraseña por favor.";//Donde debe hacer click el nuevo usuario para activarla
                 message.IsBodyHtml = true;//El mensaje esta en html
                 //smtpClient.UseDefaultCredentials = true;

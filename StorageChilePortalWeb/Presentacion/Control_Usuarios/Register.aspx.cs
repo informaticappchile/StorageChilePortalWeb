@@ -104,6 +104,8 @@ namespace Presentacion
          */
         protected void Button_Register_Click(object sender, EventArgs e)
         {
+            LogicaOpciones lo = new LogicaOpciones();
+            byte[] salt = lo.getCrypto();
             EmailExistsError_Register.Visible = 
             UsernameExistsError_Register.Visible = false; //Reiniciamos los errores para que si a la proxima le salen bien no les vuelva a salir
             User_EN busqueda = new User_EN();
@@ -117,7 +119,8 @@ namespace Presentacion
                     User_EN en = new User_EN();//Si lo cumple todo, creamos un nuevo usuario
                     en.NombreUsu = user_name_register.Text;//Con su nombre de usuario
                     en.Correo = correo_register.Text;//Con su correo
-                    en.Contraseña = password_register1.Text;//Con su contrasenya
+                    string password = password_register1.Text;
+                    en.Contraseña = Crypto.Hash(salt, password);
                     en.IdEmpresa = em.ID;
                     en.IdPerfil = lu.getIdPerfil(DropDownList2.Text);
                     lu.InsertarUsuario(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo

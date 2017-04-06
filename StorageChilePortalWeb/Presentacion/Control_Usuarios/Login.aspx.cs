@@ -91,9 +91,11 @@ namespace Presentacion
         private void ingresoUsuario(User_EN usuario, string tabla)
         {
             LogicaUsuario lu = new LogicaUsuario();
+            LogicaOpciones lo = new LogicaOpciones();
+            byte[] salt = lo.getCrypto();
             if (usuario.Verified == "Verificado")
             {
-                if (usuario.Contraseña == password_login_input.Text)
+                if (Crypto.ComparePassword(password_login_input.Text,salt, usuario.Contraseña))
                 {
                     if (tabla == "Administrador")
                     {

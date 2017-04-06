@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Opciones_CAD.cs" />
     <Compile Include="Admin_CAD.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="Comennt_CAD.cs" />

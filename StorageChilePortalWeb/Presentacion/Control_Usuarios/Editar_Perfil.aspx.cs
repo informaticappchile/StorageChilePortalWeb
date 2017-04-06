@@ -27,10 +27,12 @@ namespace Presentacion
          */
         protected void CargarDatos(User_EN en)
         {
+            LogicaOpciones lo = new LogicaOpciones();
+            byte[] salt = lo.getCrypto();
             Editar_Perfil_Usuario.Text = en.NombreUsu;
             Editar_Perfil_Nombre.Text = en.Nombre;
             Editar_Perfil_Email.Text = en.Correo;
-            Editar_Perfil_Contraseña.Text = en.Contraseña;
+            Editar_Perfil_Contraseña.Text = Crypto.DecrytedPassword(salt, en.Contraseña);
             Editar_Perfil_ID.Text = en.ID.ToString();
             
         }
@@ -59,14 +61,17 @@ namespace Presentacion
          */
         protected void Editar_Perfil_Guardar_Click(object sender, EventArgs e)
         {
+            LogicaOpciones lo = new LogicaOpciones();
+            byte[] salt = lo.getCrypto();
             LogicaUsuario lu = new LogicaUsuario();
             User_EN en = new User_EN();
             en.ID = Convert.ToInt16(Editar_Perfil_ID.Text);
             en.NombreUsu = Editar_Perfil_Usuario.Text;
             en.Nombre = Editar_Perfil_Nombre.Text;
             en.Correo = Editar_Perfil_Email.Text;
-            en.Contraseña = Editar_Perfil_Contraseña.Text;
-            
+            string password = Editar_Perfil_Contraseña.Text;
+            en.Contraseña = Crypto.Hash(salt, password);
+
 
             lu.actualizarUsuario(en);
             if (ValidarCambios(en))

@@ -11,7 +11,7 @@ namespace Logica
     public class LogicaUsuario
     {
         //Declaramos la funcion insertar usuario donde llama al cad correspondiente
-        
+
         public void InsertarUsuario(User_EN u)
         {
             User_CAD userCad = new User_CAD();

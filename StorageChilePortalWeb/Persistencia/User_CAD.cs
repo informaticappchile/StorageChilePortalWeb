@@ -29,12 +29,14 @@ namespace Persistencia
             try
             {
                 string parametro1 = "@fechaRegistro";
+                string parametro2 = "@password";
                 string insert = "insert into Usuario(Email,NombreCompleto,UserName,Password,IdPerfil,Verificado,IdEmpresa,FechaRegistro) VALUES ('"
-                    + u.Correo + "','" + u.Nombre + "','" + u.NombreUsu + "','" + u.Contraseña + "'," + 
+                    + u.Correo + "','" + u.Nombre + "','" + u.NombreUsu + "'," + parametro2 + "," + 
                     u.IdPerfil + "," + 0 + "," + u.IdEmpresa + "," + parametro1 + ")";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
                 nueva_conexion.SetQuery(insert);
                 nueva_conexion.addParameter(parametro1, u.FechaRegistro);
+                nueva_conexion.addParameter(parametro2, u.Contraseña);
 
                 nueva_conexion.EjecutarQuery();
             }
@@ -60,7 +62,7 @@ namespace Persistencia
                 usuario.Correo = dt.Rows[0]["Email"].ToString();
                 usuario.Nombre = dt.Rows[0]["NombreCompleto"].ToString();
                 usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();
-                usuario.Contraseña = dt.Rows[0]["Password"].ToString();
+                usuario.Contraseña = (byte[])dt.Rows[0]["Password"];
                 usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["IdPerfil"].ToString());
                 if (Convert.ToBoolean(dt.Rows[0]["Verificado"]))
                 {
@@ -166,7 +168,7 @@ namespace Persistencia
                     usuario.ID = Convert.ToInt16(dt.Rows[0]["IdUsuario"]);
                     usuario.Correo = dt.Rows[0]["Email"].ToString();
                     usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();
-                    usuario.Contraseña = dt.Rows[0]["Password"].ToString();
+                    usuario.Contraseña = (byte[])dt.Rows[0]["Password"];
                     usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["IdPerfil"].ToString());
                     if (Convert.ToBoolean(dt.Rows[0]["Verificado"]))
                     {
@@ -270,7 +272,7 @@ namespace Persistencia
                     usuario.Correo = dt.Rows[0]["Email"].ToString();
                     usuario.Nombre = dt.Rows[0]["NombreCompleto"].ToString();
                     usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();
-                    usuario.Contraseña = dt.Rows[0]["Password"].ToString();
+                    usuario.Contraseña = (byte[])dt.Rows[0]["Password"];
                     usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["IdPerfil"].ToString());
                     if (Convert.ToBoolean(dt.Rows[0]["Verificado"]))
                     {
@@ -320,11 +322,13 @@ namespace Persistencia
             try
             {
                 string update = "";
-                
+                string parametro2 = "@password";
+
 
                 update = "Update Usuario set Email = '" + u.Correo + "',NombreCompleto  = '" + u.Nombre + 
-                    "',UserName = '" + u.NombreUsu + "',Password = '" + u.Contraseña + "' where Usuario.IdUsuario ="+u.ID;
+                    "',UserName = '" + u.NombreUsu + "',Password = '" + parametro2 + "' where Usuario.IdUsuario ="+u.ID;
                 nueva_conexion.SetQuery(update);
+                nueva_conexion.addParameter(parametro2, u.Contraseña);
 
 
                 nueva_conexion.EjecutarQuery();
@@ -416,9 +420,11 @@ namespace Persistencia
             {
                 string update = "";
 
+                string parametro2 = "@password";
 
                 update = "Update Usuario set Password = '" + u.Contraseña + "' where Usuario.IdUsuario =" + u.ID;
                 nueva_conexion.SetQuery(update);
+                nueva_conexion.addParameter(parametro2, u.Contraseña);
 
                 nueva_conexion.EjecutarQuery();
             }

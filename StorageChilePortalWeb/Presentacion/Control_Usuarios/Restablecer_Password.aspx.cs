@@ -35,7 +35,10 @@ namespace Presentacion
 
             if (usuario != null)
             {
-                usuario.Contraseña = GenerarPass(8, 12);
+                LogicaOpciones lo = new LogicaOpciones();
+                byte[] salt = lo.getCrypto();
+                string password = GenerarPass(8, 12);
+                usuario.Contraseña = Crypto.Hash(salt, password);
                 lu.RestableserPassword(usuario);
                 EnviarCorreoRestablecer(usuario);
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar

@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Opciones_EN.cs" />
     <Compile Include="Admin_EN.cs" />
     <Compile Include="Movimiento_EN.cs" />
     <Compile Include="Pago_EN.cs" />

@@ -63,10 +63,10 @@ namespace Entidades
         }
 
         //Declaramos la contraseña del user en private
-        private string contraseña;
+        private byte[] contraseña;
 
         //Declaramos la contraseña del user en public para poder utilizarlo
-        public string Contraseña
+        public byte[] Contraseña
         {
             get { return contraseña; }
             set { contraseña = value; }
@@ -174,7 +174,7 @@ namespace Entidades
             nombre = "";
             nombreUsu = "";
             correo = "";
-            contraseña = "";
+            contraseña = new byte[0];
             idPerfil = 0;
             verified = "";
             idEmpresa = 0;

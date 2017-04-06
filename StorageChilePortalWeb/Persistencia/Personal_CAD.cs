@@ -76,7 +76,7 @@ namespace Persistencia
                 usuario.Correo = dt.Rows[0]["Email"].ToString();
                 usuario.Nombre = dt.Rows[0]["NombreCompleto"].ToString();
                 usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();
-                usuario.Contraseña = dt.Rows[0]["Password"].ToString();
+                usuario.Contraseña = (byte[])dt.Rows[0]["Password"];
                 usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["IdPerfil"].ToString());
                 if (Convert.ToBoolean(dt.Rows[0]["Verificado"]))
                 {
@@ -260,7 +260,7 @@ namespace Persistencia
                     usuario.Correo = dt.Rows[0]["Email"].ToString();
                     usuario.Nombre = dt.Rows[0]["NombreCompleto"].ToString();
                     usuario.NombreUsu = dt.Rows[0]["UserName"].ToString();
-                    usuario.Contraseña = dt.Rows[0]["Password"].ToString();
+                    usuario.Contraseña = (byte[])dt.Rows[0]["Password"];
                     usuario.IdPerfil = Convert.ToInt16(dt.Rows[0]["IdPerfil"].ToString());
                     if (Convert.ToBoolean(dt.Rows[0]["Verificado"]))
                     {
