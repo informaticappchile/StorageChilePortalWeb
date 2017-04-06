@@ -20,7 +20,7 @@
     </script>
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h1 class="mdl-card__title-text">Administración de Proveedores</h1>
+            <h1 class="mdl-card__title-text">Informe de Movimiento de Proveedores</h1>
         </div>
         <br />
         <div style="width:100%;text-align:center;">

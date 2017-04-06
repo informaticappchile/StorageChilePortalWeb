@@ -68,13 +68,19 @@
                 <div class="mdl-layout__drawer">
                     <span class="mdl-layout-title">Menú</span>
                     <nav class="mdl-navigation">
-                        <asp:HyperLink ID="Link_Feed" runat="server" NavigateUrl="~/Subir-archivo.aspx" CssClass="mdl-navigation__link">
+                        <asp:HyperLink ID="Link_IniciarSesion" runat="server" NavigateUrl="~Control_Usuarios/Login.aspx" CssClass="mdl-navigation__link">
+                            <i class="material-icons">person</i> Iniciar Sesión
+                        </asp:HyperLink>
+                        <asp:HyperLink ID="Link_Who" runat="server" NavigateUrl="~/InfoEmpresa.aspx" CssClass="mdl-navigation__link">
+                            <i class="material-icons">people</i> ¿Quienes Somos?
+                        </asp:HyperLink>
+                        <asp:HyperLink ID="Link_Feed" runat="server" Visible="false" NavigateUrl="~/Subir-archivo.aspx" CssClass="mdl-navigation__link">
                             <i class="material-icons">library_books</i> Subir archivo
                         </asp:HyperLink>
-                        <asp:HyperLink ID="Link_MyFiles" runat="server" NavigateUrl="~/ArchivosUsuario.aspx" CssClass="mdl-navigation__link">
+                        <asp:HyperLink ID="Link_MyFiles" runat="server" Visible="false" NavigateUrl="~/ArchivosUsuario.aspx" CssClass="mdl-navigation__link">
                             <i class="material-icons">folder</i> Mis archivos
                         </asp:HyperLink>
-                        <asp:HyperLink ID="Link_Editar_Perfil" runat="server" NavigateUrl="~/Control_Usuarios/Editar_Perfil.aspx" CssClass="mdl-navigation__link">
+                        <asp:HyperLink ID="Link_Editar_Perfil" runat="server" Visible="false" NavigateUrl="~/Control_Usuarios/Editar_Perfil.aspx" CssClass="mdl-navigation__link">
                             <i class="material-icons">settings</i> Editar Perfil
                         </asp:HyperLink>
                         <asp:HyperLink ID="Link_Arcivos_Usuario" runat="server" NavigateUrl="~/BusquedaUsuario.aspx" CssClass="mdl-navigation__link" Visible="false">

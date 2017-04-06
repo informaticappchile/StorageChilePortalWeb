@@ -121,6 +121,24 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.HyperLink Link_Login;
         
         /// <summary>
+        /// Control Link_IniciarSesion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink Link_IniciarSesion;
+        
+        /// <summary>
+        /// Control Link_Who.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink Link_Who;
+        
+        /// <summary>
         /// Control Link_Feed.
         /// </summary>
         /// <remarks>

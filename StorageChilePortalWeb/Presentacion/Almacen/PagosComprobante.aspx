@@ -63,7 +63,7 @@
          </style>
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h1 class="mdl-card__title-text">Pagos Proveedores</h1>
+            <h1 class="mdl-card__title-text">Comprobante de Pago</h1>
         </div>
         
         <div style="overflow-x:auto">

@@ -11,6 +11,7 @@ using System.IO;
 using System.Text;
 using Logica;
 using System.Security.Cryptography;
+using System.Configuration;
 
 namespace Presentacion
 {

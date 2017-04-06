@@ -379,6 +379,10 @@ namespace Presentacion
             {
                 producto = lp.BuscarProductoPorCodigo(descripcion_register.Text, em);
             }
+            else if (lista != null && lista.Count > 0)
+            {
+                producto = lp.BuscarProductoPorCodigo(((Producto_EN)lista[0]).Descripcion, em, razon_social_register.Text);
+            }
             else
             {
                 producto = lp.BuscarProductoPorCodigo(descripcion_register.Text, em, razon_social_register.Text);

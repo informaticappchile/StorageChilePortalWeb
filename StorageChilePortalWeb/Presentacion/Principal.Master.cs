@@ -18,8 +18,8 @@ namespace Presentacion
             User_EN user = (User_EN)Session["user_session_data"];
             if (user != null)
             {
-                Link_Feed.Visible = false;
-                Link_MyFiles.Visible = false;
+                Link_IniciarSesion.Visible = false;
+                Link_Who.Visible = false;
                 LogicaEmpresa le = new LogicaEmpresa();
                 Empresa_EN em = le.BuscarEmpresa(user.NombreEmp);
                 LogicaServicio ls = new LogicaServicio();
@@ -65,8 +65,8 @@ namespace Presentacion
             user = (User_EN)Session["user_session_admin"];
             if (user != null)
             {
-                Link_Feed.Visible = false;
-                Link_MyFiles.Visible = false;
+                Link_IniciarSesion.Visible = false;
+                Link_Who.Visible = false;
                 Link_Administrar_Empresa.Visible = true;
                 Link_Registrar_Empresa.Visible = true;
                 Link_Registrar_Usuario.Visible = true;

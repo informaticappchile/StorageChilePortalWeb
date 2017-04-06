@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using Logica;
 using System.ComponentModel;
 using System.Text;
+using System.Configuration;
 
 namespace Presentacion
 {
@@ -59,14 +60,10 @@ namespace Presentacion
             LogicaUsuario lu = new LogicaUsuario();
             String path = Server.MapPath("Files/"); //Ruta donde subir el archivo (en la carpeta "Files" de nuestro proyecto)
 
-            string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
+            string FileSaveUri = ConfigurationManager.AppSettings["ftp"];
 
-            string ftpUser = "cvaras";
-            string ftpPassWord = "cvaras1234";
-            //string FileSaveUri = @"ftp://200.63.101.62/Storage/";
-
-            //string ftpUser = "Carlos";
-            //string ftpPassWord = "InfoChile2625";
+            string ftpUser = ConfigurationManager.AppSettings["ftp_user"];
+            string ftpPassWord = ConfigurationManager.AppSettings["ftp_password"];
             Stream requestStream = null;
             Stream fileStream = null;
             FtpWebResponse uploadResponse = null;

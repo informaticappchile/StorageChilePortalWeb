@@ -13,6 +13,7 @@ using System.Collections;
 using System.Net;
 using System.Data;
 using Logica;
+using System.Configuration;
 
 namespace Presentacion
 {
@@ -96,7 +97,7 @@ namespace Presentacion
             WebResponse webResponse = null;
             try
             {
-                string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
+                string FileSaveUri = ConfigurationManager.AppSettings["ftp"];
                 string uri = user.NombreEmp + "/" + Convert.ToString(Session["carpeta"]) + "/" + fileUrl;
 
                 FtpWebRequest ftpRequest = ConnectToFtp(FileSaveUri + "/" + uri, WebRequestMethods.Ftp.DownloadFile);
@@ -178,7 +179,7 @@ namespace Presentacion
         {
             FtpWebRequest ftpRequest = (FtpWebRequest)FtpWebRequest.Create(new Uri(SpecificPathOnFtpUrl));
             ftpRequest.UseBinary = true;
-            ftpRequest.Credentials = new NetworkCredential("cvaras","cvaras1234");
+            ftpRequest.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["ftp_user"], ConfigurationManager.AppSettings["ftp_password"]);
             ftpRequest.Method = Method;
 
             ftpRequest.Proxy = null;
@@ -229,9 +230,9 @@ namespace Presentacion
             User_EN en = (User_EN)Session["user_session_data"];
             try
             {
-                string FileSaveUri = @"ftp://ftp.Smarterasp.net/" + en.NombreEmp + "/";
-                string ftpUser = "cvaras";
-                string ftpPassWord = "cvaras1234";
+                string FileSaveUri = ConfigurationManager.AppSettings["ftp"] + en.NombreEmp + "/";
+                string ftpUser = ConfigurationManager.AppSettings["ftp_user"];
+                string ftpPassWord = ConfigurationManager.AppSettings["ftp_password"];
                 FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
                 ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
                 ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;

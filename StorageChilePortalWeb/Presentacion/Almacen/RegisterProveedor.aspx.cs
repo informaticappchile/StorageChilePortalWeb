@@ -9,6 +9,7 @@ using System.Data;
 using System.Collections;
 using System.Web.UI.WebControls;
 using System.Web.UI;
+using System.Configuration;
 
 namespace Presentacion
 {
@@ -232,8 +233,8 @@ namespace Presentacion
             }
         }
 
-        protected static string ReCaptcha_Key = "<6LfZ-RUUAAAAAGrnxFF7Z4LCovzUAdbNyLMeboFz>";
-        protected static string ReCaptcha_Secret = "<6LfZ-RUUAAAAAPQDIsUqplPc3FGA0Bik4IyQ_dZh>";
+        protected static string ReCaptcha_Key = "<"+ ConfigurationManager.AppSettings["ReCaptcha_Key"] + ">";
+        protected static string ReCaptcha_Secret = "<" + ConfigurationManager.AppSettings["ReCaptcha_Secret"] + ">";
 
         [WebMethod]
         public static string VerifyCaptcha(string response)
