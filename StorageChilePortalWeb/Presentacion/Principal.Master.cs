@@ -20,6 +20,7 @@ namespace Presentacion
             {
                 Link_IniciarSesion.Visible = false;
                 Link_Who.Visible = false;
+                Link_Editar_Perfil.Visible = true;
                 LogicaEmpresa le = new LogicaEmpresa();
                 Empresa_EN em = le.BuscarEmpresa(user.NombreEmp);
                 LogicaServicio ls = new LogicaServicio();
