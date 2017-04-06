@@ -58,6 +58,31 @@ namespace Presentacion
                     ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                 }
             }
+
+            /*
+            switch (en.NombrePerfil)
+            {
+                case "Administrador":
+
+                    break;
+
+                case "AdministradorAlmacen":
+                    break;
+
+                case "UsuarioAlmacen":
+                    break;
+                case "UsuarioAlmacenMovimientoCompraDevolucion":
+                    break;
+                case "UsuarioAlmacenMovimientoMermaProduccion":
+                    break;
+                case "UsuarioAlmacenMovimiento":
+                    break;
+                default:
+                    break;
+
+
+            }*/
+
             LogicaMovimiento lm = new LogicaMovimiento();
             ArrayList lista = lm.MostrarMovimientosProductosProveedor(em.ID);
             if (lista.Count == 0)
