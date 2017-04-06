@@ -80,7 +80,6 @@ namespace Presentacion
                 default:
                     break;
 
-
             }*/
 
             LogicaMovimiento lm = new LogicaMovimiento();
