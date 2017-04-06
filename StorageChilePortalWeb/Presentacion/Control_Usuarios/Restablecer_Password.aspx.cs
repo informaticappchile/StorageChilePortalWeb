@@ -71,6 +71,8 @@ namespace Presentacion
             MailMessage message = new MailMessage();//Cremos el menaseje que ahora rellenamos
             try
             {
+                LogicaOpciones lo = new LogicaOpciones();
+                byte[] salt = lo.getCrypto();
                 MailAddress fromAddress = new MailAddress("informaticapp.soporte@gmail.com");//Gmail, creado para el envio de correos
                 MailAddress toAddress = new MailAddress(u.Correo);//El destinatario
                 message.From = fromAddress;
@@ -79,7 +81,7 @@ namespace Presentacion
 
                 string userActiviation = Request.Url.GetLeftPart(UriPartial.Authority) + "/Control_Usuarios/Login.aspx";//La direccion url que debe ser recargada para la activacion de la cuenta
 
-                message.Body = "Estimado " + u.NombreUsu + ",<br> Se ha generado una nueva contraseña para que pueda iniciar sesión. Su nueva contraseña es: " + u.Contraseña + "</br>"+
+                message.Body = "Estimado " + u.NombreUsu + ",<br> Se ha generado una nueva contraseña para que pueda iniciar sesión. Su nueva contraseña es: " + Crypto.DecrytedPassword(salt, u.Contraseña) + "</br>"+
                     "<br> Se recomienda que despues de que inicie sesión cambie esta contraseña por una propia en \"Editar Perfil\".</br> <a href = "
                     + userActiviation + "> click Aquí para iniciar sesión </a>";//Donde debe hacer click el nuevo usuario para activarla
                 message.IsBodyHtml = true;//El mensaje esta en html
