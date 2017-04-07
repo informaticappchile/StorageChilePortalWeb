@@ -326,7 +326,7 @@ namespace Persistencia
 
 
                 update = "Update Usuario set Email = '" + u.Correo + "',NombreCompleto  = '" + u.Nombre + 
-                    "',UserName = '" + u.NombreUsu + "',Password = '" + parametro2 + "' where Usuario.IdUsuario ="+u.ID;
+                    "',UserName = '" + u.NombreUsu + "', Password = " + parametro2 + " where Usuario.IdUsuario ="+u.ID;
                 nueva_conexion.SetQuery(update);
                 nueva_conexion.addParameter(parametro2, u.Contraseña);
 

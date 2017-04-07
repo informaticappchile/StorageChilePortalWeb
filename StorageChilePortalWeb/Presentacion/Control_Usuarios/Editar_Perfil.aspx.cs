@@ -34,7 +34,7 @@ namespace Presentacion
             Editar_Perfil_Email.Text = en.Correo;
             Editar_Perfil_Contraseña.Text = Crypto.DecrytedPassword(salt, en.Contraseña);
             Editar_Perfil_ID.Text = en.ID.ToString();
-            
+
         }
 
         /*
@@ -97,7 +97,7 @@ namespace Presentacion
                 //Aperturamos la escritura de Javascript
                 sbMensaje.Append("<script type='text/javascript'>");
                 //Le indicamos al alert que mensaje va mostrar
-                sbMensaje.AppendFormat("alert('{0}');", "A ocurrido un error al actualizar los datos. Reintente más tarde "+
+                sbMensaje.AppendFormat("alert('{0}');", "A ocurrido un error al actualizar los datos. Reintente más tarde " +
                     "o pongase en contacto con el servicio de soporte.");
                 //Cerramos el Script
                 sbMensaje.Append("</script>");
@@ -142,10 +142,29 @@ namespace Presentacion
         {
             LogicaUsuario lu = new LogicaUsuario();
             User_EN en = lu.BuscarUsuario(u.NombreUsu, "Usuario");
-            if (en.Nombre != u.Nombre){return false;}
-            if (en.Correo != u.Correo) { return false;}
-            if (en.Contraseña != u.Contraseña) { return false;}
+            if (en.Nombre != u.Nombre) { return false; }
+            if (en.Correo != u.Correo) { return false; }
+            if (!Equality(en.Contraseña,u.Contraseña)) { return false; }
             return true;
+        }
+
+        public bool Equality(byte[] a1, byte[] b1)
+        {
+            int i;
+            if (a1.Length == b1.Length)
+            {
+                i = 0;
+                while (i < a1.Length && (a1[i] == b1[i])) //Earlier it was a1[i]!=b1[i]
+                {
+                    i++;
+                }
+                if (i == a1.Length)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
