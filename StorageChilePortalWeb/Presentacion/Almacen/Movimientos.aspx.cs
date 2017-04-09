@@ -158,16 +158,7 @@ namespace Presentacion
             NotFechaDocError_Register.Visible =
             NotNumDocError_Register.Visible = false;
 
-            if (fecha_doc_register.Text == "")
-            {
-                NotFechaDocError_Register.Visible = true;
-                return;
-            }
-            if (num_doc_register.Text == "")
-            {
-                NotNumDocError_Register.Visible = true;
-                return;
-            }
+            
             try
             {
                 LogicaProducto lp = new LogicaProducto();
@@ -179,24 +170,60 @@ namespace Presentacion
 
                 m.IdTipoMovimiento = lm.GetIdTipoMovimiento(tipo_mov_register.Text);
                 m.Area = "Sin Area";
+                p = lp.BuscarProducto(cod_prod_register.Text);
+
                
                 switch (tipo_mov_register.Text)
                 {
                        
 
                     case "Devolución Proveedor":
-                            
+                        if (fecha_doc_register.Text == "")
+                        {
+                            NotFechaDocError_Register.Visible = true;
+                            return;
+                        }
+                        if (num_doc_register.Text == "")
+                        {
+                            NotNumDocError_Register.Visible = true;
+                            return;
+                        }
+                        if (p.Stock == 0)
+                        {
+                            //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                            StringBuilder sbMensaje = new StringBuilder();
+                            //Aperturamos la escritura de Javascript
+                            sbMensaje.Append("<script type='text/javascript'>");
+                            //Le indicamos al alert que mensaje va mostrar
+                            sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene stock disponible con este producto para realizar una devolución");
+                            //Cerramos el Script                          
+                            sbMensaje.Append("</script>");
+                            //Registramos el Script escrito en el StringBuilder
+                            ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                            return;
+                        }
                             m.FechaMovimiento = Convert.ToDateTime(fecha_actual_register.Text);
                             m.FechaDocumento = Convert.ToDateTime(fecha_doc_register.Text);
                             m.IdDocumento = lm.GetIdDocumento(tipo_doc_register.Text);
                             m.NumDocumento = Convert.ToInt32(num_doc_register.Text);
                             m.Total = Convert.ToInt32(total_register.Text);
+                            
    
                         break;
 
                     case "Compra":
+                        if (fecha_doc_register.Text == "")
+                        {
+                            NotFechaDocError_Register.Visible = true;
+                            return;
+                        }
+                        if (num_doc_register.Text == "")
+                        {
+                            NotNumDocError_Register.Visible = true;
+                            return;
+                        }
 
-                            m.FechaMovimiento = Convert.ToDateTime(fecha_actual_register.Text);
+                        m.FechaMovimiento = Convert.ToDateTime(fecha_actual_register.Text);
                             m.FechaDocumento = Convert.ToDateTime(fecha_doc_register.Text);
                             m.IdDocumento = lm.GetIdDocumento(tipo_doc_register.Text);
                             m.NumDocumento = Convert.ToInt32(num_doc_register.Text);
@@ -205,14 +232,40 @@ namespace Presentacion
                         break;
 
                     case "Merma":
-                           
-                            m.Responsable = responsable_register.Text;
+                        if (p.Stock == 0)
+                        {
+                            //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                            StringBuilder sbMensaje = new StringBuilder();
+                            //Aperturamos la escritura de Javascript
+                            sbMensaje.Append("<script type='text/javascript'>");
+                            //Le indicamos al alert que mensaje va mostrar
+                            sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene stock disponible con este producto para realizar una merma");
+                            //Cerramos el Script                          
+                            sbMensaje.Append("</script>");
+                            //Registramos el Script escrito en el StringBuilder
+                            ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                            return;
+                        }
+                        m.Responsable = responsable_register.Text;
 
                         break;
 
                     case "Producción":
-                           
-                            m.Responsable = responsable_register.Text;
+                        if (p.Stock == 0)
+                        {
+                            //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                            StringBuilder sbMensaje = new StringBuilder();
+                            //Aperturamos la escritura de Javascript
+                            sbMensaje.Append("<script type='text/javascript'>");
+                            //Le indicamos al alert que mensaje va mostrar
+                            sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene stock disponible con este producto para realizar una producción");
+                            //Cerramos el Script                          
+                            sbMensaje.Append("</script>");
+                            //Registramos el Script escrito en el StringBuilder
+                            ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                            return;
+                        }
+                        m.Responsable = responsable_register.Text;
                           
                         break;
                     default:
@@ -473,8 +526,12 @@ namespace Presentacion
                     responsable_register.ReadOnly = true;
                     razon_social_register.Enabled = true;
                     tipo_doc_register.Enabled = true;
+                    num_doc_register.Text = "";
                     num_doc_register.ReadOnly = false;
                     area_register.Enabled = false;
+                    fecha_doc_register.Text = "";
+                    responsable_register.Text = "";
+                    Calendar1.Visible = true;
                     Session["EstadoCodPM"] = false;
                     lista = lp.MostrarProductosPorProveedor(razon_social_register.Text, em.ID);
                     descripcion_register.DataSource = lista;
@@ -485,10 +542,14 @@ namespace Presentacion
 
                 case "Devolución Proveedor":
                     responsable_register.ReadOnly = true;
+                    num_doc_register.Text = "";
                     razon_social_register.Enabled = true;
                     tipo_doc_register.Enabled = true;
+                    responsable_register.Text = "";
                     num_doc_register.ReadOnly = false;
+                    fecha_doc_register.Text = "";
                     area_register.Enabled = false;
+                    Calendar1.Visible = true;
                     Session["EstadoCodPM"] = false;
                     lista = lp.MostrarProductosPorProveedor(razon_social_register.Text, em.ID);
                     descripcion_register.DataSource = lista;
@@ -501,8 +562,12 @@ namespace Presentacion
                     responsable_register.ReadOnly = false;
                     razon_social_register.Enabled = false;
                     tipo_doc_register.Enabled = false;
+                    num_doc_register.Text = "";
                     num_doc_register.ReadOnly = true;
+                    responsable_register.Text = "";
                     fecha_doc_register.ReadOnly = true;
+                    fecha_doc_register.Text = "";
+                    Calendar1.Visible = false;
                     Session["EstadoCodPM"] = true;
                     lista = lp.MostrarProductosPorEmpresa(em);
                     descripcion_register.DataSource = lista;
@@ -516,7 +581,11 @@ namespace Presentacion
                     razon_social_register.Enabled = false;
                     tipo_doc_register.Enabled = false;
                     num_doc_register.ReadOnly = true;
+                    responsable_register.Text = "";
+                    num_doc_register.Text = "";
                     fecha_doc_register.ReadOnly = true;
+                    fecha_doc_register.Text = "";
+                    Calendar1.Visible = false;
                     area_register.Enabled = true;
                     Session["EstadoCodPM"] = true;
                     lp = new LogicaProducto();

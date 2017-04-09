@@ -422,7 +422,7 @@ namespace Persistencia
 
                 string parametro2 = "@password";
 
-                update = "Update Usuario set Password = '" + u.Contraseña + "' where Usuario.IdUsuario =" + u.ID;
+                update = "Update Usuario set Password = " + parametro2 + " where Usuario.IdUsuario =" + u.ID;
                 nueva_conexion.SetQuery(update);
                 nueva_conexion.addParameter(parametro2, u.Contraseña);
 

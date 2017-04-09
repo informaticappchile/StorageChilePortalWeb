@@ -234,6 +234,7 @@
                                             <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                 <asp:TextBox ID="cant_register" runat="server" CssClass="mdl-textfield__input">0</asp:TextBox>
                                                 <label class="mdl-textfield__label" for="cant_register">Cantidad</label>
+                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="cant_register" ErrorMessage="Debe ingresar un valor en cantidad. En caso de que no tenga este valor ingrese un valor 0." CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator7" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="cant_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                                             </span>
                                         </span>
@@ -244,6 +245,7 @@
                                             <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                 <asp:TextBox ID="precio_register" runat="server" CssClass="mdl-textfield__input">0</asp:TextBox>
                                                 <label class="mdl-textfield__label" for="precio_register">Precio Unitario</label>
+                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="precio_register" ErrorMessage="Debe ingresar un valor en Precio. En caso de que no tenga este valor ingrese un valor 0." CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator8" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="precio_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                                             </span>
                                         </span>
@@ -293,6 +295,7 @@
                                             <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                 <asp:TextBox ID="equivalenciatxt" runat="server" CssClass="mdl-textfield__input">0</asp:TextBox>
                                                 <label class="mdl-textfield__label" for="cant_register">Equivalencia</label>
+                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="equivalenciatxt" ErrorMessage="Debe ingresar un valor en Equivalencia. En caso de que no tenga este valor ingrese un valor 0." CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="cant_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                                             </span>
                                         </span>
@@ -312,6 +315,7 @@
                                             <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                 <asp:TextBox ID="unidadestxt" runat="server" CssClass="mdl-textfield__input">0</asp:TextBox>
                                                 <label class="mdl-textfield__label" for="cant_register">Unidades</label>
+                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="unidadestxt" ErrorMessage="Debe ingresar un valor en Cantidad. En caso de que no tenga este valor ingrese un valor 0." CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="cant_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                                             </span>
                                         </span>
@@ -322,6 +326,7 @@
                                             <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                 <asp:TextBox ID="preciotxt" runat="server" CssClass="mdl-textfield__input">0</asp:TextBox>
                                                 <label class="mdl-textfield__label" for="precio_register">Precio Por Unidad</label>
+                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="preciotxt" ErrorMessage="Debe ingresar un valor en Precio. En caso de que no tenga este valor ingrese un valor 0." CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="precio_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                                             </span>
                                         </span>
@@ -401,6 +406,7 @@
                                             <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                 <asp:TextBox ID="ila_register" runat="server" CssClass="mdl-textfield__input" >0</asp:TextBox>
                                                 <label class="mdl-textfield__label" for="responsable_register">ILA</label>
+                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidatorUserName" runat="server" ControlToValidate="ila_register" ErrorMessage="Debe ingresar un valor en ILA. En caso de que no tenga este valor ingrese un valor 0." CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="ila_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                                             </span>
                                         </span>
@@ -422,6 +428,7 @@
                                             <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                 <asp:TextBox ID="flete_register" runat="server" CssClass="mdl-textfield__input">0</asp:TextBox>
                                                 <label class="mdl-textfield__label" for="flete_register">Flete</label>
+                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="flete_register" ErrorMessage="Debe ingresar un valor en Flete. En caso de que no tenga este valor ingrese un valor 0." CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="flete_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                                             </span>
                                         </span>

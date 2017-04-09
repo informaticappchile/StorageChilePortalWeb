@@ -207,8 +207,8 @@ namespace Persistencia
         {
             Conexion nueva_conexion = new Conexion();
             nueva_conexion.SetQuery(" select pr.IdProveedor, c.IdCiudad, v.Direccion, v.Fono, v.NombreVendedor, pr.RutProveedor, c.NombreCiudad, pr.RazonSocial " +
-                                    " from proveedor pr, ciudad c, vendedor v, productoproveedorempresa ppe, empresa e "+
-                                    " where e.IdEmpresa = "+ IdEmpresa+" and c.IdCiudad = v.IdCiudad and v.IdProveedor = pr.IdProveedor and ppe.IdProveedor = pr.IdProveedor");
+                                    " from proveedor pr, ciudad c, vendedor v, productoproveedorempresa ppe, empresa e, vendedorempresa ve "+
+                                    " where e.idEmpresa = ve.IdEmpresa and ve.IdVendedor = v.IdVendedor and e.IdEmpresa = " + IdEmpresa+" and c.IdCiudad = v.IdCiudad and v.IdProveedor = pr.IdProveedor and ppe.IdProveedor = pr.IdProveedor");
             DataTable dt = nueva_conexion.QuerySeleccion();
 
             for (int i = 0; i < dt.Rows.Count; i++)
