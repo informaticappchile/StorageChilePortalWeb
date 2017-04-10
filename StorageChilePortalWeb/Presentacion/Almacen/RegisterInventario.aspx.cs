@@ -80,6 +80,8 @@ namespace Presentacion
                     break;
                 case "Usuario":
                     break;
+                case "Caja":
+                    break;
                 default:
                     //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                     StringBuilder sbMensaje = new StringBuilder();
@@ -194,6 +196,7 @@ namespace Presentacion
                 en.Descripcion = descripcion_register.Text.Replace('\'', '´').Trim();//Con su correo
                 en.CantMinStock = Convert.ToInt32(cant_min_stock_register.Text);//Con su contrasenya
                 en.IdGrupo = lu.GetIdGrupo(grupo_register.Text);
+                en.Stock = Convert.ToInt32(stock_actual_register.Text);
                 en.IdMedidad = lu.GetIdUnidad(unidad_register.Text);
                 lu.InsertarProducto(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
                 Producto_EN u = lu.BuscarProductoEmpresa(emp, codigo_producto_register.Text);

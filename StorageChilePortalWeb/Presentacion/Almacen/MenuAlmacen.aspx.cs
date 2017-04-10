@@ -121,6 +121,17 @@ namespace Presentacion
                     break;
                 case "Usuario":
                     break;
+                case "BodegaAlmacen":
+                    pago.Visible = false;
+                    crear_proveedor.Visible = false;
+                    crear_producto.Visible = false;
+                    informe_proveedor.Visible = false;
+                    break;
+                case "Caja":
+                    pago.Visible = false;
+                    informe_proveedor.Visible = false;
+                    informe_inventario.Visible = false;
+                    break;
                 default:
                     //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                     StringBuilder sbMensaje = new StringBuilder();

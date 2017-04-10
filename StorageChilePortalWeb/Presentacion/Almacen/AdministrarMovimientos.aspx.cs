@@ -78,6 +78,12 @@ namespace Presentacion
                     break;
                 case "Usuario":
                     break;
+                case "BodegaAlmacen":
+                    Session["merma_produccion"] = true;
+                    break;
+                case "Caja":
+                    Session["compra_devolucion"] = true;
+                    break;
                 default:
                     //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                     StringBuilder sbMensaje = new StringBuilder();
@@ -181,7 +187,7 @@ namespace Presentacion
             {
                 lista = lm.MostrarMovimientosProductosProveedor(em.ID, "Merma", "Producción");
                 Session["merma_produccion"] = null;
-            }
+            }         
             else
             {
                 lista = lm.MostrarMovimientosProductosProveedor(em.ID);

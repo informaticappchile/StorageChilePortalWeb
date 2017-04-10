@@ -76,6 +76,17 @@
                 </li>
                 <li class="mdl-list__item">
                     <span class="mdl-list__item-primary-content">
+                        <i class="material-icons  mdl-list__item-avatar">shopping_basket</i>
+                        <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <asp:TextBox ID="stock_actual_register" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
+                            <label class="mdl-textfield__label" for="stock_actual_register">Stock Actual</label>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="stock_actual_register" ErrorMessage="Introduce un número por favor" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Formato de numero no es valido. Ejemplo: 12 (Solo números positivos)" ControlToValidate="stock_actual_register" ValidationExpression="^\d+$" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                        </span>
+                    </span>
+                </li>
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
                         <i class="material-icons  mdl-list__item-avatar">av_timer</i>
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <asp:DropDownList id="unidad_register" runat="server" CssClass="mdl-textfield__input">

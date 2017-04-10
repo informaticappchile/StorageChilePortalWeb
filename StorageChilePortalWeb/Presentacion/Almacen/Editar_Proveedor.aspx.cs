@@ -156,6 +156,8 @@ namespace Presentacion
                                 break;
                             case "Usuario":
                                 break;
+                            case "Caja":
+                                break;
                             default:
                                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                                 StringBuilder sbMensaje = new StringBuilder();

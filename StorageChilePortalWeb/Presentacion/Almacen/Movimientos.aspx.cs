@@ -95,6 +95,12 @@ namespace Presentacion
                     break;
                 case "Usuario":
                     break;
+                case "BodegaAlmacen":
+                    Session["por_perfil"] = true;
+                    break;
+                case "Caja":
+                    Session["por_perfil"] = true;
+                    break;
                 default:
                     //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                     StringBuilder sbMensaje = new StringBuilder();
@@ -132,10 +138,12 @@ namespace Presentacion
                     area_register.DataBind();
                     if (Session["por_perfil"] != null)
                     {
+                        Session["por_perfil"] = null;
                         lista = lm.MostrarTipoMovimientos(en.IdPerfil);
                     }
                     else
                     {
+
                         lista = lm.MostrarTipoMovimientos();
                     }
                     tipo_mov_register.DataSource = lista;
