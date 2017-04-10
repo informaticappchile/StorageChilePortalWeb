@@ -61,6 +61,81 @@ namespace Presentacion
                     ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                 }
             }
+
+            switch (en.NombrePerfil)
+            {
+                case "Administrador":
+                    break;
+                case "AdministradorAlmacen":
+                    break;
+                case "UsuarioAlmacen":
+                    break;
+                case "UsuarioAlmacenMovimientoCompraDevolucion":
+                    pago.Visible = false;
+                    informe_inventario.Visible = false;
+                    informe_proveedor.Visible = false;
+                    crear_producto.Visible = false;
+                    crear_proveedor.Visible = false;
+                    break;
+                case "UsuarioAlmacenMovimientoMermaProduccion":
+                    pago.Visible = false;
+                    informe_inventario.Visible = false;
+                    informe_proveedor.Visible = false;
+                    crear_producto.Visible = false;
+                    crear_proveedor.Visible = false;
+                    break;
+                case "UsuarioAlmacenMovimiento":
+                    pago.Visible = false;
+                    informe_inventario.Visible = false;
+                    informe_proveedor.Visible = false;
+                    crear_producto.Visible = false;
+                    crear_proveedor.Visible = false;
+                    break;
+                case "UsuarioAlmacenCrearProducto":
+                    pago.Visible = false;
+                    informe_inventario.Visible = false;
+                    informe_proveedor.Visible = false;
+                    movimiento.Visible = false;
+                    crear_proveedor.Visible = false;
+                    break;
+                case "UsuarioAlmacenCrearProveedor":
+                    pago.Visible = false;
+                    informe_inventario.Visible = false;
+                    informe_proveedor.Visible = false;
+                    movimiento.Visible = false;
+                    crear_producto.Visible = false;
+                    break;
+                case "UsuarioAlmacenInformeInventario":
+                    pago.Visible = false;
+                    informe_proveedor.Visible = false;
+                    movimiento.Visible = false;
+                    crear_proveedor.Visible = false;
+                    crear_producto.Visible = false;
+                    break;
+                case "UsuarioAlmacenInformeProveedor":
+                    pago.Visible = false;
+                    informe_inventario.Visible = false;
+                    movimiento.Visible = false;
+                    crear_proveedor.Visible = false;
+                    crear_producto.Visible = false;
+                    break;
+                case "Usuario":
+                    break;
+                default:
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene permisos para ingresar aquí.");
+                    //Cerramos el Script
+                    sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/MenuAlmacen.aspx\";");
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                    break;
+
+            }
         }
 
         protected void clickCreacionProveedor(object sender, EventArgs e)

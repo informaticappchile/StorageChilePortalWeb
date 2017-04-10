@@ -76,6 +76,41 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
+
+            switch (en.NombrePerfil)
+            {
+                case "Administrador":
+                    break;
+                case "AdministradorAlmacen":
+                    break;
+                case "UsuarioAlmacen":
+                    break;
+                case "UsuarioAlmacenMovimientoCompraDevolucion":
+                    Session["por_perfil"] = true;
+                    break;
+                case "UsuarioAlmacenMovimientoMermaProduccion":
+                    Session["por_perfil"] = true;
+                    break;
+                case "UsuarioAlmacenMovimiento":
+                    break;
+                case "Usuario":
+                    break;
+                default:
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene permisos para ingresar aquí.");
+                    //Cerramos el Script
+                    sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/MenuAlmacen.aspx\";");
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                    break;
+
+            }
+
             if (!IsPostBack)
             {
                 try
@@ -95,7 +130,14 @@ namespace Presentacion
                     areas.Add("Bar");
                     area_register.DataSource = areas;
                     area_register.DataBind();
-                    lista = lm.MostrarTipoMovimientos();
+                    if (Session["por_perfil"] != null)
+                    {
+                        lista = lm.MostrarTipoMovimientos(en.IdPerfil);
+                    }
+                    else
+                    {
+                        lista = lm.MostrarTipoMovimientos();
+                    }
                     tipo_mov_register.DataSource = lista;
                     tipo_mov_register.DataBind();
                 }

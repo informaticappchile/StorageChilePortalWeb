@@ -137,7 +137,39 @@ namespace Persistencia
             return lista;
             
         }
-        
+
+
+        public ArrayList MostrarMovimientosProductosProveedorEmpresa(int IdEmpresa, string tipo1, string tipo2)
+        {
+            Conexion nueva_conexion = new Conexion();
+            nueva_conexion.SetQuery(" select mpp.IdMovimiento, m.FechaDocumento, pr.IdProveedor, m.IdTipoMovimiento, tm.TipoMovimiento, pr.RazonSocial, d.TipoDocumento, m.NumeroDocumento, m.IdDocumento, m.Total" +
+                                    " from movimiento m, movimientoproductoproveedorempresa mpp, proveedor pr, producto p, productoproveedorempresa pp, documento d, tipomovimiento tm " +
+                                    " where m.IdMovimiento = mpp.IdMovimiento and mpp.IdProducto = pp.IdProducto and mpp.IdProveedor = pp.IdProveedor " +
+                                    " and pp.IdProveedor = pr.IdProveedor and pp.IdProducto = p.IdProducto and m.IdDocumento = d.IdDocumento AND mpp.IdEmpresa =" + IdEmpresa +
+                                    " AND m.IdTipoMovimiento = tm.IdTipoMovimiento and m.EstadoMovimiento = 1 AND mpp.IdEmpresa = pp.IdEmpresa" +
+                                    " AND (tm.TipoMovimiento = '"+tipo1+ "' or tm.TipoMovimiento = '" + tipo2+"')");
+            DataTable dt = nueva_conexion.QuerySeleccion();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Movimiento_EN movimiento = new Movimiento_EN();
+                movimiento.ID = dt.Rows[i]["IdMovimiento"].ToString();
+                movimiento.IdProveedor = Convert.ToInt16(dt.Rows[i]["IdProveedor"].ToString());
+                movimiento.IdTipoMovimiento = Convert.ToInt16(dt.Rows[i]["IdTipoMovimiento"].ToString());
+                movimiento.TipoMovimiento = dt.Rows[i]["TipoMovimiento"].ToString();
+                movimiento.RazonSocial = dt.Rows[i]["RazonSocial"].ToString();
+                movimiento.Documento = dt.Rows[i]["TipoDocumento"].ToString();
+                movimiento.NumDocumento = Convert.ToInt32(dt.Rows[i]["NumeroDocumento"].ToString());
+                movimiento.IdDocumento = Convert.ToInt16(dt.Rows[i]["IdDocumento"].ToString());
+                movimiento.Total = Convert.ToInt32(dt.Rows[i]["Total"].ToString());
+                movimiento.FechaDocumento = Convert.ToDateTime((dt.Rows[i]["FechaDocumento"].ToString()));
+                lista.Add(movimiento);
+            }
+
+            return lista;
+
+        }
+
         /**
          * Se encarga de borrar el usuario, si existe en la base de datos, a través de su ID
          **/
@@ -290,6 +322,23 @@ namespace Persistencia
 
         }
 
+
+        public ArrayList MostrarTipoMovimientos(int id_perfil)
+        {
+            Conexion nueva_conexion = new Conexion();
+            nueva_conexion.SetQuery("Select *" +
+                                    " from TipoMovimiento tm, PerfilTipoMovimiento ptm "+
+                                    " where tm.IdTipoMovimiento = ptm.IdTipoMovimiento and ptm.IdPerfil = "+id_perfil+"");
+            DataTable dt = nueva_conexion.QuerySeleccion();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                lista.Add(dt.Rows[i]["TipoMovimiento"].ToString());
+            }
+
+            return lista;
+
+        }
         /**
          * Se encarga de mostrar todos los usuarios del sistema.
          */

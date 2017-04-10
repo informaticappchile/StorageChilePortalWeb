@@ -33,6 +33,15 @@ namespace Logica
             return a;
         }
 
+        public ArrayList MostrarMovimientosProductosProveedor(int IdEmpresa, string tipo1, string tipo2)
+        {
+            ArrayList a = new ArrayList();
+            Movimiento_CAD c = new Movimiento_CAD();
+            a = c.MostrarMovimientosProductosProveedorEmpresa(IdEmpresa, tipo1, tipo2);
+
+            return a;
+        }
+
         //Declaramos la funcion borrar usuario donde llama al cad correspondiente
         public bool BorrarMovimiento(Movimiento_EN p)
         {
@@ -75,6 +84,15 @@ namespace Logica
             ArrayList a = new ArrayList();
             Movimiento_CAD c = new Movimiento_CAD();
             a = c.MostrarTipoMovimientos();
+
+            return a;
+        }
+
+        public ArrayList MostrarTipoMovimientos(int p)
+        {
+            ArrayList a = new ArrayList();
+            Movimiento_CAD c = new Movimiento_CAD();
+            a = c.MostrarTipoMovimientos(p);
 
             return a;
         }

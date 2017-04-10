@@ -56,7 +56,7 @@
                             <img data-u="image" src="img/registroproveedores.png" />
                             <br />
                             <br />
-                            <button runat="server" class="bttn-unite bttn-md bttn-danger" onServerClick="clickCreacionProveedor">Creación Proveedor</button>
+                            <button id="crear_proveedor" runat="server" class="bttn-unite bttn-md bttn-danger" onServerClick="clickCreacionProveedor">Creación Proveedor</button>
                             <br />
                             <div class="box"></div>
                         </div>
@@ -66,7 +66,7 @@
                             <img data-u="image" src="img/registroinventario.png" />
                             <br />
                             <br />
-                            <button runat="server" class="bttn-unite bttn-md bttn-danger" onServerClick="clickCreacionProducto">Creación Producto</button>
+                            <button id="crear_producto" runat="server" class="bttn-unite bttn-md bttn-danger" onServerClick="clickCreacionProducto">Creación Producto</button>
                             <br />
                             <div class="box"></div>
                         </div>
@@ -82,7 +82,7 @@
                             <img data-u="image" src="img/Movimiento.jpg" />
                             <br />
                             <br />
-                            <button runat="server" class="bttn-unite bttn-md bttn-danger" onServerClick="clickMovimientosInventario">Movimientos Inventario</button>
+                            <button runat="server" id="movimiento" class="bttn-unite bttn-md bttn-danger" onServerClick="clickMovimientosInventario">Movimientos Inventario</button>
                             <br />
                             <div class="box"></div>
                         </div>
@@ -92,7 +92,7 @@
                             <img data-u="image" src="img/Pagoproveedores.jpg" />
                             <br />
                             <br />
-                            <button runat="server" class="bttn-unite bttn-md bttn-danger" onServerClick="clickPagoProveedores">Pago Proveedores</button>
+                            <button runat="server" id="pago" class="bttn-unite bttn-md bttn-danger" onServerClick="clickPagoProveedores">Pago Proveedores</button>
                             <br />
                             <div class="box"></div>
                         </div>
@@ -109,7 +109,7 @@
                             <img data-u="image" src="img/informeproveedor.png" />
                             <br />
                             <br />
-                            <button runat="server" class="bttn-unite bttn-md bttn-danger" onServerClick="clickInformeProveedor">Informe Proveedor</button>
+                            <button runat="server" id="informe_proveedor" class="bttn-unite bttn-md bttn-danger" onServerClick="clickInformeProveedor">Informe Proveedor</button>
                             <br />
                             <div class="box"></div>
                         </div>
@@ -119,7 +119,7 @@
                             <img data-u="image" src="img/informeinventario.png" />
                             <br />
                             <br />
-                            <button runat="server" class="bttn-unite bttn-md bttn-danger" onServerClick="clickInformeInventario">Informe Inventario</button>
+                            <button runat="server" id="informe_inventario" class="bttn-unite bttn-md bttn-danger" onServerClick="clickInformeInventario">Informe Inventario</button>
                             <br />
                             <div class="box"></div>
                         </div>

@@ -78,6 +78,33 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
+            switch (en.NombrePerfil)
+            {
+                case "Administrador":
+                    break;
+                case "AdministradorAlmacen":
+                    break;
+                case "UsuarioAlmacen":
+                    break;
+                case "UsuarioAlmacenPagoProveedor":
+                    break;
+                case "Usuario":
+                    break;
+                default:
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene permisos para ingresar aquí.");
+                    //Cerramos el Script
+                    sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/MenuAlmacen.aspx\";");
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                    break;
+
+            }
             if (!IsPostBack)
             {
                 try
@@ -306,11 +333,11 @@ namespace Presentacion
                     row["FechaDocumento"] = ((Movimiento_EN)lista[i]).FechaDocumento;
                     row["Total"] = ((Movimiento_EN)lista[i]).Total;
                     ArrayList obs = new ArrayList();
-                    obs = lm.MostrarObservaciones(razon, ((Movimiento_EN)lista[i]).ID, us.IdEmpresa);
+                    obs = lm.MostrarObservaciones(razon, ((Movimiento_EN)lista[i]).ID, em.ID);
                     string observaciones = "";
                     for (int j = 0; j < obs.Count; j++)
                     {
-                        observaciones += "- " + (string)obs[j] + "\n";
+                        observaciones += "' " + (string)obs[j] + "' ";
                     }
                     row["Observaciones"] = observaciones;
                     row["IdMovimiento"] = ((Movimiento_EN)lista[i]).ID;

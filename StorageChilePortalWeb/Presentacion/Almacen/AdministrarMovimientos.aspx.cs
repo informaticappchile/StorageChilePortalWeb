@@ -59,28 +59,40 @@ namespace Presentacion
                 }
             }
 
-            /*
+            
             switch (en.NombrePerfil)
             {
                 case "Administrador":
-
                     break;
-
                 case "AdministradorAlmacen":
                     break;
-
                 case "UsuarioAlmacen":
                     break;
                 case "UsuarioAlmacenMovimientoCompraDevolucion":
+                    Session["compra_devolucion"] = true;
                     break;
                 case "UsuarioAlmacenMovimientoMermaProduccion":
+                    Session["merma_produccion"] = true;
                     break;
                 case "UsuarioAlmacenMovimiento":
                     break;
+                case "Usuario":
+                    break;
                 default:
+                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                    StringBuilder sbMensaje = new StringBuilder();
+                    //Aperturamos la escritura de Javascript
+                    sbMensaje.Append("<script type='text/javascript'>");
+                    //Le indicamos al alert que mensaje va mostrar
+                    sbMensaje.AppendFormat("alert('{0}');", "Usted no tiene permisos para ingresar aquí.");
+                    //Cerramos el Script
+                    sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Almacen/MenuAlmacen.aspx\";");
+                    sbMensaje.Append("</script>");
+                    //Registramos el Script escrito en el StringBuilder
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                     break;
 
-            }*/
+            }
 
             LogicaMovimiento lm = new LogicaMovimiento();
             ArrayList lista = lm.MostrarMovimientosProductosProveedor(em.ID);
@@ -159,7 +171,21 @@ namespace Presentacion
             Empresa_EN em = le.BuscarEmpresa(u.NombreEmp);
             LogicaMovimiento lm = new LogicaMovimiento();
             ArrayList lista = new ArrayList();
-            lista = lm.MostrarMovimientosProductosProveedor(em.ID);
+            if (Session["compra_devolucion"] != null)
+            {
+                lista = lm.MostrarMovimientosProductosProveedor(em.ID, "Compra", "Devolución Proveedor");
+                Session["compra_devolucion"] = null;
+
+            }
+            else if (Session["merma_produccion"] != null)
+            {
+                lista = lm.MostrarMovimientosProductosProveedor(em.ID, "Merma", "Producción");
+                Session["merma_produccion"] = null;
+            }
+            else
+            {
+                lista = lm.MostrarMovimientosProductosProveedor(em.ID);
+            }
             Responsive.DataSource = lista;
             Responsive.DataBind();
         }
