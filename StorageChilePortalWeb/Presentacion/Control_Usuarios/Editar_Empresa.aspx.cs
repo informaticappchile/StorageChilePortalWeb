@@ -9,6 +9,7 @@ using Logica;
 using System.Text;
 using System.IO;
 using System.Net;
+using System.Configuration;
 
 namespace Presentacion
 {
@@ -123,10 +124,10 @@ namespace Presentacion
             if (ValidarCambios(en))
             {
                 lse.actualizarServicioEmpresa(en, ls);
-                string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
+                string FileSaveUri = ConfigurationManager.AppSettings["ftp"];
 
-                string ftpUser = "cvaras";
-                string ftpPassWord = "cvaras1234";
+                string ftpUser = ConfigurationManager.AppSettings["ftp_user"];
+                string ftpPassWord = ConfigurationManager.AppSettings["ftp_password"];
                 if (Editar_Empresa_ServicioBodega_Switch.Checked)
                 {
                     try

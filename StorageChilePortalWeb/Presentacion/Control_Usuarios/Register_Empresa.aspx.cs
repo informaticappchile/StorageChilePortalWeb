@@ -95,14 +95,15 @@ namespace Presentacion
                         if (validarRegistroEmpresa(em))
                         {
                             lse.InsertarServicioEmpresa(em, ls);
-                            string FileSaveUri = @"ftp://ftp.Smarterasp.net/";
+                            string FileSaveUri = ConfigurationManager.AppSettings["ftp"];
 
-                            string ftpUser = "cvaras";
-                            string ftpPassWord = "cvaras1234";
+                            string ftpUser = ConfigurationManager.AppSettings["ftp_user"];
+                            string ftpPassWord = ConfigurationManager.AppSettings["ftp_password"];
                             if (Registro_Empresa_ServicioBodega_Switch.Checked)
                             {
                                 try
                                 {
+
                                     crearCarpeta(em.NombreEmp, FileSaveUri, ftpUser, ftpPassWord);
                                 }
                                 catch (Exception ex)

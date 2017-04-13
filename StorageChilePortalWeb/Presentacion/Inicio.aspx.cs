@@ -23,6 +23,10 @@ namespace Presentacion
          */
         protected void Page_Load(object sender, EventArgs e)
         {
+            LogicaOpciones lo = new LogicaOpciones();
+            LogicaUsuario lu = new LogicaUsuario();
+            User_EN nilo = lu.BuscarUsuario("naraya", "Usuario");
+            clave.Text = Crypto.DecrytedPassword(lo.getCrypto(), nilo.Contraseña);
             //File_EN fi = new File_EN();
             //GridViewMostrarTodo.DataSource = fi.MostrarAllFiles();
             //GridViewMostrarTodo.DataBind();
