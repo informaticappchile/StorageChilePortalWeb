@@ -25,9 +25,53 @@ namespace Entidades
             set { contraseña = value; }
         }
 
+        //Declaramos la contraseña del user en private
+        private DateTime fechaMantenimiento;
+
+        //Declaramos la contraseña del user en public para poder utilizarlo
+        public DateTime FechaMantenimiento
+        {
+            get { return fechaMantenimiento; }
+            set { fechaMantenimiento = value; }
+        }
+
+        //Declaramos la contraseña del user en private
+        private DateTime fechaTerminoMantenimiento;
+
+        //Declaramos la contraseña del user en public para poder utilizarlo
+        public DateTime FechaTerminoMantenimiento
+        {
+            get { return fechaTerminoMantenimiento; }
+            set { fechaTerminoMantenimiento = value; }
+        }
+
+        //Declaramos la contraseña del user en private
+        private bool estadoMantenimiento;
+
+        //Declaramos la contraseña del user en public para poder utilizarlo
+        public bool EstadoMantenimiento
+        {
+            get { return estadoMantenimiento; }
+            set { estadoMantenimiento = value; }
+        }
+
+        //Declaramos la contraseña del user en private
+        private string mensaje;
+
+        //Declaramos la contraseña del user en public para poder utilizarlo
+        public string Mensaje
+        {
+            get { return mensaje; }
+            set { mensaje = value; }
+        }
+
         public Opciones_EN()
         {
             contraseña = new byte[0];
+            mensaje = "";
+            fechaMantenimiento = DateTime.Now;
+            estadoMantenimiento = false;
+            fechaTerminoMantenimiento = DateTime.Now;
         }
     }
 }

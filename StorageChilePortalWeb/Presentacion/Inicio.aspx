@@ -1,9 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Inicio.aspx.cs" Inherits="Presentacion.Inicio" %>
 
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:textbox runat="server" ID="clave" Visible="false"></asp:textbox>
+
+    <telerik:RadScriptManager ID="RadScriptManager1" runat="server"></telerik:RadScriptManager>
+    <telerik:RadNotification ID="RadNotification1" AutoCloseDelay="60000" VisibleOnPageLoad="true" Position="BottomRight" 
+        Text="hello there" Width="270px" Height="110px" Title="Informaciones" EnableRoundedCorners="true"
+        EnableShadow="true" runat="server" Visible="false"></telerik:RadNotification>
 
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
