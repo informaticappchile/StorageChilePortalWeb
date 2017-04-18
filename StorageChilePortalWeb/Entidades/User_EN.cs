@@ -181,7 +181,6 @@ namespace Entidades
             fechaBloqueo = DateTime.Now;
             fechaRegistro = DateTime.Now;
             nombrePerfil = "";
-            idPerfil = 0;
         }
 
     }

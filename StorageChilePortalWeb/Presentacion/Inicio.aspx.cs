@@ -12,7 +12,6 @@ using System.Text;
 using Logica;
 using System.Security.Cryptography;
 using System.Configuration;
-using Telerik.Web.UI;
 
 namespace Presentacion
 {
@@ -24,15 +23,6 @@ namespace Presentacion
          */
         protected void Page_Load(object sender, EventArgs e)
         {
-            LogicaOpciones lo = new LogicaOpciones();
-            DateTime date1 = DateTime.Now;
-            DateTime date2 = lo.getFecha();
-            TimeSpan ts = date2.Subtract(date1);
-            if (Session["user_session_data"] != null && lo.getMantenimiento() && !IsPostBack && (ts.Days < 4 && ts.Days >= 0))
-            {
-                RadNotification1.Visible = true;
-                RadNotification1.Text = lo.getMensaje() + lo.getFecha().ToString() + " hasta " + lo.getFechaTermino().ToString();
-            }
             /*LogicaOpciones lo = new LogicaOpciones();
             LogicaUsuario lu = new LogicaUsuario();
             User_EN nilo = lu.BuscarUsuario("naraya", "Usuario");
