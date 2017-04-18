@@ -16,6 +16,22 @@ namespace Presentacion
         {
             Response.Charset = "utf-8";
             User_EN user = (User_EN)Session["user_session_data"];
+            LogicaOpciones lo = new LogicaOpciones();
+            DateTime date1 = DateTime.Now;
+            DateTime date2 = lo.getFecha();
+            TimeSpan ts = date2.Subtract(date1);
+            if (lo.getMantenimiento() && ts.Seconds <= 0)
+            {
+                DateTime date3 = lo.getFechaTermino();
+                ts = date3.Subtract(date1);
+                LbBienvenido.Text = "Estamos en mantenimiento. Estaremos disponible dentro de " + ts.Hours + " hrs y " + ts.Minutes + " minutos aprox.";
+                LbBienvenido.Visible = true;
+                if (user != null && user.IdPerfil != 18)
+                {
+                    user = null;
+                    Session["user_session_data"] = null;
+                }
+            }
             if (user != null)
             {
                 Link_IniciarSesion.Visible = false;
