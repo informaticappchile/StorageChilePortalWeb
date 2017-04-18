@@ -28,7 +28,7 @@ namespace Presentacion
             DateTime date1 = DateTime.Now;
             DateTime date2 = lo.getFecha();
             TimeSpan ts = date2.Subtract(date1);
-            if (Session["user_session_data"] != null && lo.getMantenimiento() && !IsPostBack && (ts.Days < 4 && ts.Days >= 0))
+            if (Session["user_session_data"] != null && lo.getMantenimiento() && !IsPostBack && (ts.Seconds < 345600 && ts.Seconds >= 0))
             {
                 RadNotification1.Visible = true;
                 RadNotification1.Text = lo.getMensaje() + lo.getFecha().ToString() + " hasta " + lo.getFechaTermino().ToString();
