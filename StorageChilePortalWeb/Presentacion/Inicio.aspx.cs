@@ -12,13 +12,14 @@ using System.Text;
 using Logica;
 using System.Security.Cryptography;
 using System.Configuration;
-using Telerik.Web.UI;
 
 namespace Presentacion
 {
  
     public partial class Inicio : System.Web.UI.Page
     {
+        public int option = 0;
+        public string msg = "";
         /*
          * AL cargar la pagina de inicio, se mostraran todos los archivos de la base de datos que sean publicos
          */
@@ -30,8 +31,8 @@ namespace Presentacion
             TimeSpan ts = date2.Subtract(date1);
             if (Session["user_session_data"] != null && lo.getMantenimiento() && !IsPostBack && (ts.Seconds < 345600 && ts.Seconds >= 0))
             {
-                RadNotification1.Visible = true;
-                RadNotification1.Text = lo.getMensaje();
+                option = 1;
+                msg = lo.getMensaje();
             }
             /*LogicaOpciones lo = new LogicaOpciones();
             LogicaUsuario lu = new LogicaUsuario();

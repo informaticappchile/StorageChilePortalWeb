@@ -150,6 +150,7 @@
     <Content Include="Almacen\img\calendar-icon.png" />
     <Content Include="img\Contactanos.png" />
     <Content Include="img\contactos.png" />
+    <Content Include="img\informacion.png" />
     <Content Include="img\loading2.gif" />
     <Content Include="img\PDF-48.png" />
     <Content Include="img\soporte1.jpg" />
@@ -158,6 +159,7 @@
     <Content Include="InfoEmpresa.aspx" />
     <Content Include="AdministrarUsuario.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="js\push.min.js" />
     <Content Include="Soporte.aspx" />
     <Content Include="Inicio.aspx" />
     <Content Include="js\basic.css" />
