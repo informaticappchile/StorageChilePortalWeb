@@ -19,7 +19,6 @@ namespace Presentacion
         {
             Registro_Empresa_ServicioBodega_Switch.InputAttributes.Add("class", "mdl-switch__input");
             Registro_Empresa_ServicioAlmacen_Switch.InputAttributes.Add("class", "mdl-switch__input");
-            Registro_Empresa_ServicioDigitalizacion_Switch.InputAttributes.Add("class", "mdl-switch__input");
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -84,10 +83,6 @@ namespace Presentacion
                             {
                                 s.Verified = Registro_Empresa_ServicioBodega_Switch.Checked;
                             }
-                            if (s.Nombre == "Digitalización")
-                            {
-                                s.Verified = Registro_Empresa_ServicioDigitalizacion_Switch.Checked;
-                            }
                         }
                         en.LogoEmpresa = FileUpload1.FileBytes;
                         le.InsertarEmpresa(en);//Llamamos a InsertarUsuario de la cap EN, que se encaragra de insertarlo
@@ -105,27 +100,6 @@ namespace Presentacion
                                 {
 
                                     crearCarpeta(em.NombreEmp, FileSaveUri, ftpUser, ftpPassWord);
-                                }
-                                catch (Exception ex)
-                                {
-                                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                                    StringBuilder sbMensaje1 = new StringBuilder();
-                                    //Aperturamos la escritura de Javascript
-                                    sbMensaje1.Append("<script type='text/javascript'>");
-                                    //Le indicamos al alert que mensaje va mostrar
-                                    sbMensaje1.AppendFormat("alert('{0}');", "Ha ocurrido un error al reservar su espacio,comuníquese con el servicio de soporte para poder habilitarlo.");
-                                    //Cerramos el Script
-                                    sbMensaje1.Append("</script>");
-                                    //Registramos el Script escrito en el StringBuilder
-                                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje1.ToString());
-                                }
-                            }
-                            if (Registro_Empresa_ServicioDigitalizacion_Switch.Checked && !Registro_Empresa_ServicioBodega_Switch.Checked)
-                            {
-                                try
-                                {
-                                    crearCarpeta(em.NombreEmp, FileSaveUri, ftpUser, ftpPassWord);
-                                    crearCarpeta("Documentos", FileSaveUri + em.NombreEmp + "/", ftpUser, ftpPassWord);
                                 }
                                 catch (Exception ex)
                                 {

@@ -36,7 +36,6 @@
                     <asp:BoundField DataField="CorreoEmpresa" HeaderText="Email"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:BoundField DataField="Bodega" HeaderText="Estado Servicio Almacen"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:BoundField DataField="Almacén" HeaderText="Estado Servicio Bodega"  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
-                    <asp:BoundField DataField="Digitalización" HeaderText="Estado Servicio Dig."  ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle"/>
                     <asp:TemplateField HeaderText="Modificar">
                         <ItemTemplate>
                             <a href="/Control_Usuarios/Editar_Empresa.aspx?ID=<%#Eval("NombreEmpresa") %>">

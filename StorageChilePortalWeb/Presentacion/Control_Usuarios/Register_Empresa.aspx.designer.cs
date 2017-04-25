@@ -175,33 +175,6 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.Label Registro_Empresa_ServicioBodega_Label;
         
         /// <summary>
-        /// Control Registro_Empresa_ServicioDigitalizacion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Registro_Empresa_ServicioDigitalizacion;
-        
-        /// <summary>
-        /// Control Registro_Empresa_ServicioDigitalizacion_Switch.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox Registro_Empresa_ServicioDigitalizacion_Switch;
-        
-        /// <summary>
-        /// Control Registro_Empresa_ServicioDigitalizacion_Label.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Registro_Empresa_ServicioDigitalizacion_Label;
-        
-        /// <summary>
         /// Control FileUpload1.
         /// </summary>
         /// <remarks>

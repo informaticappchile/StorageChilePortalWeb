@@ -25,7 +25,6 @@ namespace Presentacion
         {
             Editar_Empresa_ServicioBodega_Switch.InputAttributes.Add("class", "mdl-switch__input");
             Editar_Empresa_ServicioAlmacen_Switch.InputAttributes.Add("class", "mdl-switch__input");
-            Editar_Empresa_ServicioDigitalizacion_Switch.InputAttributes.Add("class", "mdl-switch__input");
         }
 
         /*
@@ -59,14 +58,6 @@ namespace Presentacion
                     if (s.Verified)
                     {
                         Editar_Empresa_ServicioBodega_Label.Text = "Activado";
-                    }
-                }
-                if (s.Nombre == "Digitalización")
-                {
-                    Editar_Empresa_ServicioDigitalizacion_Switch.Checked = s.Verified;
-                    if (s.Verified)
-                    {
-                        Editar_Empresa_ServicioDigitalizacion_Label.Text = "Activado";
                     }
                 }
             }
@@ -110,10 +101,6 @@ namespace Presentacion
                 {
                     s.Verified = Editar_Empresa_ServicioBodega_Switch.Checked;
                 }
-                if (s.Nombre == "Digitalización")
-                {
-                    s.Verified = Editar_Empresa_ServicioDigitalizacion_Switch.Checked;
-                }
             }
             /*if (Editar_Perfil_Visibilidad_Switch.Checked)
             {
@@ -136,39 +123,24 @@ namespace Presentacion
                     }
                     catch (Exception ex)
                     {
-                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                        StringBuilder sbMensaje1 = new StringBuilder();
-                        //Aperturamos la escritura de Javascript
-                        sbMensaje1.Append("<script type='text/javascript'>");
-                        //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje1.AppendFormat("alert('{0}');", "Ha ocurrido un error al reservar su espacio,comuníquese con el servicio de soporte para poder habilitarlo.");
-                        sbMensaje1.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/AdministrarEmpresa.aspx\";");
-                        //Cerramos el Script
-                        sbMensaje1.Append("</script>");
-                        //Registramos el Script escrito en el StringBuilder
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje1.ToString());
-                    }
-                }
-                if (Editar_Empresa_ServicioDigitalizacion_Switch.Checked && !Editar_Empresa_ServicioBodega_Switch.Checked)
-                {
-                    try
-                    {
-                        modificarCarpeta(en.NombreEmp, FileSaveUri, ftpUser, ftpPassWord);
-                        crearCarpeta("Documentos", FileSaveUri + en.NombreEmp + "/", ftpUser, ftpPassWord);
-                    }
-                    catch (Exception ex)
-                    {
-                        //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                        StringBuilder sbMensaje1 = new StringBuilder();
-                        //Aperturamos la escritura de Javascript
-                        sbMensaje1.Append("<script type='text/javascript'>");
-                        //Le indicamos al alert que mensaje va mostrar
-                        sbMensaje1.AppendFormat("alert('{0}');", "Ha ocurrido un error al reservar su espacio,comuníquese con el servicio de soporte para poder habilitarlo.");
-                        sbMensaje1.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/AdministrarEmpresa.aspx\";");
-                        //Cerramos el Script
-                        sbMensaje1.Append("</script>");
-                        //Registramos el Script escrito en el StringBuilder
-                        ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje1.ToString());
+                        try
+                        {
+                            crearCarpeta(en.NombreEmp, FileSaveUri, ftpUser, ftpPassWord);
+                        }
+                        catch (Exception ex1)
+                        {
+                            //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                            StringBuilder sbMensaje1 = new StringBuilder();
+                            //Aperturamos la escritura de Javascript
+                            sbMensaje1.Append("<script type='text/javascript'>");
+                            //Le indicamos al alert que mensaje va mostrar
+                            sbMensaje1.AppendFormat("alert('{0}');", "Ha ocurrido un error al reservar su espacio,comuníquese con el servicio de soporte para poder habilitarlo.");
+                            sbMensaje1.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/AdministrarEmpresa.aspx\";");
+                            //Cerramos el Script
+                            sbMensaje1.Append("</script>");
+                            //Registramos el Script escrito en el StringBuilder
+                            ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje1.ToString());
+                        }
                     }
                 }
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
