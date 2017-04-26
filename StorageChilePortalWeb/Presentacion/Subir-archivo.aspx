@@ -68,7 +68,7 @@
                         <i class="material-icons  mdl-list__item-avatar">folder</i>
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <asp:TextBox ID="subcontenedor_sa_inpu" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
-                            <label class="mdl-textfield__label" for="contenedor_sa_inpu">Sub-Contenedor</label>
+                            <label class="mdl-textfield__label" for="subcontenedor_sa_inpu">Sub-Contenedor</label>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="contenedor_sa_inpu" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                         </span>
                     </span>

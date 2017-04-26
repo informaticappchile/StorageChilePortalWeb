@@ -18,8 +18,11 @@ namespace Presentacion
     public partial class SubirArchivoContenedor : System.Web.UI.Page
     {
         public int progresoBar1 = 0;
+        public List<string> carpetas = new List<string>();
+        public List<string> subCarpetas = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            cargaCarpetas();
             //InitInputClasses();
             User_EN en = (User_EN)Session["user_session_data"];
             if (en != null)
@@ -31,8 +34,24 @@ namespace Presentacion
             {
                 Response.Redirect("Control_Usuarios/Login.aspx");
             }
+            if (carpetas.Count == 0)
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Usted no dispone de contenedores.");
+                //Cerramos el Script
+                sbMensaje.Append("window.location.href = window.location.protocol + '//' + window.location.hostname + ':'+ window.location.port + \"/Inicio.aspx\";");
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
             if (!IsPostBack)
             {
+                contenedor_sa_inpu.DataSource = carpetas;
+                contenedor_sa_inpu.DataBind();
                 string script = "$(document).ready(function () { $('[id*=LinkButton1]').click(); });";
                 ClientScript.RegisterStartupScript(this.GetType(), "load", script, true);
                 script = "$(document).ready(function () { $('[id*=btnSubmit]').click(); });";
@@ -138,39 +157,10 @@ namespace Presentacion
                                 //requestStream.Close();
                                 //uploadResponse = (FtpWebResponse)uploadRequest.GetResponse();
                                 //uploadFile.SaveAs(MapPath(a));
-
                             }
                             catch (Exception ex)
                             {
-                                try
-                                {
-                                    crearCarpeta(carpeta, FileSaveUri+en.NombreEmp+"/", ftpUser, ftpPassWord);
-                                    FtpWebRequest uploadRequest = (FtpWebRequest)WebRequest.Create(uri);
-                                    uploadRequest.Method = WebRequestMethods.Ftp.UploadFile;
-                                    uploadRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
-                                    requestStream = uploadRequest.GetRequestStream();
-                                    byte[] buffer = new byte[FileLength];
-                                    fileStream = FileUpload1.PostedFile.InputStream;
-                                    fileStream.Read(buffer, 0, FileLength);
-                                    requestStream.Write(buffer, 0, FileLength);
-                                    requestStream.Close();
-                                    uploadResponse = (FtpWebResponse)uploadRequest.GetResponse();
-                                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                                    StringBuilder sbMensaje = new StringBuilder();
-                                    //Aperturamos la escritura de Javascript
-                                    sbMensaje.Append("<script type='text/javascript'>");
-                                    //Le indicamos al alert que mensaje va mostrar
-                                    sbMensaje.AppendFormat("alert('{0}');", "Se ha subido el archivo correctamente");
-                                    //Cerramos el Script
-                                    sbMensaje.Append("</script>");
-                                    //Registramos el Script escrito en el StringBuilder
-                                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                                    //uploadFile.SaveAs(MapPath(a));
-                                }
-                                catch (Exception ex1)
-                                {
-                                    Response.Write("Error de conexión con el servidor.");
-                                }
+                                Response.Write("Error de conexión con el servidor.");
                             }
                         }
                         else
@@ -193,14 +183,148 @@ namespace Presentacion
             }
         }
 
-        protected void crearCarpeta(string carpeta, string uri, string ftpUser, string ftpPassWord)
+        protected string ObtenerNombre(string nombre)
         {
-            WebRequest request = WebRequest.Create(uri + carpeta);
-            request.Method = WebRequestMethods.Ftp.MakeDirectory;
-            request.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
-            using (var resp = (FtpWebResponse)request.GetResponse())
+            string n = "";
+            char[] c = nombre.ToCharArray();
+            for (int i = c.Length - 1; i >= 0; i--)
             {
-                Console.WriteLine(resp.StatusCode);
+                if (c[i] != ' ')
+                {
+                    n = n + c[i].ToString();
+                }
+                else
+                {
+
+                    return Reverse(n);
+                }
+            }
+            return n;
+        }
+        protected bool isPunto(string nombre)
+        {
+            char[] c = nombre.ToCharArray();
+            for (int i = c.Length - 1; i >= 0; i--)
+            {
+                if (c[i] == '.')
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        protected string Reverse(string s)
+        {
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
+        protected void cargaCarpetas()
+        {
+            User_EN en = (User_EN)Session["user_session_data"];
+            try
+            {
+                string FileSaveUri = ConfigurationManager.AppSettings["ftp"] + en.NombreEmp + "/";
+                string ftpUser = ConfigurationManager.AppSettings["ftp_user"];
+                string ftpPassWord = ConfigurationManager.AppSettings["ftp_password"];
+                FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
+                ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+                FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
+                StreamReader streamReader = new StreamReader(response.GetResponseStream());
+                string line = streamReader.ReadLine();
+                int contador = 1;
+                while (!string.IsNullOrEmpty(line))
+                {
+                    string nombre = ObtenerNombre(line);
+                    if (isPunto(nombre))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        carpetas.Add(nombre);
+                        line = streamReader.ReadLine();
+                        contador++;
+                    }
+                }
+                streamReader.Close();
+            }
+            catch (Exception ex)
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Error de conexión con el servidor, intente más tarde.");
+                //Cerramos el Script
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
+        }
+
+        protected void cargaSubCarpetas(string carpeta)
+        {
+            User_EN en = (User_EN)Session["user_session_data"];
+            try
+            {
+                string FileSaveUri = ConfigurationManager.AppSettings["ftp"] + en.NombreEmp + "/" + carpeta;
+                string ftpUser = ConfigurationManager.AppSettings["ftp_user"];
+                string ftpPassWord = ConfigurationManager.AppSettings["ftp_password"];
+                FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
+                ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+                FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
+                StreamReader streamReader = new StreamReader(response.GetResponseStream());
+                string line = streamReader.ReadLine();
+                int contador = 1;
+                while (!string.IsNullOrEmpty(line))
+                {
+                    string nombre = ObtenerNombre(line);
+                    if (isPunto(nombre))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        subCarpetas.Add(nombre);
+                        line = streamReader.ReadLine();
+                        contador++;
+                    }
+                }
+                streamReader.Close();
+            }
+            catch (Exception ex)
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Error de conexión con el servidor, intente más tarde.");
+                //Cerramos el Script
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
+        }
+
+        protected void subContenedor(object sender, EventArgs e)
+        {
+            subCarpetas = new List<string>();
+            cargaSubCarpetas(contenedor_sa_inpu.Text);
+            if (subCarpetas.Count == 0)
+            {
+                subcontenedor_sa_inpu.Visible = false;
+            }else
+            {
+                subcontenedor_sa_inpu.Visible = false;
+                subcontenedor_sa_inpu.DataSource = subCarpetas;
+                subcontenedor_sa_inpu.DataBind();
             }
         }
     }

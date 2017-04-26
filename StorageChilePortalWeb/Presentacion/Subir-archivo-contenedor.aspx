@@ -56,10 +56,19 @@
                     <span class="mdl-list__item-primary-content">
                         <i class="material-icons  mdl-list__item-avatar">folder</i>
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <asp:TextBox ID="contenedor_sa_inpu" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
+                            <asp:DropDownList id="contenedor_sa_inpu" runat="server" CssClass="mdl-textfield__input" AutoPostBack="true"  OnTextChanged="subContenedor">
+                            </asp:DropDownList>
                             <label class="mdl-textfield__label" for="contenedor_sa_inpu">Contenedor</label>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="contenedor_sa_inpu" ErrorMessage="Introduce el nombre de usuario" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="contenedor_sa_inpu" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
+                        </span>
+                    </span>
+                </li>
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <i class="material-icons  mdl-list__item-avatar">folder</i>
+                        <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <asp:DropDownList id="subcontenedor_sa_inpu" runat="server" CssClass="mdl-textfield__input" Visible="false">
+                            </asp:DropDownList>
+                            <label class="mdl-textfield__label" for="subcontenedor_sa_inpu">Contenedor</label>
                         </span>
                     </span>
                 </li>
