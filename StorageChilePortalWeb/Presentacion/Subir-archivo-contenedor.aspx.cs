@@ -322,7 +322,7 @@ namespace Presentacion
                 subcontenedor_sa_inpu.Visible = false;
             }else
             {
-                subcontenedor_sa_inpu.Visible = false;
+                subcontenedor_sa_inpu.Visible = true;
                 subcontenedor_sa_inpu.DataSource = subCarpetas;
                 subcontenedor_sa_inpu.DataBind();
             }

@@ -68,7 +68,7 @@
                         <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <asp:DropDownList id="subcontenedor_sa_inpu" runat="server" CssClass="mdl-textfield__input" Visible="false">
                             </asp:DropDownList>
-                            <label class="mdl-textfield__label" for="subcontenedor_sa_inpu">Contenedor</label>
+                            <label class="mdl-textfield__label" for="subcontenedor_sa_inpu">Sub-Contenedor</label>
                         </span>
                     </span>
                 </li>
