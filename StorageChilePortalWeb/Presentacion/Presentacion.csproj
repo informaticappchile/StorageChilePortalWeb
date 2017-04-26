@@ -127,6 +127,9 @@
     <Content Include="Almacen\MenuAlmacen.aspx" />
     <Content Include="BusquedaArchivos.aspx" />
     <Content Include="BusquedaUsuario.aspx" />
+    <Content Include="img\folderplus.png" />
+    <Content Include="img\folder.png" />
+    <Content Include="MenuSubirArchivo.aspx" />
     <Content Include="Control_Usuarios\Editar_Empresa.aspx" />
     <Content Include="Control_Usuarios\ConfirmacionRegistro.aspx" />
     <Content Include="Control_Usuarios\Editar_Perfil.aspx" />
@@ -188,6 +191,7 @@
     <Content Include="img\loading.gif" />
     <Content Include="img\logo.png" />
     <Content Include="CSS\main_style.css" />
+    <Content Include="Subir-archivo-contenedor.aspx" />
     <Content Include="Subir-archivo.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -310,6 +314,13 @@
     </Compile>
     <Compile Include="BusquedaUsuario.aspx.designer.cs">
       <DependentUpon>BusquedaUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MenuSubirArchivo.aspx.cs">
+      <DependentUpon>MenuSubirArchivo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MenuSubirArchivo.aspx.designer.cs">
+      <DependentUpon>MenuSubirArchivo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Crypto.cs" />
     <Compile Include="Control_Usuarios\Editar_Empresa.aspx.cs">
@@ -435,6 +446,13 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ProgressBar.cs" />
+    <Compile Include="Subir-archivo-contenedor.aspx.cs">
+      <DependentUpon>Subir-archivo-contenedor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Subir-archivo-contenedor.aspx.designer.cs">
+      <DependentUpon>Subir-archivo-contenedor.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Subir-archivo.aspx.cs">
       <DependentUpon>Subir-archivo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

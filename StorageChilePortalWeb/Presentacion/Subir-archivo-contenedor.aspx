@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Subir-archivo.aspx.cs" Inherits="Presentacion.SubirArchivo" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Subir-archivo-contenedor.aspx.cs" Inherits="Presentacion.SubirArchivoContenedor" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
@@ -60,16 +60,6 @@
                             <label class="mdl-textfield__label" for="contenedor_sa_inpu">Contenedor</label>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="contenedor_sa_inpu" ErrorMessage="Introduce el nombre de usuario" CssClass="mdl-textfield__error"></asp:RequiredFieldValidator>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="contenedor_sa_inpu" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
-                        </span>
-                    </span>
-                </li>
-                <li class="mdl-list__item">
-                    <span class="mdl-list__item-primary-content">
-                        <i class="material-icons  mdl-list__item-avatar">folder</i>
-                        <span class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <asp:TextBox ID="subcontenedor_sa_inpu" runat="server" CssClass="mdl-textfield__input"></asp:TextBox>
-                            <label class="mdl-textfield__label" for="contenedor_sa_inpu">Sub-Contenedor</label>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ErrorMessage="No se admiten caracteres especiales o nombres muy largos o cortos" ControlToValidate="contenedor_sa_inpu" ValidationExpression="\w{4,30}" CssClass="mdl-textfield__error"></asp:RegularExpressionValidator>
                         </span>
                     </span>
                 </li>

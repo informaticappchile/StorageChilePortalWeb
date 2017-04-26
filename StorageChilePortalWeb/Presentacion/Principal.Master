@@ -74,7 +74,7 @@
                         <asp:HyperLink ID="Link_Who" runat="server" NavigateUrl="~/InfoEmpresa.aspx" CssClass="mdl-navigation__link">
                             <i class="material-icons">people</i> ¿Quienes Somos?
                         </asp:HyperLink>
-                        <asp:HyperLink ID="Link_Feed" runat="server" Visible="false" NavigateUrl="~/Subir-archivo.aspx" CssClass="mdl-navigation__link">
+                        <asp:HyperLink ID="Link_Feed" runat="server" Visible="false" NavigateUrl="~/MenuSubirArchivo.aspx" CssClass="mdl-navigation__link">
                             <i class="material-icons">library_books</i> Subir archivo
                         </asp:HyperLink>
                         <asp:HyperLink ID="Link_MyFiles" runat="server" Visible="false" NavigateUrl="~/ArchivosUsuario.aspx" CssClass="mdl-navigation__link">
