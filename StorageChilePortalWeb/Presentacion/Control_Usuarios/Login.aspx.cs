@@ -79,16 +79,7 @@ namespace Presentacion
                 //e.GetBaseExceptio();
             }
         }
-
-        protected static string ReCaptcha_Key = "<" + ConfigurationManager.AppSettings["ReCaptcha_Key"] + ">";
-        protected static string ReCaptcha_Secret = "<" + ConfigurationManager.AppSettings["ReCaptcha_Secret"] + ">";
-
-        [WebMethod]
-        public static string VerifyCaptcha(string response)
-        {
-            string url = "https://www.google.com/recaptcha/api/siteverify?secret=" + ReCaptcha_Secret + "&response=" + response;
-            return (new WebClient()).DownloadString(url);
-        }
+       
         private void ingresoUsuario(User_EN usuario, string tabla)
         {
             LogicaUsuario lu = new LogicaUsuario();
