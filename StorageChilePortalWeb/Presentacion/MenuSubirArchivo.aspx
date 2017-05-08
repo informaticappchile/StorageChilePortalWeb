@@ -6,7 +6,7 @@
      
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h1 class="mdl-card__title-text">Contactos</h1>
+            <h1 class="mdl-card__title-text">Menú Subir Archivos</h1>
         </div>
         <style>
             img {

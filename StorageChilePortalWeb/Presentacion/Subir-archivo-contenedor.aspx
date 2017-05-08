@@ -135,6 +135,7 @@
                     <asp:Button ID="btnSubmit" runat="server" Text="Subir" CssClass="mdl-button mdl-js-button mdl-button--primary"
                         OnClick="Button_Upload_Click"/>
                     <hr />
+                <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/MenuSubirArchivo.aspx" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Volver a Menú</asp:HyperLink>
             </div>
         </div>
 </asp:Content>

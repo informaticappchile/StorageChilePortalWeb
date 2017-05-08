@@ -114,22 +114,27 @@ namespace Presentacion
                             try
                             {
                                 cargaCarpetas();
+                                cargaSubCarpetas(carpeta);
                                 if (!existCarpeta(contenedor_sa_inpu.Text))
                                 {
                                     crearCarpeta(carpeta, FileSaveUri + en.NombreEmp + "/", ftpUser, ftpPassWord);
+                                    if (subcontenedor_sa_inpu.Text != "")
+                                    {
+                                        crearCarpeta(subCarpeta, FileSaveUri + en.NombreEmp + "/" + carpeta, ftpUser, ftpPassWord);
+                                        uri = new Uri(FileSaveUri + empresa + carpeta + subCarpeta + Path.GetFileName(FileUpload1.PostedFile.FileName));
+                                    }
                                 }
                                 else
                                 {
-                                    cargaSubCarpetas(carpeta);
-                                    if (subCarpetas.Count == 0)
+                                    if(subCarpetas.Count > 0 && subcontenedor_sa_inpu.Text != "")
+                                    {
+                                        crearCarpeta(subCarpeta, FileSaveUri + en.NombreEmp + "/" + carpeta, ftpUser, ftpPassWord);
+                                        uri = new Uri(FileSaveUri + empresa + carpeta + subCarpeta + Path.GetFileName(FileUpload1.PostedFile.FileName));
+                                    }
+                                    else
                                     {
                                         throw new System.ArgumentException("Parameter cannot be null", "original");
                                     }
-                                }
-                                if (subcontenedor_sa_inpu.Text != "")
-                                {
-                                    crearCarpeta(subCarpeta, FileSaveUri + en.NombreEmp + "/" + carpeta, ftpUser, ftpPassWord);
-                                    uri = new Uri(FileSaveUri + empresa + carpeta + subCarpeta + Path.GetFileName(FileUpload1.PostedFile.FileName));
                                 }
                                 FtpWebRequest uploadRequest = (FtpWebRequest)WebRequest.Create(uri);
                                 uploadRequest.Method = WebRequestMethods.Ftp.UploadFile;
