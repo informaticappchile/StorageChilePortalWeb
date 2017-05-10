@@ -21,9 +21,9 @@ namespace Presentacion
          */
         protected void Page_Load(object sender, EventArgs e)
         {
-            LogicaUsuario lu = new LogicaUsuario();
+            /*LogicaUsuario lu = new LogicaUsuario();
             User_EN userAutoLog = lu.BuscarUsuario("jbravo", "Usuario");
-            Session["user_session_data"] = userAutoLog;
+            Session["user_session_data"] = userAutoLog;*/
         }
 
         protected void clickContacto(object sender, EventArgs e)

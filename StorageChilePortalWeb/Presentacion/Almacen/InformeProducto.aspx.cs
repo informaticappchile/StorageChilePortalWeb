@@ -41,6 +41,7 @@ namespace Presentacion
                 sbMensaje.Append("</script>");
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                return;
             }
             User_EN en = (User_EN)Session["user_session_data"];
             LogicaEmpresa le = new LogicaEmpresa();

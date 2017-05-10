@@ -26,7 +26,8 @@ namespace Presentacion
             User_EN userAutoLog = lu.BuscarUsuario("cvaras", "Usuario");
             Session["user_session_data"] = userAutoLog;*/
             User_EN en = (User_EN)Session["user_session_data"];
-            if (en == null)
+            
+            if (Session["user_session_data"] == null)
             {
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                 StringBuilder sbMensaje = new StringBuilder();
@@ -39,7 +40,9 @@ namespace Presentacion
                 sbMensaje.Append("</script>");
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                return;
             }
+            
             LogicaEmpresa le = new LogicaEmpresa();
             Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
             LogicaServicio ls = new LogicaServicio();
@@ -65,6 +68,8 @@ namespace Presentacion
             switch (en.NombrePerfil)
             {
                 case "Administrador":
+                    break;
+                case "UsuarioMantenimiento":
                     break;
                 case "AdministradorAlmacen":
                     break;

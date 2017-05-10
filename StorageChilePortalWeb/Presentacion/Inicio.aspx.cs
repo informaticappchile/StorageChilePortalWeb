@@ -34,10 +34,11 @@ namespace Presentacion
                 option = 1;
                 msg = lo.getMensaje();
             }
-            /*LogicaOpciones lo = new LogicaOpciones();
-            LogicaUsuario lu = new LogicaUsuario();
+            
+            /*LogicaUsuario lu = new LogicaUsuario();
             User_EN nilo = lu.BuscarUsuario("naraya", "Usuario");
             clave.Text = Crypto.DecrytedPassword(lo.getCrypto(), nilo.Contraseña);*/
+            
             //File_EN fi = new File_EN();
             //GridViewMostrarTodo.DataSource = fi.MostrarAllFiles();
             //GridViewMostrarTodo.DataBind();
