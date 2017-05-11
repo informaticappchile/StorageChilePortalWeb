@@ -68,7 +68,7 @@
             background-color: transparent;
         }
     </style>
-
+    <asp:TextBox runat="server" ID="ArbolR" TextMode="MultiLine"></asp:TextBox>
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
             <h1 class="mdl-card__title-text">Mi bodega</h1>

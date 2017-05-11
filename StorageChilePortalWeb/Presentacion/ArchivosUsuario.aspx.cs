@@ -22,9 +22,9 @@ namespace Presentacion
         List<Button> botones = new List<Button>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*LogicaUsuario lu = new LogicaUsuario();
-            User_EN userAutoLog = lu.BuscarUsuario("cvaras");
-            Session["user_session_data"] = userAutoLog;*/
+            LogicaUsuario lu = new LogicaUsuario();
+            User_EN userAutoLog = lu.BuscarUsuario("jbravo", "Usuario");
+            Session["user_session_data"] = userAutoLog;
             User_EN en = (User_EN)Session["user_session_data"];
             if (en != null)
             {
@@ -34,8 +34,15 @@ namespace Presentacion
             {
                 Response.Redirect("Control_Usuarios/Login.aspx");
             }
-            
-            
+
+            if (Session["lista_archivos"] == null)
+            {
+                CargarListaArchivos();
+                Arbol a = (Arbol)Session["lista_archivos"];
+                NodoArbol n = a.Raiz;
+                a.RecorridoPostOrden(ref n);
+                ArbolR.Text = a.Resultado;
+            }
         }
 
         /*
@@ -432,6 +439,80 @@ namespace Presentacion
             int numericDigito = (11 - suma % 11);
             string digito = numericDigito == 11 ? "0" : numericDigito == 10 ? "K" : numericDigito.ToString();
             return digito;
+        }
+
+        public void CargarListaArchivos()
+        {
+            User_EN en = (User_EN)Session["user_session_data"];
+            Arbol arbol = new Arbol(en.NombreEmp, true);
+            try
+            {
+                NodoArbol padre = arbol.Raiz;
+                string dir = padre.Nombre + "/";
+                List<NodoArbol> lista = null;
+                CargarListaArchivos(ref padre, dir, ref arbol);
+                lista = padre.Hijos;
+                CargarListaArchivos(ref lista, dir, arbol);
+                Session["lista_archivos"] = arbol;
+            }
+            catch (Exception ex)
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Error de conexión con el servidor, intente más tarde.");
+                //Cerramos el Script
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
+        }
+
+        public void CargarListaArchivos(ref List<NodoArbol> lista, string dir, Arbol arbol)
+        {
+
+            foreach (NodoArbol aux in lista)
+            {
+                NodoArbol padre = aux;
+                CargarListaArchivos(ref padre, dir + padre.Nombre + "/", ref arbol);
+                List<NodoArbol> list = aux.Hijos;
+                CargarListaArchivos(ref list, dir + padre.Nombre + "/", arbol);
+            }
+
+        }
+
+        public void CargarListaArchivos(ref NodoArbol padre, string dir, ref Arbol arbol)
+        {
+            string FileSaveUri = ConfigurationManager.AppSettings["ftp"] + dir;
+            string ftpUser = ConfigurationManager.AppSettings["ftp_user"];
+            string ftpPassWord = ConfigurationManager.AppSettings["ftp_password"];
+            FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
+            ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+            ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+            FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
+            StreamReader streamReader = new StreamReader(response.GetResponseStream());
+            string line = streamReader.ReadLine();
+            int contador = 1;
+            while (!string.IsNullOrEmpty(line))
+            {
+                string nombre = ObtenerNombre(line);
+                bool isCarpeta = esCarpeta(nombre);
+                arbol.Insertar(nombre, isCarpeta, ref padre);
+                line = streamReader.ReadLine();
+                contador++;
+            }
+            streamReader.Close();
+        }
+
+        public bool esCarpeta(string nombre)
+        {
+            if(System.IO.Path.GetExtension(nombre).ToLower() == ".pdf")
+            {
+                return false;
+            }
+            return true;
         }
 
     }

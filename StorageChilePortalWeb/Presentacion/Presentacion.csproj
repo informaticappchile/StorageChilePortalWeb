@@ -315,6 +315,8 @@
     <Compile Include="BusquedaUsuario.aspx.designer.cs">
       <DependentUpon>BusquedaUsuario.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Arbol.cs" />
+    <Compile Include="Controls\NodoArbol.cs" />
     <Compile Include="MenuSubirArchivo.aspx.cs">
       <DependentUpon>MenuSubirArchivo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
