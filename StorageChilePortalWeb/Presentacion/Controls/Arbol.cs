@@ -10,6 +10,7 @@ namespace Presentacion
         NodoArbol raiz;
         string nombre;
         string resultado;
+        NodoArbol buscado;
 
         public NodoArbol Raiz
         {
@@ -25,11 +26,13 @@ namespace Presentacion
 
         public Arbol()
         {
+            resultado = "";
             this.raiz = new NodoArbol();
         }
 
         public Arbol(string nombre, bool esCarpeta)
         {
+            resultado = "";
             this.raiz = new NodoArbol(nombre,esCarpeta);
         }
 
@@ -48,8 +51,8 @@ namespace Presentacion
             else
             {
                 NodoArbol b = a.Padre;
-                NodoArbol p = BuscarPostOrden(ref raiz, ref b);
-                p.Hijos.Add(a);
+                b.Hijos.Add(a);
+                
             }
             return false;
         }
@@ -93,7 +96,7 @@ namespace Presentacion
 
         public void RecorridoPostOrden(ref NodoArbol entidad)
         {
-            resultado = "";
+            
             if (entidad == null)
                 return;
             entidad.Hijos.ToList().ForEach(actualNodo =>
@@ -116,7 +119,7 @@ namespace Presentacion
                 BuscarPostOrden(ref a, ref buscado);
                 if (a == b)
                 {
-                    return actualNodo;
+                    buscado = actualNodo;
                 }
             }
             return null;

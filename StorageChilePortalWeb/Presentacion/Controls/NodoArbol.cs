@@ -46,13 +46,13 @@ namespace Presentacion
         }
         public string Nombre
         {
-            get { return Nombre; }
-            set { Nombre = value; }
+            get { return nombre; }
+            set { nombre = value; }
         }
         public bool EsCarpeta
         {
-            get { return EsCarpeta; }
-            set { EsCarpeta = value; }
+            get { return esCarpeta; }
+            set { esCarpeta = value; }
         }
         public NodoArbol Padre
         {

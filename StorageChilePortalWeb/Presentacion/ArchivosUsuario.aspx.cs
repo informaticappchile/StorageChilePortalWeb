@@ -476,9 +476,13 @@ namespace Presentacion
             foreach (NodoArbol aux in lista)
             {
                 NodoArbol padre = aux;
-                CargarListaArchivos(ref padre, dir + padre.Nombre + "/", ref arbol);
-                List<NodoArbol> list = aux.Hijos;
-                CargarListaArchivos(ref list, dir + padre.Nombre + "/", arbol);
+                if (padre.EsCarpeta)
+                {
+                    CargarListaArchivos(ref padre, dir + padre.Nombre + "/", ref arbol);
+                    List<NodoArbol> list = aux.Hijos;
+                    CargarListaArchivos(ref list, dir + padre.Nombre + "/", arbol);
+                }
+               
             }
 
         }
