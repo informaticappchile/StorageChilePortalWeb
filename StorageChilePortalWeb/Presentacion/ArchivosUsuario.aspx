@@ -73,6 +73,7 @@
         <div class="mdl-card__title">
             <h1 class="mdl-card__title-text">Mi bodega</h1>
         </div>
+        <asp:Button ID="Retorno" runat="server" Text="Nivel Anterior" OnClick="Button_Nivel_Click" Visible="false" CssClass="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"/>
         <div style="width:100%;text-align:center;">
             <span class="mdl-list__item-primary-content">
                 <i class="material-icons  mdl-list__item-avatar">search</i>

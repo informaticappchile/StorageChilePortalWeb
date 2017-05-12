@@ -26,11 +26,7 @@ namespace Presentacion
             User_EN userAutoLog = lu.BuscarUsuario("jbravo", "Usuario");
             Session["user_session_data"] = userAutoLog;
             User_EN en = (User_EN)Session["user_session_data"];
-            if (en != null)
-            {
-                cargaCarpetas(true,null);
-            }
-            else
+            if (en == null)
             {
                 Response.Redirect("Control_Usuarios/Login.aspx");
             }
@@ -39,10 +35,12 @@ namespace Presentacion
             {
                 CargarListaArchivos();
                 Arbol a = (Arbol)Session["lista_archivos"];
+                Session["Carpeta_Raiz"] = a.Raiz;
                 NodoArbol n = a.Raiz;
                 a.RecorridoPostOrden(ref n);
                 ArbolR.Text = a.Resultado;
             }
+            cargaCarpetas();
         }
 
         /*
@@ -232,45 +230,29 @@ namespace Presentacion
             return new string(charArray);
         }
 
-        protected void cargaCarpetas(bool tipoCarga, List<string> carpetas)
+        protected void cargaCarpetas()
         {
             User_EN en = (User_EN)Session["user_session_data"];
             try
             {
-                string FileSaveUri = ConfigurationManager.AppSettings["ftp"] + en.NombreEmp + "/";
-                string ftpUser = ConfigurationManager.AppSettings["ftp_user"];
-                string ftpPassWord = ConfigurationManager.AppSettings["ftp_password"];
-                FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(FileSaveUri);
-                ftpRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
-                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
-                FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
-                StreamReader streamReader = new StreamReader(response.GetResponseStream());
-                string line = streamReader.ReadLine();
-                int contador = 1;
-                while (!string.IsNullOrEmpty(line))
+                if (Session["Carpeta_Raiz"] != null)
                 {
-                    Button button = new Button();
-                    button.ID = ObtenerNombre(line);
-                    button.Text = ObtenerNombre(line);
-                    if (botones.Count >= contador && !tipoCarga)
+                    quitarBotones();
+                    NodoArbol nodo = (NodoArbol)Session["Carpeta_Raiz"];
+                    foreach(NodoArbol n in nodo.Hijos)
                     {
-                        cargaCarpetasFiltradas(carpetas);
-                        break;
-                    }
-                    else
-                    {
+                        Button button = new Button();
+                        button.ID = n.Nombre;
+                        button.Text = n.Nombre;
                         button.CssClass = "button-folder";
+                        if (!isPunto(button.Text))
+                        {
+                            button.Click += new EventHandler(button_Click);
+                            container.Controls.Add(button);
+                        }
+                        botones.Add(button);
                     }
-                    if (!isPunto(button.Text))
-                    {
-                        button.Click += new EventHandler(button_Click);
-                        container.Controls.Add(button);
-                    }
-                    botones.Add(button);
-                    line = streamReader.ReadLine();
-                    contador++;
                 }
-                streamReader.Close();
             }
             catch (Exception ex)
             {
@@ -285,6 +267,17 @@ namespace Presentacion
                 //Registramos el Script escrito en el StringBuilder
                 ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
             }
+        }
+
+        protected void quitarBotones()
+        {
+            foreach (Button b in botones)
+            {
+                b.Visible = false;
+                Button r = b;
+                r = null;
+            }
+            botones.Clear();
         }
 
         protected void cargaCarpetasFiltradas(List<string> carpetas)
@@ -313,17 +306,53 @@ namespace Presentacion
         protected void button_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
-            Session["carpeta"] = button.Text;
-            txtFiltro.Visible = true;
-            buscar_Rut.Visible = false;
-            Button1.Visible = true;
-            container.Visible = false;
-            GridViewMostrarArchivos.Visible = true;
-            botonesPie.Visible = true;
-            cargaArchivos();
+            Arbol arbol = (Arbol)Session["lista_archivos"];
+            NodoArbol raiz = arbol.Raiz;
+            arbol.Buscado = null;
+            arbol.BuscarPostOrden(ref raiz, button.Text);
+            NodoArbol n = arbol.Buscado;
+
+            if (n.Padre == arbol.Raiz)
+            {
+                Session["carpeta"] = button.Text;
+            }
+            else
+            {
+                Session["carpeta"] = n.Padre.Nombre + "/" + button.Text;
+            }
+
+            NodoArbol hoja = n.Padre;
+            Session["Retorno"] = hoja;
+            Retorno.Visible = true;
+
+            if (n.Hijos[0].EsCarpeta)
+            {
+                Session["Carpeta_Raiz"] = n;
+                cargaCarpetas();
+            }
+            else
+            {
+                Retorno.Visible = false;
+                txtFiltro.Visible = true;
+                buscar_Rut.Visible = false;
+                Button1.Visible = true;
+                container.Visible = false;
+                GridViewMostrarArchivos.Visible = true;
+                botonesPie.Visible = true;
+                cargaArchivos();
+            }
         }
 
-
+        protected void Button_Nivel_Click(object sender, EventArgs e)
+        {
+            NodoArbol hoja = (NodoArbol)Session["Retorno"];
+            Session["Carpeta_Raiz"] = hoja;
+            cargaCarpetas();
+            if (hoja.Padre == null)
+            {
+                Retorno.Visible = false;
+            }
+        }
 
         protected void Button_Volver_Click(object sender, EventArgs e)
         {
@@ -419,7 +448,7 @@ namespace Presentacion
                 LogicaEmpresa le = new LogicaEmpresa();
                 string rutCompleto = buscar_Rut.Text + "-" + digitoVerificador(buscar_Rut.Text);
                 List<string> carpetas = lf.MostrarArchivosFiltrados(rutCompleto, le.BuscarEmpresa(en.NombreEmp));
-                cargaCarpetas(false, carpetas);
+                cargaCarpetas();
             }
         }
 

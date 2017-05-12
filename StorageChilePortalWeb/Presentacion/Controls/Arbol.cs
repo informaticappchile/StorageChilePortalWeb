@@ -17,6 +17,12 @@ namespace Presentacion
             get { return raiz; }
             set { raiz = value; }
         }
+        public NodoArbol Buscado
+        {
+            get { return buscado; }
+            set { buscado = value; }
+        }
+
 
         public string Resultado
         {
@@ -28,12 +34,14 @@ namespace Presentacion
         {
             resultado = "";
             this.raiz = new NodoArbol();
+            buscado = null;
         }
 
         public Arbol(string nombre, bool esCarpeta)
         {
             resultado = "";
             this.raiz = new NodoArbol(nombre,esCarpeta);
+            buscado = null;
         }
 
         public bool Insertar(string nombre, bool esCarpeta, ref NodoArbol padre)
@@ -108,18 +116,17 @@ namespace Presentacion
 
         }
 
-        public NodoArbol BuscarPostOrden(ref NodoArbol entidad, ref NodoArbol buscado)
+        public NodoArbol BuscarPostOrden(ref NodoArbol entidad, string buscado)
         {
-            NodoArbol b = buscado;
             if (entidad == null)
                 return null;
             foreach (NodoArbol actualNodo in entidad.Hijos)
             {
                 NodoArbol a = actualNodo;
-                BuscarPostOrden(ref a, ref buscado);
-                if (a == b)
+                BuscarPostOrden(ref a, buscado);
+                if (a.Nombre == buscado)
                 {
-                    buscado = actualNodo;
+                    this.buscado = actualNodo;
                 }
             }
             return null;

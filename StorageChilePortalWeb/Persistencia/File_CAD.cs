@@ -132,20 +132,20 @@ namespace Persistencia
         protected string ObtenerCarpeta(string carpeta)
         {
             string n = "";
+            bool v = false;
             char[] c = carpeta.ToCharArray();
-            for (int i = 0; i < c.Length; i++)
+            for (int i = c.Length-1; i >= 0; i--)
             {
-                if (c[i] != '/')
+                if (v)
                 {
                     n = n + c[i].ToString();
                 }
-                else
+                else if(c[i] == '/')
                 {
-
-                    return n;
+                    v = true;
                 }
             }
-            return n;
+            return Reverse(n);
         }
 
         protected string ObtenerArchivo(string archivo)

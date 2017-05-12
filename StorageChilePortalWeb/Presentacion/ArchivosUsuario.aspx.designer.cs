@@ -22,6 +22,15 @@ namespace Presentacion {
         protected global::System.Web.UI.WebControls.TextBox ArbolR;
         
         /// <summary>
+        /// Control Retorno.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Retorno;
+        
+        /// <summary>
         /// Control txtFiltro.
         /// </summary>
         /// <remarks>
