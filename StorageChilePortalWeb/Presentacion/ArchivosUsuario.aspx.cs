@@ -40,7 +40,10 @@ namespace Presentacion
                 a.RecorridoPostOrden(ref n);
                 ArbolR.Text = a.Resultado;
             }
-            cargaCarpetas();
+            if (!GridViewMostrarArchivos.Visible)
+            {
+                cargaCarpetas();
+            }
         }
 
         /*
@@ -273,9 +276,11 @@ namespace Presentacion
         {
             foreach (Button b in botones)
             {
-                b.Visible = false;
-                Button r = b;
-                r = null;
+                if (container.Controls.Contains(b))
+                {
+                    container.Controls.Remove(b);
+                    b.Dispose();
+                }
             }
             botones.Clear();
         }
@@ -346,11 +351,12 @@ namespace Presentacion
         protected void Button_Nivel_Click(object sender, EventArgs e)
         {
             NodoArbol hoja = (NodoArbol)Session["Retorno"];
-            Session["Carpeta_Raiz"] = hoja;
+            Session["Carpeta_Raiz"] = hoja.Padre;
             cargaCarpetas();
-            if (hoja.Padre == null)
+            if (hoja.Padre.Padre == null)
             {
                 Retorno.Visible = false;
+                Session["Retorno"] = null;
             }
         }
 
@@ -362,6 +368,12 @@ namespace Presentacion
             container.Visible = true;
             GridViewMostrarArchivos.Visible = false;
             botonesPie.Visible = false;
+            cargaCarpetas();
+            NodoArbol hoja = (NodoArbol)Session["Retorno"];
+            if (Session["Retorno"] != null && hoja.Padre != null)
+            {
+                Retorno.Visible = true;
+            }
             //limpiarCarpetasFiltradas();
         }
 
