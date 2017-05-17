@@ -56,9 +56,13 @@ namespace Presentacion
         }
         public NodoArbol Padre
         {
-
             get { return padre; }
             set { padre = value; }
+        }
+        public bool Filtro
+        {
+            get { return filtro; }
+            set { filtro = value; }
         }
     }
 }

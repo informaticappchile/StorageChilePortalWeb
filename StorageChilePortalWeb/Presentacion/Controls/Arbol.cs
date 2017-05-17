@@ -132,5 +132,23 @@ namespace Presentacion
             return null;
 
         }
+
+        public bool AplicarFiltro(ref NodoArbol entidad)
+        {
+            try
+            {
+                entidad.Filtro = true;
+                NodoArbol aux = entidad.Padre;
+                while (entidad != null)
+                {
+                    aux.Filtro = true;
+                    aux = aux.Padre;
+                }
+                return true;
+            }catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

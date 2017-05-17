@@ -241,13 +241,29 @@ namespace Presentacion
                 if (Session["Carpeta_Raiz"] != null)
                 {
                     quitarBotones();
-                    NodoArbol nodo = (NodoArbol)Session["Carpeta_Raiz"];
+                    NodoArbol nodo;
+                    if (Session["Carpeta_Filtrada"] != null)
+                    {
+                        nodo = (NodoArbol)Session["Carpeta_Filtrada"];
+                    }
+                    else
+                    {
+                        nodo = (NodoArbol)Session["Carpeta_Raiz"];
+                    }
+
                     foreach(NodoArbol n in nodo.Hijos)
                     {
                         Button button = new Button();
                         button.ID = n.Nombre;
                         button.Text = n.Nombre;
-                        button.CssClass = "button-folder";
+                        if (n.Filtro)
+                        {
+                            button.CssClass = "button-folder-filtrado";
+                        }
+                        else
+                        {
+                            button.CssClass = "button-folder";
+                        }
                         if (!isPunto(button.Text))
                         {
                             button.Click += new EventHandler(button_Click);
@@ -311,7 +327,15 @@ namespace Presentacion
         protected void button_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
-            Arbol arbol = (Arbol)Session["lista_archivos"];
+            Arbol arbol;
+            if (Session["lista_archivos_filtrados"] != null)
+            {
+                arbol = (Arbol)Session["lista_archivos_filtrados"];
+            }
+            else
+            {
+                arbol = (Arbol)Session["lista_archivos"];
+            }
             NodoArbol raiz = arbol.Raiz;
             arbol.Buscado = null;
             arbol.BuscarPostOrden(ref raiz, button.Text);
@@ -327,13 +351,22 @@ namespace Presentacion
             }
 
             NodoArbol hoja = n.Padre;
+            Session["Retorno"] = null;
             Session["Retorno"] = hoja;
             Retorno.Visible = true;
 
             if (n.Hijos[0].EsCarpeta)
             {
-                Session["Carpeta_Raiz"] = n;
-                cargaCarpetas();
+                if (Session["lista_archivos_filtrados"] != null)
+                {
+                    Session["Carpeta_Filtrada"] = n;
+                    cargaCarpetas();
+                }
+                else
+                {
+                    Session["Carpeta_Raiz"] = n;
+                    cargaCarpetas();
+                }
             }
             else
             {
@@ -458,9 +491,27 @@ namespace Presentacion
                 User_EN en = (User_EN)Session["user_session_data"];
                 LogicaFile lf = new LogicaFile();
                 LogicaEmpresa le = new LogicaEmpresa();
+                Session["lista_archivos_Filtrados"] = (Arbol)Session["lista_archivos"];
+                Arbol arbolFiltrado = (Arbol)Session["lista_archivos_filtrados"];
                 string rutCompleto = buscar_Rut.Text + "-" + digitoVerificador(buscar_Rut.Text);
                 List<string> carpetas = lf.MostrarArchivosFiltrados(rutCompleto, le.BuscarEmpresa(en.NombreEmp));
-                cargaCarpetas();
+                if (carpetas.Count > 0)
+                {
+                    foreach (string carpeta in carpetas)
+                    {
+                        NodoArbol nodo = arbolFiltrado.Raiz;
+                        nodo = arbolFiltrado.BuscarPostOrden(ref nodo, carpeta);
+                        arbolFiltrado.AplicarFiltro(ref nodo);
+                    }
+                    Session["lista_archivos_filtrados"] = arbolFiltrado;
+                    Session["Carpeta_Filtrada"] = arbolFiltrado.Raiz;
+                    cargaCarpetas();
+                }
+                else
+                {
+                    Session["lista_archivos_filtrados"] = null;
+                    Session["Carpeta_Filtrada"] = null;
+                }
             }
         }
 
