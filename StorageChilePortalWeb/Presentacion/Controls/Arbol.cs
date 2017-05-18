@@ -139,7 +139,7 @@ namespace Presentacion
             {
                 entidad.Filtro = true;
                 NodoArbol aux = entidad.Padre;
-                while (entidad != null)
+                while (aux != null)
                 {
                     aux.Filtro = true;
                     aux = aux.Padre;

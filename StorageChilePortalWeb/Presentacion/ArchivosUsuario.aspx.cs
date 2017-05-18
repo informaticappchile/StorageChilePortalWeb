@@ -213,6 +213,26 @@ namespace Presentacion
             }
             return n;
         }
+
+        protected string ObtenerNombreRuta(string nombre)
+        {
+            string n = "";
+            char[] c = nombre.ToCharArray();
+            for (int i = c.Length - 1; i >= 0; i--)
+            {
+                if (c[i] != '/')
+                {
+                    n = n + c[i].ToString();
+                }
+                else
+                {
+
+                    return Reverse(n);
+                }
+            }
+            return Reverse(n);
+        }
+
         protected bool isPunto(string nombre)
         {
             char[] c = nombre.ToCharArray();
@@ -350,8 +370,15 @@ namespace Presentacion
                 Session["carpeta"] = n.Padre.Nombre + "/" + button.Text;
             }
 
-            NodoArbol hoja = n.Padre;
-            Session["Retorno"] = null;
+            NodoArbol hoja;
+            if (!isPunto(n.Hijos[0].Nombre))
+            {
+                hoja = n;
+            }
+            else
+            {
+                hoja = n.Padre;
+            }
             Session["Retorno"] = hoja;
             Retorno.Visible = true;
 
@@ -500,7 +527,8 @@ namespace Presentacion
                     foreach (string carpeta in carpetas)
                     {
                         NodoArbol nodo = arbolFiltrado.Raiz;
-                        nodo = arbolFiltrado.BuscarPostOrden(ref nodo, carpeta);
+                        arbolFiltrado.BuscarPostOrden(ref nodo, ObtenerNombreRuta(carpeta));
+                        nodo = arbolFiltrado.Buscado;
                         arbolFiltrado.AplicarFiltro(ref nodo);
                     }
                     Session["lista_archivos_filtrados"] = arbolFiltrado;
