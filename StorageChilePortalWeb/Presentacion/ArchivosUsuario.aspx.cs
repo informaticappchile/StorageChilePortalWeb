@@ -31,7 +31,7 @@ namespace Presentacion
                 Response.Redirect("Control_Usuarios/Login.aspx");
             }
 
-            if (Session["lista_archivos"] == null)
+            if (!IsPostBack)
             {
                 CargarListaArchivos();
                 Arbol a = (Arbol)Session["lista_archivos"];
@@ -40,6 +40,12 @@ namespace Presentacion
                 a.RecorridoPostOrden(ref n);
                 ArbolR.Text = a.Resultado;
             }
+            Arbol ar = (Arbol)Session["lista_archivos"];
+            if (ar.Raiz.Hijos.Count == 0)
+            {
+                Response.Redirect("MenuSubirArchivo.aspx");
+            }
+
             if (!GridViewMostrarArchivos.Visible)
             {
                 cargaCarpetas();
@@ -411,12 +417,25 @@ namespace Presentacion
         protected void Button_Nivel_Click(object sender, EventArgs e)
         {
             NodoArbol hoja = (NodoArbol)Session["Retorno"];
-            Session["Carpeta_Raiz"] = hoja.Padre;
-            cargaCarpetas();
-            if (hoja.Padre.Padre == null)
+            if (Session["lista_archivos_filtrados"] != null)
             {
-                Retorno.Visible = false;
-                Session["Retorno"] = null;
+                Session["Carpeta_Filtrada"] = hoja.Padre;
+                cargaCarpetas();
+                if (hoja.Padre.Padre == null)
+                {
+                    Retorno.Visible = false;
+                    Session["Retorno"] = null;
+                }
+            }
+            else
+            {
+                Session["Carpeta_Raiz"] = hoja.Padre;
+                cargaCarpetas();
+                if (hoja.Padre.Padre == null)
+                {
+                    Retorno.Visible = false;
+                    Session["Retorno"] = null;
+                }
             }
         }
 

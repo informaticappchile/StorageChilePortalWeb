@@ -96,100 +96,118 @@ namespace Presentacion
                     }
                     fe.ArchivoAsociado = uploadFile.FileName;
                     lp.InsertarPersonal(pe);
-                    pe = lp.BuscarPersonal(rut_sa_input.Text);
-                    LogicaEmpresa le = new LogicaEmpresa();
-                    fe.IDPersonal = pe.ID;
-                    fe.IDUsuario = en.ID;
-                    lp.InsertarPersonalEmpresa(pe.ID, le.BuscarEmpresa(en.NombreEmp).ID);
-                    lf.InsertarArchivo(fe);
-                    try
+                    Personal_EN personal = lp.BuscarPersonal(rut_sa_input.Text);
+                    if (personal != null && pe.Rut == personal.Rut)
                     {
-                        User_EN user = (User_EN)Session["user_session_data"];
-                        if (user != null)
+                        pe = personal;
+                        LogicaEmpresa le = new LogicaEmpresa();
+                        fe.IDPersonal = pe.ID;
+                        fe.IDUsuario = en.ID;
+                        lp.InsertarPersonalEmpresa(pe.ID, le.BuscarEmpresa(en.NombreEmp).ID);
+                        lf.InsertarArchivo(fe);
+                        try
                         {
-                            string strFileName = Path.GetFileName(uploadFile.FileName);
-                            int FileLength = FileUpload1.PostedFile.ContentLength;
-                            Uri uri = new Uri(FileSaveUri + empresa + carpeta + Path.GetFileName(FileUpload1.PostedFile.FileName));
-
-                            try
+                            User_EN user = (User_EN)Session["user_session_data"];
+                            if (user != null)
                             {
-                                cargaCarpetas();
-                                cargaSubCarpetas(carpeta);
-                                if (!existCarpeta(contenedor_sa_inpu.Text))
+                                string strFileName = Path.GetFileName(uploadFile.FileName);
+                                int FileLength = FileUpload1.PostedFile.ContentLength;
+                                Uri uri = new Uri(FileSaveUri + empresa + carpeta + Path.GetFileName(FileUpload1.PostedFile.FileName));
+
+                                try
                                 {
-                                    crearCarpeta(carpeta, FileSaveUri + en.NombreEmp + "/", ftpUser, ftpPassWord);
-                                    if (subcontenedor_sa_inpu.Text != "")
+                                    cargaCarpetas();
+                                    cargaSubCarpetas(carpeta);
+                                    if (!existCarpeta(contenedor_sa_inpu.Text))
                                     {
-                                        crearCarpeta(subCarpeta, FileSaveUri + en.NombreEmp + "/" + carpeta, ftpUser, ftpPassWord);
-                                        uri = new Uri(FileSaveUri + empresa + carpeta + subCarpeta + Path.GetFileName(FileUpload1.PostedFile.FileName));
-                                    }
-                                }
-                                else
-                                {
-                                    if(subCarpetas.Count > 0 && subcontenedor_sa_inpu.Text != "")
-                                    {
-                                        crearCarpeta(subCarpeta, FileSaveUri + en.NombreEmp + "/" + carpeta, ftpUser, ftpPassWord);
-                                        uri = new Uri(FileSaveUri + empresa + carpeta + subCarpeta + Path.GetFileName(FileUpload1.PostedFile.FileName));
+                                        crearCarpeta(carpeta, FileSaveUri + en.NombreEmp + "/", ftpUser, ftpPassWord);
+                                        if (subcontenedor_sa_inpu.Text != "")
+                                        {
+                                            crearCarpeta(subCarpeta, FileSaveUri + en.NombreEmp + "/" + carpeta, ftpUser, ftpPassWord);
+                                            uri = new Uri(FileSaveUri + empresa + carpeta + subCarpeta + Path.GetFileName(FileUpload1.PostedFile.FileName));
+                                        }
                                     }
                                     else
                                     {
-                                        throw new System.ArgumentException("Parameter cannot be null", "original");
+                                        if (subCarpetas.Count > 0 && subcontenedor_sa_inpu.Text != "")
+                                        {
+                                            crearCarpeta(subCarpeta, FileSaveUri + en.NombreEmp + "/" + carpeta, ftpUser, ftpPassWord);
+                                            uri = new Uri(FileSaveUri + empresa + carpeta + subCarpeta + Path.GetFileName(FileUpload1.PostedFile.FileName));
+                                        }
+                                        else
+                                        {
+                                            throw new System.ArgumentException("Parameter cannot be null", "original");
+                                        }
                                     }
+                                    FtpWebRequest uploadRequest = (FtpWebRequest)WebRequest.Create(uri);
+                                    uploadRequest.Method = WebRequestMethods.Ftp.UploadFile;
+                                    uploadRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
+                                    requestStream = uploadRequest.GetRequestStream();
+                                    fileStream = FileUpload1.PostedFile.InputStream;
+                                    byte[] buffer = new byte[1024];
+                                    double total = (double)FileLength;
+                                    int byteRead = 0;
+                                    double read = 0;
+                                    do
+                                    {
+                                        byteRead = FileUpload1.PostedFile.InputStream.Read(buffer, 0, 1024);
+                                        requestStream.Write(buffer, 0, byteRead);
+                                        read += (double)byteRead;
+                                        double percentage = read / total * 100;
+                                        progresoBar1 = (int)percentage;
+                                    } while (byteRead != 0);
+                                    fileStream.Close();
+                                    requestStream.Close();
+                                    uploadResponse = (FtpWebResponse)uploadRequest.GetResponse();
+                                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                                    StringBuilder sbMensaje = new StringBuilder();
+                                    //Aperturamos la escritura de Javascript
+                                    sbMensaje.Append("<script type='text/javascript'>");
+                                    //Le indicamos al alert que mensaje va mostrar
+                                    sbMensaje.AppendFormat("alert('{0}');", "Se ha subido el archivo correctamente");
+                                    //Cerramos el Script
+                                    sbMensaje.Append("</script>");
+                                    //Registramos el Script escrito en el StringBuilder
+                                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                                    //uploadFile.SaveAs(MapPath(a));
                                 }
-                                FtpWebRequest uploadRequest = (FtpWebRequest)WebRequest.Create(uri);
-                                uploadRequest.Method = WebRequestMethods.Ftp.UploadFile;
-                                uploadRequest.Credentials = new NetworkCredential(ftpUser, ftpPassWord);
-                                requestStream = uploadRequest.GetRequestStream();
-                                fileStream = FileUpload1.PostedFile.InputStream;
-                                byte[] buffer = new byte[1024];
-                                double total = (double)FileLength;
-                                int byteRead = 0;
-                                double read = 0;
-                                do
+                                catch (Exception ex1)
                                 {
-                                    byteRead = FileUpload1.PostedFile.InputStream.Read(buffer, 0, 1024);
-                                    requestStream.Write(buffer, 0, byteRead);
-                                    read += (double)byteRead;
-                                    double percentage = read / total * 100;
-                                    progresoBar1 = (int)percentage;
-                                } while (byteRead != 0);
-                                fileStream.Close();
-                                requestStream.Close();
-                                uploadResponse = (FtpWebResponse)uploadRequest.GetResponse();
-                                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
-                                StringBuilder sbMensaje = new StringBuilder();
-                                //Aperturamos la escritura de Javascript
-                                sbMensaje.Append("<script type='text/javascript'>");
-                                //Le indicamos al alert que mensaje va mostrar
-                                sbMensaje.AppendFormat("alert('{0}');", "Se ha subido el archivo correctamente");
-                                //Cerramos el Script
-                                sbMensaje.Append("</script>");
-                                //Registramos el Script escrito en el StringBuilder
-                                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
-                                //uploadFile.SaveAs(MapPath(a));
+                                    //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                                    StringBuilder sbMensaje = new StringBuilder();
+                                    //Aperturamos la escritura de Javascript
+                                    sbMensaje.Append("<script type='text/javascript'>");
+                                    //Le indicamos al alert que mensaje va mostrar
+                                    sbMensaje.AppendFormat("alert('{0}');", "Error de conexión con el servidor, el contenedor ya existe o el contenedor contiene archivos.");
+                                    //Cerramos el Script
+                                    sbMensaje.Append("</script>");
+                                    //Registramos el Script escrito en el StringBuilder
+                                    ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                                    //uploadFile.SaveAs(MapPath(a));
+                                }
                             }
-                            catch (Exception ex1)
-                            {
-                                Response.Write("Error de conexión con el servidor, el contenedor ya existe o el contenedor contiene archivos.");
-                            }
+                            else
+                                Response.Write("Error. usuario no válido");
                         }
-                        else
-                            Response.Write("Error. usuario no válido");
+                        catch (Exception ex)
+                        {
+                            Response.Write("El archivo no se puede subir.");
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Response.Write("El archivo no se puede subir.");
+                        //mensaje
                     }
                         
                 }
                 else
                 {
-
+                    //mensaje
                 }
             }
             else
             {
-
+                //mensaje
             }
         }
 
@@ -275,6 +293,7 @@ namespace Presentacion
             }
             catch (Exception ex)
             {
+                /**
                 //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                 StringBuilder sbMensaje = new StringBuilder();
                 //Aperturamos la escritura de Javascript
@@ -284,7 +303,7 @@ namespace Presentacion
                 //Cerramos el Script
                 sbMensaje.Append("</script>");
                 //Registramos el Script escrito en el StringBuilder
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());*/
             }
         }
 
@@ -321,7 +340,7 @@ namespace Presentacion
             }
             catch (Exception ex)
             {
-                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                /*//Declaramos un StringBuilder para almacenar el alert que queremos mostrar
                 StringBuilder sbMensaje = new StringBuilder();
                 //Aperturamos la escritura de Javascript
                 sbMensaje.Append("<script type='text/javascript'>");
@@ -330,7 +349,7 @@ namespace Presentacion
                 //Cerramos el Script
                 sbMensaje.Append("</script>");
                 //Registramos el Script escrito en el StringBuilder
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());*/
             }
         }
 
