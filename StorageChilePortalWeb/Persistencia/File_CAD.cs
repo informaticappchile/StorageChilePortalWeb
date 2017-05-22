@@ -70,7 +70,7 @@ namespace Persistencia
                 }
                 else
                 {
-                    con.SetQuery("SELECT * " +
+                    con.SetQuery("SELECT a.Ruta, a.IdArchivo, a.Ubicacion " +
                     "from archivo a, personal p, personalempresa pe "+
                     "where a.IdPersonal = p.idPersonal and pe.idEmpresa =" + emp.ID + " and p.RutPersonal = '" +p.Rut+"'"+
                     " and pe.idPersonal = p.idPersonal "+
@@ -89,8 +89,8 @@ namespace Persistencia
                         archivo.IDArchivo = Convert.ToInt16(dt.Rows[i]["IdArchivo"].ToString());
                         archivo.ArchivoAsociado = file;
                         archivo.CarpetaAsociado = folder;
-                        archivo.NombreAsociado = dt.Rows[i]["NombrePersonal"].ToString();
-                        archivo.RutAsociado = dt.Rows[i]["RutPersonal"].ToString();
+                        archivo.NombreAsociado = p.Nombre;
+                        archivo.RutAsociado = p.Rut;
                         archivo.Ubicacion = dt.Rows[i]["Ubicacion"].ToString();
                         lista.Add(archivo);
                     }
@@ -181,7 +181,6 @@ namespace Persistencia
 
             try
             {
-
                 string insert = "insert into Archivo(Ruta,IdPersonal,IdUsuario,Ubicacion) VALUES ('" + f.CarpetaAsociado + 
                     "/"+f.ArchivoAsociado + "'," +f.IDPersonal + "," +f.IDUsuario + ",'"+ f.Ubicacion + "')";
                 //POR DEFECTO, VISIBILIDAD Y VERIFICACION SON FALSAS
@@ -192,5 +191,59 @@ namespace Persistencia
             finally { nueva_conexion.Cerrar_Conexion(); }
         }
 
+
+        /**
+         * Se encarga de borrar el usuario, si existe en la base de datos, a través de su ID
+         **/
+        public bool BorrarArchivo(int id)
+        {
+
+            Conexion nueva_conexion = new Conexion();
+
+            try
+            {
+                string delete = "";
+                delete = "Delete from Archivo where Archivo.IdArchivo = " + id + "";
+                nueva_conexion.SetQuery(delete);
+
+
+                nueva_conexion.EjecutarQuery();
+                return true;
+            }
+            catch (Exception ex) { ex.Message.ToString(); return false; }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+        }
+
+        /**
+         * Recibe un nombre de usuario o un correo electrónico y devuelve los datos del usuario al que pertenecen.
+         * En caso de que no exista tal usuario/correo, devuelve NULL
+         */
+        public File_EN BuscarArchivo(string ruta, Personal_EN p)
+        {
+            File_EN archivo = null;
+            Conexion nueva_conexion = new Conexion();
+            try
+            {
+                string select = "Select * from Archivo where IdPersonal =" + p.ID + " and Ruta = '" + ruta + "'";
+                nueva_conexion.SetQuery(select);
+                DataTable dt = nueva_conexion.QuerySeleccion();
+                if (dt != null) //Teóricamente solo debe de devolver una sola fila debido a que tanto el usuario como el email son claves alternativas (no nulos y no repetidos)
+                {
+                    string folder = ObtenerCarpeta(dt.Rows[0]["Ruta"].ToString());
+                    string file = ObtenerArchivo(dt.Rows[0]["Ruta"].ToString());
+                    archivo = new File_EN();
+                    archivo.IDArchivo = Convert.ToInt16(dt.Rows[0]["IdArchivo"].ToString());
+                    archivo.ArchivoAsociado = file;
+                    archivo.CarpetaAsociado = folder;
+                    archivo.NombreAsociado = p.Nombre;
+                    archivo.RutAsociado = p.Rut;
+                    archivo.Ubicacion = dt.Rows[0]["Ubicacion"].ToString();
+                }
+            }
+            catch (Exception ex) { ex.Message.ToString(); }
+            finally { nueva_conexion.Cerrar_Conexion(); }
+
+            return archivo;
+        }
     }
 }

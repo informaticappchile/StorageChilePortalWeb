@@ -598,8 +598,7 @@ namespace Presentacion
                 LogicaFile lf = new LogicaFile();
                 LogicaEmpresa le = new LogicaEmpresa();
                 Arbol a = new Arbol();
-                a.Raiz = ((Arbol)Session["lista_archivos"]).Raiz;
-                Session["lista_archivos_Filtrados"] = a;
+                CargarListaArchivosFiltrados();
                 Arbol arbolFiltrado = (Arbol)Session["lista_archivos_filtrados"];
                 string rutCompleto = buscar_Rut.Text + "-" + digitoVerificador(buscar_Rut.Text);
                 List<string> carpetas = lf.MostrarArchivosFiltrados(rutCompleto, le.BuscarEmpresa(en.NombreEmp));
@@ -667,6 +666,35 @@ namespace Presentacion
                 lista = padre.Hijos;
                 CargarListaArchivos(ref lista, dir, arbol);
                 Session["lista_archivos"] = arbol;
+            }
+            catch (Exception ex)
+            {
+                //Declaramos un StringBuilder para almacenar el alert que queremos mostrar
+                StringBuilder sbMensaje = new StringBuilder();
+                //Aperturamos la escritura de Javascript
+                sbMensaje.Append("<script type='text/javascript'>");
+                //Le indicamos al alert que mensaje va mostrar
+                sbMensaje.AppendFormat("alert('{0}');", "Error de conexión con el servidor, intente más tarde.");
+                //Cerramos el Script
+                sbMensaje.Append("</script>");
+                //Registramos el Script escrito en el StringBuilder
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+            }
+        }
+
+        public void CargarListaArchivosFiltrados()
+        {
+            User_EN en = (User_EN)Session["user_session_data"];
+            Arbol arbol = new Arbol(en.NombreEmp, true);
+            try
+            {
+                NodoArbol padre = arbol.Raiz;
+                string dir = padre.Nombre + "/";
+                List<NodoArbol> lista = null;
+                CargarListaArchivos(ref padre, dir, ref arbol);
+                lista = padre.Hijos;
+                CargarListaArchivos(ref lista, dir, arbol);
+                Session["lista_archivos_filtrados"] = arbol;
             }
             catch (Exception ex)
             {

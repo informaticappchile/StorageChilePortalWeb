@@ -174,6 +174,10 @@ namespace Presentacion
                             }
                             catch (Exception ex)
                             {
+                                //Delete
+                                Personal_EN per = lp.BuscarPersonal(pe.Rut);
+                                File_EN file = lf.BuscarArchivo(per, fe.CarpetaAsociado + "/" + fe.ArchivoAsociado);
+                                lf.BorrarArchivo(file.IDArchivo);
                                 Response.Write("Error de conexión con el servidor.");
                             }
                         }

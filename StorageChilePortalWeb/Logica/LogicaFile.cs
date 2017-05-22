@@ -34,5 +34,20 @@ namespace Logica
             File_CAD filCad = new File_CAD();
             return filCad.MostrarArchivosFiltrados(p, carpeta, emp, tipoFiltrado);
         }
+
+        //Declaramos la funcion borrar usuario donde llama al cad correspondiente
+        public bool BorrarArchivo(int idArchivo)
+        {
+            File_CAD archivoDelete = new File_CAD();
+            return archivoDelete.BorrarArchivo(idArchivo);
+        }
+
+        //Declaramos la funcion buscar usuario donde llama al cad correspondiente
+        public File_EN BuscarArchivo(Personal_EN p, string ruta)
+        {
+            File_CAD busqueda = new File_CAD();
+            File_EN archivoBuscado = busqueda.BuscarArchivo(ruta, p);
+            return archivoBuscado;
+        }
     }
 }
