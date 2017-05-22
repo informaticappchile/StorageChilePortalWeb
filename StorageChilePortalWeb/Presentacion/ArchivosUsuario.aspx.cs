@@ -220,7 +220,7 @@ namespace Presentacion
             return n;
         }
 
-        protected string ObtenerNombreRuta(string nombre)
+        protected string ObtenerNombreRutaPadre(string nombre)
         {
             string n = "";
             char[] c = nombre.ToCharArray();
@@ -232,7 +232,24 @@ namespace Presentacion
                 }
                 else
                 {
+                    n = "";
+                }
+            }
+            return Reverse(n);
+        }
 
+        protected string ObtenerNombreRutaHijo(string nombre)
+        {
+            string n = "";
+            char[] c = nombre.ToCharArray();
+            for (int i = c.Length - 1; i >= 0; i--)
+            {
+                if (c[i] != '/')
+                {
+                    n = n + c[i].ToString();
+                }
+                else
+                {
                     return Reverse(n);
                 }
             }
@@ -250,6 +267,37 @@ namespace Presentacion
                 }
             }
             return false;
+        }
+
+        protected bool isSlash(string nombre)
+        {
+            char[] c = nombre.ToCharArray();
+            for (int i = c.Length - 1; i >= 0; i--)
+            {
+                if (c[i] == '/')
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        protected string cambiarCarpeta(string nombre, string cambio)
+        {
+            string n = "";
+            char[] c = nombre.ToCharArray();
+            for (int i = 0; i < c.Length; i++)
+            {
+                if (c[i] != '/')
+                {
+                    n = n + c[i].ToString();
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return n+"/"+cambio;
         }
 
         protected string Reverse(string s)
@@ -348,6 +396,7 @@ namespace Presentacion
             {
                 button.CssClass = "button-folder";
             }
+            Session["lista_archivos_filtrados"] = null;
         }
 
         protected void button_Click(object sender, EventArgs e)
@@ -373,7 +422,16 @@ namespace Presentacion
             }
             else
             {
-                Session["carpeta"] = n.Padre.Nombre + "/" + button.Text;
+                if (Session["carpeta"] != null && isSlash(Convert.ToString(Session["carpeta"])))
+                {
+                    //Mas sub-niviles
+                    //Session["carpeta"] = Convert.ToString(Session["carpeta"]) + "/" + button.Text;
+                    Session["carpeta"] = cambiarCarpeta(Convert.ToString(Session["carpeta"]), button.Text);
+                }
+                else if(Session["carpeta"] != null)
+                {
+                    Session["carpeta"] = Convert.ToString(Session["carpeta"]) + "/" + button.Text;
+                }
             }
 
             NodoArbol hoja;
@@ -464,7 +522,9 @@ namespace Presentacion
                 LogicaFile la = new LogicaFile();
                 LogicaEmpresa le = new LogicaEmpresa();
                 Empresa_EN em = le.BuscarEmpresa(en.NombreEmp);
-                ArrayList dt = la.MostrarFIles(Convert.ToString(Session["carpeta"]),em);
+                string folder = "";
+                folder = Convert.ToString(Session["carpeta"]);
+                ArrayList dt = la.MostrarFIles(folder,em);
                 GridViewMostrarArchivos.DataSource = dt;
                 GridViewMostrarArchivos.DataBind();
 
@@ -537,7 +597,9 @@ namespace Presentacion
                 User_EN en = (User_EN)Session["user_session_data"];
                 LogicaFile lf = new LogicaFile();
                 LogicaEmpresa le = new LogicaEmpresa();
-                Session["lista_archivos_Filtrados"] = (Arbol)Session["lista_archivos"];
+                Arbol a = new Arbol();
+                a.Raiz = ((Arbol)Session["lista_archivos"]).Raiz;
+                Session["lista_archivos_Filtrados"] = a;
                 Arbol arbolFiltrado = (Arbol)Session["lista_archivos_filtrados"];
                 string rutCompleto = buscar_Rut.Text + "-" + digitoVerificador(buscar_Rut.Text);
                 List<string> carpetas = lf.MostrarArchivosFiltrados(rutCompleto, le.BuscarEmpresa(en.NombreEmp));
@@ -546,9 +608,21 @@ namespace Presentacion
                     foreach (string carpeta in carpetas)
                     {
                         NodoArbol nodo = arbolFiltrado.Raiz;
-                        arbolFiltrado.BuscarPostOrden(ref nodo, ObtenerNombreRuta(carpeta));
-                        nodo = arbolFiltrado.Buscado;
-                        arbolFiltrado.AplicarFiltro(ref nodo);
+                        string padre = ObtenerNombreRutaPadre(carpeta);
+                        string hijo = ObtenerNombreRutaHijo(carpeta);
+                        if (padre != hijo)
+                        {
+                            arbolFiltrado.BuscarPostOrden(ref nodo, padre);
+                            nodo = arbolFiltrado.Buscado;
+                            arbolFiltrado.AplicarFiltro(ref nodo);
+                            arbolFiltrado.FiltrarHijo(ref nodo, hijo);
+                        }
+                        else
+                        {
+                            arbolFiltrado.BuscarPostOrden(ref nodo, padre);
+                            nodo = arbolFiltrado.Buscado;
+                            arbolFiltrado.AplicarFiltro(ref nodo);
+                        }
                     }
                     Session["lista_archivos_filtrados"] = arbolFiltrado;
                     Session["Carpeta_Filtrada"] = arbolFiltrado.Raiz;

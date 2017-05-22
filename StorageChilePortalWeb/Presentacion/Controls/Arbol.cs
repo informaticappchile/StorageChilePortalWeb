@@ -150,5 +150,25 @@ namespace Presentacion
                 return false;
             }
         }
+
+        public bool FiltrarHijo(ref NodoArbol entidad, string hijo)
+        {
+            try
+            {
+                foreach (NodoArbol hijos in entidad.Hijos)
+                {
+                    if (hijos.Nombre == hijo)
+                    {
+                        hijos.Filtro = true;
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }
