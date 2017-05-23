@@ -22,9 +22,10 @@ namespace Presentacion
         List<Button> botones = new List<Button>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            LogicaUsuario lu = new LogicaUsuario();
+            /*LogicaUsuario lu = new LogicaUsuario();
             User_EN userAutoLog = lu.BuscarUsuario("jbravo", "Usuario");
-            Session["user_session_data"] = userAutoLog;
+            Session["user_session_data"] = userAutoLog;*/
+            ArbolR.Visible = false;
             User_EN en = (User_EN)Session["user_session_data"];
             if (en == null)
             {
