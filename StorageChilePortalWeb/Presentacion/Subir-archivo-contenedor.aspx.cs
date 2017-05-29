@@ -187,6 +187,10 @@ namespace Presentacion
                     catch (Exception ex)
                     {
                         Response.Write("El archivo no se puede subir.");
+                        //Delete
+                        Personal_EN per = lp.BuscarPersonal(pe.Rut);
+                        File_EN file = lf.BuscarArchivo(per, fe.CarpetaAsociado + "/" + fe.ArchivoAsociado);
+                        lf.BorrarArchivo(file.IDArchivo);
                     }
                         
                 }

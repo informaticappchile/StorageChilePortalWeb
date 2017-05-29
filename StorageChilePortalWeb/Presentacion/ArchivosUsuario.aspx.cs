@@ -446,6 +446,8 @@ namespace Presentacion
             }
             Session["Retorno"] = hoja;
             Retorno.Visible = true;
+            buscar_Rut.Enabled = false;
+            Button1.Enabled = false;
 
             if (n.Hijos[0].EsCarpeta)
             {
@@ -463,6 +465,8 @@ namespace Presentacion
             else
             {
                 Retorno.Visible = false;
+                buscar_Rut.Enabled = true;
+                Button1.Enabled = true;
                 txtFiltro.Visible = true;
                 buscar_Rut.Visible = false;
                 Button1.Visible = true;
@@ -483,6 +487,8 @@ namespace Presentacion
                 if (hoja.Padre.Padre == null)
                 {
                     Retorno.Visible = false;
+                    buscar_Rut.Enabled = true;
+                    Button1.Enabled = true;
                     Session["Retorno"] = null;
                 }
             }
@@ -493,6 +499,8 @@ namespace Presentacion
                 if (hoja.Padre.Padre == null)
                 {
                     Retorno.Visible = false;
+                    buscar_Rut.Enabled = true;
+                    Button1.Enabled = true;
                     Session["Retorno"] = null;
                 }
             }
@@ -511,6 +519,8 @@ namespace Presentacion
             if (Session["Retorno"] != null && hoja.Padre != null)
             {
                 Retorno.Visible = true;
+                buscar_Rut.Enabled = false;
+                Button1.Enabled = false;
             }
             //limpiarCarpetasFiltradas();
         }

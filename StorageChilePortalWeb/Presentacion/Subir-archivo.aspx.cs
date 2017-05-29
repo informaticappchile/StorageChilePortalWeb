@@ -198,6 +198,11 @@ namespace Presentacion
                                     //Registramos el Script escrito en el StringBuilder
                                     ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
                                     //uploadFile.SaveAs(MapPath(a));
+                                    //Delete
+                                    Personal_EN per = lp.BuscarPersonal(pe.Rut);
+                                    File_EN file = lf.BuscarArchivo(per, fe.CarpetaAsociado + "/" + fe.ArchivoAsociado);
+                                    lf.BorrarArchivo(file.IDArchivo);
+                                    Response.Write("El archivo no se puede subir.");
                                 }
                             }
                             else
