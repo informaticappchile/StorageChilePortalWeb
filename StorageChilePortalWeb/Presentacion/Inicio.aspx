@@ -34,9 +34,8 @@
 <body>
 
 <div class="w3-content w3-section" style="max-width:1000px" >
-  <img class="mySlides w3-animate-fading" src="Slides/foto 1.jpg" style="width:100%">
-  <img class="mySlides w3-animate-fading" src="Slides/foto 2.jpg" style="width:100%">
-  <img class="mySlides w3-animate-fading" src="Slides/foto 3.jpg" style="width:100%">
+  <a href="/Consultoria.aspx"><img class="mySlides w3-animate-fading" src="Slides/FOTO3.jpg" style="width:100%"></a> 
+  <a href="/Plataforma.aspx"><img class="mySlides w3-animate-fading" src="Slides/FOTO4.jpg" style="width:100%"></a>
 </div>
 
 <script>
@@ -52,7 +51,7 @@ function carousel() {
     myIndex++;
     if (myIndex > x.length) {myIndex = 1}    
     x[myIndex-1].style.display = "block";  
-    setTimeout(carousel, 9000);    
+    setTimeout(carousel, 3000);    
 }
 </script>
     </div>

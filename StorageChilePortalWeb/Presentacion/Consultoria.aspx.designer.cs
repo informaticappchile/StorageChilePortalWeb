@@ -10,6 +10,6 @@
 namespace Presentacion {
     
     
-    public partial class InfoEmpresa {
+    public partial class Consultoria {
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Contactanos.aspx.cs" Inherits="Presentacion.Contactanos" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Consultoria.aspx.cs" Inherits="Presentacion.Consultoria" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -6,7 +6,7 @@
      
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h1 class="mdl-card__title-text">Contáctanos</h1>
+            <h1 class="mdl-card__title-text">Consultoría Profesional </h1>
         </div>
         <style>
             img {
@@ -15,7 +15,7 @@
             }
          </style>
         <div>
-            <img data-u="image" src="img/FOTO5.jpg"/>
+            <img data-u="image" src="img/Consultoria.jpg"/>
         </div>
     </div>
 </asp:Content>

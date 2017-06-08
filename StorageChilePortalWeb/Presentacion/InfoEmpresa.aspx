@@ -6,7 +6,7 @@
      
     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h1 class="mdl-card__title-text">Acerca de Storage Chile</h1>
+            <h1 class="mdl-card__title-text">Socios de Storage Chile</h1>
         </div>
         <style>
             img {
@@ -15,7 +15,10 @@
             }
          </style>
         <div>
-            <img data-u="image" src="img/AcercaStorage.png"/>
+            <img data-u="image" src="img/Foto1.jpg"/>
+        </div>
+        <div>
+            <img data-u="image" src="img/foto2.jpg"/>
         </div>
     </div>
 </asp:Content>

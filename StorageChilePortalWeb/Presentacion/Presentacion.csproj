@@ -127,8 +127,17 @@
     <Content Include="Almacen\MenuAlmacen.aspx" />
     <Content Include="BusquedaArchivos.aspx" />
     <Content Include="BusquedaUsuario.aspx" />
+    <Content Include="Consultoria.aspx" />
+    <Content Include="img\Consultoria.jpg" />
+    <Content Include="img\Plataforma.jpg" />
+    <Content Include="Plataforma.aspx" />
     <Content Include="img\folderplus.png" />
     <Content Include="img\folder.png" />
+    <Content Include="img\FOTO5.jpg" />
+    <Content Include="img\foto2.jpg" />
+    <Content Include="Slides\FOTO3.jpg" />
+    <Content Include="Slides\FOTO4.jpg" />
+    <Content Include="img\FOTO1.jpg" />
     <Content Include="MenuSubirArchivo.aspx" />
     <Content Include="Control_Usuarios\Editar_Empresa.aspx" />
     <Content Include="Control_Usuarios\ConfirmacionRegistro.aspx" />
@@ -314,6 +323,20 @@
     </Compile>
     <Compile Include="BusquedaUsuario.aspx.designer.cs">
       <DependentUpon>BusquedaUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Consultoria.aspx.cs">
+      <DependentUpon>Consultoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consultoria.aspx.designer.cs">
+      <DependentUpon>Consultoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Plataforma.aspx.cs">
+      <DependentUpon>Plataforma.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Plataforma.aspx.designer.cs">
+      <DependentUpon>Plataforma.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Arbol.cs" />
     <Compile Include="Controls\NodoArbol.cs" />
