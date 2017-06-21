@@ -9,6 +9,8 @@ using System.IO;
 using System.Web;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Presentacion
 {
@@ -125,6 +127,7 @@ namespace Presentacion
                             sbMensaje.Append("</script>");
                             //Registramos el Script escrito en el StringBuilder
                             ClientScript.RegisterClientScriptBlock(this.GetType(), "mensaje", sbMensaje.ToString());
+                            limpiar(this.Controls);
                         }
                         else
                         {
@@ -210,6 +213,22 @@ namespace Presentacion
             {
             }
             return validacion;
+        }
+
+        private void limpiar(ControlCollection controles)
+        {
+            foreach (Control ctrl in controles)
+            {
+                if (ctrl is TextBox)
+                {
+                    TextBox text = ctrl as TextBox;
+                    text.Text = "";
+                }
+                else if (ctrl.HasControls())
+                    //Esta linea detécta un Control que contenga otros Controles
+                    //Así ningún control se quedará sin ser limpiado.
+                    limpiar(ctrl.Controls);
+            }
         }
     }
 }

@@ -21,10 +21,10 @@ namespace Presentacion
          */
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*
+            
             LogicaUsuario lu = new LogicaUsuario();
-            User_EN userAutoLog = lu.BuscarUsuario("cvaras", "Usuario");
-            Session["user_session_data"] = userAutoLog;*/
+            User_EN userAutoLog = lu.BuscarUsuario("jbravo", "Usuario");
+            Session["user_session_data"] = userAutoLog;
             User_EN en = (User_EN)Session["user_session_data"];
             
             if (Session["user_session_data"] == null)
