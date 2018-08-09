@@ -9,14 +9,13 @@
             <h1 class="mdl-card__title-text">Destacados</h1>
         </div>
      <title>W3.CSS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<body>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
 
 <div class="w3-content w3-section" style="max-width:1000px" >
-  <img class="mySlides w3-animate-fading" src="Slides/foto 1.jpg" style="width:100%">
-  <img class="mySlides w3-animate-fading" src="Slides/foto 2.jpg" style="width:100%">
-  <img class="mySlides w3-animate-fading" src="Slides/foto 3.jpg" style="width:100%">
+  <img class="mySlides w3-animate-fading" src="Slides/foto 1.jpg" style="width:100%"/>
+  <img class="mySlides w3-animate-fading" src="Slides/foto 2.jpg" style="width:100%"/>
+  <img class="mySlides w3-animate-fading" src="Slides/foto 3.jpg" style="width:100%"/>
 </div>
 
 <script>
@@ -35,5 +34,5 @@ function carousel() {
     setTimeout(carousel, 9000);    
 }
 </script>
-    </div>
+</div>
 </asp:Content>

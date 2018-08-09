@@ -28,6 +28,14 @@ namespace Presentacion
             if (username_rp_input.Text != "") 
             {
                 usuario = lu.BuscarUsuario(username_rp_input.Text, "Usuario");//Buscamos el usuario que introducimos para restableser contraseña
+                if (usuario != null && usuario.NombreUsu != "")
+                {
+
+                }
+                else
+                {
+                    usuario = lu.BuscarUsuario(username_rp_input.Text, "Administrador");//Buscamos el usuario que introducimos para iniciar sesion
+                }
             }
             else if (correo_rp_input.Text != "")
             {
